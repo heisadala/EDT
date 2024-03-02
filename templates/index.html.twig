@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block icon %}{{ icon }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    <div class='container-fluid edt-body-header-container' >
+        <header class='row'>
+            <div class='col-3 align-self-center text-center '>
+                <img class='img-fluid edt-body-header-logo'
+                    src="{{ server_base }}/images/logo/Enfants_de_trestel.png">
+            </div>
+            <div class='col-6 align-self-center text-center'>
+                {% if header_title is defined and header_title != '' %}
+                    <h1>{% block header_title %} {{ header_title }} {% endblock %}</h1>
+                {% endif %}
+                {% if header_image is defined and header_image != '' %}
+                    {% set title = header_image|split('.') %}
+                    <img class='img-fluid  edt-body-header-logo'
+                        src="{{ server_base }}/images/icon/header/{{ header_image }}" 
+                        alt={{ title[0] }} 
+                        title={{ title[0] }} 
+                    >
+                {% endif %}
+            </div>
+
+            <div class='col-3 align-self-center text-center '>
+                <img class='img-fluid edt-body-header-logo'
+                    src="{{ server_base }}/images/logo/Enfants_de_trestel.png">
+            </div>
+        </header>
+    </div>
+{% endblock %}
+
+{% block news %} <div> {{ news }} </div> {% endblock %}
+
+{% block navbar %}
+    {% if show_navbar is defined and show_navbar == true %}
+        {% include ( "#{db|lower}/navbar.html.twig" ) %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class='row'>
+<div class='col-3'>
+</div>
+<div class='col-6 align-self-center text-center'>
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{{ server_base }}/defile/Diapositive1.JPG" class="d-block w-100" alt="...">
+    </div>
+    {% for i in 2..78 %}
+        <div class="carousel-item">
+        <img src="{{ server_base }}/defile/Diapositive{{ i }}.JPG" class="d-block w-100" alt="...">
+        </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div></div>
+<div class='col-3'>
+</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+        <div class='d-flex justify-content-center m-0'>
+            <a target="_blank" href="https://icons8.com">Icons by Icons8</a>
+        </div>
+{% endblock %}
+
+{% block java %}
+    {% if inc_java is defined and inc_java == true %}
+        {% include ( "#{db|lower}/js.table.html.twig" ) %}
+    {% endif %}
+{% endblock %}

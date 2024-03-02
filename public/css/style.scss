@@ -1,0 +1,363 @@
+@use '_colors';
+@use '_fonts';
+// @import 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap';
+
+
+$sm-html-font: fonts.$sm-montserrat-font;
+$sm-html-bg-color: Aqua;
+
+$sm-body-bg-color: MidnightBlue;
+$sm-body-header-color: MidnightBlue;;
+$sm-body-color: colors.$sm-lightblue-color;
+$sm-body-font: fonts.$sm-montserrat-font;
+// $sm-body-font-size: fonts.$sm-montserrat-font-size;
+
+$sm-navbar-color: var(--bs-warning);
+
+$sm-burgericon-color: var(--sm-iceblue-color);
+
+$sm-breadcrumb-color: var(--bs-warning);
+
+$sm-dataTables-length-color: colors.$sm-red-color;
+
+
+// standard
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+html {
+    line-height: normal;
+    min-height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+body {
+    overscroll-behavior-x: none;
+    overflow: scroll;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    font-family: $sm-body-font;
+    background-color: $sm-body-bg-color;
+}
+// ////////////
+// HEADER
+// ////////////
+.edt-body-header-container {
+    background-image: linear-gradient(to right, Aqua, DarkBlue, Aqua);
+    color: $sm-body-header-color;
+}
+
+.edt-body-header-logo {
+    max-width: 75%;
+} 
+
+.sm-body-header-flag {
+    text-align-last: end;
+    align-self: center;
+}
+
+.sm-body-header-flag-img {
+    max-width: 7.5%;
+}
+
+@media screen and (max-width: 1024px) {
+    .sm-body-header-logo {
+        max-width: 50%;
+    }
+    .sm-body-header-flag-img {
+        max-width: 40%;
+    }
+}
+
+
+.sm-body-header-account {
+    text-align-last: left;
+    background-color: #0DCAF0;
+    --bs-dropdown-min-width: 0;
+
+}
+
+.sm-lego-dropdown {
+    background-color: #0DCAF0;
+    --bs-dropdown-min-width: 0;
+}
+
+
+
+// ////////////
+// NEWS
+// ////////////
+.sm-body-news-content {
+    background-image: linear-gradient(45deg, var(--sm-green-color) 0%, var(--sm-turquoise-color) 100%)
+}
+
+@media screen and (max-width: 1024px) {
+    .sm-body-news-content {
+        font-size: 2rem;
+    }
+}
+// ////////////
+// NAVBAR
+// ////////////
+.navbar
+{
+    font-size: x-large;
+}
+.navbar-nav
+{
+    --bs-nav-link-hover-color: var(--sm-red-color);
+    color: var(--bs-warning);
+}
+
+.sm-lego-brand {
+    width: 96px;
+    height: 96px;    
+}
+
+// //////////////////////
+// GALLERY DATABASE
+// //////////////////////
+
+.sm-card-database-img {
+    width: 100%;
+    height: 8vw;    
+}
+
+.sm-card-subdomain-img {
+    width: 70%;
+    height: 8vw;
+}
+
+/* @media screen and (max-width: 1024px) {
+    .sm-card-database-img  {
+        width: 80%;
+        height: 10vw;
+    }
+    .sm-card-subdomain-img  {
+        width: 50%;
+        height: 15vw;
+    }
+} 
+   
+
+@media screen and (max-width: 780px) {
+        .sm-card-database-img  {
+            width: 60%;
+            height: 10vw;
+        }
+        .sm-card-subdomain-img  {
+            width: 50%;
+            height: 20vw;
+        }
+    }    
+
+@media screen and (max-width: 576px) {
+        .sm-card-database-img  {
+            width: 60%;
+            height: 10vw;
+        }
+        .sm-card-subdomain-img  {
+            width: 50%;
+            height: 20vw;
+        }
+    }    
+ */
+// //////////////////////
+// LEGO TABLE
+// //////////////////////
+
+.sm-lego-table thead {
+    font-size: larger;
+    --bs-table-color: var(--sm-white-color);
+    --bs-table-bg: var(--sm-iceblue-color);
+}
+
+.sm-lego-table > tbody tr:nth-child(even) {
+    font-size: smaller;
+    --bs-table-bg: var(--sm-lightblue-color);
+}
+.sm-lego-table > tbody tr:nth-child(odd) {
+    font-size: smaller;
+}
+.sm-lego-table > tbody tr:hover {
+    --bs-table-bg: var(--sm-iceblue-color);
+
+}
+.sm-lego-table > tbody tr.selected {
+    --bs-table-bg: var(--bs-warning);
+    --bs-table-hover-bg: var(--bs-warning);
+}
+
+td .hover_img { position:relative; }
+td .hover_img span { position:absolute; display:none; z-index:99; }
+td:hover .hover_img  span { display:block; }
+
+// //////////////////////
+// LEGO GALLERY
+// //////////////////////
+
+.sm-gallery-card {
+    background-color: white;
+}
+
+// //////////////////////
+// LEGO SEARCH
+// //////////////////////
+
+.sm-lego-table-search-form {
+  display: flex;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  margin: 0 0 20px;
+}
+
+input[type="search"] {
+  border: none;
+  background: white;
+  margin: 0;
+  padding: 7px 8px;
+  font-size: 14px;
+  color: inherit;
+  border: 1px solid transparent;
+  border-radius: inherit;
+}
+
+input[type="search"]:focus {
+  box-shadow: 0 0 3px 0 #1183d6;
+  border-color: #1183d6;
+  outline: none;
+}
+
+input[type="search"]::placeholder {
+    color: #bbb;
+  }
+
+input.nosubmit {
+    width: 260px;
+    border: 1px solid #555;
+    display: block;
+    padding: 9px 4px 9px 40px;
+    background: white 
+    var(--sm-search-icon) no-repeat 8px center;
+    background-size: 24px
+}
+
+// //////////////////////
+// LEGO LIST OR GALLERY
+// //////////////////////
+
+#sm-list-menu, #sm-gallery-menu  {
+    text-decoration: none;
+}
+
+.sm-table-dropdown, .sm-gallery-dropdown {
+    text-align: end;
+}
+.sm-table-dropdown-ul, .sm-gallery-dropdown-ul {
+    background-color: midnightblue;
+}
+.sm-table-dropdown-ul li a, .sm-gallery-dropdown-ul li a {
+    color: var(--bs-info);
+}
+
+// //////////////////////
+// LEGO NUMBER OF ROWS
+// //////////////////////
+
+.sm-lego-table-dropdown-menu.show {
+    --bs-dropdown-border-color: var(--sm-iceblue-color);
+    --bs-dropdown-border-width: 2px;
+}
+
+.sm-lego-table-dropdown-item:hover {
+    background-color: var(--sm-lightblue-color);
+}
+.sm-lego-table-dropdown-item {
+    --bs-dropdown-link-active-bg: var(--sm-iceblue-color);
+    --bs-dropdown-link-active-color: white;
+}
+
+.sm-table-dropdown, .sm-gallery-dropdown {
+    text-align: end;
+}
+.sm-table-dropdown-ul, .sm-gallery-dropdown-ul {
+    background-color: midnightblue;
+}
+.sm-table-dropdown-ul li a, .sm-gallery-dropdown-ul li a {
+    color: var(--bs-info);
+}
+
+.required::after {
+    content: ' *';
+    color: orange;
+}
+
+.invalid-feedback {
+    background-color: pink;
+}
+
+// #sm-body-lego-card-img {
+//     width:auto;
+//     height:auto;
+// }
+
+// ////////////
+// BREADCRUMB
+// ////////////
+.breadcrumb-item > a {
+    color: $sm-breadcrumb-color;
+    text-decoration: none;
+}
+.breadcrumb-item + .breadcrumb-item:before {
+    color: $sm-breadcrumb-color;
+    padding-top: 18px;
+}
+
+.breadcrumb-item:hover {
+    color: $sm-breadcrumb-color;
+}
+
+.breadcrumb-item.active {
+    color: $sm-breadcrumb-color;
+}
+
+// ////////////
+// LOGIN
+// ////////////
+.sm-login-form i {
+    display: flex;
+    cursor: pointer;
+}
+
+.sm-login-user, .sm-login-lock, .sm-login-eye {
+    background-color: #FFD700;
+    border: 0;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+}
+
+.sm-login-user, .sm-login-lock {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.sm-login-eye {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
