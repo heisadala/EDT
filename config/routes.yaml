@@ -1,3 +1,9 @@
 homepage:
     path: /
     controller: App\Controller\HomeController::index
+
+assembly_homepage:
+    path: /AG/{subject}
+    controller: App\Controller\Ag\AgController::index
+    defaults:  
+        subject: 'AG' 

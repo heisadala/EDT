@@ -1,0 +1,15 @@
+
+{#     <a class="navbar-brand" href='{{ path('lego_add') }}'>
+      <img class='sm-lego-brand' src="{{ server_base }}/images/icon/navbar/add-row-144.png" 
+        alt='ADD ITEM' 
+        title='ADD ITEM'>
+      </img>
+    </a>
+
+ #}
+    <a class="navbar-brand" href='{{ item_path }}'>
+      <img id='{{ item_id }}' class='sm-lego-brand' src="{{ server_base }}/images/icon/navbar/{{ item }}.png" 
+        alt='{{ item_title }} ITEM' 
+        title='{{ item_title }} ITEM'>
+      </img>
+    </a>

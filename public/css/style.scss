@@ -118,11 +118,13 @@ body {
 {
     font-size: x-large;
 }
+
 .navbar-nav
 {
     --bs-nav-link-hover-color: var(--sm-red-color);
-    color: var(--bs-warning);
+    --bs-nav-link-color: var(--sm-white-color);
 }
+
 
 .sm-lego-brand {
     width: 96px;

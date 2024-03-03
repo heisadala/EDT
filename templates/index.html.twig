@@ -46,33 +46,15 @@
 {% endblock %}
 
 {% block content %}
-<div class='row'>
-<div class='col-3'>
-</div>
-<div class='col-6 align-self-center text-center'>
-<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="{{ server_base }}/defile/Diapositive1.JPG" class="d-block w-100" alt="...">
-    </div>
-    {% for i in 2..78 %}
-        <div class="carousel-item">
-        <img src="{{ server_base }}/defile/Diapositive{{ i }}.JPG" class="d-block w-100" alt="...">
-        </div>
-    {% endfor %}
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div></div>
-<div class='col-3'>
-</div>
-</div>
+    {% if show_carousel_ag is defined and show_carousel_ag == true %}
+        {% include ( "#{db|lower}/carousel_ag.html.twig" ) %}
+    {% endif %}
+    {% if show_carousel_photo is defined and show_carousel_photo == true %}
+        {% include ( "#{db|lower}/carousel_photo.html.twig" ) %}
+    {% endif %}
+    {% if show_flyer is defined and show_flyer == true %}
+        {% include ( "#{db|lower}/flyer.html.twig" ) %}
+    {% endif %}
 {% endblock %}
 
 {% block footer %}

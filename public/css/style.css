@@ -365,7 +365,12 @@ body {
 
 .navbar-nav {
   --bs-nav-link-hover-color: var(--sm-red-color);
+  --bs-nav-link-color: var(--sm-white-color);
   color: var(--bs-warning);
+}
+
+.nav-link.show {
+  --bs-nav-active-color: var(--sm-red-color);
 }
 
 .sm-lego-brand {
