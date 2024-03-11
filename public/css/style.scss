@@ -7,8 +7,10 @@
 $sm-html-font: fonts.$sm-montserrat-font;
 $sm-html-bg-color: Aqua;
 
-$sm-body-bg-color: MidnightBlue;
-$sm-body-header-color: MidnightBlue;;
+// $sm-body-bg-color: MidnightBlue;
+$sm-body-bg-color: White;
+// $sm-body-header-color: MidnightBlue;;
+$sm-body-header-color: White;
 $sm-body-color: colors.$sm-lightblue-color;
 $sm-body-font: fonts.$sm-montserrat-font;
 // $sm-body-font-size: fonts.$sm-montserrat-font-size;
@@ -119,10 +121,13 @@ body {
     font-size: x-large;
 }
 
-.navbar-nav
+.nav-link {
+    color: var(--bs-info);
+
+}
+.nav-link:hover
 {
-    --bs-nav-link-hover-color: var(--sm-red-color);
-    --bs-nav-link-color: var(--sm-white-color);
+    color: #ef210f;
 }
 
 
