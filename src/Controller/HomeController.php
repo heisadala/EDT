@@ -20,12 +20,11 @@ class HomeController extends AbstractController
             'server_base' => $_SERVER['BASE'],
             'title' => 'Accueil',
             'icon' => 'Edt.png',
-            'news' => 'ASSEMBLÉE GÉNÉRALE AU CAFÉ LA DIFFÉRENCE LE 15 MARS 2024 À 18H30 SALLE POLYVALENTE DE TRÉLÉVERN',
+            'news' => 'HANDIFFERENCE le 2 Juin 2024',
             'header_image' => 'Trestel_2.jpg',
             'show_navbar' => true,
+            'show_cards' => true,
             'db' => $db->getName(),
-            'show_carousel' => false,
-            'show_flyer' => true,
         ]);
     }
 }

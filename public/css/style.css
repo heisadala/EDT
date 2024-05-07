@@ -312,12 +312,11 @@ body {
 }
 
 .edt-body-header-container {
-  background-image: linear-gradient(to right, Aqua, DarkBlue, Aqua);
   color: White;
 }
 
 .edt-body-header-logo {
-  max-width: 75%;
+  max-width: 100%;
 }
 
 .sm-body-header-flag {
@@ -356,7 +355,7 @@ body {
 
 @media screen and (max-width: 1024px) {
   .sm-body-news-content {
-    font-size: 2rem;
+    font-size: 1rem;
   }
 }
 .navbar {

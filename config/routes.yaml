@@ -7,3 +7,7 @@ assembly_homepage:
     controller: App\Controller\Ag\AgController::index
     defaults:  
         subject: 'AG' 
+contact_homepage:
+    path: /CONTACT
+    controller: App\Controller\Contact\ContactController::index
+
