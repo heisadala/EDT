@@ -19,7 +19,7 @@ $sm-navbar-color: var(--bs-warning);
 
 $sm-burgericon-color: var(--sm-iceblue-color);
 
-$sm-breadcrumb-color: var(--bs-warning);
+$sm-breadcrumb-color: var(--bs-info);
 
 $sm-dataTables-length-color: colors.$sm-red-color;
 
@@ -333,7 +333,7 @@ input.nosubmit {
 }
 .breadcrumb-item + .breadcrumb-item:before {
     color: $sm-breadcrumb-color;
-    padding-top: 18px;
+    // padding-top: 18px;
 }
 
 .breadcrumb-item:hover {

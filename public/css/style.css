@@ -555,21 +555,20 @@ input.nosubmit {
 }
 
 .breadcrumb-item > a {
-  color: var(--bs-warning);
+  color: var(--bs-info);
   text-decoration: none;
 }
 
 .breadcrumb-item + .breadcrumb-item:before {
-  color: var(--bs-warning);
-  padding-top: 18px;
+  color: var(--bs-info);
 }
 
 .breadcrumb-item:hover {
-  color: var(--bs-warning);
+  color: var(--bs-info);
 }
 
 .breadcrumb-item.active {
-  color: var(--bs-warning);
+  color: var(--bs-info);
 }
 
 .sm-login-form i {

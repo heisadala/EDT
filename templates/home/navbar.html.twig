@@ -35,8 +35,8 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link fs-6" href='#'>Contact</a>
-          {# <a class="nav-link fs-6" href='{{ path('contact_homepage') }}'>Contact</a> #}
+          {# <a class="nav-link fs-6" href='#'>Contact</a> #}
+          <a class="nav-link fs-6" href='{{ path('contact_homepage') }}'>Contact</a>
         </li>
 
 
@@ -46,9 +46,10 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form> #}
     </div>
-    <a target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474" aria-label="Suivez nous sur Facebook">
-        <img class="rounded-circle" src="{{ server_base }}/images/icon/facebook-96.png">
-    </a>
-
+    <div class="ms-auto p-2">
+      <a target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474" aria-label="Suivez nous sur Facebook">
+          <img class="rounded-circle" src="{{ server_base }}/images/icon/facebook-96.png">
+      </a>
+    </div>
   </div>
 </nav>
