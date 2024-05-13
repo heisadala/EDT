@@ -14,6 +14,11 @@ class HomeController extends AbstractController
 
         $table_name = $this->getParameter('app.database_home_table_name');
         $db = $homeTableRepository->findOneby(['name' => $table_name]);
+        $username = "";
+        if ($this->getUser()) {
+            $username = $this->getUser()->getUsername();
+        }
+
 
         return $this->render('index.html.twig', [
             'controller_name' => 'HomeController',
@@ -25,6 +30,7 @@ class HomeController extends AbstractController
             'show_navbar' => true,
             'show_cards' => true,
             'db' => $db->getName(),
+            'username' => $username,
         ]);
     }
 }

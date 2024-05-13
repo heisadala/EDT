@@ -1,0 +1,47 @@
+
+    <div class='row'>
+        <div class="col-md-5"></div>
+        <div class="col-md-2 ">
+        <div class="container text-warning mt-3">
+
+                <h1 class="h3 mb-3 font-weight-normal text-warning">Register</h1>
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.username) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {# <i class="text-warning bi bi-eye-slash" id="togglePassword"> #}
+        {# {{ form_row(registrationForm.agreeTerms) }} #}
+        <select class="form-select" aria-label="Roles">
+            <option selected>Open this select menu</option>
+            <option value="1">ADMIN</option>
+            <option value="2">USER</option>
+            <option value="3">PUBLIC</option>
+        </select>
+        <br>
+        <button type="submit" class="btn btn-info">Register</button>
+    {{ form_end(registrationForm) }}
+</div>
+</div>
+</div>
+
+    <script>
+        const togglePassword = document.querySelector("#togglePassword");
+        const password = document.querySelector("#registration_form_plainPassword");
+
+        togglePassword.addEventListener("click", function () {
+            // toggle the type attribute
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+            
+            // toggle the icon
+            this.classList.toggle("bi-eye");
+        });
+
+        // prevent form submit
+        const form = document.querySelector("form");
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+        });
+    </script>

@@ -53,6 +53,7 @@
             :root {
                 --sm-search-icon: url('{{ server_base }}/images/icon/search.svg') ;
                 --sm-eye-slash-icon: url('{{ server_base }}/images/icon/eye-slash.svg') ;
+                --edt-toggler-icon: url('{{ server_base }}/images/icon/menu-48.png') ;
             }
         </style>
 
@@ -69,16 +70,21 @@
         #      header 
         # ##################}
         {% block header %}{% endblock %}
+
+        <div class='row  justify-content-between m-0' 
+            style='height: 0.5rem;'>
+        </div>
         {# ##################
         #      news 
         # ##################}
         <div class='row justify-content-between m-0'>
-            <div class='d-flex mt-1 p-1 justify-content-center text-red sm-body-news-content'>
+            <div class='d-flex mt-1 p-1 justify-content-center text-white edt-body-news-content'>
                 {% block news %}{% endblock %}
             </div>
         </div>
+
         <div class='row  justify-content-between m-0' 
-            style='height: 10px;'>
+            style='height: 0.5rem;'>
         </div>
         {# ##################
         #      navbar 

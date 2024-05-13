@@ -1,26 +1,23 @@
 <nav class="navbar navbar-expand-lg" >
-  <div class="container-fluid justify-content-start">
-    <div class="dropdown">
-      <button class="btn " data-bs-toggle="dropdown" type="button">
-        <img class="rounded-circle" src="{{ server_base }}/images/icon/squared-menu-96.png">
-      </button>
-      <ul class="dropdown-menu p-2 dropdown-menu-end sm-lego-dropdown" >
-        {% include ( "navbar_dropdown_item.html.twig" ) with {'item': 'Home', 'subdir' : ''} %}
-      </ul>
-    </div>
-    <nav style="--bs-breadcrumb-divider: '>';"  aria-label="breadcrumb">
-        <div class="container-fluid">
-            <ul class="breadcrumb" style="align-items: center;">
-              <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
-              <li class="breadcrumb-item fs-6"><a href="{{ server_base }}">Accueil</a></li>
-              <li class="breadcrumb-item fs-6 active" aria-current="page">Contact</li>
-            </ul>
-        </div>
+  <div class="container-fluid justify-content-between">
+    <nav class='mt-2' style="--bs-breadcrumb-divider: '>';"  aria-label="breadcrumb">
+      <div class="container-fluid">
+          <ul class="breadcrumb" style="align-items: center;">
+            <li class="breadcrumb-item fs-6"><a href="{{ server_base }}">Accueil</a></li>
+            <li class="breadcrumb-item fs-6 active" aria-current="page">Contact</li>
+          </ul>
+      </div>
     </nav>
-    <div class="ms-auto p-2">
-    <a target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474" aria-label="Suivez nous sur Facebook">
-        <img class="rounded-circle" src="{{ server_base }}/images/icon/facebook-96.png">
-    </a>
+
+    <div class="list-group list-group-horizontal text-center edt-lg-contact fs-2 p-3">
+        <a target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474" 
+            class="list-group-item list-group-item-action edt-lg-item-fb">
+            <i class='fa fa-facebook' aria-hidden='true'></i>
+        </a>
+        <a href="mailto:tresorerie.enfantsdetrestel@gmail.com" 
+            class="list-group-item list-group-item-action edt-text-orange">
+            <i class='fa fa-envelope'></i>
+        </a>
     </div>
   </div>
 </nav>

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8de66fbc9110d99826e2aca55c72a6ea",
+    "content-hash": "c160055319a02d0f9f0890001eedbf48",
     "packages": [
         {
             "name": "composer/semver",
@@ -3468,16 +3468,16 @@
         },
         {
             "name": "symfony/form",
-            "version": "v7.0.4",
+            "version": "v7.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/form.git",
-                "reference": "5cfe85c74caf924c7cec2134e169320b464ede84"
+                "reference": "b4df6a399a2b03782a0163807239db342659f54f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/form/zipball/5cfe85c74caf924c7cec2134e169320b464ede84",
-                "reference": "5cfe85c74caf924c7cec2134e169320b464ede84",
+                "url": "https://api.github.com/repos/symfony/form/zipball/b4df6a399a2b03782a0163807239db342659f54f",
+                "reference": "b4df6a399a2b03782a0163807239db342659f54f",
                 "shasum": ""
             },
             "require": {
@@ -3544,7 +3544,7 @@
             "description": "Allows to easily create, process and reuse HTML forms",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/form/tree/v7.0.4"
+                "source": "https://github.com/symfony/form/tree/v7.0.7"
             },
             "funding": [
                 {
@@ -3560,7 +3560,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-12T11:15:03+00:00"
+            "time": "2024-04-28T11:44:19+00:00"
         },
         {
             "name": "symfony/framework-bundle",
@@ -5640,16 +5640,16 @@
         },
         {
             "name": "symfony/security-bundle",
-            "version": "v7.0.4",
+            "version": "v7.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-bundle.git",
-                "reference": "1755fb50e4da0a0013569752be763d208d690bcd"
+                "reference": "8d11101574ce8e2147a04245f4b968911a43ffd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/1755fb50e4da0a0013569752be763d208d690bcd",
-                "reference": "1755fb50e4da0a0013569752be763d208d690bcd",
+                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/8d11101574ce8e2147a04245f4b968911a43ffd5",
+                "reference": "8d11101574ce8e2147a04245f4b968911a43ffd5",
                 "shasum": ""
             },
             "require": {
@@ -5731,7 +5731,7 @@
             "description": "Provides a tight integration of the Security component into the Symfony full-stack framework",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/security-bundle/tree/v7.0.4"
+                "source": "https://github.com/symfony/security-bundle/tree/v7.0.7"
             },
             "funding": [
                 {
@@ -5747,7 +5747,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-15T11:33:06+00:00"
+            "time": "2024-04-18T09:29:19+00:00"
         },
         {
             "name": "symfony/security-core",
@@ -6745,6 +6745,86 @@
                 }
             ],
             "time": "2024-02-15T11:33:06+00:00"
+        },
+        {
+            "name": "symfony/ux-toggle-password",
+            "version": "v2.17.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/ux-toggle-password.git",
+                "reference": "26201b9214a14ba60b3a9e0316ad0fd32e2e229b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/ux-toggle-password/zipball/26201b9214a14ba60b3a9e0316ad0fd32e2e229b",
+                "reference": "26201b9214a14ba60b3a9e0316ad0fd32e2e229b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/config": "^5.4|^6.0|^7.0",
+                "symfony/dependency-injection": "^5.4|^6.0|^7.0",
+                "symfony/form": "^5.4|^6.0|^7.0",
+                "symfony/http-kernel": "^5.4|^6.0|^7.0",
+                "symfony/options-resolver": "^5.4|^6.0|^7.0",
+                "symfony/translation": "^5.4|^6.0|^7.0"
+            },
+            "require-dev": {
+                "symfony/framework-bundle": "^5.4|^6.0|^7.0",
+                "symfony/phpunit-bridge": "^5.4|^6.0|^7.0",
+                "symfony/twig-bundle": "^5.4|^6.0|^7.0",
+                "symfony/var-dumper": "^5.4|^6.0|^7.0",
+                "twig/twig": "^2.14.7|^3.0.4"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "thanks": {
+                    "name": "symfony/ux",
+                    "url": "https://github.com/symfony/ux"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\UX\\TogglePassword\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Félix Eymonot",
+                    "email": "felix.eymonot@alximy.io"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Toggle visibility of password inputs for Symfony Forms",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "symfony-ux"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/ux-toggle-password/tree/v2.17.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-04-19T06:36:45+00:00"
         },
         {
             "name": "symfony/ux-turbo",

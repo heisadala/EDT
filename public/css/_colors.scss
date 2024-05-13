@@ -23,6 +23,18 @@ $sm-red-03-color: rgb(227,67,41, 0.3);
 $sm-turquoise-03-color: rgb(13, 183, 191, 0.3);
 $sm-white-03-color: rgb(255, 255, 255, 0.3);
 
+$edt-yellow-color: rgb(255,242,2);
+$edt-green-color: rgb(190,224,5);
+$edt-iceblue-color: rgb(149,173,207);
+$edt-rose-color: rgb(224,161,192);
+$edt-lightblue-color: rgb(167,202,240);
+$edt-red-color: rgb(224,97,127);
+$edt-orange-color: rgb(222,128,62);
+
+
+$edt-colors: ('yellow': $edt-yellow-color, 'green': $edt-green-color, 'iceblue': $edt-iceblue-color, 
+                'rose': $edt-rose-color, 'lightblue': $edt-lightblue-color, 'red': $edt-red-color, 
+                'orange': $edt-orange-color);
 $colors: ("beige": $sm-beige-color, "blue": $sm-blue-color, "darkgrey": $sm-darkgrey-color, "green": $sm-green-color,
           "iceblue": $sm-iceblue-color, "lightblue": $sm-lightblue-color, "lightgrey": $sm-lightgrey-color, 
           "orange": $sm-orange-color, "red": $sm-red-color, "turquoise": $sm-turquoise-color, "white": $sm-white-color);
@@ -32,6 +44,9 @@ $colors-03: ("beige": $sm-beige-03-color, "blue": $sm-blue-03-color, "darkgrey":
           "turquoise": $sm-turquoise-03-color, "white": $sm-white-03-color);
 
 :root {           
+    @each $name, $color in $edt-colors {
+        --edt-#{$name}-color: #{$color};
+    }
     @each $name, $color in $colors {
         --sm-#{$name}-color: #{$color};
     }
@@ -39,6 +54,17 @@ $colors-03: ("beige": $sm-beige-03-color, "blue": $sm-blue-03-color, "darkgrey":
     --bs-pagination-disabled-bg: rgb(113,187,198);
 }
         
+@each $name, $color in $edt-colors {
+    .edt-text-#{$name} {
+        color: $color;
+    }
+    .edt-bg-#{$name} {
+        background-color: $color;
+    }
+    .edt-border-#{$name} {
+        border-color: $color;
+    }
+}
         
 @each $name, $color in $colors {
     .text-#{$name} {

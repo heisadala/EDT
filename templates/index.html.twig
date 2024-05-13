@@ -16,31 +16,49 @@
                 style='height: 10px;'>
             </div>
             <div class='row'>
-                <div class='col-1 align-self-center text-center '></div>
-                <div class='col-2 align-self-center text-center '>
+                <div class='col-md-1 align-self-center text-center '></div>
+                <div class='col-md-2 align-self-center text-center '>
                     <img class='img-fluid rounded edt-body-header-logo'
                         src="{{ server_base }}/images/logo/Enfants_de_trestel.png">
                 </div>
-                <div class='col-1 align-self-center text-center '></div>
-                <div class='col-4 align-self-center text-center'>
+
+                <div class='col-md-1 mt-3 align-self-center text-center '></div>
+
+                <div class='col-md-4 align-self-center text-center'>
                     {% if header_title is defined and header_title != '' %}
                         <h1>{% block header_title %} {{ header_title }} {% endblock %}</h1>
                     {% endif %}
                     {% if header_image is defined and header_image != '' %}
                         {% set title = header_image|split('.') %}
-                        <img class='img-fluid  rounded edt-body-header-logo'
+                        <img class='img-fluid  rounded edt-body-header-img'
                             src="{{ server_base }}/images/icon/header/{{ header_image }}" 
                             alt={{ title[0] }} 
                             title={{ title[0] }} 
                         >
                     {% endif %}
                 </div>
-                <div class='col-1 align-self-center text-center '></div>
+                {# <div class='col-1 align-self-center text-center '></div>
                 <div class='col-2 align-self-center text-center '>
                     <img class='img-fluid rounded edt-body-header-logo'
                         src="{{ server_base }}/images/logo/Enfants_de_trestel.png">
                 </div>
-                <div class='col-1 align-self-center text-center '></div>
+                <div class='col-1 align-self-center text-center '></div> #}
+
+                <div class='col-md-2 mt-3 align-self-center text-center'></div>
+                <div class='col-md-2 align-self-center text-center'>
+                    {# <div class="list-group list-group-horizontal edt-lg ms-auto p-3 fs-2" style='width:50%'> #}
+                    <div class="list-group list-group-horizontal text-center edt-lg fs-2 p-3">
+                        <a target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474" 
+                            class="list-group-item list-group-item-action edt-lg-item-fb">
+                            <i class='fa fa-facebook' aria-hidden='true'></i>
+                        </a>
+                        <a href="mailto:tresorerie.enfantsdetrestel@gmail.com" 
+                            class="list-group-item list-group-item-action edt-text-orange">
+                            <i class='fa fa-envelope'></i>
+                        </a>
+                    </div>
+               </div>
+
             </div>
         </header>
     </div>
@@ -48,13 +66,12 @@
 
 {% block news %}
     <div class='col-1 '></div>
-    <div class='col-2 '>SITE EN CONSTRUCTION </div>
+    <div class='col-2 '>SITE EN CONSTRUCTION</div>
     <div class='col-1 '></div>
-    <div class='col-4 align-self-center text-center'> {{ news }} </div> 
+    <div class='col-4 align-self-center text-center'>HANDIFFERENCE le 2 Juin 2024</div> 
     <div class='col-1 '></div>
-    <div class='col-2'>SITE EN CONSTRUCTION </div>
+    <div class='col-2'>SITE EN CONSTRUCTION</div>
     <div class='col-1 '></div>
-
 {% endblock %}
 
 {% block navbar %}
@@ -75,6 +92,12 @@
     {% endif %}
     {% if show_cards is defined and show_cards == true %}
         {% include ( "#{db|lower}/cards.html.twig" ) %}
+    {% endif %}
+    {% if show_login is defined and show_login == true %}
+        {% include ( "security/login.html.twig" ) %}
+    {% endif %}
+    {% if show_register is defined and show_register == true %}
+        {% include ( "registration/register.html.twig" ) %}
     {% endif %}
 {% endblock %}
 

@@ -11,3 +11,23 @@ contact_homepage:
     path: /CONTACT
     controller: App\Controller\Contact\ContactController::index
 
+compte_homepage:
+    path: /COMPTE
+    controller: App\Controller\Contact\CompteController::index
+
+app_register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+login_check:
+    path: /login_check
+
+app_logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
+
+

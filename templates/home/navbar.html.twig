@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-lg" >
   <div class="container-fluid justify-content-start">
-    <div class="dropdown">
-      <button class="btn " data-bs-toggle="dropdown" type="button">
+    <div >&nbsp;&nbsp;
+      {# <button class="btn " data-bs-toggle="dropdown" type="button">
         <img class="rounded-circle" src="{{ server_base }}/images/icon/squared-menu-96.png">
       </button>
       <ul class="dropdown-menu p-2 dropdown-menu-end sm-lego-dropdown" >
         {% include ( "navbar_dropdown_item.html.twig" ) with {'item': 'Home', 'subdir' : ''} %}
-      </ul>
+      </ul> #}
     </div>
     <button 
-        class="navbar-toggler" 
+        class="navbar-toggler edt-navbar-toggler" 
         type="button" 
         data-bs-toggle="collapse" 
         data-bs-target="#navbarSupportedContent" 
@@ -18,6 +18,8 @@
         aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
+    <div class='edt-toggler-label ms-2 fs-6'>MENU</div>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -38,7 +40,28 @@
           {# <a class="nav-link fs-6" href='#'>Contact</a> #}
           <a class="nav-link fs-6" href='{{ path('contact_homepage') }}'>Contact</a>
         </li>
+        {% if username is defined and username != '' %}
 
+          <li class="nav-item">
+            {# <a class="nav-link fs-6" href='#'>Contact</a> #}
+            <a class="nav-link fs-6" href='{{ path('compte_homepage') }}'>Admin</a>
+          </li>
+
+        {% endif %}
+        <li class="nav-item edt-nav-item-fb">
+          {# <a class="nav-link fs-6" href='#'>Contact</a> #}
+          <a target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474" 
+              class="list-group-item list-group-item-action edt-lg-item-fb">
+              <i class='fa fa-facebook' aria-hidden='true'></i>
+          </a>
+        </li>
+        <li class="nav-item edt-nav-item-mail">
+          {# <a class="nav-link fs-6" href='#'>Contact</a> #}
+          <a href="mailto:tresorerie.enfantsdetrestel@gmail.com" 
+              class="list-group-item list-group-item-action edt-text-orange">
+              <i class='fa fa-envelope' aria-hidden='true'></i>
+          </a>
+        </li>
 
       </ul>
       {# <form class="d-flex" role="search">
@@ -47,9 +70,24 @@
       </form> #}
     </div>
     <div class="ms-auto p-2">
-      <a target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474" aria-label="Suivez nous sur Facebook">
-          <img class="rounded-circle" src="{{ server_base }}/images/icon/facebook-96.png">
-      </a>
+                    {% if username is defined and username != '' %}
+                        <button class="btn " data-bs-toggle="dropdown" type="button">
+                            <img class="rounded-circle" src="{{ server_base }}/images/icon/account_48.png"
+                                alt={{ username }}
+                                title={{ username }}
+                            >
+                        </button>
+                        <ul class="dropdown-menu sm-body-header-account">
+                            <li><a class="dropdown-item disabled" >{{ username }}</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ server_base }}/logout">Logout</a></li>
+                        </ul>
+                    {% else %}
+                        <a class="btn btn-outline-info edt-admin-btn" href="{{ server_base }}/login" role="button">
+                            <i class="bi bi-person"></i>
+                            <span class='fs-6 '>Admin</span>
+                        </a>
+                    {% endif %}
     </div>
   </div>
 </nav>

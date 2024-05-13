@@ -1,0 +1,95 @@
+
+<div class='row'>
+    <div class="col-md-3 col-xl-4"></div>
+    <div class="col-md-6 col-xl-4">
+        <form class="sm-login-form border border-5 border-warning" method="post">
+        <div class="row">
+            <img src="{{ server_base }}/images/background/Database.jpg">
+        </div>
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3 text-warning">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+            <br>
+            <div class="row">
+                <h3 style="font-size:3vw;" class="mb-3 p-2 font-weight-normal text-warning text-center">Sign in</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-xl-2"></div>
+                <div class="col-md-6 col-xl-8"> 
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text sm-login-user" id="basic-addon1"><i class="bi bi-person-fill"></i></span>
+                        </div>
+                    {# <label class="mb-1 text-warning" for="inputUsername">Username</label> #}
+                        <input type="text" value="{{ last_username }}" style='border: 0;' name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style='height: 20px;'></div>
+            <div class="row ">
+                <div class="col-md-3 col-xl-2"></div>
+                <div class="col-md-6 col-xl-8"> 
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text sm-login-lock" id="basic-addon1"><i class="bi bi-lock-fill"></i></span>
+                        </div>
+                    {# <label class="text-warning mb-1" for="inputPassword">Password</label></div> #}
+                    {# <div class="col-md-2 col-xl-2"><i class="text-warning bi bi-eye-slash" id="togglePassword"></i></div> #}
+                        <input class="form-control" style='border: 0;' type="password" name="password" id="inputPassword" autocomplete="current-password" required>
+                        <div class="input-group-append">
+                            <span class="input-group-text  sm-login-eye" ><i class="bi bi-eye-slash" style="cursor: pointer;" id="togglePassword"></i>
+                        </span>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+                <input type="hidden" name="_csrf_token"
+            value="{{ csrf_token('authenticate') }}" >
+
+                {#
+            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+            See https://symfony.com/doc/current/security/remember_me.html
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Remember me
+                </label>
+            </div>
+        #}
+
+        <div class="row" style='height: 50px;'></div>
+        <div class="row col-md-3 col-xl-3 mx-auto">
+            <button class="btn btn-lg btn-info" type="submit">
+                Login
+            </button>
+        </div>
+        <div class="row" style='height: 20px;'></div>
+        </form>
+    </div>
+</div>
+    <script>
+        const togglePassword = document.querySelector("#togglePassword");
+        const password = document.querySelector("#inputPassword");
+
+        togglePassword.addEventListener("click", function () {
+            // toggle the type attribute
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+            
+            // toggle the icon
+            this.classList.toggle("bi-eye");
+        });
+
+        // prevent form submit
+{#         const form = document.querySelector("form");
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+        });
+ #}    </script>
