@@ -1,0 +1,102 @@
+<script src="{{ asset('js/table.js') }}"></script>
+
+<div class='row' style='height: 40px;'></div>
+
+<div class='row' style='height: 10px;'></div>
+
+<div class='row  justify-content-between'>
+    <div class="col-md-1"></div>
+    <div class="col-md-10 border rounded bg-iceblue">
+        <div class='row'>
+            <div class="dropdown mt-2 col-md-10">
+                <span>
+                    <img src='{{ server_base }}/images/icon/rows-144.png' 
+                        alt='NUMBER OF ROWS' 
+                        title='NUMBER OF ROWS' 
+                        width='64' 
+                        height='64'>
+                </span>
+                <button class="btn btn-secondary dropdown-toggle justify-content-begin" 
+                    type="button" 
+                    data-bs-toggle="dropdown" 
+                    aria-expanded="false">
+                    {{ show_row_number }}
+                </button>
+                <ul class="dropdown-menu sm-lego-table-dropdown-menu rounded">
+                    <li><a class="dropdown-item sm-lego-table-dropdown-item" href="#">5</a></li>
+                    <li><a class="dropdown-item sm-lego-table-dropdown-item" href="#">10</a></li>
+                    <li><a class="dropdown-item sm-lego-table-dropdown-item" href="#">{{ courant_table_content |length }}</a></li>
+                </ul>
+            </div>
+
+            <div class='col-md-2 mt-2'>
+                <form class="nosubmit justify-content-end sm-lego-table-search-form">
+                    <input type="search"
+                        class="nosubmit rounded" id="sm-lego-table-search-input" 
+                        placeholder="Search ..." 
+                        value="" >
+                </form>
+            </div>
+        </div>
+        <div class='row row-cols-1'>
+            <div class='table-responsive-xl'>
+                <table class="table sm-lego-table table-hover mr-4">
+                    <thead>
+                        <tr>
+                            {% for header in table_header_fields %}
+                                {% if header.Field |upper == 'ID' %}
+                                    <th hidden class='text-truncate'> {{ header.Field |upper }} </th>
+                                {% endif %}
+                                {% if header.Field |upper != 'ID' and 
+                                    header.Field |upper != 'BANQUE' and 
+                                    header.Field |upper != 'RECU' and 
+                                    header.Field |upper != 'CATEGORIE' %}
+
+                                    <th class='text-truncate'> {{ header.Field |upper }} &nbsp;&nbsp;&nbsp;
+                                    <a href='?sort={{ header.Field |upper }}&order={{ asc_or_desc }}'>
+                                    <i class='material-icons' style='color: white'>keyboard_arrow_{{ up_or_down }}</i></a>
+                                    </th>
+                                {% endif %}
+{#                                 {% if header.Field |upper == 'ARCHIVE' %}
+                                    <th hidden class='text-truncate'> {{ header.Field |upper }} </th>
+                                {% endif %} #}
+
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {% set color = 'white' %}
+                            {% for row in courant_table_content %}
+
+                                <tr>
+                                <td hidden >{{ row.id }} </td>
+                                <td>{{ row.projet }} </td>
+                                <td> {{ row.regle|date("d-m-Y") }} </td>
+
+                                <td>{{ row.debit }} </td>
+                                <td>{{ row.credit }} </td>
+                                {% if row.facture != '' %}
+                                    {% set path = server_base|split('/') %}
+                                    <td><a href='https://{{ server_name }}/{{ path[1] }}/FACTURES/{{ row.projet }}_{{ row.facture }}.pdf'>{{ row.projet }}_{{ row.facture }}.pdf</a> </td>
+                                {% else %}
+                                    <td>{{ row.facture }}</td>
+                                {% endif %}
+                                <td>{{ row.operation }} </td>
+                                <td>{{ row.commentaire }} </td>
+                                </tr>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <p id='primaryKey' hidden>primaryKey</p>
+    <p id='primaryKeyPlace' hidden>{{ primary_key_column }}</p>
+    <p id='primaryKeyName' hidden>{{ primary_key_name }}</p>
+    <p id='showRowNumber' hidden>{{ show_row_number }}</p>
+    <div class='col-md-1'></div>
+</div>
+<div class='row  justify-content-between' style='height: 100px;'></div>
+
+

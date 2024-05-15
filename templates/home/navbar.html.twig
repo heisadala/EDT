@@ -44,7 +44,7 @@
 
           <li class="nav-item">
             {# <a class="nav-link fs-6" href='#'>Contact</a> #}
-            <a class="nav-link fs-6" href='{{ path('compte_homepage') }}'>Admin</a>
+            <a class="nav-link fs-6" href='{{ path('compte_homepage') }}'>Compte</a>
           </li>
 
         {% endif %}
@@ -70,24 +70,26 @@
       </form> #}
     </div>
     <div class="ms-auto p-2">
-                    {% if username is defined and username != '' %}
-                        <button class="btn " data-bs-toggle="dropdown" type="button">
-                            <img class="rounded-circle" src="{{ server_base }}/images/icon/account_48.png"
-                                alt={{ username }}
-                                title={{ username }}
-                            >
-                        </button>
-                        <ul class="dropdown-menu sm-body-header-account">
-                            <li><a class="dropdown-item disabled" >{{ username }}</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ server_base }}/logout">Logout</a></li>
-                        </ul>
-                    {% else %}
-                        <a class="btn btn-outline-info edt-admin-btn" href="{{ server_base }}/login" role="button">
-                            <i class="bi bi-person"></i>
-                            <span class='fs-6 '>Admin</span>
-                        </a>
-                    {% endif %}
+      {% if username is defined and username != '' %}
+        <div class="btn-group dropstart">
+          <button class="btn " data-bs-toggle="dropdown" type="button">
+              <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/person-48.png" style="max-width: 75%"
+                  alt={{ username }}
+                  title={{ username }}
+              >
+          </button>
+          <ul class="dropdown-menu edt-body-header-account">
+              <li><a class="dropdown-item disabled" >{{ username }}</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{{ server_base }}/logout">Logout</a></li>
+          </ul>
+        </div>
+      {% else %}
+          <a class="btn btn-outline-info edt-admin-btn" href="{{ server_base }}/login" role="button">
+              <i class="bi bi-person"></i>
+              <span class='fs-6 '>Admin</span>
+          </a>
+      {% endif %}
     </div>
   </div>
 </nav>

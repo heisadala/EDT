@@ -7,13 +7,40 @@ assembly_homepage:
     controller: App\Controller\Ag\AgController::index
     defaults:  
         subject: 'AG' 
+
 contact_homepage:
     path: /CONTACT
     controller: App\Controller\Contact\ContactController::index
 
 compte_homepage:
     path: /COMPTE
-    controller: App\Controller\Contact\CompteController::index
+    controller: App\Controller\Compte\CompteController::index
+
+project_homepage:
+    path: /COMPTE/COURANT/CHART/PROJECT/{projectFilter}
+    controller: App\Controller\Compte\CompteController::project
+    defaults:  
+        projectFilter: 'EDT' 
+
+chart_homepage:
+    path: /COMPTE/COURANT/CHART
+    controller: App\Controller\Compte\CompteController::chart
+    
+    
+courant_homepage:
+    path: /COMPTE/COURANT/{viewFormat}/{rowNumbers}
+    controller: App\Controller\Compte\CompteController::courant
+    defaults:  
+        viewFormat: 'table' 
+        rowNumbers: 10 
+
+caisses_homepage:
+    path: /COMPTE/CAISSES
+    controller: App\Controller\Compte\CompteController::caisses
+
+livret_homepage:
+    path: /COMPTE/LIVRET
+    controller: App\Controller\Compte\CompteController::livret
 
 app_register:
     path: /register

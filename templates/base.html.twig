@@ -48,11 +48,13 @@
             integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" 
             crossorigin="anonymous">
         </script>
+        <script 
+            src="{{ server_base }}/chart.js/dist/chart.umd.js">
+        </script>
 
         <style>
             :root {
-                --sm-search-icon: url('{{ server_base }}/images/icon/search.svg') ;
-                --sm-eye-slash-icon: url('{{ server_base }}/images/icon/eye-slash.svg') ;
+                --edt-search-icon: url('{{ server_base }}/images/icon/search.svg') ;
                 --edt-toggler-icon: url('{{ server_base }}/images/icon/menu-48.png') ;
             }
         </style>
@@ -96,7 +98,7 @@
         # ##################}
         {% block content %}{% endblock %}
         <div class='row justify-content-between m-0' 
-            style='height: 10px;'>
+            style='height: 1rem;'>
         </div>
         {# ##################
         #      footer 

@@ -1,0 +1,96 @@
+<p id='projectFilter' hidden>{{ projectFilter }}</p>
+
+{% for entry in account %}
+    {% set entryInfo = {
+            id: entry.id,
+            bank: entry.banque ,
+            project: entry.projet ,
+            date: entry.regle|date("d-m-Y") ,
+            debit: entry.debit,
+            credit: entry.credit,
+            operation: entry.operation,
+            category: entry.categorie,
+            comment: entry.commentaire,
+    } %}
+    <div data-table-info='{{ entryInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
+{% endfor %}
+
+{% for bank in banks %}
+    {% set bankInfo = {
+        name: bank.banque,
+    } %}
+    <div data-bank-id='{{ bankInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
+{% endfor %}
+{% for project in projects %}
+    {% set projectInfo = {
+        name: project.projet,
+    } %}
+    <div data-project-id='{{ projectInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
+{% endfor %}
+{% for operation in operations %}
+    {% set operationInfo = {
+        name: operation.operation,
+    } %}
+    <div data-operation-id='{{ operationInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
+{% endfor %}
+{% for category in categories %}
+    {% set categoryInfo = {
+        name: category.categorie,
+    } %}
+    <div data-category-id='{{ categoryInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
+{% endfor %}
+
+<div class='row justify-content-between m-0' >
+    {# <div class="col-md-2 ">
+        <div ><canvas id="chartAllAccountsIncExp" ></canvas></div>
+    </div> #}
+    <div class="col-md-4"></div>
+    <div class="dropdown project-dropdown col-md-2">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        PROJETS
+        </button>
+         <ul class="dropdown-menu project-dropdown-menu">
+            {% for project in projects %}
+                <li><a class="dropdown-item" href="{{ server_base }}/COMPTE/COURANT/CHART/PROJECT/{{ project.projet }}">{{ project.projet }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>    
+
+    <div class="col-md-6"></div>
+</div>
+
+<div class="row justify-content-between">
+    <div class="col-md-1"></div>
+    <div class="col-md-3 ">
+        <div><canvas id="chartOneProjectAllBanksExp"></canvas></div>
+    </div>
+    <div class="col-md-4 ">
+        <div><canvas id="chartAllCatsOneProjectAllBanksExp"></canvas></div>
+    </div>
+    <div class="col-md-3 ">
+        <div class='table-responsive-sm'>
+            <table class="table sm-lego-table table-hover mr-4">
+                <tbody>
+                    {% for category in categories %}
+                        {% set expense = 0 %}
+                        {% for eintrag in account %}
+                            {% if eintrag.projet == projectFilter and eintrag.categorie == category.categorie %}
+                                {% set expense = expense + eintrag.debit %}   
+                            {% endif %}
+                        {% endfor %}
+                        {% if expense != 0 %}
+                            <tr>
+                            <td> {{ category.categorie }} </td>
+                            <td> {{ expense }} </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div> 
+    <div class="col-md-1"></div>
+</div>
+
+
+<script type='module' src="{{ asset('js/mychart.js') }}"></script>

@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg" >
+  <div class="container-fluid justify-content-between">
+    <nav class='mt-2' style="--bs-breadcrumb-divider: '>';"  aria-label="breadcrumb">
+      <div class="container-fluid">
+          <ul class="breadcrumb" style="align-items: center;">
+            <li class="breadcrumb-item fs-6"><a href="{{ server_base }}">Accueil</a></li>
+            <li class="breadcrumb-item fs-6"><a href="{{ server_base }}/COMPTE">Compte</a></li>
+            <li class="breadcrumb-item fs-6"><a href="{{ server_base }}/COMPTE/COURANT">Compte courant</a></li>
+            <li class="breadcrumb-item fs-6 active" aria-current="page">{{ projectFilter }}</li>
+          </ul>
+      </div>
+    </nav>
+
+    <div class="list-group list-group-horizontal text-center edt-lg-contact fs-2 p-3">
+        <a target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474" 
+            class="list-group-item list-group-item-action edt-lg-item-fb">
+            <i class='fa fa-facebook' aria-hidden='true'></i>
+        </a>
+        <a href="mailto:tresorerie.enfantsdetrestel@gmail.com" 
+            class="list-group-item list-group-item-action edt-text-orange">
+            <i class='fa fa-envelope'></i>
+        </a>
+    </div>
+
+    <div class="ms-auto p-2">
+     <a target='_blank' href='https://www.credit-agricole.fr/ca-cotesdarmor/association.html'>
+          <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/bank-48.png" style="max-width: 75%"
+              alt='BANK'
+              title='BANK'></a>
+
+      {% if username is defined and username != '' %}
+        <div class="btn-group dropstart">
+          <button class="btn " data-bs-toggle="dropdown" type="button">
+              <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/person-48.png" style="max-width: 75%"
+                  alt={{ username }}
+                  title={{ username }}>
+          </button>
+          <ul class="dropdown-menu edt-body-header-account">
+              <li><a class="dropdown-item disabled" >{{ username }}</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{{ server_base }}/logout">Logout</a></li>
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+
+
+  </div>
+</nav>

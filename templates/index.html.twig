@@ -37,13 +37,6 @@
                         >
                     {% endif %}
                 </div>
-                {# <div class='col-1 align-self-center text-center '></div>
-                <div class='col-2 align-self-center text-center '>
-                    <img class='img-fluid rounded edt-body-header-logo'
-                        src="{{ server_base }}/images/logo/Enfants_de_trestel.png">
-                </div>
-                <div class='col-1 align-self-center text-center '></div> #}
-
                 <div class='col-md-2 mt-3 align-self-center text-center'></div>
                 <div class='col-md-2 align-self-center text-center'>
                     {# <div class="list-group list-group-horizontal edt-lg ms-auto p-3 fs-2" style='width:50%'> #}
@@ -92,6 +85,15 @@
     {% endif %}
     {% if show_cards is defined and show_cards == true %}
         {% include ( "#{db|lower}/cards.html.twig" ) %}
+    {% endif %}
+    {% if show_gallery is defined and show_gallery == true %}
+        {% include ( "#{db|lower}/gallery.html.twig" ) %}
+    {% endif %}
+    {% if show_table is defined and show_table == true %}
+        {% include ( "#{db|lower}/table.html.twig" ) %}
+    {% endif %}
+    {% if show_chart is defined and show_chart == true %}
+        {% include ( "#{db|lower}/chart.html.twig" ) %}
     {% endif %}
     {% if show_login is defined and show_login == true %}
         {% include ( "security/login.html.twig" ) %}

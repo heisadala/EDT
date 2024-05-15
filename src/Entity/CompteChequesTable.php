@@ -14,8 +14,11 @@ class CompteChequesTable
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $banque = null;
+
     #[ORM\Column(length: 50, nullable: true)]
-    private ?string $project = null;
+    private ?string $projet = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $recu = null;
@@ -32,8 +35,11 @@ class CompteChequesTable
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $facture = null;
 
-    #[ORM\Column(length: 25, nullable: true)]
+    #[ORM\Column(length: 20, nullable: true)]
     private ?string $operation = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $categorie = null;
 
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $commentaire = null;
@@ -43,14 +49,25 @@ class CompteChequesTable
         return $this->id;
     }
 
-    public function getProject(): ?string
+    public function getBanque(): ?string
     {
-        return $this->project;
+        return $this->banque;
+    }
+    public function setBanque(?string $banque): static
+    {
+        $this->banque = $banque;
+
+        return $this;
     }
 
-    public function setProject(?string $project): static
+    public function getProjet(): ?string
     {
-        $this->project = $project;
+        return $this->projet;
+    }
+
+    public function setProject(?string $projet): static
+    {
+        $this->projet = $projet;
 
         return $this;
     }
@@ -123,6 +140,19 @@ class CompteChequesTable
     public function setOperation(?string $operation): static
     {
         $this->operation = $operation;
+
+        return $this;
+    }
+
+
+    public function getCategorie(): ?string
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?string $categorie): static
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }

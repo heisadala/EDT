@@ -35,16 +35,16 @@ class SecurityController extends AbstractController
             'last_username' => $lastUsername, 
             'error' => $error,
             'controller_name' => 'SecurityController',
-            'title' => 'Login EDT',
-            'show_login' => true,
-            'icon' => $db->getIcon(),
-            'background' => $db->getBackground(),
-            'header_title' => $_SERVER['HTTP_HOST'],
-            'news' => '',
-            'db' => $db->getName(),
             'server_base' => $_SERVER['BASE'],
+            'title' => 'Login',
+            'icon' => 'Edt.png',
+            'header_image' => 'Trestel_2.jpg',
+            'show_navbar' => false,
+            'show_login' => true,
+            'db' => $db->getName(),
             'username' => $username,
-     
+
+
         ]);
     }
 

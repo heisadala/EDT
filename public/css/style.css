@@ -474,10 +474,10 @@ body {
     display: none;
   }
 }
-.sm-body-header-account {
+.edt-body-header-account {
   -moz-text-align-last: left;
        text-align-last: left;
-  background-color: #0DCAF0;
+  background-color: var(--edt-green-color);
   --bs-dropdown-min-width: 0;
 }
 
@@ -636,7 +636,7 @@ input.nosubmit {
   border: 1px solid #555;
   display: block;
   padding: 9px 4px 9px 40px;
-  background: white var(--sm-search-icon) no-repeat 8px center;
+  background: white var(--edt-search-icon) no-repeat 8px center;
   background-size: 24px;
 }
 
@@ -708,24 +708,24 @@ input.nosubmit {
   color: var(--bs-info);
 }
 
-.sm-login-form i {
+.edt-login-form i {
   display: flex;
   cursor: pointer;
 }
 
-.sm-login-user, .sm-login-lock, .sm-login-eye {
-  background-color: #FFD700;
+.edt-login-user, .edt-login-lock, .edt-login-eye {
+  background-color: var(--bs-success-bg-subtle);
   border: 0;
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
 }
 
-.sm-login-user, .sm-login-lock {
+.edt-login-user, .edt-login-lock {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.sm-login-eye {
+.edt-login-eye {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }/*# sourceMappingURL=style.css.map */
