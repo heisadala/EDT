@@ -49,7 +49,7 @@
                                 {% endif %}
                                 {% if header.Field |upper != 'ID' and 
                                     header.Field |upper != 'BANQUE' and 
-                                    header.Field |upper != 'RECU' and 
+                                    header.Field |upper != 'MAIL' and 
                                     header.Field |upper != 'CATEGORIE' %}
 
                                     <th class='text-truncate'> {{ header.Field |upper }} &nbsp;&nbsp;&nbsp;
@@ -71,13 +71,15 @@
                                 <tr>
                                 <td hidden >{{ row.id }} </td>
                                 <td>{{ row.projet }} </td>
-                                <td> {{ row.regle|date("d-m-Y") }} </td>
+                                <td> {{ row.date|date("d-m-Y") }} </td>
 
                                 <td>{{ row.debit }} </td>
                                 <td>{{ row.credit }} </td>
                                 {% if row.facture != '' %}
                                     {% set path = server_base|split('/') %}
-                                    <td><a href='https://{{ server_name }}/{{ path[1] }}/FACTURES/{{ row.projet }}_{{ row.facture }}.pdf'>{{ row.projet }}_{{ row.facture }}.pdf</a> </td>
+                                    {# <td><a href='https://{{ server_name }}/{{ path[1] }}/FACTURES/{{ row.projet }}_{{ row.facture }}.pdf'>{{ row.projet }}_{{ row.facture }}.pdf</a> </td> #}
+                                    {# <td><a href="mailto:{{ row.mail }}?subject=Facture {{ row.facture }}&body=Bonjour,%0D%0Ale virement correspondant à la facture%0D%0A%0D%0A&nbsp;&nbsp;{{ row.facture }}%0D%0A %0D%0Aa été effectué.">{{ row.facture }}</a></td> #}
+                                    <td>{{ row.facture }}</td>
                                 {% else %}
                                     <td>{{ row.facture }}</td>
                                 {% endif %}

@@ -22,16 +22,16 @@ export class Bank {
       var localSavingsIn = 0;
       var i;
       for (i=0; i < this.table.length; i++) {
-        if ((Number(this.table[i].debit) > 0) && (this.table[i].operation != 'VIREMENT_INTERNE')) {
+        if ((Number(this.table[i].debit) > 0) && (this.table[i].project != 'AUTRE')) {
           localExpenses = localExpenses + Number(this.table[i].debit*100);
         }
-        if ((Number(this.table[i].debit) > 0) && (this.table[i].operation == 'VIREMENT_INTERNE')) {
+        if ((Number(this.table[i].debit) > 0) && (this.table[i].project != 'AUTRE')) {
           localSavingsOut = localSavingsOut + Number(this.table[i].amount*100);
         }
-        if ((Number(this.table[i].credit) > 0) && (this.table[i].operation != 'VIREMENT_INTERNE')) {
+        if ((Number(this.table[i].credit) > 0) && (this.table[i].project != 'AUTRE')) {
           localIncomes = localIncomes + Number(this.table[i].credit*100);
         }
-        if ((Number(this.table[i].credit) > 0) && (this.table[i].operation == 'VIREMENT_INTERNE')) {
+        if ((Number(this.table[i].credit) > 0) && (this.table[i].project != 'AUTRE')) {
           localSavingsIn = localSavingsIn + Number(this.table[i].credit*100);
         }
       }

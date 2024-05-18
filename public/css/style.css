@@ -7,6 +7,7 @@
   --edt-lightblue-color: rgb(167, 202, 240);
   --edt-red-color: rgb(224, 97, 127);
   --edt-orange-color: rgb(222, 128, 62);
+  --edt-pastel-blue-color: rgb(180, 207, 236);
   --sm-beige-color: rgb(233, 214, 184);
   --sm-blue-color: rgb(15, 38, 243);
   --sm-darkgrey-color: rgb(88, 97, 114);
@@ -104,6 +105,18 @@
 
 .edt-border-orange {
   border-color: rgb(222, 128, 62);
+}
+
+.edt-text-pastel-blue {
+  color: rgb(180, 207, 236);
+}
+
+.edt-bg-pastel-blue {
+  background-color: rgb(180, 207, 236);
+}
+
+.edt-border-pastel-blue {
+  border-color: rgb(180, 207, 236);
 }
 
 .text-beige {
@@ -564,7 +577,7 @@ body {
 
 .sm-lego-table > tbody tr:nth-child(even) {
   font-size: smaller;
-  --bs-table-bg: var(--sm-lightblue-color);
+  --bs-table-bg: var(--edt-pastel-blue-color);
 }
 
 .sm-lego-table > tbody tr:nth-child(odd) {

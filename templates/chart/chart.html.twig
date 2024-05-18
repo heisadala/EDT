@@ -5,7 +5,7 @@
             id: entry.id,
             bank: entry.banque ,
             project: entry.projet ,
-            date: entry.regle|date("d-m-Y") ,
+            date: entry.date|date("d-m-Y") ,
             debit: entry.debit,
             credit: entry.credit,
             operation: entry.operation,
@@ -40,24 +40,7 @@
     <div data-category-id='{{ categoryInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
 {% endfor %}
 
-<div class='row justify-content-between m-0' >
-    {# <div class="col-md-2 ">
-        <div ><canvas id="chartAllAccountsIncExp" ></canvas></div>
-    </div> #}
-    <div class="col-md-2"></div>
-    <div class="dropdown project-dropdown col-md-2">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        PROJETS
-        </button>
-         <ul class="dropdown-menu project-dropdown-menu">
-            {% for project in projects %}
-                <li><a class="dropdown-item" href="{{ server_base }}/COMPTE/COURANT/CHART/PROJECT/{{ project.projet }}">{{ project.projet }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>    
 
-    <div class="col-md-6"></div>
-</div>
 
 <div class="row justify-content-between">
     <div class="col-md-1"></div>
@@ -65,12 +48,23 @@
         <div><canvas id="chartAllBanksIncExpSav"></canvas></div>
     </div>
     <div class="col-md-4 ">
+    </div>
+    <div class="col-md-3 ">
+    </div> 
+    <div class="col-md-1"></div>
+</div>
+
+<div class="row justify-content-start">
+    <div class="col-md-1 "></div>
+
+    <div class="col-md-4 ">
         <div><canvas id="chartAllProjectsAllBanksExp"></canvas></div>
     </div>
     <div class="col-md-3 ">
         <div class='table-responsive-sm'>
             <table class="table sm-lego-table table-hover mr-4">
                 <tbody>
+                    {% set total_expense = 0 %}
                     {% for project in projects %}
                         {% set expense = 0 %}
                         {% for eintrag in account %}
@@ -78,17 +72,63 @@
                                 {% set expense = expense + eintrag.debit %}   
                             {% endif %}
                         {% endfor %}
-                        <tr>
-                        <td> {{ project.projet }} </td>
-                        <td> {{ expense }} </td>
-                        </tr>
+                        {% if expense != 0 and project.projet != 'AUTRE'%}
+                            <tr>
+                            <td><a href="{{ server_base }}/COMPTE/COURANT/CHART/PROJECT/{{ project.projet }}"> {{ project.projet }} </a></td>
+                            <td> {{ expense }} </td>
+                            </tr>
+                            {% set total_expense = total_expense + expense %}   
+                        {% endif %}
+                    {% endfor %}
+
+                </tbody>
+                <tr class="table-danger">
+                <td>TOTAL</a></td>
+                <td> {{ total_expense }} </td>
+                </tr>
+           </table>
+        </div>
+    </div> 
+</div>
+<div class='row  justify-content-between m-0' 
+    style='height: 2rem;'>
+</div>
+<div class="row justify-content-start">
+    <div class="col-md-1 "></div>
+    <div class="col-md-4 ">
+        <div><canvas id="chartAllProjectsAllBanksInc"></canvas></div>
+    </div>
+        
+
+    <div class="col-md-3 ">
+        <div class='table-responsive-sm'>
+            <table class="table sm-lego-table table-hover mr-4">
+                <tbody>
+                    {% set total_credit = 0 %}
+                    {% for project in projects %}
+                        {% set credit = 0 %}
+                        {% for eintrag in account %}
+                            {% if eintrag.projet == project.projet and project.projet != 'AUTRE' %}
+                                {% set credit = credit + eintrag.credit %}   
+                            {% endif %}
+                        {% endfor %}
+                        {% if credit != 0 %}
+                            <tr>
+                            <td><a href="{{ server_base }}/COMPTE/COURANT/CHART/PROJECT/{{ project.projet }}"> {{ project.projet }} </a></td>
+                            <td> {{ credit }} </td>
+                            </tr>
+                            {% set total_credit = total_credit + credit %}   
+                        {% endif %}
                     {% endfor %}
                 </tbody>
+                <tr class="table-success">
+                <td >TOTAL</a></td>
+                <td> {{ total_credit }} </td>
+                </tr>
+
             </table>
         </div>
     </div> 
-    <div class="col-md-1"></div>
 </div>
-
 
 <script type='module' src="{{ asset('js/mychart.js') }}"></script>

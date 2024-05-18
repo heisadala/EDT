@@ -30,11 +30,12 @@ $edt-rose-color: rgb(224,161,192);
 $edt-lightblue-color: rgb(167,202,240);
 $edt-red-color: rgb(224,97,127);
 $edt-orange-color: rgb(222,128,62);
+$edt-pastel-blue-color: rgb(180, 207, 236);
 
 
 $edt-colors: ('yellow': $edt-yellow-color, 'green': $edt-green-color, 'iceblue': $edt-iceblue-color, 
                 'rose': $edt-rose-color, 'lightblue': $edt-lightblue-color, 'red': $edt-red-color, 
-                'orange': $edt-orange-color);
+                'orange': $edt-orange-color, 'pastel-blue': $edt-pastel-blue-color);
 $colors: ("beige": $sm-beige-color, "blue": $sm-blue-color, "darkgrey": $sm-darkgrey-color, "green": $sm-green-color,
           "iceblue": $sm-iceblue-color, "lightblue": $sm-lightblue-color, "lightgrey": $sm-lightgrey-color, 
           "orange": $sm-orange-color, "red": $sm-red-color, "turquoise": $sm-turquoise-color, "white": $sm-white-color);

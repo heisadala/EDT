@@ -210,42 +210,78 @@ $(document).ready(function () {
     labels: [
       'CREDIT',
       'DEBIT',
-      'ECONOMIES',
     ],
     datasets: [{
       // label: 'My First Dataset',
-      data: [INCOMES_TOTAL, EXPENSES_TOTAL, SAVINGS],
+      data: [INCOMES_TOTAL, EXPENSES_TOTAL],
       backgroundColor: [
-        CHART_COLORS.lightseagreen,
-        CHART_COLORS.salmon,
-        CHART_COLORS.fuchsia,
+        CHART_COLORS.credit,
+        CHART_COLORS.debit,
       ],
       hoverOffset: 4
     }]
   };
 
   // ************************************
-  // ALL GROUPS ALL BANKS EXPENSES
+  // ALL PROJECTS ALL BANKS EXPENSES
   // ************************************
 
-  const project_labels = [];
-  const project_colors = [];
+  const project_exp_labels = [];
+  const project_exp_colors = [];
+  const project_exp = [];
+  i=0;
   for (p=0; p < PROJECT.length; p++) {
-      project_labels[p] = PROJECT[p].getName();
-      project_colors[p] = PROJECT[p].getColor();
+    if (PROJECT_EXPENSES_TOTAL[p] > 0 && PROJECT[p].getName() != 'AUTRE'  ) {
+      project_exp_labels[i] = PROJECT[p].getName();
+      project_exp_colors[i] = PROJECT[p].getColor();
+      project_exp[i] = PROJECT[p].getExpenses();
+      i++;
+    }
   }
-  // console.log('group_labels', group_labels)
+  // console.log('project_labels', project_labels)
+  // console.log('project_labels', project_labels)
   // console.log('GROUP_EXPENSES_TOTAL', GROUP_EXPENSES_TOTAL)
   const dataAllProjectsAllBanksExp = {
-    labels: project_labels,
+    labels: project_exp_labels,
     datasets: [{
       // label: 'My First Dataset',
       // data: [10,20,30,50,40,10,20,30,50,40, 25, 64],
-      data: PROJECT_EXPENSES_TOTAL,
-      backgroundColor: project_colors,
+      data: project_exp,
+      backgroundColor: project_exp_colors,
       hoverOffset: 4
     }]
   };
+
+  // ************************************
+  // ALL PROJECTS ALL BANKS INCOMES
+  // ************************************
+
+  const project_inc_labels = [];
+  const project_inc_colors = [];
+  const project_inc = [];
+  i=0;
+  for (p=0; p < PROJECT.length; p++) {
+    if (PROJECT_INCOMES_TOTAL[p] > 0 && PROJECT[p].getName() != 'AUTRE') {
+      project_inc_labels[i] = PROJECT[p].getName();
+      project_inc_colors[i] = PROJECT[p].getColor();
+      project_inc[i] = PROJECT[p].getIncomes();
+      i++;
+    }
+  }
+  // console.log('project_labels', project_inc_labels)
+  // console.log('project_inc', project_inc)
+  // console.log('GROUP_EXPENSES_TOTAL', GROUP_EXPENSES_TOTAL)
+  const dataAllProjectsAllBanksInc = {
+    labels: project_inc_labels,
+    datasets: [{
+      // label: 'My First Dataset',
+      // data: [10,20,30,50,40,10,20,30,50,40, 25, 64],
+      data: project_inc,
+      backgroundColor: project_inc_colors,
+      hoverOffset: 4
+    }]
+  };
+
 
 
   // // ************************************
@@ -324,21 +360,36 @@ $(document).ready(function () {
     }]
   };
 
+  // ************************************
+  // ONE GROUP ALL BANKS INCOMES
+  // ************************************
+
+
+  const dataOneProjectAllBanksInc = {
+    labels: bank_labels,
+    datasets: [{
+      // label: 'My First Dataset',
+      data: [ BANK[0].getProjectIncomes(projectFilterIndex),
+            ],
+      backgroundColor: bank_colors,
+      hoverOffset: 4
+    }]
+  };
   // **************************************
   // ALL CATS ONE GROUP ALL BANKS EXPENSES
   // **************************************
 
   const categories_expenses = [];
-  const categories_labels = [];
-  const categories_colors = [];
+  const categories_exp_labels = [];
+  const categories_exp_colors = [];
     for (p=0; p < PROJECT.length; p++) {
       // console.log('catchart', PROJECT[p].getName(), projectFilter );
       if (PROJECT[p].getName() == projectFilter) {
       var i=0;
       for (c=0; c < CATEGORY.length; c++) {
         if (PROJECT[p].getCatExpenses(c) != 0) {
-          categories_labels[i] = CATEGORY[c].getName();
-          categories_colors[i] = CATEGORY[c].getColor();
+          categories_exp_labels[i] = CATEGORY[c].getName();
+          categories_exp_colors[i] = CATEGORY[c].getColor();
           categories_expenses[i] = PROJECT[p].getCatExpenses(c)
           i++;
         }
@@ -347,17 +398,49 @@ $(document).ready(function () {
   }
   // console.log('catchart', categories_labels, categories_expenses );
 
-    const dataAllCatsOneProjectAllBanksExp = {
-      labels: categories_labels,
+
+  const dataAllCatsOneProjectAllBanksExp = {
+      labels: categories_exp_labels,
       datasets: [{
         // label: 'My First Dataset',
         // data: [10,20,30,50,40,10,20,30,50,40, 25, 64],
         data: categories_expenses,
-        backgroundColor: categories_colors,
+        backgroundColor: categories_exp_colors,
         hoverOffset: 4
       }]
     };
 
+  // **************************************
+  // ALL CATS ONE GROUP ALL BANKS INCOMES
+  // **************************************
+  const categories_incomes = [];
+  const categories_inc_labels = [];
+  const categories_inc_colors = [];
+  for (p=0; p < PROJECT.length; p++) {
+    // console.log('catchart', PROJECT[p].getName(), projectFilter );
+    if (PROJECT[p].getName() == projectFilter) {
+    var i=0;
+    for (c=0; c < CATEGORY.length; c++) {
+      if (PROJECT[p].getCatIncomes(c) != 0) {
+        categories_inc_labels[i] = CATEGORY[c].getName();
+        categories_inc_colors[i] = CATEGORY[c].getColor();
+        categories_incomes[i] = PROJECT[p].getCatIncomes(c)
+        i++;
+      }
+    }
+  }
+}    
+
+const dataAllCatsOneProjectAllBanksInc = {
+      labels: categories_inc_labels,
+      datasets: [{
+        // label: 'My First Dataset',
+        // data: [10,20,30,50,40,10,20,30,50,40, 25, 64],
+        data: categories_incomes,
+        backgroundColor: categories_inc_colors,
+        hoverOffset: 4
+      }]
+    };
 
   //   const dataAllCatsOneGroupOneBankExp = [];
   //   for (b=0; b < bankInfoObjects.length; b++) {
@@ -443,12 +526,12 @@ $(document).ready(function () {
     new Chart(
       document.getElementById('chartAllBanksIncExpSav'),
       {
-        type: 'doughnut',
+        type: 'bar',
         data:  dataAllBanksIncExpSav,
         options: {
           plugins: {
             legend: {
-              display: true,
+              display: false,
               position: 'bottom',
               labels: {
                 color: 'black',
@@ -462,7 +545,7 @@ $(document).ready(function () {
 
 
   // // ************************************
-  // // ALL GROUPS ALL BANKS EXPENSES
+  // // ALL PROJECTS ALL BANKS EXPENSES
   // // ************************************
 
   if (document.getElementById('chartAllProjectsAllBanksExp')) {
@@ -475,8 +558,42 @@ $(document).ready(function () {
           responsive: true,
           plugins: {
             title: {
-              display: false,
-              text: 'EXPENSES',
+              display: true,
+              text: 'DEPENSES',
+              color: 'black'
+            },
+            legend: {
+              display: true,
+              position: 'bottom',
+              labels: {
+                color: 'black',
+              }
+            }
+          }
+        }
+      }
+    );
+    // chartAllProjectsAllBanksExp.toggleDataVisibility(2);    
+    // chartAllProjectsAllBanksExp.toggleDataVisibility(9);    
+    // chartAllProjectsAllBanksExp.update();
+    }
+
+  // // ************************************
+  // // ALL PROJECTS ALL BANKS INCOMES
+  // // ************************************
+
+  if (document.getElementById('chartAllProjectsAllBanksInc')) {
+    const chartAllProjectsAllBanksExp =  new Chart(
+      document.getElementById('chartAllProjectsAllBanksInc'),
+      {
+        type: 'pie',
+        data:  dataAllProjectsAllBanksInc,
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'CREDIT',
               color: 'black'
             },
             legend: {
@@ -594,7 +711,8 @@ $(document).ready(function () {
         }
       );
     }
-  
+
+
   // ************************************
   // ALL CATS ONE GROUP ALL BANKS EXPENSES
   // ************************************
@@ -609,8 +727,8 @@ $(document).ready(function () {
           responsive: true,
           plugins: {
             title: {
-              display: false,
-              text: 'DEBIT',
+              display: true,
+              text: 'DEPENSES',
               color: 'black'
             },
             legend: {
@@ -627,7 +745,38 @@ $(document).ready(function () {
   }
 
   
-  // // ************************************
+  // ************************************
+  // ALL CATS ONE GROUP ALL BANKS EXPENSES
+  // ************************************
+
+  if (document.getElementById('chartAllCatsOneProjectAllBanksInc')) {
+    new Chart(
+      document.getElementById('chartAllCatsOneProjectAllBanksInc'),
+      {
+        type: 'pie',
+        data:  dataAllCatsOneProjectAllBanksInc,
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'CREDIT',
+              color: 'black'
+            },
+            legend: {
+              display: true,
+              position: 'bottom',
+              labels: {
+                color: 'black',
+              }
+            }
+          }
+        }
+      }
+    );
+  }
+
+    // // ************************************
   // // ALL CATS ONE GROUP ONE BANK EXPENSES
   // // ************************************
 

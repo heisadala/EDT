@@ -21,10 +21,7 @@ class CompteChequesTable
     private ?string $projet = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $recu = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $regle = null;
+    private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
     private ?string $debit = null;
@@ -43,6 +40,9 @@ class CompteChequesTable
 
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $commentaire = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $mail = null;
 
     public function getId(): ?int
     {
@@ -72,21 +72,16 @@ class CompteChequesTable
         return $this;
     }
 
-    public function getRecu(): ?\DateTimeInterface
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->recu;
+        return $this->date;
     }
 
-    public function setRecu(?\DateTimeInterface $recu): static
+    public function setDate(?\DateTimeInterface $date): static
     {
-        $this->recu = $recu;
+        $this->recu = $date;
 
         return $this;
-    }
-
-    public function getRegle(): ?\DateTimeInterface
-    {
-        return $this->regle;
     }
 
     public function setRegle(?\DateTimeInterface $regle): static
@@ -165,6 +160,17 @@ class CompteChequesTable
     public function setCommentaire(?string $commentaire): static
     {
         $this->commentaire = $commentaire;
+
+        return $this;
+    }
+    public function getMail(): ?string
+    {
+        return $this->mail;
+    }
+
+    public function setMail(?string $mail): static
+    {
+        $this->mail = $mail;
 
         return $this;
     }

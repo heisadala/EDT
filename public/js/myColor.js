@@ -1,21 +1,65 @@
+// aqua: '#00FFFF',
+// chartreuse: '#7FFF00',
+// fuchsia: '#FF00FF',
+// yellow: '#FFFF00',
+
+// red: '#FF0000',
+// mediumSlateBlue: '#7B68EE',
+// lightseagreen : '#20B2AA',
+// orangered : '#FF4500',  
+
+// darkviolet : '#9400D3',  
+// silver : '#C0C0C0',  
+// green : '#008000',  
+// mediumblue : '#0000CD',  
+
+// plum : '#DDA0DD',  
+// orange : '#FFA500',  
+// lightskyblue : '#87CEFA',  
+// salmon : '#FA8072',  
+
+// export const NAMED_COLORS = [
+//   CHART_COLORS.aqua,
+//   CHART_COLORS.chartreuse,
+//   CHART_COLORS.fuchsia,
+//   CHART_COLORS.yellow,
+
+//   CHART_COLORS.red,
+//   CHART_COLORS.mediumSlateBlue,
+//   CHART_COLORS.lightseagreen,
+//   CHART_COLORS.orangered,  
+
+//   CHART_COLORS.darkviolet,  
+//   CHART_COLORS.silver,  
+//   CHART_COLORS.green,  
+//   CHART_COLORS.mediumblue,  
+
+//   CHART_COLORS.plum,  
+//   CHART_COLORS.orange,  
+//   CHART_COLORS.lightskyblue,  
+//   CHART_COLORS.salmon,  
+// ];
+
+
+
 export const CHART_COLORS = {
-  aqua: '#00FFFF',
-  chartreuse: '#7FFF00',
-  fuchsia: '#FF00FF',
-  yellow: '#FFFF00',
+  pastel_blue: '#B4CFEC',
+  beige: '#EDD2B4',
+  pastel_yellow: '#FAF884',
+  blue: '#8486FA',
 
-  red: '#FF0000',
-  mediumSlateBlue: '#7B68EE',
-  lightseagreen : '#20B2AA',
-  orangered : '#FF4500',  
+  pastel_red : '#F67280',
+  electric_blue : '#71F5E8',  
+  pastel_green: '#77DD77',
+  violet: '#DE78DE',
 
-  darkviolet : '#9400D3',  
-  silver : '#C0C0C0',  
-  green : '#008000',  
-  mediumblue : '#0000CD',  
+  pastel_orange : '#F8B88B',  
+  light_blue : '#8BCAF7',  
+  pastel_purple : '#F2A2E8',  
+  green : '#A2F2AD',  
 
-  plum : '#DDA0DD',  
-  orange : '#FFA500',  
+  pastel_indigo : '#8686AF',  
+  olive : '#B0B087',  
   lightskyblue : '#87CEFA',  
   salmon : '#FA8072',  
   
@@ -23,6 +67,10 @@ export const CHART_COLORS = {
   cmz: '#FFC700',
   nickel: '#CC4C00',
   ca: '#0271A4',
+
+  debit: '#F75D59',
+  credit: '#319731',
+
 };
 
 export const BANK_COLORS = [
@@ -33,23 +81,23 @@ export const BANK_COLORS = [
 ]
 
 export const NAMED_COLORS = [
-  CHART_COLORS.aqua,
-  CHART_COLORS.chartreuse,
-  CHART_COLORS.fuchsia,
-  CHART_COLORS.yellow,
+  CHART_COLORS.pastel_blue,
+  CHART_COLORS.beige,
+  CHART_COLORS.pastel_yellow,
+  CHART_COLORS.blue,
 
-  CHART_COLORS.red,
-  CHART_COLORS.mediumSlateBlue,
-  CHART_COLORS.lightseagreen,
-  CHART_COLORS.orangered,  
+  CHART_COLORS.pastel_red,
+  CHART_COLORS.electric_blue,  
+  CHART_COLORS.pastel_green,
+  CHART_COLORS.violet,
 
-  CHART_COLORS.darkviolet,  
-  CHART_COLORS.silver,  
+  CHART_COLORS.pastel_orange,  
+  CHART_COLORS.light_blue,  
+  CHART_COLORS.pastel_purple,  
   CHART_COLORS.green,  
-  CHART_COLORS.mediumblue,  
 
-  CHART_COLORS.plum,  
-  CHART_COLORS.orange,  
+  CHART_COLORS.pastel_indigo,  
+  CHART_COLORS.olive,  
   CHART_COLORS.lightskyblue,  
   CHART_COLORS.salmon,  
 ];

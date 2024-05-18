@@ -261,4 +261,151 @@ class CompteController extends AbstractController
 
         ]);
     }
+
+    public function add (
+                            CompteTableRepository $compteTableRepository,
+                            CompteChequesTableRepository $courantTableRepository,
+
+                        ): Response
+    {
+        $app = 'COURANT';
+        $db = $compteTableRepository->findOneBy(array('name' => $app));
+        $table_header_fields = $courantTableRepository->fetch_header_fields_from_table($db->getTbl());
+        $primary_key_name = $courantTableRepository->get_pk_name($db->getTbl());
+        $primary_key_column = $this->get_pk_column($table_header_fields, $primary_key_name);
+
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : $primary_key_name;
+        $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
+        $up_or_down = $sort_order == 'ASC' ? 'down' : 'up';
+        $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
+
+        $courant_table_content = $courantTableRepository->fetch_class_from_table_ordered($db->getTbl(),
+                                                                    $sort, $sort_order);
+
+        $username = "";
+        if ($this->getUser()) {
+        $username = $this->getUser()->getUsername();
+        }
+
+        return $this->render('index.html.twig', [
+            'controller_name' => 'CompteController',
+            'server_base' => $_SERVER['BASE'],
+            'server_name' => $_SERVER['SERVER_NAME'],
+            'title' => ucfirst(strtolower($app)),
+            'icon' => $db->getIcon(),
+            'header_image' => 'Trestel_2.jpg',
+            'show_navbar' => true,
+            'show_table' => false,
+            'show_gallery' => false,
+            'background' => $db->getBackground(),
+            'db' => $db->getName(),
+            'table_header_fields' => $table_header_fields,
+            'courant_table_content' => $courant_table_content,
+            'primary_key_name' => $primary_key_name,
+            'primary_key_column' => $primary_key_column,
+            'asc_or_desc' => $asc_or_desc,
+            'up_or_down' => $up_or_down,
+            'username' => $username,
+
+        ]);
+    }
+
+    public function edit (string $pk_name, int $ref,
+                            CompteTableRepository $compteTableRepository,
+                            CompteChequesTableRepository $courantTableRepository,
+
+                        ): Response
+    {
+        $app = 'COURANT';
+        $db = $compteTableRepository->findOneBy(array('name' => $app));
+        $table_header_fields = $courantTableRepository->fetch_header_fields_from_table($db->getTbl());
+        $primary_key_name = $courantTableRepository->get_pk_name($db->getTbl());
+        $primary_key_column = $this->get_pk_column($table_header_fields, $primary_key_name);
+
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : $primary_key_name;
+        $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
+        $up_or_down = $sort_order == 'ASC' ? 'down' : 'up';
+        $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
+
+        $courant_table_content = $courantTableRepository->fetch_class_from_table_ordered($db->getTbl(),
+                                                                    $sort, $sort_order);
+
+
+        $username = "";
+        if ($this->getUser()) {
+        $username = $this->getUser()->getUsername();
+        }
+
+        return $this->render('index.html.twig', [
+            'controller_name' => 'CompteController',
+            'server_base' => $_SERVER['BASE'],
+            'server_name' => $_SERVER['SERVER_NAME'],
+            'title' => ucfirst(strtolower($app)),
+            'icon' => $db->getIcon(),
+            'header_image' => 'Trestel_2.jpg',
+            'show_navbar' => true,
+            'show_table' => false,
+            'show_gallery' => false,
+            'background' => $db->getBackground(),
+            'db' => $db->getName(),
+            'table_header_fields' => $table_header_fields,
+            'courant_table_content' => $courant_table_content,
+            'primary_key_name' => $primary_key_name,
+            'primary_key_column' => $primary_key_column,
+            'asc_or_desc' => $asc_or_desc,
+            'up_or_down' => $up_or_down,
+            'username' => $username,
+
+        ]);
+    }
+
+    public function delete (string $pk_name, int $ref,
+                            CompteTableRepository $compteTableRepository,
+                            CompteChequesTableRepository $courantTableRepository,
+
+                        ): Response
+
+    {
+        $app = 'COURANT';
+        $db = $compteTableRepository->findOneBy(array('name' => $app));
+        $table_header_fields = $courantTableRepository->fetch_header_fields_from_table($db->getTbl());
+        $primary_key_name = $courantTableRepository->get_pk_name($db->getTbl());
+        $primary_key_column = $this->get_pk_column($table_header_fields, $primary_key_name);
+
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : $primary_key_name;
+        $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
+        $up_or_down = $sort_order == 'ASC' ? 'down' : 'up';
+        $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
+
+        $courant_table_content = $courantTableRepository->fetch_class_from_table_ordered($db->getTbl(),
+                                                                    $sort, $sort_order);
+
+
+        $username = "";
+        if ($this->getUser()) {
+        $username = $this->getUser()->getUsername();
+        }
+
+        return $this->render('index.html.twig', [
+            'controller_name' => 'CompteController',
+            'server_base' => $_SERVER['BASE'],
+            'server_name' => $_SERVER['SERVER_NAME'],
+            'title' => ucfirst(strtolower($app)),
+            'icon' => $db->getIcon(),
+            'header_image' => 'Trestel_2.jpg',
+            'show_navbar' => true,
+            'show_table' => false,
+            'show_gallery' => false,
+            'background' => $db->getBackground(),
+            'db' => $db->getName(),
+            'table_header_fields' => $table_header_fields,
+            'courant_table_content' => $courant_table_content,
+            'primary_key_name' => $primary_key_name,
+            'primary_key_column' => $primary_key_column,
+            'asc_or_desc' => $asc_or_desc,
+            'up_or_down' => $up_or_down,
+            'username' => $username,
+
+        ]);
+    }
 }

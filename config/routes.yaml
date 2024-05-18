@@ -26,6 +26,7 @@ chart_homepage:
     path: /COMPTE/COURANT/CHART
     controller: App\Controller\Compte\CompteController::chart
     
+
     
 courant_homepage:
     path: /COMPTE/COURANT/{viewFormat}/{rowNumbers}
@@ -33,6 +34,18 @@ courant_homepage:
     defaults:  
         viewFormat: 'table' 
         rowNumbers: 10 
+
+courant_add:
+    path: /COMPTE/COURANT/ADD
+    controller: App\Controller\Compte\CompteController::add
+
+courant_edit:
+    path: /COMPTE/COURANT/EDIT/{pk_name}/{ref}
+    controller: App\Controller\Compte\CompteController::edit
+
+courant_delete:
+    path: /COMPTE/COURANT/DELETE/{pk_name}/{ref}
+    controller: App\Controller\Compte\CompteController::delete
 
 caisses_homepage:
     path: /COMPTE/CAISSES

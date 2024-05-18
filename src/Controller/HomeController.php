@@ -21,6 +21,7 @@ class HomeController extends AbstractController
         if ($this->getUser()) {
             $username = $this->getUser()->getUsername();
         }
+        if ($_SERVER['BASE'] == '') { $_SERVER['BASE'] = '/EDT/public';}
 
         return $this->render('index.html.twig', [
             'controller_name' => 'HomeController',

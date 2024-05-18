@@ -22,6 +22,20 @@
     </div>
 
     <div class="ms-auto p-2">
+      <a target='_blank' href='{{ path('courant_add') }}'>
+      <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/add-48.png" style="max-width: 60%"
+          alt='ADD'
+          title='ADD'></a>
+      <a target='_blank' href='#'>
+      <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/update-48.png" style="max-width: 60%"
+          alt='EDIT'
+          title='EDIT'></a>
+      <a target='_blank' href='#'>
+      <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/delete-48.png" style="max-width: 60%"
+          alt='DELETE'
+          title='DELETE'></a>
+    </div>
+    <div class="ms-auto p-2">
       <a target='_blank' href='{{ path('chart_homepage') }}'>
           <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/chart-48.png" style="max-width: 75%"
               alt='CHART'
@@ -47,6 +61,7 @@
         </div>
       {% endif %}
     </div>
+
 
 
   </div>
