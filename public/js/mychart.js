@@ -113,12 +113,15 @@ $(document).ready(function () {
   // PROJECT TABLE
   // ******************************
 
+  var index = 0;
   for (p=0; p < projectInfoObjects.length; p++) {
+    if (index == 7) {index=0;}
     PROJECT[p] = new Project(projectInfoObjects[p].name, 
-                          p, 
+                          index, 
                           getTable('PROJECT', projectInfoObjects[p].name)
                         );
     PROJECT[p].setIncExp();
+    index++;
     for (c=0; c < categoryInfoObjects.length; c++) {
       PROJECT[p].setCategories(categoryInfoObjects[c].name, c);
     }
@@ -128,10 +131,9 @@ $(document).ready(function () {
   // ******************************
   // CATEGORY TABLE
   // ******************************
-
-  var index = 0;
+  index = 0;
   for (c=0; c < categoryInfoObjects.length; c++) {
-    if (index == 16) {index=0;}
+    if (index == 7) {index=0;}
     CATEGORY[c] = new Category(categoryInfoObjects[c].name, 
                                 index, 
                                 getTable('CATEGORY', categoryInfoObjects[c].name)
@@ -552,10 +554,25 @@ const dataAllCatsOneProjectAllBanksInc = {
     const chartAllProjectsAllBanksExp =  new Chart(
       document.getElementById('chartAllProjectsAllBanksExp'),
       {
-        type: 'pie',
+        type: 'bar',
         data:  dataAllProjectsAllBanksExp,
         options: {
           responsive: true,
+          // indexAxis: 'y',
+          scales: {
+            y: {
+              ticks: {
+                // forces step size to be 50 units
+                stepSize: 1000,
+                autoSkip: false,
+              }
+            },
+          //   // grid: {
+          //   //   tickWidth: 100
+
+          //   // }
+          },
+      
           plugins: {
             title: {
               display: true,
@@ -563,7 +580,7 @@ const dataAllCatsOneProjectAllBanksInc = {
               color: 'black'
             },
             legend: {
-              display: true,
+              display: false,
               position: 'bottom',
               labels: {
                 color: 'black',

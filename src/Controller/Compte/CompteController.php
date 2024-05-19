@@ -49,6 +49,7 @@ class CompteController extends AbstractController
         return $this->render('index.html.twig', [
             'controller_name' => 'CompteController',
             'server_base' => $_SERVER['BASE'],
+            'meta_index' => 'noindex',
             'title' => ucfirst(strtolower($app)),
             'icon' => $db->getIcon(),
             'header_image' => 'Trestel_2.jpg',
@@ -100,6 +101,7 @@ class CompteController extends AbstractController
         return $this->render('index.html.twig', [
             'controller_name' => 'CompteController',
             'server_base' => $_SERVER['BASE'],
+            'meta_index' => 'noindex',
             'server_name' => $_SERVER['SERVER_NAME'],
             'title' => ucfirst(strtolower($app)),
             'icon' => $db->getIcon(),
@@ -144,6 +146,7 @@ class CompteController extends AbstractController
         return $this->render('index.html.twig', [
                 'controller_name' => 'CompteController',
                 'server_base' => $_SERVER['BASE'],
+                'meta_index' => 'noindex',
                 'title' => $app,
                 'icon' => $db->getIcon(),
                 'header_image' => 'Trestel_2.jpg',
@@ -183,6 +186,7 @@ class CompteController extends AbstractController
             return $this->render('index.html.twig', [
                     'controller_name' => 'CompteController',
                     'server_base' => $_SERVER['BASE'],
+                    'meta_index' => 'noindex',
                     'title' => $app,
                     'icon' => $db->getIcon(),
                     'header_image' => 'Trestel_2.jpg',
@@ -218,6 +222,7 @@ class CompteController extends AbstractController
             return $this->render('index.html.twig', [
                 'controller_name' => 'CompteController',
                 'server_base' => $_SERVER['BASE'],
+                'meta_index' => 'noindex',
                 'title' => ucfirst(strtolower($app)),
                 'icon' => $db->getIcon(),
                 'header_image' => 'Trestel_2.jpg',
@@ -249,6 +254,7 @@ class CompteController extends AbstractController
             return $this->render('index.html.twig', [
             'controller_name' => 'CompteController',
             'server_base' => $_SERVER['BASE'],
+            'meta_index' => 'noindex',
             'title' => ucfirst(strtolower($app)),
             'icon' => $db->getIcon(),
             'header_image' => 'Trestel_2.jpg',
@@ -291,6 +297,7 @@ class CompteController extends AbstractController
             'controller_name' => 'CompteController',
             'server_base' => $_SERVER['BASE'],
             'server_name' => $_SERVER['SERVER_NAME'],
+            'meta_index' => 'noindex',
             'title' => ucfirst(strtolower($app)),
             'icon' => $db->getIcon(),
             'header_image' => 'Trestel_2.jpg',
@@ -340,6 +347,7 @@ class CompteController extends AbstractController
             'controller_name' => 'CompteController',
             'server_base' => $_SERVER['BASE'],
             'server_name' => $_SERVER['SERVER_NAME'],
+            'meta_index' => 'noindex',
             'title' => ucfirst(strtolower($app)),
             'icon' => $db->getIcon(),
             'header_image' => 'Trestel_2.jpg',
@@ -390,6 +398,7 @@ class CompteController extends AbstractController
             'controller_name' => 'CompteController',
             'server_base' => $_SERVER['BASE'],
             'server_name' => $_SERVER['SERVER_NAME'],
+            'meta_index' => 'noindex',
             'title' => ucfirst(strtolower($app)),
             'icon' => $db->getIcon(),
             'header_image' => 'Trestel_2.jpg',

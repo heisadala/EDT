@@ -23,6 +23,7 @@ class ContactController extends AbstractController
         return $this->render('index.html.twig', [
             'controller_name' => 'ContactController',
             'server_base' => $_SERVER['BASE'],
+            'meta_index' => 'index',
             'title' => ucfirst(strtolower($app)),
             'icon' => $db->getIcon(),
             'header_image' => 'Trestel_2.jpg',

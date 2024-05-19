@@ -39,29 +39,36 @@
 //   CHART_COLORS.lightskyblue,  
 //   CHART_COLORS.salmon,  
 // ];
+// pastel_blue: '#B4CFEC',
+// beige: '#EDD2B4',
+// pastel_yellow: '#FAF884',
+// blue: '#8486FA',
 
+// pastel_red : '#F67280',
+// electric_blue : '#71F5E8',  
+// pastel_green: '#77DD77',
+// violet: '#DE78DE',
+
+// pastel_orange : '#F8B88B',  
+// light_blue : '#8BCAF7',  
+// pastel_purple : '#F2A2E8',  
+// green : '#A2F2AD',  
+
+// pastel_indigo : '#8686AF',  
+// olive : '#B0B087',  
+// lightskyblue : '#87CEFA',  
+// salmon : '#FA8072',  
 
 
 export const CHART_COLORS = {
-  pastel_blue: '#B4CFEC',
-  beige: '#EDD2B4',
-  pastel_yellow: '#FAF884',
-  blue: '#8486FA',
 
-  pastel_red : '#F67280',
-  electric_blue : '#71F5E8',  
-  pastel_green: '#77DD77',
-  violet: '#DE78DE',
-
-  pastel_orange : '#F8B88B',  
-  light_blue : '#8BCAF7',  
-  pastel_purple : '#F2A2E8',  
-  green : '#A2F2AD',  
-
-  pastel_indigo : '#8686AF',  
-  olive : '#B0B087',  
-  lightskyblue : '#87CEFA',  
-  salmon : '#FA8072',  
+  yellow: '#FFF202',
+  lightblue : '#A7CAF0',
+  rose: '#E0A1C0',
+  green: '#BEE005',
+  orange: '#95ADCF',
+  iceblue : '#E0617F',  
+  red: '#DE803E',
   
   cmb: '#DC3545',
   cmz: '#FFC700',
@@ -81,25 +88,14 @@ export const BANK_COLORS = [
 ]
 
 export const NAMED_COLORS = [
-  CHART_COLORS.pastel_blue,
-  CHART_COLORS.beige,
-  CHART_COLORS.pastel_yellow,
-  CHART_COLORS.blue,
+  CHART_COLORS.yellow,
+  CHART_COLORS.lightblue,
+  CHART_COLORS.rose,
+  CHART_COLORS.green,
+  CHART_COLORS.orange,
+  CHART_COLORS.iceblue,  
+  CHART_COLORS.red,
 
-  CHART_COLORS.pastel_red,
-  CHART_COLORS.electric_blue,  
-  CHART_COLORS.pastel_green,
-  CHART_COLORS.violet,
-
-  CHART_COLORS.pastel_orange,  
-  CHART_COLORS.light_blue,  
-  CHART_COLORS.pastel_purple,  
-  CHART_COLORS.green,  
-
-  CHART_COLORS.pastel_indigo,  
-  CHART_COLORS.olive,  
-  CHART_COLORS.lightskyblue,  
-  CHART_COLORS.salmon,  
 ];
 //
   // const getExpenses = function (table) {

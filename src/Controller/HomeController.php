@@ -26,7 +26,8 @@ class HomeController extends AbstractController
         return $this->render('index.html.twig', [
             'controller_name' => 'HomeController',
             'server_base' => $_SERVER['BASE'],
-            'title' => 'Accueil' . $app,
+            'meta_index' => 'index',
+            'title' => 'Accueil ' . $app,
             'icon' => $db->getIcon(),
             'header_image' => 'Trestel_2.jpg',
             'show_navbar' => true,
