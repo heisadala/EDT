@@ -741,4 +741,14 @@ input.nosubmit {
 .edt-login-eye {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+.credit-tooltip {
+  --bs-tooltip-bg: var(--bs-success);
+  --bs-tooltip-color: var(--bs-success-bg-subtle);
+}
+
+.dispo-tooltip {
+  --bs-tooltip-bg: var(--bs-info);
+  --bs-tooltip-color: var(--bs-info-bg-subtle);
 }/*# sourceMappingURL=style.css.map */

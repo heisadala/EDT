@@ -97,6 +97,9 @@
     {% if show_chart is defined and show_chart == true %}
         {% include ( "#{db|lower}/chart.html.twig" ) %}
     {% endif %}
+    {% if show_dashboard is defined and show_dashboard == true %}
+        {% include ( "#{db|lower}/dashboard.html.twig" ) %}
+    {% endif %}
     {% if show_login is defined and show_login == true %}
         {% include ( "security/login.html.twig" ) %}
     {% endif %}

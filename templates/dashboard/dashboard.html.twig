@@ -1,0 +1,210 @@
+
+{% set dispo_2024 = '44600' %}   
+{% set p_total_devis = 0 %}
+{% set p_total_acompte = 0 %}
+{% set p_total_factures = 0 %}
+{% for entry in projets %}
+    {% set entryInfo = {
+            id: entry.id,
+            project: entry.projet ,
+            d_date: entry.ddate|date("d-m-Y") ,
+            f_date: entry.fdate|date("d-m-Y") ,
+            comment: entry.commentaire,
+            p_rcv: entry.precu|date("d-m-Y") ,
+            p_sign: entry.psig|date("d-m-Y") ,
+            d_rcv: entry.drecu|date("d-m-Y") ,
+            d_sign: entry.dsig|date("d-m-Y") ,
+            d_amount: entry.dmontant,
+            a_date_1: entry.adate1|date("d-m-Y") ,
+            a_amount_1: entry.acompte1,
+            a_date_2: entry.adate2|date("d-m-Y") ,
+            a_amount_2: entry.acompte2,
+            f_rcv: entry.frecu|date("d-m-Y") ,
+            f_amount: entry.fmontant,
+            f_done: entry.fregle,
+            f_operation: entry.foperation,
+    } %}
+
+    {% set p_total_devis = p_total_devis + entry.dmontant %}   
+    {% set p_total_acompte = p_total_acompte + entry.acompte1  + entry.acompte2 %}   
+    {% set p_total_factures = p_total_factures + entry.fmontant %}   
+
+{% endfor %}
+{% set total_factures = 0 %}
+{% set edt_total_factures = 0 %}
+{% set total_credit = 0 %}
+{% set edt_total_credit = 0 %}
+{% set total_don = 0 %}
+{% for entry in account %}
+    {% set entryInfo = {
+            id: entry.id,
+            bank: entry.banque ,
+            projectId: entry.projetid,
+            project: entry.projet,
+            date: entry.date|date("d-m-Y") ,
+            expenses: entry.debit,
+            incomes: entry.credit,
+            facture: entry.facture,
+            operation: entry.operation,
+            category: entry.categorie,
+            comment: entry.commentaire,
+            mail: entry.mail,
+    } %}
+
+    {% if entry.projet is defined and entry.projet != 'AUTRE' %}
+        {% set total_credit = total_credit + entry.credit %}   
+        {% set total_factures = total_factures + entry.debit %}   
+        {% if entry.projet == 'DON' %}
+            {% set total_don = total_don + entry.credit %}   
+        {% endif %}
+    {% endif %}
+    {% if entry.projet is defined and entry.projet|split('',3)[0] == 'EDT' %}
+        {% set edt_total_credit = edt_total_credit + entry.credit %}   
+        {% set edt_total_factures = edt_total_factures + entry.debit %}   
+    {% endif %}
+
+{% endfor %}
+{% set p_total_paye = p_total_factures + p_total_acompte %}   
+{% set p_total_rest = p_total_devis - p_total_paye %}   
+{% set total_debit = p_total_paye + edt_total_factures %}   
+{% set bilan = total_credit - total_debit %}   
+{% if bilan < 0 %}
+    {% set bilan_text = 'text-danger' %}
+{% else %}
+    {% set bilan_text = 'text-success' %}
+{% endif %}
+
+    {% set dispo = dispo_2024 + bilan %}   
+
+<div class="row justify-content-between  bg-white">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-1">&nbsp;
+        <div class="card" style="max-width: 18rem;">
+            <div class="card-header text-center text-secondary bg-info-subtle fs-6">2024</div>
+            <div class="card-body bg-success-subtle">
+                <p class="card-text text-center text-align-center text-secondary fs-6">{{ dispo_2024 }} €</p>
+                {# <a class="link-info link-underline link-underline-opacity-0" href="#" data-bs-custom-class="dispo-tooltip" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true"
+                data-bs-title="<h4>&nbsp;DISPO {{ dispo }} €</h4>&nbsp;">2024</a></p> #}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">PROJETS
+        <div class="card" style="max-width: 18rem;">
+            <div class="card-header bg-danger-subtle text-center text-danger fs-6">DEVIS</div>
+            <div class="card-body bg-danger-subtle">
+                <p class="card-text text-center text-align-center text-danger fs-3">{{ p_total_devis }} €</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">&nbsp;
+        <div class="card" style="max-width: 18rem;">
+            <div class="card-header bg-danger-subtle text-center text-danger fs-6">PAYE</div>
+            <div class="card-body bg-danger-subtle">
+                <p class="card-text text-center text-align-center text-danger fs-3">{{ p_total_paye }} €</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+
+    <div class="col-md-2">&nbsp;
+        <div class="card" style="max-width: 18rem;">
+            <div class="card-header bg-white text-center text-secondary fs-6">A VENIR</div>
+            <div class="card-body bg-white">
+                <p class="card-text text-center text-align-center text-secondary fs-3">{{ p_total_rest }} €</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<div class="row bg-white" style="height: 0.5rem;"></div>
+
+<div class="row justify-content-between  bg-light">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-1">
+    </div>
+
+    <div class="col-md-2">EDT
+    </div>
+    <div class="col-md-2">&nbsp;
+        <div class="card" style="max-width: 18rem;">
+            <div class="card-header bg-danger-subtle text-center text-danger fs-6">PAYE</div>
+            <div class="card-body bg-danger-subtle">
+                <p class="card-text text-center text-align-center text-danger fs-3">{{ edt_total_factures }} €</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">&nbsp;
+     </div>
+    <div class="col-md-2">&nbsp;
+     </div>
+
+
+    <div class="col-md-2"></div>
+</div>
+
+<div class="row bg-white" style="height: 2rem;"></div>
+<div class="row justify-content-between  bg-white">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-1">
+    </div>
+
+    <div class="col-md-2">&nbsp;
+        <div class="card" style="max-width: 18rem;">
+            <div class="card-header bg-success-subtle text-center text-success fs-6">CREDIT</div>
+            <div class="card-body bg-success-subtle">
+                <p class="card-text text-center text-align-center text-success fs-3 muted">
+                <a class="link-success link-underline link-underline-opacity-0" href="#" data-bs-custom-class="credit-tooltip" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true"
+                data-bs-title="<h4>&nbsp;DONS {{ total_don }} €</h4>&nbsp;" 
+                >{{ total_credit }} €</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">&nbsp;
+        <div class="card" style="max-width: 18rem;">
+            <div class="card-header bg-danger-subtle text-center text-danger fs-6">DEBIT</div>
+            <div class="card-body bg-danger-subtle">
+                <p class="card-text text-center text-align-center text-danger fs-3">{{ total_debit }} €</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">&nbsp;
+        <div class="card" style="max-width: 18rem;">
+            <div class="card-header text-center text-secondary bg-white fs-6">BILAN</div>
+            <div class="card-body bg-white">
+                <p class="card-text text-center text-align-center  {{ bilan_text }} fs-3">{{ bilan }} €</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">&nbsp;
+        <div class="card" style="max-width: 18rem;">
+            <div class="card-header text-center text-secondary bg-info-subtle fs-6">DISPO</div>
+            <div class="card-body bg-success-subtle">
+                <p class="card-text text-center text-align-center text-secondary fs-3">{{ dispo }} €</p>
+                {# <a class="link-info link-underline link-underline-opacity-0" href="#" data-bs-custom-class="dispo-tooltip" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true"
+                data-bs-title="<h4>&nbsp;DISPO {{ dispo }} €</h4>&nbsp;">2024</a></p> #}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2"></div>
+</div>
+
+<div class="row bg-white" style="height: 2rem;"></div>
+
+
+
+
+<script>
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl, {boundary: document.body}))
+</script>

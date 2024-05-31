@@ -36,6 +36,7 @@ class SecurityController extends AbstractController
             'error' => $error,
             'controller_name' => 'SecurityController',
             'server_base' => $_SERVER['BASE'],
+            'meta_index' => 'noindex',
             'title' => 'Login',
             'icon' => 'Edt.png',
             'header_image' => 'Trestel_2.jpg',

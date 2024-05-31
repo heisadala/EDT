@@ -17,6 +17,9 @@ class CompteChequesTable
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $banque = null;
 
+    #[ORM\Column(length: 4, nullable: false)]
+    private ?int $projetid = 0;
+
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $projet = null;
 
@@ -48,6 +51,17 @@ class CompteChequesTable
     {
         return $this->id;
     }
+    public function getProjetid(): ?int
+    {
+        return $this->projetid;
+    }
+    public function setProjetid(?int $projetid): static
+    {
+        $this->projetid = $projetid;
+
+        return $this;
+    }
+
 
     public function getBanque(): ?string
     {

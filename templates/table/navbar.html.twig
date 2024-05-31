@@ -5,7 +5,7 @@
           <ul class="breadcrumb" style="align-items: center;">
             <li class="breadcrumb-item fs-6"><a href="{{ server_base }}">Accueil</a></li>
             <li class="breadcrumb-item fs-6"><a href="{{ server_base }}/COMPTE">Compte</a></li>
-            <li class="breadcrumb-item fs-6 active" aria-current="page">Compte courant</li>
+            <li class="breadcrumb-item fs-6 active" aria-current="page">Table</li>
           </ul>
       </div>
     </nav>
@@ -40,6 +40,11 @@
           <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/chart-48.png" style="max-width: 75%"
               alt='CHART'
               title='CHART'></a>
+
+      <a target='_blank' href='{{ path('dashboard_homepage') }}'>
+          <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/dashboard-48.png" style="max-width: 75%"
+              alt='DASHBOARD'
+              title='DASHBOARD'></a>
 
      <a target='_blank' href='https://www.credit-agricole.fr/ca-cotesdarmor/association.html'>
           <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/bank-48.png" style="max-width: 75%"

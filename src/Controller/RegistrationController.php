@@ -53,6 +53,7 @@ class RegistrationController extends AbstractController
             'title' => 'Register EDT user',
             'show_register' => true,
             'icon' => $db->getIcon(),
+            'meta_index' => 'noindex',
             'background' => $db->getBackground(),
             'header_title' => $_SERVER['HTTP_HOST'],
             'news' => '',

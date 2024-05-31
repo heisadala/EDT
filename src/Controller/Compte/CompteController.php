@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\CompteTableRepository;
 use App\Repository\CompteChequesTableRepository;
+use App\Repository\ProjetsDevisTableRepository;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class CompteController extends AbstractController
@@ -63,13 +64,13 @@ class CompteController extends AbstractController
         ]);
     }
 
-    public function courant(string $viewFormat, int $rowNumbers,
+    public function table(string $viewFormat, int $rowNumbers,
                             CompteTableRepository $compteTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
 
                         ): Response
     {
-        $app = 'COURANT';
+        $app = 'TABLE';
         $db = $compteTableRepository->findOneBy(array('name' => $app));
         $table_header_fields = $courantTableRepository->fetch_header_fields_from_table($db->getTbl());
         $primary_key_name = $courantTableRepository->get_pk_name($db->getTbl());
@@ -124,9 +125,9 @@ class CompteController extends AbstractController
     }
 
     public function chart (
-                            CompteTableRepository $compteTableRepository,
-                            CompteChequesTableRepository $courantTableRepository,
-                        ): Response
+        CompteTableRepository $compteTableRepository,
+        CompteChequesTableRepository $courantTableRepository,
+    ): Response
     {
 
         $app = 'CHART';
@@ -162,46 +163,88 @@ class CompteController extends AbstractController
 
         ]);
     }
+    public function dashboard (
+        CompteTableRepository $compteTableRepository,
+        CompteChequesTableRepository $courantTableRepository,
+        ProjetsDevisTableRepository $projetDevisTableRepository,
+    ): Response
+    {
+
+        $app = 'DASHBOARD';
+        $db = $compteTableRepository->findOneby(['name' => $app]);
+        $projets = $projetDevisTableRepository->findAll();
+        $account = $courantTableRepository->findAll();
+
+        // $banks = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'banque');
+        // $projects = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'projet');
+        // $operations = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'operation');
+        // $categories = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'categorie');
+
+        $username = "";
+        if ($this->getUser()) {
+        $username = $this->getUser()->getUsername();
+        }
+
+        return $this->render('index.html.twig', [
+                'controller_name' => 'CompteController',
+                'server_base' => $_SERVER['BASE'],
+                'meta_index' => 'noindex',
+                'title' => $app,
+                'icon' => $db->getIcon(),
+                'header_image' => 'Trestel_2.jpg',
+                'show_navbar' => false,
+                'db' => $db->getName(),
+                'show_dashboard' => true,
+                'projets' => $projets,
+                'account' => $account,
+                // 'banks' => $banks,
+                // 'projects' => $projects,
+                // 'categories' => $categories,
+                // 'operations' => $operations,
+                'username' => $username,
+
+        ]);
+    }
 
     public function project (string $projectFilter,
                             CompteTableRepository $compteTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
                             ): Response
-{
+    {
 
-            $app = 'PROJECT';
-            $db = $compteTableRepository->findOneby(['name' => $app]);
-            $account = $courantTableRepository->findAll();
+        $app = 'PROJECT';
+        $db = $compteTableRepository->findOneby(['name' => $app]);
+        $account = $courantTableRepository->findAll();
 
-            $banks = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'banque');
-            $projects = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'projet');
-            $operations = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'operation');
-            $categories = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'categorie');
+        $banks = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'banque');
+        $projects = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'projet');
+        $operations = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'operation');
+        $categories = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'categorie');
 
-            $username = "";
-            if ($this->getUser()) {
-            $username = $this->getUser()->getUsername();
-            }
+        $username = "";
+        if ($this->getUser()) {
+        $username = $this->getUser()->getUsername();
+        }
 
-            return $this->render('index.html.twig', [
-                    'controller_name' => 'CompteController',
-                    'server_base' => $_SERVER['BASE'],
-                    'meta_index' => 'noindex',
-                    'title' => $app,
-                    'icon' => $db->getIcon(),
-                    'header_image' => 'Trestel_2.jpg',
-                    'show_navbar' => true,
-                    'db' => $db->getName(),
-                    'show_chart' => true,
-                    'account' => $account,
-                    'banks' => $banks,
-                    'projects' => $projects,
-                    'categories' => $categories,
-                    'operations' => $operations,
-                    'projectFilter' => $projectFilter,
-                    'username' => $username,
+        return $this->render('index.html.twig', [
+                'controller_name' => 'CompteController',
+                'server_base' => $_SERVER['BASE'],
+                'meta_index' => 'noindex',
+                'title' => $app,
+                'icon' => $db->getIcon(),
+                'header_image' => 'Trestel_2.jpg',
+                'show_navbar' => true,
+                'db' => $db->getName(),
+                'show_chart' => true,
+                'account' => $account,
+                'banks' => $banks,
+                'projects' => $projects,
+                'categories' => $categories,
+                'operations' => $operations,
+                'projectFilter' => $projectFilter,
+                'username' => $username,
 
-            ]);
+        ]);
 }
 
 

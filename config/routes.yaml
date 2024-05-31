@@ -23,14 +23,16 @@ project_homepage:
         projectFilter: 'EDT' 
 
 chart_homepage:
-    path: /COMPTE/COURANT/CHART
+    path: /COMPTE/CHART
     controller: App\Controller\Compte\CompteController::chart
     
-
+dashboard_homepage:
+    path: /COMPTE/DASHBOARD
+    controller: App\Controller\Compte\CompteController::dashboard
     
 courant_homepage:
-    path: /COMPTE/COURANT/{viewFormat}/{rowNumbers}
-    controller: App\Controller\Compte\CompteController::courant
+    path: /COMPTE/TABLE/{viewFormat}/{rowNumbers}
+    controller: App\Controller\Compte\CompteController::table
     defaults:  
         viewFormat: 'table' 
         rowNumbers: 10 
