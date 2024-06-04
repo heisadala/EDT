@@ -16,6 +16,10 @@ asso_homepage:
     path: /ASSO
     controller: App\Controller\Asso\AssoController::index
 
+handi_homepage:
+    path: /HANDI
+    controller: App\Controller\Handi\HandiController::index
+
 compte_homepage:
     path: /COMPTE
     controller: App\Controller\Compte\CompteController::index
