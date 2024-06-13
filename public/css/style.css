@@ -494,6 +494,14 @@ body {
   --bs-dropdown-min-width: 0;
 }
 
+.edt-body-header-account.show:hover {
+  --bs-dropdown-link-hover-bg: var(--edt-green-color);
+}
+
+.btn.edt-login-btn.show {
+  border-color: white;
+}
+
 .sm-lego-dropdown {
   background-color: #0DCAF0;
   --bs-dropdown-min-width: 0;

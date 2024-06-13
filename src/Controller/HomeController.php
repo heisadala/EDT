@@ -18,8 +18,10 @@ class HomeController extends AbstractController
         $db = $homeTableRepository->findOneby(['name' => $table_name]);
 
         $username = "";
+        $role = "";
         if ($this->getUser()) {
             $username = $this->getUser()->getUsername();
+            $role = ($this->getUser()->getRoles())[0];
         }
         if ($_SERVER['BASE'] == '') { $_SERVER['BASE'] = '/EDT/public';}
 
@@ -34,6 +36,7 @@ class HomeController extends AbstractController
             'show_cards' => true,
             'db' => $db->getName(),
             'username' => $username,
+            'role' => $role,
         ]);
     }
 }
