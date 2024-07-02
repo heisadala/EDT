@@ -73,9 +73,35 @@
                                 <td hidden >{{ row.id }} </td>
                                 <td>{{ row.projet }} </td>
                                 <td> {{ row.date|date("d-m-Y") }} </td>
+                                {% if row.debit != '0.00' %}
+                                    {% set deci = row.debit|length %}
+                                    {% if deci == 4 %}
+                                        <td >&nbsp;&nbsp;&nbsp;&nbsp;{{ row.debit }} </td>
+                                    {% elseif deci == 5 %}
+                                        <td >&nbsp;&nbsp;&nbsp;{{ row.debit }} </td>
+                                    {% elseif deci == 6 %}
+                                        <td >&nbsp;&nbsp;{{ row.debit }} </td>
+                                   {% elseif deci == 7 %}
+                                        <td >&nbsp;{{ row.debit }} </td>
+                                    {% endif %}
+                                {% else %}
+                                    <td>&nbsp;</td>
+                                {% endif %}
+                                {% if row.credit != '0.00' %}
+                                    {% set deci = row.credit|length %}
+                                    {% if deci == 4 %}
+                                        <td >&nbsp;&nbsp;&nbsp;&nbsp;{{ row.credit }} </td>
+                                    {% elseif deci == 5 %}
+                                        <td >&nbsp;&nbsp;&nbsp;{{ row.credit }} </td>
+                                    {% elseif deci == 6 %}
+                                        <td >&nbsp;&nbsp;{{ row.credit }} </td>
+                                   {% elseif deci == 7 %}
+                                        <td >&nbsp;{{ row.credit }} </td>
+                                    {% endif %}
+                                {% else %}
+                                    <td>&nbsp;</td>
+                                {% endif %}
 
-                                <td>{{ row.debit }} </td>
-                                <td>{{ row.credit }} </td>
                                 {% if row.facture != '' %}
                                     {% set path = server_base|split('/') %}
                                     {# <td><a href='https://{{ server_name }}/{{ path[1] }}/FACTURES/{{ row.projet }}_{{ row.facture }}.pdf'>{{ row.projet }}_{{ row.facture }}.pdf</a> </td> #}

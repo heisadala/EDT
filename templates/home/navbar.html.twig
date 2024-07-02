@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg" >
-  <div class="container-fluid justify-content-start">
+  <div class='container-fluid justify-content-start'>
     <div >&nbsp;&nbsp;
       {# <button class="btn " data-bs-toggle="dropdown" type="button">
         <img class="rounded-circle" src="{{ server_base }}/images/icon/squared-menu-96.png">
@@ -23,14 +23,14 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
+        <li class="nav-item ">
           {# <a class="nav-link fs-6" href='#'>Contact</a> #}
           <a class="nav-link fs-6" href='{{ path('asso_homepage') }}'>Qui sommes nous</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown edt-dropdown">
           <a class="nav-link dropdown-toggle fs-6" data-bs-toggle="dropdown" href=''
               role="button" aria-expanded="false">Manifestations</a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu edt-dropdown-menu">
             <li>
               <a class="dropdown-item fs-6 text-red d-flex gap-2 align-items-center" href='{{ path('handi_homepage') }}'>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-globe" viewBox="0 0 16 16">
@@ -40,10 +40,10 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown edt-dropdown">
           <a class="nav-link dropdown-toggle fs-6" data-bs-toggle="dropdown" href=''
               role="button" aria-expanded="false">Assemblée générale</a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu edt-dropdown-menu">
             <li>
               <a class="dropdown-item fs-6 text-red d-flex gap-2 align-items-center" href='{{ server_base }}/ag/PV_AG_15_03_2024.pdf'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
@@ -53,13 +53,13 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item">
+        <li class="nav-item ">
           {# <a class="nav-link fs-6" href='#'>Contact</a> #}
           <a class="nav-link fs-6" href='{{ path('contact_homepage') }}'>Contact</a>
         </li>
         {% if username is defined and username != '' %}
 
-          <li class="nav-item">
+          <li class="nav-item ">
             {# <a class="nav-link fs-6" href='#'>Contact</a> #}
             <a class="nav-link fs-6" href='{{ path('compte_homepage') }}'>Compte</a>
           </li>
@@ -88,28 +88,28 @@
     </div>
     <div class="ms-auto p-2">
       {% if username is defined and username != '' %}
-        <div class="btn-group dropstart">
+        <div class="btn-group dropstart edt-dropdown">
           <button class="btn " data-bs-toggle="dropdown" type="button">
               <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/person-48.png" style="max-width: 75%"
                   alt={{ username }}
                   title={{ username }}
               >
           </button>
-          <ul class="dropdown-menu edt-body-header-account">
+          <ul class="dropdown-menu edt-dropdown-menu edt-body-header-account">
               <li><a class="dropdown-item disabled" >{{ username }}</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="{{ server_base }}/logout">Logout</a></li>
           </ul>
         </div>
       {% else %}
-        <div class="btn-group dropstart">
+        <div class="btn-group dropstart edt-dropdown">
           <button class="btn edt-login-btn" data-bs-toggle="dropdown" type="button">
               <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/person-48.png" style="max-width: 75%"
                   alt='connexion'
                   title='connexion'
               >
           </button>
-          <ul class="dropdown-menu edt-body-header-account">
+          <ul class="dropdown-menu edt-dropdown-menu edt-body-header-account">
               <li><a class="dropdown-item" href="{{ server_base }}/login">Connexion</a></li>
           </ul>
         </div>

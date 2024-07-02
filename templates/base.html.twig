@@ -73,14 +73,6 @@
     # ##################}
     <body>
         {# ##################
-        #      header 
-        # ##################}
-        {% block header %}{% endblock %}
-
-        <div class='row  justify-content-between m-0' 
-            style='height: 0.5rem;'>
-        </div>
-        {# ##################
         #      news 
         # ##################}
         <div class='row justify-content-between m-0'>
@@ -88,10 +80,17 @@
                 {% block news %}{% endblock %}
             </div>
         </div>
+        {# ##################
+        #      header 
+        # ##################}
+        {% block header %}{% endblock %}
 
         <div class='row  justify-content-between m-0' 
             style='height: 0.5rem;'>
         </div>
+
+
+
         {# ##################
         #      navbar 
         # ##################}

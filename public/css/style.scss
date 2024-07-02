@@ -2,9 +2,11 @@
 @use '_fonts';
 // @import 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap';
 @import 'https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@600&display=swap';
 
 
 $sm-html-font: fonts.$sm-montserrat-font;
+$edt-num-font: fonts.$edt-roboto-font;
 $sm-html-bg-color: Aqua;
 
 // $sm-body-bg-color: MidnightBlue;
@@ -163,7 +165,8 @@ body {
 // NEWS
 // ////////////
 .edt-body-news-content {
-    background-image: linear-gradient(45deg, var(--edt-orange-color) 0%, var(--edt-red-color) 100%)
+    background: rgb(222,128,62);
+    background: radial-gradient(circle, rgba(222,128,62,1) 0%, rgba(224,97,127,1) 100%); 
 }
 
 @media screen and (max-width: 1024px) {
@@ -177,10 +180,18 @@ body {
 .navbar
 {
     font-size: x-large;
-}
+//    background: rgb(224,161,192);
+//    background: radial-gradient(circle, rgba(224,161,192,1) 0%, rgba(149,173,207,1) 100%); 
+    // background: rgb(34,195,151);
+    // background: linear-gradient(0deg, rgba(34,195,151,1) 0%, rgba(163,213,106,1) 78%);
+ }
 
+ .edt-dropdown:hover .edt-dropdown-menu {
+    display: block;
+ }
+ 
 .nav-link {
-    color: var(--bs-info);
+    color: var(--bs-primary);
 
 }
 .nav-link:hover
@@ -246,8 +257,18 @@ body {
 // LEGO TABLE
 // //////////////////////
 
+.sm-lego-table > tbody {
+    font-family: $edt-num-font;
+    font-variant-numeric: tabular-nums;
+}
+.edt-euros-font {
+    font-family: $edt-num-font;
+    font-variant-numeric: tabular-nums;
+}
+
 .sm-lego-table thead {
     font-size: larger;
+
     --bs-table-color: var(--sm-white-color);
     --bs-table-bg: var(--sm-iceblue-color);
 }

@@ -78,128 +78,133 @@
 
 <div class="row justify-content-between  bg-white">
     <div class="col-md-1">
-    </div>
-    <div class="col-md-1">&nbsp;
-        <div class="card" style="max-width: 18rem;">
-            <div class="card-header text-center text-secondary bg-info-subtle fs-6">2024</div>
+        <div class="card mx-2" style="max-width: 9rem;">
+            <div class="card-header text-center text-secondary bg-info-subtle fs-6">FIN 2023</div>
             <div class="card-body bg-success-subtle">
-                <p class="card-text text-center text-align-center text-secondary fs-6">{{ dispo_2024 }} €</p>
+                <p class="card-text edt-euros-font  text-center text-align-center text-success fs-6">{{ dispo_2024 }} €</p>
                 {# <a class="link-info link-underline link-underline-opacity-0" href="#" data-bs-custom-class="dispo-tooltip" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true"
                 data-bs-title="<h4>&nbsp;DISPO {{ dispo }} €</h4>&nbsp;">2024</a></p> #}
             </div>
         </div>
     </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
+</div>
+<div class="row bg-white" style="height: 0.5rem;"></div>
 
-    <div class="col-md-2">PROJETS
+<div class="row justify-content-between">
+    <div class="col-md-1 text-end mt-3">PROJETS:</div>
+    <div class="col-md-2 ">
         <div class="card" style="max-width: 18rem;">
             <div class="card-header bg-danger-subtle text-center text-danger fs-6">DEVIS</div>
             <div class="card-body bg-danger-subtle">
-                <p class="card-text text-center text-align-center text-danger fs-3">{{ p_total_devis }} €</p>
+                <p class="card-text edt-euros-font text-center text-align-center text-danger fs-4">{{ p_total_devis|format_number({fraction_digit: 2})}} €</p>
             </div>
         </div>
     </div>
-
-    <div class="col-md-2">&nbsp;
+    <div class="col-md-2">
         <div class="card" style="max-width: 18rem;">
             <div class="card-header bg-danger-subtle text-center text-danger fs-6">PAYE</div>
             <div class="card-body bg-danger-subtle">
-                <p class="card-text text-center text-align-center text-danger fs-3">{{ p_total_paye }} €</p>
+                <p class="card-text edt-euros-font text-center text-align-center text-danger fs-4">{{ p_total_paye|format_number({fraction_digit: 2}) }} €</p>
             </div>
         </div>
     </div>
     <div class="col-md-2"></div>
-
-    <div class="col-md-2">&nbsp;
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
         <div class="card" style="max-width: 18rem;">
             <div class="card-header bg-white text-center text-secondary fs-6">A VENIR</div>
             <div class="card-body bg-white">
-                <p class="card-text text-center text-align-center text-secondary fs-3">{{ p_total_rest }} €</p>
+                <p class="card-text edt-euros-font text-center text-align-center text-danger fs-4">-{{ p_total_rest|format_number({fraction_digit: 2}) }} €</p>
             </div>
         </div>
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
 </div>
 
-<div class="row bg-white" style="height: 0.5rem;"></div>
+<div class="row" style="height: 0.5rem;"></div>
 
-<div class="row justify-content-between  bg-light">
-    <div class="col-md-1">
-    </div>
-    <div class="col-md-1">
-    </div>
-
-    <div class="col-md-2">EDT
-    </div>
-    <div class="col-md-2">&nbsp;
+<div class="row justify-content-between ">
+    <div class="col-md-1 text-end mt-3">EDT:</div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2 ">
         <div class="card" style="max-width: 18rem;">
             <div class="card-header bg-danger-subtle text-center text-danger fs-6">PAYE</div>
             <div class="card-body bg-danger-subtle">
-                <p class="card-text text-center text-align-center text-danger fs-3">{{ edt_total_factures }} €</p>
+                <p class="card-text edt-euros-font text-center text-align-center text-danger fs-4">{{ edt_total_factures|format_number({fraction_digit: 2}) }} €</p>
             </div>
         </div>
     </div>
 
-    <div class="col-md-2">&nbsp;
-     </div>
-    <div class="col-md-2">&nbsp;
-     </div>
-
-
     <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
+
 </div>
+<div class="row" style="height: 0.5rem;"></div>
+<div class="row bg-secondary-subtle" style="height: 0.5rem;"></div>
+<div class="row" style="height: 0.5rem;"></div>
 
-<div class="row bg-white" style="height: 2rem;"></div>
-<div class="row justify-content-between  bg-white">
-    <div class="col-md-1">
-    </div>
-    <div class="col-md-1">
-    </div>
+<div class="row justify-content-between">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"></div>
 
-    <div class="col-md-2">&nbsp;
+    <div class="col-md-2">
+        <div class="card" style="max-width: 18rem;">
+            <div class="card-header bg-danger-subtle text-center text-danger fs-6">DEBIT</div>
+            <div class="card-body bg-danger-subtle">
+                <p class="card-text edt-euros-font text-center text-align-center text-danger fs-4">{{ total_debit|format_number({fraction_digit: 2}) }} €</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
         <div class="card" style="max-width: 18rem;">
             <div class="card-header bg-success-subtle text-center text-success fs-6">CREDIT</div>
             <div class="card-body bg-success-subtle">
-                <p class="card-text text-center text-align-center text-success fs-3 muted">
+                <p class="card-text edt-euros-font text-center text-align-center text-success fs-4 muted">
                 <a class="link-success link-underline link-underline-opacity-0" href="#" data-bs-custom-class="credit-tooltip" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true"
                 data-bs-title="<h4>&nbsp;DONS {{ total_don }} €</h4>&nbsp;" 
-                >{{ total_credit }} €</a>
+                >{{ total_credit|format_number({fraction_digit: 2}) }} €</a>
                 </p>
             </div>
         </div>
     </div>
 
-    <div class="col-md-2">&nbsp;
-        <div class="card" style="max-width: 18rem;">
-            <div class="card-header bg-danger-subtle text-center text-danger fs-6">DEBIT</div>
-            <div class="card-body bg-danger-subtle">
-                <p class="card-text text-center text-align-center text-danger fs-3">{{ total_debit }} €</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-2">&nbsp;
+    <div class="col-md-2">
         <div class="card" style="max-width: 18rem;">
             <div class="card-header text-center text-secondary bg-white fs-6">BILAN</div>
             <div class="card-body bg-white">
-                <p class="card-text text-center text-align-center  {{ bilan_text }} fs-3">{{ bilan }} €</p>
+                <p class="card-text edt-euros-font text-center text-align-center  {{ bilan_text }} fs-4">{{ bilan|format_number({fraction_digit: 2}) }} €</p>
             </div>
         </div>
     </div>
-    <div class="col-md-2">&nbsp;
+    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
+</div>
+
+<div class="row" style="height: 0.5rem;"></div>
+<div class="row" style="height: 0.5rem;"></div>
+<div class="row justify-content-between">
+    <div class="col-md-1"></div>
+    <div class="col-md-8"></div>
+
+    <div class="col-md-2">
         <div class="card" style="max-width: 18rem;">
             <div class="card-header text-center text-secondary bg-info-subtle fs-6">DISPO</div>
             <div class="card-body bg-success-subtle">
-                <p class="card-text text-center text-align-center text-secondary fs-3">{{ dispo }} €</p>
+                <p class="card-text edt-euros-font text-center text-align-center text-success  fs-4">{{ dispo|format_number({fraction_digit: 2})}} €</p>
                 {# <a class="link-info link-underline link-underline-opacity-0" href="#" data-bs-custom-class="dispo-tooltip" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true"
                 data-bs-title="<h4>&nbsp;DISPO {{ dispo }} €</h4>&nbsp;">2024</a></p> #}
             </div>
         </div>
     </div>
-
-    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
 </div>
-
-<div class="row bg-white" style="height: 2rem;"></div>
 
 
 

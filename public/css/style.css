@@ -1,4 +1,5 @@
 @import 'https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@600&display=swap';
 :root {
   --edt-yellow-color: rgb(255, 242, 2);
   --edt-green-color: rgb(190, 224, 5);
@@ -508,7 +509,8 @@ body {
 }
 
 .edt-body-news-content {
-  background-image: linear-gradient(45deg, var(--edt-orange-color) 0%, var(--edt-red-color) 100%);
+  background: rgb(222, 128, 62);
+  background: radial-gradient(circle, rgb(222, 128, 62) 0%, rgb(224, 97, 127) 100%);
 }
 
 @media screen and (max-width: 1024px) {
@@ -520,8 +522,12 @@ body {
   font-size: x-large;
 }
 
+.edt-dropdown:hover .edt-dropdown-menu {
+  display: block;
+}
+
 .nav-link {
-  color: var(--bs-info);
+  color: var(--bs-primary);
 }
 
 .nav-link:hover {
@@ -577,6 +583,16 @@ body {
         }
     }    
  */
+.sm-lego-table > tbody {
+  font-family: "Roboto Mono";
+  font-variant-numeric: tabular-nums;
+}
+
+.edt-euros-font {
+  font-family: "Roboto Mono";
+  font-variant-numeric: tabular-nums;
+}
+
 .sm-lego-table thead {
   font-size: larger;
   --bs-table-color: var(--sm-white-color);
