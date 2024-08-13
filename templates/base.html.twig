@@ -75,38 +75,23 @@
         {# ##################
         #      news 
         # ##################}
-        <div class='row justify-content-between m-0'>
-            <div class='d-flex mt-1 p-1 justify-content-center text-white edt-body-news-content'>
-                {% block news %}{% endblock %}
-            </div>
-        </div>
+        {% block news %}{% endblock %}
+        
         {# ##################
-        #      header 
+        #      header - navbar
         # ##################}
         {% block header %}{% endblock %}
-
-        <div class='row  justify-content-between m-0' 
-            style='height: 0.5rem;'>
-        </div>
-
-
-
-        {# ##################
-        #      navbar 
-        # ##################}
-        {% block navbar %}{% endblock %}
 
         {# ##################
         #      content 
         # ##################}
         {% block content %}{% endblock %}
-        <div class='row justify-content-between m-0' 
-            style='height: 1rem;'>
-        </div>
+
         {# ##################
         #      footer 
         # ##################}
         {% block footer %}{% endblock %}
+
         {# ##################
         #      javascript 
         # ##################}

@@ -31,7 +31,6 @@ class HomeController extends AbstractController
             'meta_index' => 'index',
             'title' => 'Accueil ' . $app,
             'icon' => $db->getIcon(),
-            'header_image' => 'Trestel_2.jpg',
             'show_navbar' => true,
             'show_cards' => true,
             'db' => $db->getName(),

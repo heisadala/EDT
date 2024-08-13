@@ -392,7 +392,6 @@
 
 html,
 body {
-  height: 100%;
   width: 100%;
 }
 
@@ -413,46 +412,81 @@ body {
   background-size: cover;
   background-position: center center;
   font-family: "Montserrat";
+  color: var(--bs-info);
   background-color: White;
 }
 
-.edt-body-header-container {
-  color: White;
+.edt-body-news-content {
+  background: rgb(222, 128, 62);
+  background: radial-gradient(circle, rgb(222, 128, 62) 0%, rgb(224, 97, 127) 100%);
 }
 
-.edt-body-header-logo {
+.edt-header-container {
+  color: var(--bs-info);
+  background-color: White;
+}
+
+.edt-navbar-brand-logo {
   max-width: 100%;
-}
-
-.edt-lg, .edt-lg-contact {
-  align-self: center;
-  --bs-list-group-border-width: 0px;
-}
-
-.edt-lg-item-fb {
-  color: #3b5998;
-}
-
-.edt-toggler-label {
-  color: var(--edt-iceblue-color);
+  height: 6rem;
 }
 
 .edt-navbar-toggler {
   --bs-navbar-toggler-icon-bg: var(--edt-toggler-icon);
-  color: var(--edt-iceblue-color);
+}
+
+.navbar {
+  font-size: x-large;
+}
+
+.nav-item:hover {
+  background-color: var(--bs-primary-bg-subtle);
+}
+
+.nav-link {
+  color: var(--bs-primary);
+}
+
+.nav-link:hover {
+  color: var(--bs-primary);
+}
+
+.nav-link:visited {
+  color: var(--bs-primary);
+}
+
+.edt-dropdown:hover .edt-dropdown-menu {
+  display: block;
+}
+
+.edt-dropdown-item {
+  font-size: 1rem;
+  gap: 0.5rem;
+  align-items: center;
+  display: flex;
+  color: var(--bs-danger);
+}
+
+.edt-dropdown-item:hover {
+  color: var(--bs-danger);
 }
 
 @media screen and (min-width: 1024px) {
+  .navbar-nav, ul {
+    align-items: center;
+  }
+  .nav-item {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    margin-bottom: 0.25rem;
+    margin-right: 0.5rem;
+    box-shadow: var(--bs-box-shadow);
+    border-radius: 1rem;
+  }
   .edt-nav-item-fb {
     display: none;
   }
   .edt-nav-item-mail {
-    display: none;
-  }
-  .edt-toggler-label {
-    display: none;
-  }
-  .edt-lg-contact {
     display: none;
   }
   .edt-contact-table-xs {
@@ -463,17 +497,19 @@ body {
   }
 }
 @media screen and (max-width: 1024px) {
-  .edt-body-header-img {
-    display: none;
+  .edt-body-news-content {
+    font-size: 0.5rem;
   }
-  .edt-lg {
-    display: none;
+  .nav-item {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    margin-bottom: 0.25rem;
+    margin-right: 0.5rem;
+    border-bottom: var(--bs-primary-bg-subtle);
+    border-bottom-style: groove;
   }
-  .edt-lg-contact {
-    display: flex;
-  }
-  .edt-toggler-label {
-    display: flex;
+  .edt-dropdown-menu {
+    border: none;
   }
   .edt-nav-item-fb {
     display: flex;
@@ -487,51 +523,25 @@ body {
   .edt-admin-btn {
     display: none;
   }
-}
-.edt-body-header-account {
-  -moz-text-align-last: left;
-       text-align-last: left;
-  background-color: var(--edt-green-color);
-  --bs-dropdown-min-width: 0;
-}
-
-.edt-body-header-account.show:hover {
-  --bs-dropdown-link-hover-bg: var(--edt-green-color);
-}
-
-.btn.edt-login-btn.show {
-  border-color: white;
-}
-
-.sm-lego-dropdown {
-  background-color: #0DCAF0;
-  --bs-dropdown-min-width: 0;
-}
-
-.edt-body-news-content {
-  background: rgb(222, 128, 62);
-  background: radial-gradient(circle, rgb(222, 128, 62) 0%, rgb(224, 97, 127) 100%);
-}
-
-@media screen and (max-width: 1024px) {
-  .edt-body-news-content {
-    font-size: 0.5rem;
+  .edt-btn-login-logo {
+    padding-left: 0px;
   }
 }
-.navbar {
-  font-size: x-large;
+.breadcrumb-item > a {
+  color: var(--bs-primary);
+  text-decoration: none;
 }
 
-.edt-dropdown:hover .edt-dropdown-menu {
-  display: block;
-}
-
-.nav-link {
+.breadcrumb-item + .breadcrumb-item:before {
   color: var(--bs-primary);
 }
 
-.nav-link:hover {
-  color: #ef210f;
+.breadcrumb-item:hover {
+  color: var(--bs-primary);
+}
+
+.breadcrumb-item.active {
+  color: var(--bs-primary);
 }
 
 .sm-lego-brand {
@@ -726,23 +736,6 @@ input.nosubmit {
 
 .invalid-feedback {
   background-color: pink;
-}
-
-.breadcrumb-item > a {
-  color: var(--bs-info);
-  text-decoration: none;
-}
-
-.breadcrumb-item + .breadcrumb-item:before {
-  color: var(--bs-info);
-}
-
-.breadcrumb-item:hover {
-  color: var(--bs-info);
-}
-
-.breadcrumb-item.active {
-  color: var(--bs-info);
 }
 
 .edt-login-form i {

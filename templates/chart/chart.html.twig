@@ -4,7 +4,7 @@
     {% set entryInfo = {
             id: entry.id,
             bank: entry.banque ,
-            project: entry.projet ,
+            project: entry.affectation ,
             date: entry.date|date("d-m-Y") ,
             debit: entry.debit,
             credit: entry.credit,
@@ -23,7 +23,7 @@
 {% endfor %}
 {% for project in projects %}
     {% set projectInfo = {
-        name: project.projet,
+        name: project.affectation,
     } %}
     <div data-project-id='{{ projectInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
 {% endfor %}
@@ -41,7 +41,10 @@
 {% endfor %}
 
 
-
+<div class='bg-body-tertiary'>
+    <div class='row justify-content-between m-0' 
+        style='height: 2rem;'>
+    </div>            
 <div class="row justify-content-between">
     <div class="col-md-1"></div>
     <div class="col-md-3 ">
@@ -68,13 +71,13 @@
                     {% for project in projects %}
                         {% set expense = 0 %}
                         {% for eintrag in account %}
-                            {% if eintrag.projet == project.projet %}
+                            {% if eintrag.affectation == project.affectation %}
                                 {% set expense = expense + eintrag.debit %}   
                             {% endif %}
                         {% endfor %}
-                        {% if expense != 0 and project.projet != 'AUTRE'%}
+                        {% if expense != 0 and project.affectation != 'AUTRE'%}
                             <tr>
-                            <td><a href="{{ server_base }}/COMPTE/COURANT/CHART/PROJECT/{{ project.projet }}"> {{ project.projet }} </a></td>
+                            <td><a href="{{ server_base }}/COMPTE/COURANT/CHART/PROJECT/{{ project.affectation }}"> {{ project.affectation }} </a></td>
                             <td> {{ expense }} </td>
                             </tr>
                             {% set total_expense = total_expense + expense %}   
@@ -108,13 +111,13 @@
                     {% for project in projects %}
                         {% set credit = 0 %}
                         {% for eintrag in account %}
-                            {% if eintrag.projet == project.projet and project.projet != 'AUTRE' %}
+                            {% if eintrag.affectation == project.affectation and project.affectation != 'AUTRE' %}
                                 {% set credit = credit + eintrag.credit %}   
                             {% endif %}
                         {% endfor %}
                         {% if credit != 0 %}
                             <tr>
-                            <td><a href="{{ server_base }}/COMPTE/COURANT/CHART/PROJECT/{{ project.projet }}"> {{ project.projet }} </a></td>
+                            <td><a href="{{ server_base }}/COMPTE/COURANT/CHART/PROJECT/{{ project.affectation }}"> {{ project.affectation }} </a></td>
                             <td> {{ credit }} </td>
                             </tr>
                             {% set total_credit = total_credit + credit %}   
@@ -130,5 +133,8 @@
         </div>
     </div> 
 </div>
-
+    <div class='row justify-content-between m-0' 
+        style='height: 2rem;'>
+    </div>            
+</div>
 <script type='module' src="{{ asset('js/mychart.js') }}"></script>

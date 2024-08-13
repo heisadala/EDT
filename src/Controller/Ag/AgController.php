@@ -26,8 +26,6 @@ class AgController extends AbstractController
             'server_base' => $_SERVER['BASE'],
             'title' => 'AG',
             'icon' => 'Edt.png',
-            'news' => '',
-            'header_image' => 'Trestel_2.jpg',
             'db' => 'AG',
             'show_navbar' => false,
             'show_carousel_ag' => $show_carousel_ag,

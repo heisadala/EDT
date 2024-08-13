@@ -1,5 +1,10 @@
-<nav class="navbar navbar-expand-lg" >
-  <div class="container-fluid justify-content-between">
+<div class='container-fluid justify-content-start'>
+  <nav class="navbar navbar-expand-lg" >
+    <div class="navbar-brand">
+        <img class='img-fluid rounded edt-navbar-brand-logo'
+            src="{{ server_base }}/images/logo/Enfants_de_trestel.png" style='height:6rem'>
+      &nbsp;&nbsp;
+    </div>
     <nav class='mt-2' style="--bs-breadcrumb-divider: '>';"  aria-label="breadcrumb">
       <div class="container-fluid">
           <ul class="breadcrumb" style="align-items: center;">
@@ -10,19 +15,8 @@
       </div>
     </nav>
 
-    <div class="list-group list-group-horizontal text-center edt-lg-contact fs-2 p-3">
-        <a target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474" 
-            class="list-group-item list-group-item-action edt-lg-item-fb">
-            <i class='fa fa-facebook' aria-hidden='true'></i>
-        </a>
-        <a href="mailto:tresorerie.enfantsdetrestel@gmail.com" 
-            class="list-group-item list-group-item-action edt-text-orange">
-            <i class='fa fa-envelope'></i>
-        </a>
-    </div>
-
     <div class="ms-auto p-2">
-      <a target='_blank' href='{{ path('courant_add') }}'>
+      <a target='_blank' href='{{ path('cpt_table_add') }}'>
       <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/add-48.png" style="max-width: 60%"
           alt='ADD'
           title='ADD'></a>
@@ -36,12 +30,12 @@
           title='DELETE'></a>
     </div>
     <div class="ms-auto p-2">
-      <a target='_blank' href='{{ path('chart_homepage') }}'>
+      <a target='_blank' href='{{ path('cpt_chart_homepage') }}'>
           <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/chart-48.png" style="max-width: 75%"
               alt='CHART'
               title='CHART'></a>
 
-      <a target='_blank' href='{{ path('dashboard_homepage') }}'>
+      <a target='_blank' href='{{ path('cpt_dashboard_homepage') }}'>
           <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/dashboard-48.png" style="max-width: 75%"
               alt='DASHBOARD'
               title='DASHBOARD'></a>
@@ -51,23 +45,31 @@
               alt='BANK'
               title='BANK'></a>
 
-      {% if username is defined and username != '' %}
-        <div class="btn-group dropstart">
-          <button class="btn " data-bs-toggle="dropdown" type="button">
-              <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/person-48.png" style="max-width: 75%"
+
+            <div class="btn-group dropstart ">
+              <button class="btn edt-btn-login-logo" data-bs-toggle="dropdown" type="button">
+                <img class="img-fluid rounded-circle border border-primary" src="{{ server_base }}/images/icon/person-48.png" style="max-width: 75%"
                   alt={{ username }}
-                  title={{ username }}>
-          </button>
-          <ul class="dropdown-menu edt-body-header-account">
-              <li><a class="dropdown-item disabled" >{{ username }}</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="{{ server_base }}/logout">Logout</a></li>
-          </ul>
-        </div>
-      {% endif %}
+                  title={{ username }}
+                >
+              </button>
+              <ul class="dropdown-menu" style="width:250px;" >
+                <li><a class="dropdown-item-text" style="display:grid; text-decoration:none; justify-items:center;" >
+                  <div class='bg-warning' style='width:60px;height:60px;border-radius:50%;justify-content: center;display:flex;align-items:center;'>
+                    <span class="text-danger">{{ username|slice(0,1) }}</span></div></a></li>
+                <li><a class="dropdown-item-text" style="display:grid; text-decoration:none; justify-items:center;" >{{ username }}</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" style="display:flex; justify-content:space-between" href="{{ server_base }}/logout">Déconnexion
+                                <img class="img-fluid " src="{{ server_base }}/images/icon/logout-32.png" style="max-width: 75%"
+                  alt="Déconnexion"
+                  title="Déconnexion"
+                ></a></li>
+              </ul>
+            </div>
+
+
     </div>
 
 
-
-  </div>
-</nav>
+  </nav>
+</div>

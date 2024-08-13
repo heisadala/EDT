@@ -53,7 +53,6 @@ class CompteController extends AbstractController
             'meta_index' => 'noindex',
             'title' => ucfirst(strtolower($app)),
             'icon' => $db->getIcon(),
-            'header_image' => 'Trestel_2.jpg',
             'show_navbar' => true,
             'show_gallery' => true,
             'background' => $db->getBackground(),
@@ -76,8 +75,8 @@ class CompteController extends AbstractController
         $primary_key_name = $courantTableRepository->get_pk_name($db->getTbl());
         $primary_key_column = $this->get_pk_column($table_header_fields, $primary_key_name);
 
-        $sort = isset($_GET['sort']) ? $_GET['sort'] : $primary_key_name;
-        $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'date';
+        $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'asc' ? 'ASC' : 'DESC';
         $up_or_down = $sort_order == 'ASC' ? 'down' : 'up';
         $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
 
@@ -106,7 +105,6 @@ class CompteController extends AbstractController
             'server_name' => $_SERVER['SERVER_NAME'],
             'title' => ucfirst(strtolower($app)),
             'icon' => $db->getIcon(),
-            'header_image' => 'Trestel_2.jpg',
             'show_navbar' => true,
             'show_table' => true,
             'show_gallery' => false,
@@ -135,7 +133,7 @@ class CompteController extends AbstractController
         $account = $courantTableRepository->findAll();
 
         $banks = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'banque');
-        $projects = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'projet');
+        $projects = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'affectation');
         $operations = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'operation');
         $categories = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'categorie');
 
@@ -192,7 +190,7 @@ class CompteController extends AbstractController
                 'title' => $app,
                 'icon' => $db->getIcon(),
                 'header_image' => 'Trestel_2.jpg',
-                'show_navbar' => false,
+                'show_navbar' => true,
                 'db' => $db->getName(),
                 'show_dashboard' => true,
                 'projets' => $projets,
@@ -217,7 +215,7 @@ class CompteController extends AbstractController
         $account = $courantTableRepository->findAll();
 
         $banks = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'banque');
-        $projects = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'projet');
+        $projects = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'affectation');
         $operations = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'operation');
         $categories = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'categorie');
 

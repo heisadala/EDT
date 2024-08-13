@@ -4,7 +4,7 @@
     {% set entryInfo = {
             id: entry.id,
             bank: entry.banque ,
-            project: entry.projet ,
+            project: entry.affectation ,
             date: entry.date|date("d-m-Y") ,
             debit: entry.debit,
             credit: entry.credit,
@@ -23,7 +23,7 @@
 {% endfor %}
 {% for project in projects %}
     {% set projectInfo = {
-        name: project.projet,
+        name: project.affectation,
     } %}
     <div data-project-id='{{ projectInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
 {% endfor %}
@@ -54,7 +54,7 @@
                     {% for category in categories %}
                         {% set expense = 0 %}
                         {% for eintrag in account %}
-                            {% if eintrag.projet == projectFilter and eintrag.categorie == category.categorie %}
+                            {% if eintrag.affectation == projectFilter and eintrag.categorie == category.categorie %}
                                 {% set expense = expense + eintrag.debit %}   
                             {% endif %}
                         {% endfor %}
@@ -92,7 +92,7 @@
                     {% for category in categories %}
                         {% set credit = 0 %}
                         {% for eintrag in account %}
-                            {% if eintrag.projet == projectFilter and eintrag.categorie == category.categorie %}
+                            {% if eintrag.affectation == projectFilter and eintrag.categorie == category.categorie %}
                                 {% set credit = credit + eintrag.credit %}   
                             {% endif %}
                         {% endfor %}

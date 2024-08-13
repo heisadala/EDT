@@ -40,7 +40,7 @@
             id: entry.id,
             bank: entry.banque ,
             projectId: entry.projetid,
-            project: entry.projet,
+            project: entry.affectation,
             date: entry.date|date("d-m-Y") ,
             expenses: entry.debit,
             incomes: entry.credit,
@@ -51,14 +51,14 @@
             mail: entry.mail,
     } %}
 
-    {% if entry.projet is defined and entry.projet != 'AUTRE' %}
+    {% if entry.affectation is defined and entry.affectation != 'AUTRE' %}
         {% set total_credit = total_credit + entry.credit %}   
         {% set total_factures = total_factures + entry.debit %}   
-        {% if entry.projet == 'DON' %}
+        {% if entry.affectation == 'DON' %}
             {% set total_don = total_don + entry.credit %}   
         {% endif %}
     {% endif %}
-    {% if entry.projet is defined and entry.projet|split('',3)[0] == 'EDT' %}
+    {% if entry.affectation is defined and entry.affectation|split('',3)[0] == 'EDT' %}
         {% set edt_total_credit = edt_total_credit + entry.credit %}   
         {% set edt_total_factures = edt_total_factures + entry.debit %}   
     {% endif %}
@@ -76,7 +76,11 @@
 
     {% set dispo = dispo_2024 + bilan %}   
 
-<div class="row justify-content-between  bg-white">
+<div class='bg-body-secondary'>
+    <div class='row justify-content-between m-0' 
+        style='height: 2rem;'>
+    </div>            
+    <div class="row justify-content-between">
     <div class="col-md-1">
         <div class="card mx-2" style="max-width: 9rem;">
             <div class="card-header text-center text-secondary bg-info-subtle fs-6">FIN 2023</div>
@@ -93,7 +97,7 @@
     <div class="col-md-2"></div>
     <div class="col-md-1"></div>
 </div>
-<div class="row bg-white" style="height: 0.5rem;"></div>
+<div class="row" style="height: 0.5rem;"></div>
 
 <div class="row justify-content-between">
     <div class="col-md-1 text-end mt-3">PROJETS:</div>
@@ -205,6 +209,9 @@
     </div>
     <div class="col-md-1"></div>
 </div>
+    <div class='row justify-content-between m-0' 
+        style='height: 2rem;'>
+    </div>         </div>
 
 
 

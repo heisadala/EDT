@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\ProjetsDevisTable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Service\Database;
 
 /**
  * @extends ServiceEntityRepository<ProjetsDevisTable>
@@ -21,7 +22,15 @@ class ProjetsDevisTableRepository extends ServiceEntityRepository
         parent::__construct($registry, ProjetsDevisTable::class);
     }
 
-    //    /**
+    function get_connection ()
+    {
+        return $this->getEntityManager()->getConnection();
+    }
+    public function fetch_column_unique_value($table_name, $column_name): array
+    {
+        $db = new Database;
+        return ($db->fetch_column_unique_value($this->get_connection(), $table_name, $column_name));
+    }    //    /**
     //     * @return ProjetsDevisTable[] Returns an array of ProjetsDevisTable objects
     //     */
     //    public function findByExampleField($value): array

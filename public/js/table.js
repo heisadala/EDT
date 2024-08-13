@@ -117,9 +117,9 @@ $(document).ready(function () {
         $('.sm-lego-table-dropdown-menu li a').removeClass('active');
         $('a', this).addClass('active');
         console.log(location);
-        pathname = location.href.substring(0,location.href.indexOf('HOME'));
+        pathname = location.href.substring(0,location.href.indexOf('TABLE'));
         console.log(pathname);
-        location.href = pathname + 'COURANT/table/' + rowsShown;
+        location.href = pathname + 'TABLE/table/' + rowsShown;
     });
 
     if (document.getElementById("sm-lego-navbar-link-delete-img") != null) {

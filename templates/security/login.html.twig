@@ -3,7 +3,7 @@
     <div class='row'>
     <div class="col-md-3 col-xl-4"></div>
     <div class="col-md-6 col-xl-4">
-        <form class="edt-login-form border border-5 border-success" style="--bs-border-opacity: .5;" method="post">
+        <form class="edt-login-form border border-5 border-success rounded" style="--bs-border-opacity: .5;" method="post">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}

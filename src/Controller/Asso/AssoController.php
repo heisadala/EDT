@@ -13,7 +13,7 @@ class AssoController extends AbstractController
     {
         $app = 'ASSO';
 
-       $db = $homeTableRepository->findOneBy(array('name' => $app));
+        $db = $homeTableRepository->findOneBy(array('name' => $app));
 
         return $this->render('index.html.twig', [
             'controller_name' => 'AssoController',
@@ -21,7 +21,6 @@ class AssoController extends AbstractController
             'meta_index' => 'index',
             'title' => ucfirst(strtolower($app)),
             'icon' => $db->getIcon(),
-            'header_image' => 'Trestel_2.jpg',
             'show_navbar' => true,
             'show_flyer' => true,
             'db' => $db->getName(),

@@ -10,69 +10,31 @@
     {{ parent() }}
 {% endblock %}
 
-{% block header %}
-
-    <div class='container-fluid edt-body-header-container' >
-        <header>
-            <div class='row  justify-content-between m-0' 
-                style='height: 10px;'>
-            </div>
-            <div class='row'>
-                <div class='col-md-1 align-self-center text-center '></div>
-                <div class='col-md-2 align-self-center text-center '>
-                    <img class='img-fluid rounded edt-body-header-logo'
-                        src="{{ server_base }}/images/logo/Enfants_de_trestel.png">
-                </div>
-
-                <div class='col-md-1 mt-3 align-self-center text-center '></div>
-
-                <div class='col-md-4 align-self-center text-center'>
-                    {% if header_title is defined and header_title != '' %}
-                        <h1>{% block header_title %} {{ header_title }} {% endblock %}</h1>
-                    {% endif %}
-                    {% if header_image is defined and header_image != '' %}
-                        {% set title = header_image|split('.') %}
-                        <img class='img-fluid  rounded edt-body-header-img'
-                            src="{{ server_base }}/images/icon/header/{{ header_image }}" 
-                            alt={{ title[0] }} 
-                            title={{ title[0] }} 
-                        >
-                    {% endif %}
-                </div>
-                <div class='col-md-2 mt-3 align-self-center text-center'></div>
-                <div class='col-md-2 align-self-center text-center'>
-                    {# <div class="list-group list-group-horizontal edt-lg ms-auto p-3 fs-2" style='width:50%'> #}
-                    <div class="list-group list-group-horizontal text-center edt-lg fs-2 p-3">
-                        <a target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474" 
-                            class="list-group-item list-group-item-action edt-lg-item-fb">
-                            <i class='fa fa-facebook' aria-hidden='true'></i>
-                        </a>
-                        <a href="mailto:tresorerie.enfantsdetrestel@gmail.com" 
-                            class="list-group-item list-group-item-action edt-text-orange">
-                            <i class='fa fa-envelope'></i>
-                        </a>
-                    </div>
-               </div>
-
-            </div>
-        </header>
+{% block news %}
+     <div class='row justify-content-between m-0'>
+        <div class='d-flex mt-1 p-1 justify-content-center text-white edt-body-news-content'>
+            <div class='col-1 '></div>
+            <div class='col-2 '>SITE EN CONSTRUCTION</div>
+            <div class='col-1 '></div>
+            <div class='col-4 align-self-center text-center'>&nbsp;</div> 
+            <div class='col-1 '></div>
+            <div class='col-2'>SITE EN CONSTRUCTION</div>
+            <div class='col-1 '></div>
+        </div>
     </div>
 {% endblock %}
 
-{% block news %}
-    <div class='col-1 '></div>
-    <div class='col-2 '>SITE EN CONSTRUCTION</div>
-    <div class='col-1 '></div>
-    <div class='col-4 align-self-center text-center'>&nbsp;</div> 
-    <div class='col-1 '></div>
-    <div class='col-2'>SITE EN CONSTRUCTION</div>
-    <div class='col-1 '></div>
-{% endblock %}
+{% block header %}
+    <div class='container-fluid edt-header-container sticky-top' >
+        <header>
+            {% if show_navbar is defined and show_navbar == true %}
+                {% include ( "#{db|lower}/navbar.html.twig" ) %}
+            {% else %} 
+                {% include ( "navbar.html.twig" ) %}
+            {% endif %} 
+        </header> 
+    </div>
 
-{% block navbar %}
-    {% if show_navbar is defined and show_navbar == true %}
-        {% include ( "#{db|lower}/navbar.html.twig" ) %}
-    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -109,10 +71,18 @@
 {% endblock %}
 
 {% block footer %}
-        <div class='d-flex justify-content-center m-0'>
-            <a target="_blank" href="https://icons8.com">Icons by Icons8</a>
+        <div class='d-flex justify-content-center align-items-center m-0'>
+            <a class='p-3' target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474">
+                <img class='img-fluid rounded'
+                    src="{{ server_base }}/images/icon/facebook-48.png" >
+            </a>
+            <a class='p-3' target="_blank" href="https://icons8.com">Icons by Icons8</a>
+            <a class='p-3' href="mailto:tresorerie.enfantsdetrestel@gmail.com">
+                <img class='img-fluid rounded'
+                    src="{{ server_base }}/images/icon/send-email-40.png" >
+            </a>
         </div>
-{% endblock %}
+ {% endblock %}
 
 {% block java %}
     {% if inc_java is defined and inc_java == true %}

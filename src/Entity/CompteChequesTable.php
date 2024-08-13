@@ -17,11 +17,11 @@ class CompteChequesTable
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $banque = null;
 
-    #[ORM\Column(length: 4, nullable: false)]
-    private ?int $projetid = 0;
+    #[ORM\Column(length: 11, nullable: false)]
+    private ?int $projet_id = 0;
 
     #[ORM\Column(length: 50, nullable: true)]
-    private ?string $projet = null;
+    private ?string $affectation = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date = null;
@@ -53,11 +53,11 @@ class CompteChequesTable
     }
     public function getProjetid(): ?int
     {
-        return $this->projetid;
+        return $this->projet_id;
     }
-    public function setProjetid(?int $projetid): static
+    public function setProjetid(?int $projet_id): static
     {
-        $this->projetid = $projetid;
+        $this->projet_id = $projet_id;
 
         return $this;
     }
@@ -74,14 +74,14 @@ class CompteChequesTable
         return $this;
     }
 
-    public function getProjet(): ?string
+    public function getAffectation(): ?string
     {
-        return $this->projet;
+        return $this->affectation;
     }
 
-    public function setProject(?string $projet): static
+    public function setAffectation(?string $affectation): static
     {
-        $this->projet = $projet;
+        $this->affectation = $affectation;
 
         return $this;
     }
