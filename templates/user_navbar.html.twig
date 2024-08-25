@@ -1,0 +1,26 @@
+<ul class="navbar-nav ms-auto">
+	<li class="nav-item">
+		<div class="btn-group dropstart ">
+			<button class="btn edt-btn-login-logo" data-bs-toggle="dropdown" type="button">
+				<img class="img-fluid rounded-circle border border-primary" src="{{ server_base }}/images/icon/person-48.png" style="max-width: 75%" alt={{ username }} title={{ username }}>
+			</button>
+			<ul class="dropdown-menu" style="width:250px;">
+				<li>
+					<a class="dropdown-item-text" style="display:grid; text-decoration:none; justify-items:center;">
+						<div class='bg-warning' style='width:60px;height:60px;border-radius:50%;justify-content: center;display:flex;align-items:center;'>
+							<span class="text-danger">{{ username|slice(0,1) }}</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a class="dropdown-item-text" style="display:grid; text-decoration:none; justify-items:center;">{{ username }}</a>
+				</li>
+				<li><hr class="dropdown-divider"></li>
+				<li>
+					<a class="dropdown-item" style="display:flex; justify-content:space-between" href="{{ server_base }}/logout">Déconnexion
+						<img class="img-fluid " src="{{ server_base }}/images/icon/logout-32.png" style="max-width: 75%" alt="Déconnexion" title="Déconnexion"></a>
+				</li>
+			</ul>
+		</div>
+	</li>
+</ul>

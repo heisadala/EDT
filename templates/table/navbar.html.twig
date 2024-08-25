@@ -1,75 +1,35 @@
+{% set credit_2024 = 11507.06 %}
+{% set credit = 0.00 %}
+{% set debit = 0.00 %}
+
+{% for row in courant_table_content %}
+	{% set credit = credit + row.credit %}
+	{% set debit = debit + row.debit %}
+{% endfor %}
+{% set credit_cc = credit_2024 + credit - debit %}
+
 <div class='container-fluid justify-content-start'>
-  <nav class="navbar navbar-expand-lg" >
-    <div class="navbar-brand">
-        <img class='img-fluid rounded edt-navbar-brand-logo'
-            src="{{ server_base }}/images/logo/Enfants_de_trestel.png" style='height:6rem'>
-      &nbsp;&nbsp;
-    </div>
-    <nav class='mt-2' style="--bs-breadcrumb-divider: '>';"  aria-label="breadcrumb">
-      <div class="container-fluid">
-          <ul class="breadcrumb" style="align-items: center;">
-            <li class="breadcrumb-item fs-6"><a href="{{ server_base }}">Accueil</a></li>
-            <li class="breadcrumb-item fs-6"><a href="{{ server_base }}/COMPTE">Compte</a></li>
-            <li class="breadcrumb-item fs-6 active" aria-current="page">Table</li>
-          </ul>
-      </div>
-    </nav>
+	<nav class="navbar navbar-expand-lg">
+		{% include ( "navbar_brand.html.twig" ) %}
 
-    <div class="ms-auto p-2">
-      <a target='_blank' href='{{ path('cpt_table_add') }}'>
-      <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/add-48.png" style="max-width: 60%"
-          alt='ADD'
-          title='ADD'></a>
-      <a target='_blank' href='#'>
-      <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/update-48.png" style="max-width: 60%"
-          alt='EDIT'
-          title='EDIT'></a>
-      <a target='_blank' href='#'>
-      <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/delete-48.png" style="max-width: 60%"
-          alt='DELETE'
-          title='DELETE'></a>
-    </div>
-    <div class="ms-auto p-2">
-      <a target='_blank' href='{{ path('cpt_chart_homepage') }}'>
-          <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/chart-48.png" style="max-width: 75%"
-              alt='CHART'
-              title='CHART'></a>
+        <ul class="navbar-nav">
+                {% include ( "li_chart.html.twig" ) %}
+                {% include ( "li_dashboard.html.twig" ) %}
+                {% include ( "li_banque.html.twig" ) %}
 
-      <a target='_blank' href='{{ path('cpt_dashboard_homepage') }}'>
-          <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/dashboard-48.png" style="max-width: 75%"
-              alt='DASHBOARD'
-              title='DASHBOARD'></a>
+        </ul>
+        <ul class="navbar-nav me-auto">
+            <li>
+                <div class="text-secondary fs-6 edt-euros-font ms-2 p-2">SOLDE:
+                    {{ credit_cc|number_format(2) }}
+                    €</div>
+            </li>
+        </ul>
 
-     <a target='_blank' href='https://www.credit-agricole.fr/ca-cotesdarmor/association.html'>
-          <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/bank-48.png" style="max-width: 75%"
-              alt='BANK'
-              title='BANK'></a>
+		{% include ( "user_navbar.html.twig" ) %}
+		</div>
 
 
-            <div class="btn-group dropstart ">
-              <button class="btn edt-btn-login-logo" data-bs-toggle="dropdown" type="button">
-                <img class="img-fluid rounded-circle border border-primary" src="{{ server_base }}/images/icon/person-48.png" style="max-width: 75%"
-                  alt={{ username }}
-                  title={{ username }}
-                >
-              </button>
-              <ul class="dropdown-menu" style="width:250px;" >
-                <li><a class="dropdown-item-text" style="display:grid; text-decoration:none; justify-items:center;" >
-                  <div class='bg-warning' style='width:60px;height:60px;border-radius:50%;justify-content: center;display:flex;align-items:center;'>
-                    <span class="text-danger">{{ username|slice(0,1) }}</span></div></a></li>
-                <li><a class="dropdown-item-text" style="display:grid; text-decoration:none; justify-items:center;" >{{ username }}</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" style="display:flex; justify-content:space-between" href="{{ server_base }}/logout">Déconnexion
-                                <img class="img-fluid " src="{{ server_base }}/images/icon/logout-32.png" style="max-width: 75%"
-                  alt="Déconnexion"
-                  title="Déconnexion"
-                ></a></li>
-              </ul>
-            </div>
-
-
-    </div>
-
-
-  </nav>
+	</nav>
 </div>
+

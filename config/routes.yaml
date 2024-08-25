@@ -24,15 +24,17 @@ compte_homepage:
     path: /COMPTE
     controller: App\Controller\Compte\CompteController::index
 
-structure_homepage:
-    path: /STRUCTURE
-    controller: App\Controller\Structure\StructureController::index
-
 project_homepage:
-    path: /COMPTE/COURANT/CHART/PROJECT/{projectFilter}
-    controller: App\Controller\Compte\CompteController::project
+    path: /PROJECT/{etatFilter}
+    controller: App\Controller\Project\ProjectController::index
     defaults:  
-        projectFilter: 'EDT' 
+        etatFilter: 'ALL' 
+
+affectation_homepage:
+    path: /COMPTE/COURANT/CHART/AFFECTATION/{affectationFilter}
+    controller: App\Controller\Compte\CompteController::affectation
+    defaults:  
+        affectationFilter: 'EDT' 
 
 cpt_chart_homepage:
     path: /COMPTE/CHART

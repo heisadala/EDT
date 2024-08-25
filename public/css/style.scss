@@ -81,11 +81,9 @@ body {
     max-width: 100%;
     height: 6rem;
 } 
-
 .edt-navbar-toggler {
     --bs-navbar-toggler-icon-bg: var(--edt-toggler-icon);
 }
-
 .navbar
 {
     font-size: x-large;
@@ -96,6 +94,7 @@ body {
 }
 .nav-link {
     color: var(--bs-primary);
+    font-size: 1rem;
 }
 .nav-link:hover
 {
@@ -193,7 +192,6 @@ body {
         padding-left: 0px;
     }
 }
-
 
 
 // ////////////
@@ -445,6 +443,10 @@ input.nosubmit {
     border-bottom-left-radius: 0;
 }
 
+.facture-tooltip {
+    --bs-tooltip-bg: var(--bs-secondary);
+    --bs-tooltip-color: white;
+}
 .credit-tooltip {
     --bs-tooltip-bg: var(--bs-success);
     --bs-tooltip-color: var(--bs-success-bg-subtle);

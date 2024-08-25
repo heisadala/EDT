@@ -1,43 +1,34 @@
 
 {% set dispo_2024 = '44600' %}   
 {% set p_total_devis = 0 %}
-{% set p_total_acompte = 0 %}
 {% set p_total_factures = 0 %}
 {% for entry in projets %}
     {% set entryInfo = {
-            id: entry.id,
-            project: entry.projet ,
+            id: entry.projetid,
+            structure: entry.structure ,
             d_date: entry.ddate|date("d-m-Y") ,
             f_date: entry.fdate|date("d-m-Y") ,
-            comment: entry.commentaire,
+            projet: entry.projet,
             p_rcv: entry.precu|date("d-m-Y") ,
             p_sign: entry.psig|date("d-m-Y") ,
             d_rcv: entry.drecu|date("d-m-Y") ,
             d_sign: entry.dsig|date("d-m-Y") ,
             d_amount: entry.dmontant,
-            a_date_1: entry.adate1|date("d-m-Y") ,
-            a_amount_1: entry.acompte1,
-            a_date_2: entry.adate2|date("d-m-Y") ,
-            a_amount_2: entry.acompte2,
-            f_rcv: entry.frecu|date("d-m-Y") ,
-            f_amount: entry.fmontant,
-            f_done: entry.fregle,
-            f_operation: entry.foperation,
+            etat: entry.etatid
     } %}
-
-    {% set p_total_devis = p_total_devis + entry.dmontant %}   
-    {% set p_total_acompte = p_total_acompte + entry.acompte1  + entry.acompte2 %}   
-    {% set p_total_factures = p_total_factures + entry.fmontant %}   
-
+    {% if entry.etatid != 3 %}
+        {% set p_total_devis = p_total_devis + entry.dmontant %}   
+    {% endif %}
 {% endfor %}
 {% set total_factures = 0 %}
+{% set p_total_factures = 0 %}
 {% set edt_total_factures = 0 %}
 {% set total_credit = 0 %}
+{% set p_total_credit = 0 %}
 {% set edt_total_credit = 0 %}
 {% set total_don = 0 %}
 {% for entry in account %}
     {% set entryInfo = {
-            id: entry.id,
             bank: entry.banque ,
             projectId: entry.projetid,
             project: entry.affectation,
@@ -48,7 +39,6 @@
             operation: entry.operation,
             category: entry.categorie,
             comment: entry.commentaire,
-            mail: entry.mail,
     } %}
 
     {% if entry.affectation is defined and entry.affectation != 'AUTRE' %}
@@ -62,9 +52,13 @@
         {% set edt_total_credit = edt_total_credit + entry.credit %}   
         {% set edt_total_factures = edt_total_factures + entry.debit %}   
     {% endif %}
+    {% if entry.affectation is defined and entry.affectation|split('',3)[0] != 'EDT' and entry.affectation != 'AUTRE' %}
+        {% set p_total_credit = p_total_credit + entry.credit %}   
+        {% set p_total_factures = p_total_factures + entry.debit %}   
+    {% endif %}
 
 {% endfor %}
-{% set p_total_paye = p_total_factures + p_total_acompte %}   
+{% set p_total_paye = p_total_factures %}   
 {% set p_total_rest = p_total_devis - p_total_paye %}   
 {% set total_debit = p_total_paye + edt_total_factures %}   
 {% set bilan = total_credit - total_debit %}   

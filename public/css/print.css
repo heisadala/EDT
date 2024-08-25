@@ -1,0 +1,6 @@
+    @page {
+        margin: 10%;
+      }
+      .edt_page_break {
+        page-break-after: always;
+      };

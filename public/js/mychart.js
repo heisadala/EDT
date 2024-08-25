@@ -19,9 +19,9 @@ $(document).ready(function () {
   var PROJECT_INCOMES_TOTAL = [];
   var p, b, i, c, e;
 
-  const projectFilter = document.getElementById("projectFilter").innerHTML;
-  console.log('projectFilter', projectFilter);
-  var projectFilterIndex = 0;
+  const affectationFilter = document.getElementById("affectationFilter").innerHTML;
+  console.log('affectationFilter', affectationFilter);
+  var affectationFilterIndex = 0;
 
 
   const bankInfoElements = document.querySelectorAll('[data-bank-id]');
@@ -39,8 +39,8 @@ $(document).ready(function () {
   const projectInfoObjects = Array.from(projectElements).map(item => JSON.parse(item.dataset.projectId));
   console.log('PROJECTS',projectInfoObjects, 'LENGTH ', projectInfoObjects.length);
   for (p=0; p < projectInfoObjects.length; p++) {
-    if (projectInfoObjects[p].name == projectFilter) {
-      projectFilterIndex = p;
+    if (projectInfoObjects[p].name == affectationFilter) {
+      affectationFilterIndex = p;
     }
   }
 
@@ -355,7 +355,7 @@ $(document).ready(function () {
     labels: bank_labels,
     datasets: [{
       // label: 'My First Dataset',
-      data: [ BANK[0].getProjectExpenses(projectFilterIndex),
+      data: [ BANK[0].getProjectExpenses(affectationFilterIndex),
             ],
       backgroundColor: bank_colors,
       hoverOffset: 4
@@ -371,7 +371,7 @@ $(document).ready(function () {
     labels: bank_labels,
     datasets: [{
       // label: 'My First Dataset',
-      data: [ BANK[0].getProjectIncomes(projectFilterIndex),
+      data: [ BANK[0].getProjectIncomes(affectationFilterIndex),
             ],
       backgroundColor: bank_colors,
       hoverOffset: 4
@@ -385,8 +385,8 @@ $(document).ready(function () {
   const categories_exp_labels = [];
   const categories_exp_colors = [];
     for (p=0; p < PROJECT.length; p++) {
-      // console.log('catchart', PROJECT[p].getName(), projectFilter );
-      if (PROJECT[p].getName() == projectFilter) {
+      // console.log('catchart', PROJECT[p].getName(), affectationFilter );
+      if (PROJECT[p].getName() == affectationFilter) {
       var i=0;
       for (c=0; c < CATEGORY.length; c++) {
         if (PROJECT[p].getCatExpenses(c) != 0) {
@@ -419,8 +419,8 @@ $(document).ready(function () {
   const categories_inc_labels = [];
   const categories_inc_colors = [];
   for (p=0; p < PROJECT.length; p++) {
-    // console.log('catchart', PROJECT[p].getName(), projectFilter );
-    if (PROJECT[p].getName() == projectFilter) {
+    // console.log('catchart', PROJECT[p].getName(), affectationFilter );
+    if (PROJECT[p].getName() == affectationFilter) {
     var i=0;
     for (c=0; c < CATEGORY.length; c++) {
       if (PROJECT[p].getCatIncomes(c) != 0) {

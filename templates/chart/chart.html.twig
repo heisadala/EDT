@@ -1,8 +1,8 @@
-<p id='projectFilter' hidden>ALL</p>
+<p id='affectationFilter' hidden>ALL</p>
 
 {% for entry in account %}
     {% set entryInfo = {
-            id: entry.id,
+            id: entry.compteid,
             bank: entry.banque ,
             project: entry.affectation ,
             date: entry.date|date("d-m-Y") ,
@@ -77,7 +77,7 @@
                         {% endfor %}
                         {% if expense != 0 and project.affectation != 'AUTRE'%}
                             <tr>
-                            <td><a href="{{ server_base }}/COMPTE/COURANT/CHART/PROJECT/{{ project.affectation }}"> {{ project.affectation }} </a></td>
+                            <td><a href="{{ server_base }}/COMPTE/COURANT/CHART/AFFECTATION/{{ project.affectation }}"> {{ project.affectation }} </a></td>
                             <td> {{ expense }} </td>
                             </tr>
                             {% set total_expense = total_expense + expense %}   
@@ -117,7 +117,7 @@
                         {% endfor %}
                         {% if credit != 0 %}
                             <tr>
-                            <td><a href="{{ server_base }}/COMPTE/COURANT/CHART/PROJECT/{{ project.affectation }}"> {{ project.affectation }} </a></td>
+                            <td><a href="{{ server_base }}/COMPTE/COURANT/CHART/AFFECTATION/{{ project.affectation }}"> {{ project.affectation }} </a></td>
                             <td> {{ credit }} </td>
                             </tr>
                             {% set total_credit = total_credit + credit %}   

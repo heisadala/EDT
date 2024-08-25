@@ -1,8 +1,8 @@
-<p id='projectFilter' hidden>{{ projectFilter }}</p>
+<p id='affectationFilter' hidden>{{ affectationFilter }}</p>
 
 {% for entry in account %}
     {% set entryInfo = {
-            id: entry.id,
+            id: entry.compteid,
             bank: entry.banque ,
             project: entry.affectation ,
             date: entry.date|date("d-m-Y") ,
@@ -40,7 +40,7 @@
     <div data-category-id='{{ categoryInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
 {% endfor %}
 
-{% if projectFilter != 'DON' and projectFilter != 'EDT_ADHESIONS' %}
+{% if affectationFilter != 'DON' and affectationFilter != 'EDT_ADHESIONS' %}
 <div class="row justify-content-start">
     <div class="col-md-1"></div>
     <div class="col-md-4 ">
@@ -54,7 +54,7 @@
                     {% for category in categories %}
                         {% set expense = 0 %}
                         {% for eintrag in account %}
-                            {% if eintrag.affectation == projectFilter and eintrag.categorie == category.categorie %}
+                            {% if eintrag.affectation == affectationFilter and eintrag.categorie == category.categorie %}
                                 {% set expense = expense + eintrag.debit %}   
                             {% endif %}
                         {% endfor %}
@@ -79,7 +79,7 @@
 <div class="row justify-content-start">
     <div class="col-md-1"></div>
     <div class="col-md-4 ">
-{% if projectFilter != 'DON' and projectFilter != 'EDT_ADHESIONS' %}
+{% if affectationFilter != 'DON' and affectationFilter != 'EDT_ADHESIONS' %}
         <div><canvas id="chartAllCatsOneProjectAllBanksInc"></canvas></div>
 {% endif %}
           
@@ -92,7 +92,7 @@
                     {% for category in categories %}
                         {% set credit = 0 %}
                         {% for eintrag in account %}
-                            {% if eintrag.affectation == projectFilter and eintrag.categorie == category.categorie %}
+                            {% if eintrag.affectation == affectationFilter and eintrag.categorie == category.categorie %}
                                 {% set credit = credit + eintrag.credit %}   
                             {% endif %}
                         {% endfor %}
@@ -109,7 +109,7 @@
                 <td>TOTAL</a></td>
                 <td> {{ total_credit }} </td>
                 </tr>
-                {% if projectFilter == 'EDT_ADHESIONS' %}
+                {% if affectationFilter == 'EDT_ADHESIONS' %}
                     <tr class="table-warning">
                     <td>Nombres Adherants</a></td>
                     <td> {{ total_credit / 5 }} </td>

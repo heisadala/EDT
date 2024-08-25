@@ -12,12 +12,12 @@ class CompteChequesTable
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $compte_id = null;
 
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $banque = null;
 
-    #[ORM\Column(length: 11, nullable: false)]
+    #[ORM\Column(length: 5, nullable: false)]
     private ?int $projet_id = 0;
 
     #[ORM\Column(length: 50, nullable: true)]
@@ -44,12 +44,13 @@ class CompteChequesTable
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $commentaire = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $mail = null;
+    
+    #[ORM\Column(length: 5, nullable: false)]
+    private ?int $etat_id = 0;
 
-    public function getId(): ?int
+    public function getCompteid(): ?int
     {
-        return $this->id;
+        return $this->compte_id;
     }
     public function getProjetid(): ?int
     {
@@ -177,14 +178,14 @@ class CompteChequesTable
 
         return $this;
     }
-    public function getMail(): ?string
+    public function getEtatId(): ?int
     {
-        return $this->mail;
+        return $this->etat_id;
     }
 
-    public function setMail(?string $mail): static
+    public function setEtatId(int $etat_id): static
     {
-        $this->mail = $mail;
+        $this->etat_id = $etat_id;
 
         return $this;
     }

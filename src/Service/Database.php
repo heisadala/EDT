@@ -4,12 +4,22 @@ namespace App\Service;
 
 class Database
 {
+    function prepare_and_execute($conn, $sql_cmd)
+    {
+        $stmt = $conn->prepare($sql_cmd);
+        return($stmt->executeQuery());
+
+    }
     function prepare_execute_and_fetch($conn, $sql_cmd)
     {
         $stmt = $conn->prepare($sql_cmd);
         $resultSet = $stmt->executeQuery();
         return($resultSet->fetchAllAssociative());
 
+    }
+    public function send_sql_cmd($conn, $sql_cmd): array
+    {
+        return($this->prepare_execute_and_fetch($conn, $sql_cmd));
     }
     public function fetch_header_fields_from_table($conn, $table_name): array
     {
@@ -61,6 +71,92 @@ class Database
     {
         $sql_cmd = "SELECT $column_name FROM $table_name GROUP BY $column_name ORDER by $column_name ASC;";
         return($this->prepare_execute_and_fetch($conn, $sql_cmd));
+    }
+
+    function select_from_inner_on($conn, $table_name, $select, $enterprise_id)
+    {
+        $sql_cmd = "SELECT " . $select . " FROM $table_name INNER JOIN edt.prestataire_table ON edt.prestataire_table.id=" . $enterprise_id . ";";
+        // return($this->prepare_execute_and_fetch($conn, $sql_cmd));
+        $result = $this->prepare_execute_and_fetch($conn, $sql_cmd);
+        return $result[0]['name'];
+    }
+
+    function join_project_and_prestataire($conn, $t1, 
+                                            $t1_id,
+                                            $t2,
+                                            $t2_key, $ordered_by, $sort_order)
+    {
+
+        $sql_cmd = "SELECT * FROM " . $t1 
+                    . " JOIN " . $t2 . " ON " . $t1 . "." . $t1_id . " = " . $t2 . "." . $t2_key . ";";
+        return $this->prepare_execute_and_fetch($conn, $sql_cmd);
+}       
+
+    function join_compte_project_and_prestataire($conn, $t1, $t1_short, $selectlist,
+                                                    $t1_id,
+                                                    $t2,
+                                                    $t2_id, $t2_key,
+                                                    $t3, 
+                                                    $t3_key, $ordered_by, $sort_order)
+    {        
+        $sql_cmd = "SELECT " . $selectlist . 
+                   " FROM " . $t1 . " " . $t1_short
+                    . " JOIN " . $t2 . " ON " . $t1 . "." . $t1_id . " = " . $t2 . "." . $t2_key
+                    . " JOIN " . $t3 . " ON " . $t2 . "." . $t2_id . " = " . $t3 . "." . $t3_key
+                    . " ORDER BY " . $t1 . "." . $ordered_by . ";";
+        return $this->prepare_execute_and_fetch($conn, $sql_cmd);
+    }
+
+    function join_three_tables_with_filter($conn,
+                                                    $t1,
+                                                    $t1_id,
+                                                    $t2,
+                                                    $t2_id, $t2_key, 
+                                                    $t3, 
+                                                    $t3_key, $column, $filter)
+    {        
+        $sql_cmd = "SELECT * FROM " . $t1 
+                    . " JOIN " . $t2 . " ON " . $t1 . "." . $t1_id . " = " . $t2 . "." . $t2_key
+                    . " JOIN " . $t3 . " ON " . $t2 . "." . $t2_id . " = " . $t3 . "." . $t3_key
+                    . " WHERE " . $t1 . "." . $column . " = " . $filter . ";";
+        return $this->prepare_execute_and_fetch($conn, $sql_cmd);
+    }
+
+    function join_n_tables_with_filter($conn, $number, $t1, $join_table,
+                                        $column, $filter)
+    {   
+        for($i=0; $i<$number; $i++)
+        {
+            $join_cmd = '';
+            $join_cmd = $join_cmd . " JOIN " . $join_table[$i]['join_table']
+                 . " ON " . $join_table[$i]['on_table'] . "." . $join_table[$i]['on_table_id']
+                 . " = " . $join_table[$i]['join_table'] . "." . $join_table[$i]['join_table_id'];
+        }
+        $sql_cmd = "SELECT * FROM " . $t1 
+                    . $join_cmd
+                    . " WHERE " . $t1 . "." . $column . " = " . $filter . ";";
+
+
+
+                    dd($sql_cmd);
+        return $this->prepare_execute_and_fetch($conn, $sql_cmd);
+    }
+
+    public function update_f_montant($conn, $table_name, $column_name, $value, $id) {
+        $sql_cmd = "UPDATE " . $table_name . " SET " . $column_name . " = " . $value 
+                    . " WHERE projet_id" . "=" . $id .";";
+        $res = $this->prepare_execute_and_fetch($conn, $sql_cmd);              
+    }
+    public function get_max_id($conn, $table_name, $id) {
+        $sql_cmd = "SELECT MAX(" . $id . ") FROM " . $table_name  .";";
+        // dd($this->prepare_execute_and_fetch($conn, $sql_cmd));              
+        return $this->prepare_execute_and_fetch($conn, $sql_cmd);              
+    }
+    public function select_all_from_where($conn, $table_name, $table_name_id, $id) {
+        $sql_cmd = "SELECT * FROM " . $table_name
+                . " WHERE " . $table_name . "." . $table_name_id . " = " . $id . ";";
+        // dd($this->prepare_execute_and_fetch($conn, $sql_cmd));              
+        return $this->prepare_execute_and_fetch($conn, $sql_cmd);              
     }
 
 }

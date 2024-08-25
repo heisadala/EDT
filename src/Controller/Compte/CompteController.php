@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\CompteTableRepository;
 use App\Repository\CompteChequesTableRepository;
-use App\Repository\ProjetsDevisTableRepository;
+use App\Repository\ProjectTableRepository;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class CompteController extends AbstractController
@@ -164,13 +164,13 @@ class CompteController extends AbstractController
     public function dashboard (
         CompteTableRepository $compteTableRepository,
         CompteChequesTableRepository $courantTableRepository,
-        ProjetsDevisTableRepository $projetDevisTableRepository,
+        ProjectTableRepository $projectTableRepository,
     ): Response
     {
 
         $app = 'DASHBOARD';
         $db = $compteTableRepository->findOneby(['name' => $app]);
-        $projets = $projetDevisTableRepository->findAll();
+        $projets = $projectTableRepository->findAll();
         $account = $courantTableRepository->findAll();
 
         // $banks = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'banque');
@@ -204,13 +204,13 @@ class CompteController extends AbstractController
         ]);
     }
 
-    public function project (string $projectFilter,
+    public function affectation (string $affectationFilter,
                             CompteTableRepository $compteTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
                             ): Response
     {
 
-        $app = 'PROJECT';
+        $app = 'AFFECTATION';
         $db = $compteTableRepository->findOneby(['name' => $app]);
         $account = $courantTableRepository->findAll();
 
@@ -239,7 +239,7 @@ class CompteController extends AbstractController
                 'projects' => $projects,
                 'categories' => $categories,
                 'operations' => $operations,
-                'projectFilter' => $projectFilter,
+                'affectationFilter' => $affectationFilter,
                 'username' => $username,
 
         ]);

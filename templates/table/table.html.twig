@@ -1,11 +1,25 @@
 <script src="{{ asset('js/table.js') }}"></script>
 
 <div class='bg-body-secondary'>
-    <div class='row justify-content-between m-0' 
-        style='height: 2rem;'>
+    <div class="row justify-content-between m-0" style='height: 1rem;'>
     </div>            
-
-    <div class='row  justify-content-between'>
+{#     <div class="row justify-content-center ">
+        <div class='col-2'>
+            <a href='#' class="mx-1">
+                <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/add-48.png"  alt='ADD' title='ADD'></a>
+        </div>
+        <div class='col-2'>
+                <a href='#' class="mx-1">
+                    <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/update-48.png" alt='EDIT' title='EDIT'></a>
+        </div>
+        <div class='col-2'>
+                <a href='#' class="mx-1">
+                    <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/delete-48.png" alt='DELETE' title='DELETE'></a>
+        </div>
+    </div> #}
+    <div class="row justify-content-between m-0" style='height: 1rem;'>
+    </div>   
+        <div class='row  justify-content-between'>
         <div class="col-md-1"></div>
         <div class="col-md-10 border rounded bg-iceblue">
             <div class='row'>
@@ -46,12 +60,13 @@
                         <thead>
                             <tr>
                                 {% for header in table_header_fields %}
-                                    {% if header.Field |upper == 'ID' %}
+                                    {% if header.Field |upper == 'PROJET_ID' %}
                                         <th hidden class='text-truncate'> {{ header.Field |upper }} </th>
                                     {% endif %}
-                                    {% if header.Field |upper != 'ID' and 
+                                    {% if header.Field |upper != 'COMPTE_ID' and 
                                         header.Field |upper != 'BANQUE' and 
                                         header.Field |upper != 'PROJET_ID' and 
+                                        header.Field |upper != 'ETAT_ID' and 
                                         header.Field |upper != 'MAIL' and 
                                         header.Field |upper != 'CATEGORIE' %}
 
@@ -72,7 +87,8 @@
                                 {% for row in courant_table_content %}
 
                                     <tr>
-                                    <td hidden >{{ row.id }} </td>
+                                    <td hidden >{{ row.compte_id }} </td>
+                                    <td hidden>p_{{ row.projet_id }} </td>
                                     <td>{{ row.affectation }} </td>
                                     <td> {{ row.date|date("d-m-Y") }} </td>
                                     {% if row.debit != '0.00' %}
@@ -107,8 +123,9 @@
                                     {% if row.facture != '' %}
                                         {% set path = server_base|split('/') %}
                                         {# <td><a href='https://{{ server_name }}/{{ path[1] }}/FACTURES/{{ row.projet }}_{{ row.facture }}.pdf'>{{ row.projet }}_{{ row.facture }}.pdf</a> </td> #}
-                                        <td><a href="mailto:{{ row.mail }}?subject=Facture {{ row.facture }}&body=Bonjour,%0D%0A%0D%0Aje vous informe que le virement correspondant à la facture%0D%0A%0D%0A&nbsp;&nbsp;{{ row.facture }}%0D%0A %0D%0Aa été effectué aujourd'hui.">{{ row.facture }}</a></td>
+                                        {# <td><a href="mailto:{{ row.mail }}?subject=Facture {{ row.facture }}&body=Bonjour,%0D%0A%0D%0Aje vous informe que le virement correspondant à la facture%0D%0A%0D%0A&nbsp;&nbsp;{{ row.facture }}%0D%0A %0D%0Aa été effectué aujourd'hui.">{{ row.facture }}</a></td> #}
                                         {# <td>{{ row.facture }}</td> #}
+                                        <td>{{ row.facture }}</td>
                                     {% else %}
                                         <td>{{ row.facture }}</td>
                                     {% endif %}

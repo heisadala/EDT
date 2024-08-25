@@ -445,6 +445,7 @@ body {
 
 .nav-link {
   color: var(--bs-primary);
+  font-size: 1rem;
 }
 
 .nav-link:hover {
@@ -758,6 +759,11 @@ input.nosubmit {
 .edt-login-eye {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+.facture-tooltip {
+  --bs-tooltip-bg: var(--bs-secondary);
+  --bs-tooltip-color: white;
 }
 
 .credit-tooltip {
