@@ -76,16 +76,18 @@ class ProjectController extends AbstractController
         }
         $show_dashboard = false;
         $show_gallery = true;
+        $title = ucfirst(strtolower($app));
         if ($etatFilter == 'DASH') {
             $show_dashboard = true;
-            $show_gallery = false;            
+            $show_gallery = false;
+            $title = "Bilan";           
         }
         
         return $this->render('index.html.twig', [
             'controller_name' => 'ProjectController',
             'server_base' => $_SERVER['BASE'],
-            'meta_index' => 'index',
-            'title' => ucfirst(strtolower($app)),
+            'meta_index' => 'noindex',
+            'title' => $title,
             'icon' => $db->getIcon(),
             'show_navbar' => true,
             'show_gallery' => $show_gallery,

@@ -4,7 +4,7 @@
     {% set entryInfo = {
             id: entry.compteid,
             bank: entry.banque ,
-            project: entry.affectation ,
+            assignment: entry.affectation ,
             date: entry.date|date("d-m-Y") ,
             debit: entry.debit,
             credit: entry.credit,
@@ -40,84 +40,115 @@
     <div data-category-id='{{ categoryInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
 {% endfor %}
 
-{% if affectationFilter != 'DON' and affectationFilter != 'EDT_ADHESIONS' %}
+
 <div class="row justify-content-start">
     <div class="col-md-1"></div>
-    <div class="col-md-4 ">
-        <div><canvas id="chartAllCatsOneProjectAllBanksExp"></canvas></div>
+    <div class="col-md-3 "></div>
+    <div class="col-md-2 text-secondary text-center fs-2">
+        {{ affectationFilter }}
     </div>
-    <div class="col-md-3 ">
-        <div class='table-responsive-sm'>
-            <table class="table sm-lego-table table-hover mr-4">
-                <tbody>
-                    {% set total_expense = 0 %}
-                    {% for category in categories %}
-                        {% set expense = 0 %}
-                        {% for eintrag in account %}
-                            {% if eintrag.affectation == affectationFilter and eintrag.categorie == category.categorie %}
-                                {% set expense = expense + eintrag.debit %}   
-                            {% endif %}
-                        {% endfor %}
-                        {% if expense != 0 %}
-                            <tr>
-                            <td>{{ category.categorie }}</td>
-                            <td> {{ expense }} </td>
-                            </tr>
-                            {% set total_expense = total_expense + expense %}   
-                        {% endif %}
-                    {% endfor %}
-                </tbody>
-                <tr class="table-danger">
-                <td>TOTAL</a></td>
-                <td> {{ total_expense }} </td>
+</div>
+
+{% set show_this = 1 %}
+<div class="row justify-content-start">
+    {% if affectationFilter != 'DON' and affectationFilter != 'EDT_ADHESIONS' %}
+        {% set total_expense = 0 %}
+        {% for category in categories %}
+            {% set expense = 0 %}
+            {% for eintrag in account %}
+                {% if eintrag.affectation == affectationFilter and eintrag.categorie == category.categorie %}
+                    {% set expense = expense + eintrag.debit %}   
+                {% endif %}
+            {% endfor %}
+            {% if expense != 0 %}
+                {% if show_this == 1 %}
+
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3 ">
+                        <div><canvas id="chartAllCatsOneProjectAllBanksExp"></canvas></div>
+                    </div>
+                    <div class="col-md-2 ">
+                        <div class='table-responsive-xl'>
+                            <table class="table table-sm table-light table-striped edt-euros-font">   
+                                <thead class='table-info'>
+                                    <th>Affectations</th><th class='text-end'>Debit</th>
+                                </thead>                
+                                <tbody>
+                                {% set show_this = 0 %}
+
+                {% endif %}
+                <tr>
+                    <td>{{ category.categorie }}</td>
+                    <td class='text-end'> {{ expense|number_format(2) }} </td>
                 </tr>
+                {% set total_expense = total_expense + expense %}   
+            {% endif %}
+        {% endfor %}
+                </tbody>
+                <tfoot class='table-group-divider table-danger'>
+                    <td>TOTAL</a></td>
+                    <td class='text-end'> {{ total_expense|number_format(2) }} </td>
+                </tfoot>
             </table>
         </div>
     </div> 
-</div>
-{% endif %}
-<div class="row justify-content-start">
-    <div class="col-md-1"></div>
-    <div class="col-md-4 ">
-{% if affectationFilter != 'DON' and affectationFilter != 'EDT_ADHESIONS' %}
-        <div><canvas id="chartAllCatsOneProjectAllBanksInc"></canvas></div>
-{% endif %}
-          
-    </div>
-    <div class="col-md-3 ">
-        <div class='table-responsive-sm'>
-            <table class="table sm-lego-table table-hover mr-4">
-                <tbody>
-                    {% set total_credit = 0 %}
-                    {% for category in categories %}
-                        {% set credit = 0 %}
-                        {% for eintrag in account %}
-                            {% if eintrag.affectation == affectationFilter and eintrag.categorie == category.categorie %}
-                                {% set credit = credit + eintrag.credit %}   
-                            {% endif %}
-                        {% endfor %}
-                        {% if credit != 0 %}
-                            <tr>
-                            <td>{{ category.categorie }}</td>
-                            <td> {{ credit }} </td>
-                            </tr>
-                            {% set total_credit = total_credit + credit %}   
+    {% else %}
+        <div class="col-md-1"></div>
+    {% endif %}
+
+
+
+
+    {% set show_header = 1 %}
+    {% set total_credit = 0 %}
+    {% for category in categories %}
+        {% set credit = 0 %}
+        {% for eintrag in account %}
+            {% if eintrag.affectation == affectationFilter and eintrag.categorie == category.categorie %}
+                {% set credit = credit + eintrag.credit %}   
+            {% endif %}
+        {% endfor %}
+        {% if credit != 0 %}
+                {% if show_header == 1 %}
+                    <div class="col-md-3 ">
+                        {% if affectationFilter != 'DON' and affectationFilter != 'EDT_ADHESIONS' %}
+                            <div><canvas id="chartAllCatsOneProjectAllBanksInc"></canvas></div>
                         {% endif %}
-                    {% endfor %}
-                </tbody>
-                <tr class="table-success">
-                <td>TOTAL</a></td>
-                <td> {{ total_credit }} </td>
+          
+                    </div>
+                    <div class="col-md-2 ">
+                        <div class='table-responsive-xl'>
+                            <table class="table table-sm table-light table-striped edt-euros-font">   
+                                <thead class='table-info'>
+                                    <th>Affectations</th><th class='text-end'>Credit</th>
+                                </thead>
+                                <tbody>
+                                {% set show_header = 0 %}
+
+                {% endif %}
+                <tr>
+                    <td>{{ category.categorie }}</td>
+                    <td class='text-end'> {{ credit|number_format(2) }} </td>
                 </tr>
+                {% set total_credit = total_credit + credit %}   
+            {% endif %}
+        {% endfor %}
+            {% if show_header == 0 %}
+                </tbody>
+                <tfoot class='table-group-divider table-danger'>
+                    <td>TOTAL</a></td>
+                    <td class='text-end'> {{ total_credit|number_format(2) }} </td>
+                </tfoot>
                 {% if affectationFilter == 'EDT_ADHESIONS' %}
                     <tr class="table-warning">
                     <td>Nombres Adherants</a></td>
                     <td> {{ total_credit / 5 }} </td>
                     </tr>
-                        {% endif %}
-            </table>
-        </div>
+                {% endif %}
+                </table>
+            </div>
+            {% endif %}
     </div> 
 </div>
 
-<script type='module' src="{{ asset('js/mychart.js') }}"></script>
+<script type='module' src="{{ asset('js/edtChart.js') }}"></script>

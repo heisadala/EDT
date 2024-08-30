@@ -1,10 +1,12 @@
+<script src="{{ asset('js/chartFilter.js') }}"></script>
 <p id='affectationFilter' hidden>ALL</p>
 
 {% for entry in account %}
     {% set entryInfo = {
             id: entry.compteid,
+            projectid: entry.projetid,
             bank: entry.banque ,
-            project: entry.affectation ,
+            assignment: entry.affectation ,
             date: entry.date|date("d-m-Y") ,
             debit: entry.debit,
             credit: entry.credit,
@@ -21,7 +23,7 @@
     } %}
     <div data-bank-id='{{ bankInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
 {% endfor %}
-{% for project in projects %}
+{% for project in affectation %}
     {% set projectInfo = {
         name: project.affectation,
     } %}
@@ -45,30 +47,51 @@
     <div class='row justify-content-between m-0' 
         style='height: 2rem;'>
     </div>            
-<div class="row justify-content-between">
-    <div class="col-md-1"></div>
-    <div class="col-md-3 ">
-        <div><canvas id="chartAllBanksIncExpSav"></canvas></div>
-    </div>
-    <div class="col-md-4 ">
-    </div>
-    <div class="col-md-3 ">
-    </div> 
-    <div class="col-md-1"></div>
-</div>
+    {# <div class="row justify-content-between">
+        <form class="justify-content-center d-flex">
+            <label class="edt-chkbx radio-inline mx-1" for="selectCheck">
+                <input type="radio"  
+                        name="flexCheckDefault" 
+                        id="selectCheck"  checked>TOUT 
+            </label>
+            {% for project in affectation %}
+                {% if project.affectation|split('',4)[0]  != 'EDT_' %}
+                    <label class="edt-chkbx radio-inline mx-1" for="flexCheckDefault{{ loop.index0 }}">
+                        <input class="me-1" type="radio"  
+                                name="flexCheckDefault" 
+                                id="flexCheckDefault{{ loop.index0 }}">{{ project.affectation  }}
+                    </label>
+                {% endif %}        
+            {% endfor %}        
+        </form>
+    </div>   #}
+    {# <div class='row justify-content-between m-0' 
+        style='height: 1rem;'>
+    </div>              <div class="row justify-content-between">
+        <div class="col-md-1"></div>
+        <div class="col-md-3 ">
+            <div><canvas id="chartAllBanksIncExpSav"></canvas></div>
+        </div>
+        <div class="col-md-4 "></div>
+        <div class="col-md-3 "></div>
+        <div class="col-md-1 "></div>
+    </div>  #}
 
 <div class="row justify-content-start">
     <div class="col-md-1 "></div>
 
-    <div class="col-md-4 ">
+    <div class="col-md-3 ">
         <div><canvas id="chartAllProjectsAllBanksExp"  style="height:500px; width: 100%;"></canvas></div>
     </div>
-    <div class="col-md-3 ">
-        <div class='table-responsive-sm'>
-            <table class="table sm-lego-table table-hover mr-4">
+    <div class="col-md-2 ">
+        <div class='table-responsive-xl'>
+            <table class="table table-sm table-light table-striped edt-euros-font">   
+                <thead class='table-info'>
+                    <th>Affectations</th><th class='text-end'>Debit</th>
+                </thead>
                 <tbody>
                     {% set total_expense = 0 %}
-                    {% for project in projects %}
+                    {% for project in affectation %}
                         {% set expense = 0 %}
                         {% for eintrag in account %}
                             {% if eintrag.affectation == project.affectation %}
@@ -78,63 +101,70 @@
                         {% if expense != 0 and project.affectation != 'AUTRE'%}
                             <tr>
                             <td><a href="{{ server_base }}/COMPTE/COURANT/CHART/AFFECTATION/{{ project.affectation }}"> {{ project.affectation }} </a></td>
-                            <td> {{ expense }} </td>
+                            <td class='text-end'> {{ expense|number_format(2) }} </td>
                             </tr>
                             {% set total_expense = total_expense + expense %}   
                         {% endif %}
                     {% endfor %}
 
                 </tbody>
-                <tr class="table-danger">
-                <td>TOTAL</a></td>
-                <td> {{ total_expense }} </td>
-                </tr>
+                <tfoot class='table-group-divider table-danger'>
+                    <td>TOTAL</a></td>
+                    <td class='text-end'> {{ total_expense|number_format(2) }} </td>
+                </tfoot>
            </table>
         </div>
-    </div> 
-</div>
-<div class='row  justify-content-between m-0' 
-    style='height: 2rem;'>
-</div>
-<div class="row justify-content-start">
-    <div class="col-md-1 "></div>
-    <div class="col-md-4 ">
+    </div>
+    <div class="col-md-3 ">
         <div><canvas id="chartAllProjectsAllBanksInc" ></canvas></div>
     </div>
-        
-
-    <div class="col-md-3 ">
-        <div class='table-responsive-sm'>
-            <table class="table sm-lego-table table-hover mr-4">
-                <tbody>
+   <div class="col-md-2 ">
+        <div class='table-responsive-xl'>
+            <table class="table table-sm table-light table-striped edt-euros-font">   
+                <thead class='table-info'>
+                    <th>Affectations</th><th class='text-end'>Credit</th>
+                </thead>                <tbody>
                     {% set total_credit = 0 %}
-                    {% for project in projects %}
+                    {% for project in affectation %}
                         {% set credit = 0 %}
                         {% for eintrag in account %}
-                            {% if eintrag.affectation == project.affectation and project.affectation != 'AUTRE' %}
+                            {% if eintrag.affectation == project.affectation and project.affectation != 'AUTRE' and project.affectation != 'INTERN' %}
                                 {% set credit = credit + eintrag.credit %}   
                             {% endif %}
                         {% endfor %}
                         {% if credit != 0 %}
                             <tr>
                             <td><a href="{{ server_base }}/COMPTE/COURANT/CHART/AFFECTATION/{{ project.affectation }}"> {{ project.affectation }} </a></td>
-                            <td> {{ credit }} </td>
+                            <td class='text-end'> {{ credit|number_format(2) }} </td>
                             </tr>
                             {% set total_credit = total_credit + credit %}   
                         {% endif %}
                     {% endfor %}
                 </tbody>
-                <tr class="table-success">
-                <td >TOTAL</a></td>
-                <td> {{ total_credit }} </td>
-                </tr>
+               <tfoot class='table-group-divider table-danger'>
+                    <td>TOTAL</a></td>
+                    <td class='text-end'> {{ total_credit|number_format(2) }} </td>
+                </tfoot>
 
             </table>
         </div>
     </div> 
+ 
 </div>
+<div class='row  justify-content-between m-0' 
+    style='height: 2rem;'>
+</div>
+<div class="row justify-content-start">
+    <div class="col-md-1 "></div>
+    <div class="col-md-3 ">
+        <div><canvas id="chartAllProjectsAllBanksInc" ></canvas></div>
+    </div>
+    <div class="col-md-1 "></div>
+        
+
+ </div>
     <div class='row justify-content-between m-0' 
         style='height: 2rem;'>
     </div>            
 </div>
-<script type='module' src="{{ asset('js/mychart.js') }}"></script>
+<script type='module' src="{{ asset('js/edtChart.js') }}"></script>

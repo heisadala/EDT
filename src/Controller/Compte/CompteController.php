@@ -122,7 +122,7 @@ class CompteController extends AbstractController
         ]);
     }
 
-    public function chart (
+    public function chart (string $chartFilter,
         CompteTableRepository $compteTableRepository,
         CompteChequesTableRepository $courantTableRepository,
     ): Response
@@ -133,7 +133,7 @@ class CompteController extends AbstractController
         $account = $courantTableRepository->findAll();
 
         $banks = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'banque');
-        $projects = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'affectation');
+        $affectation = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'affectation');
         $operations = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'operation');
         $categories = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'categorie');
 
@@ -154,7 +154,7 @@ class CompteController extends AbstractController
                 'show_chart' => true,
                 'account' => $account,
                 'banks' => $banks,
-                'projects' => $projects,
+                'affectation' => $affectation,
                 'categories' => $categories,
                 'operations' => $operations,
                 'username' => $username,

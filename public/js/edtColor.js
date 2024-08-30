@@ -7,6 +7,8 @@ export const CHART_COLORS = {
   orange: '#95ADCF',
   iceblue : '#E0617F',  
   red: '#DE803E',
+  violet: '#CA76EE',
+  gray: '#A8A8A8',
   
   cmb: '#DC3545',
   cmz: '#FFC700',
@@ -15,6 +17,7 @@ export const CHART_COLORS = {
 
   debit: '#F75D59',
   credit: '#319731',
+  balance: '#CA76EE',
 
 };
 
@@ -33,6 +36,8 @@ export const NAMED_COLORS = [
   CHART_COLORS.orange,
   CHART_COLORS.iceblue,  
   CHART_COLORS.red,
+  CHART_COLORS.violet,
+  CHART_COLORS.gray,
 
 ];
 

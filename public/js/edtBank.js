@@ -1,4 +1,4 @@
-import { BANK_COLORS } from "./myColor.js";
+import { BANK_COLORS } from "./edtColor.js";
 
 export class Bank {
 
@@ -22,16 +22,16 @@ export class Bank {
       var localSavingsIn = 0;
       var i;
       for (i=0; i < this.table.length; i++) {
-        if ((Number(this.table[i].debit) > 0) && (this.table[i].project != 'AUTRE') && (this.table[i].project != 'INTERN')) {
+        if ((Number(this.table[i].debit) > 0) && (this.table[i].assignment != 'AUTRE') && (this.table[i].assignment != 'INTERN')) {
           localExpenses = localExpenses + Number(this.table[i].debit*100);
         }
-        if ((Number(this.table[i].debit) > 0) && (this.table[i].project != 'AUTRE') && (this.table[i].project != 'INTERN')) {
-          localSavingsOut = localSavingsOut + Number(this.table[i].amount*100);
+        if ((Number(this.table[i].debit) > 0) && (this.table[i].assignment == 'INTERN')) {
+          localSavingsOut = localSavingsOut + Number(this.table[i].debit*100);
         }
-        if ((Number(this.table[i].credit) > 0) && (this.table[i].project != 'AUTRE') && (this.table[i].project != 'INTERN')) {
+        if ((Number(this.table[i].credit) > 0) && (this.table[i].assignment != 'AUTRE') && (this.table[i].assignment != 'INTERN')) {
           localIncomes = localIncomes + Number(this.table[i].credit*100);
         }
-        if ((Number(this.table[i].credit) > 0) && (this.table[i].project != 'AUTRE') && (this.table[i].project != 'INTERN')) {
+        if ((Number(this.table[i].credit) > 0) && (this.table[i].assignment == 'INTERN')) {
           localSavingsIn = localSavingsIn + Number(this.table[i].credit*100);
         }
       }
@@ -49,16 +49,16 @@ export class Bank {
       var i;
       // console.log('setCategories', category, categoryIndex);
       for (i=0; i < this.table.length; i++) {
-          if ((Number(this.table[i].debit) > 0) && (this.table[i].project == project)) {
+          if ((Number(this.table[i].debit) > 0) && (this.table[i].assignment == project)) {
             localExpenses[projectIndex] = localExpenses[projectIndex] + Number(this.table[i].debit*100);
           }
-          if ((Number(this.table[i].credit) > 0) && (this.table[i].project == project)) {
-            localIncomes[projectIndex] = localIncomes[projectIndex] + Number(this.table[i].amount*100);
+          if ((Number(this.table[i].credit) > 0) && (this.table[i].assignment == project)) {
+            localIncomes[projectIndex] = localIncomes[projectIndex] + Number(this.table[i].credit*100);
           }
       }
       this.projectExpenses[projectIndex] = localExpenses[projectIndex]/100;
       this.projectIncomes[projectIndex] = localIncomes[projectIndex]/100;
-      // console.log('setProjects', group, groupIndex, this.groupExpenses[groupIndex]);
+      // console.log('setProjects', project, this.projectExpenses[projectIndex], this.projectIncomes[projectIndex]);
     }
   
     

@@ -10,6 +10,7 @@
 {% set global_ec_diff = 0.00 %}
 {% set global_pf_montant = 0.00 %}
 {% set global_pdf_montant = 0.00 %}
+{% set global_prob_montant = 0.00 %}
 {% set devis_sous_total = 0.00 %}
 {% set devis_total = 0.00 %}
 {% set devis_a_venir = 0.00 %}
@@ -29,14 +30,17 @@
             {% set global_pf_montant = global_pf_montant + montant %} 
         {% elseif projet.etat == 'pas de fiche' %}
             {% set global_pdf_montant = global_pdf_montant + montant %} 
+        {% elseif projet.etat == 'problème' %}
+            {% set global_prob_montant = global_prob_montant + montant %} 
         {% endif %}
     {% endif %}
 {% endfor %}
 {% set devis_sous_total = global_d_montant + global_pdf_montant + global_a_montant + global_c_diff %}
 {% set devis_total = devis_sous_total - global_f_montant %}
-{% set devis_a_venir = (global_ec_diff + global_pf_montant) * (-1) %}
+{% set devis_a_venir = (global_ec_diff + global_pf_montant + global_prob_montant) * (-1) %}
 
-
+{% set credit = 0.00 %}
+{% set debit = 0.00 %}
 {% set total_bilan = 0.00 %}
 {% set total_don = 0.00 %}
 {% set total_credit = 0.00 %}
@@ -45,8 +49,13 @@
 {% set total_edt_debit = 0.00 %}
 {% set total_autre_credit = 0.00 %}
 {% set total_autre_debit = 0.00 %}
+{% set total_intern_credit = 0.00 %}
+{% set total_intern_debit = 0.00 %}
 
 {% for entry in account %}
+	{% set credit = credit + entry.credit %}
+	{% set debit = debit + entry.debit %}
+
     {% if entry.affectation is defined and entry.affectation == 'DON' %}
         {% set total_don = total_don + entry.credit %}
     {% elseif entry.affectation is defined and entry.affectation|split('',3)[0] == 'EDT' %}
@@ -55,6 +64,9 @@
     {% elseif entry.affectation is defined and entry.affectation == 'AUTRE' %}
         {% set total_autre_credit = total_autre_credit + entry.credit %}
         {% set total_autre_debit = total_autre_debit + entry.debit %}
+    {% elseif entry.affectation is defined and entry.affectation == 'INTERN' %}
+        {% set total_intern_credit = total_intern_credit + entry.credit %}
+        {% set total_intern_debit = total_intern_debit + entry.debit %}
     {% endif %}
 {% endfor %}
 {% set total_credit = total_don + total_edt_credit %}
@@ -64,11 +76,16 @@
 
 {% set compte_titre_01_2024 = 3330.00 %}
 {% set livret_01_2024 = 33121.74 %}
+{% set livret_now_2024 = livret_01_2024 - total_intern_credit %}
 {% set compte_cheques_01_2024 = 11507.06 %}
 {% set solde = 0.00 %}
 
 {% set credit_01_2024 = compte_titre_01_2024 + livret_01_2024 + compte_cheques_01_2024 %}
 {% set solde = credit_01_2024 - total_bilan %}
+
+{% set compte_cheques_now_2024 = compte_cheques_01_2024 + credit - debit  %}
+
+
 
 <div class="container-fluid bg-body-secondary">
     <div class='row justify-content-center m-3 p-2 text-success fs-3'>
@@ -109,6 +126,11 @@
                     <tr>
                         <td class='text-start'>Pas facturé</td>
                             <td></td><td class='text-end'>{{ (global_pf_montant * (-1))|number_format(2) }}</td></tr>
+                    {% if global_prob_montant != 0 %}
+                    <tr>
+                        <td class='text-start'>Problème</td>
+                            <td></td><td class='text-end'>{{ (global_prob_montant  * (-1))|number_format(2) }}</td></tr>
+                    {% endif %}
                     {# <tr>
                         <td class='text-start'>Payé</td><td class='text-end'>{{ global_f_montant }}</td><td></td></tr> #}
 
@@ -151,16 +173,24 @@
                 </thead>
                 <tbody class='table-group-divider'>
                     <tr >
-                        <td>Titre ({{ compte_titre_01_2024|number_format(2) }}) <br>
-                        Livret ({{ livret_01_2024|number_format(2) }}) <br>
-                        CC ({{ compte_cheques_01_2024|number_format(2) }})</td><td></td><td class='text-end'>{{ credit_01_2024|number_format(2) }}</td></tr>
+                        <td>Titre</td><td></td><td class='text-end'>{{ compte_titre_01_2024|number_format(2) }}</td></tr>
+                    <tr>    
+                        <td>Livret</td><td></td><td class='text-end'>{{ livret_01_2024|number_format(2) }}</td></tr>
+                    <tr>
+                        <td>CC</td><td></td><td class='text-end'>{{ compte_cheques_01_2024|number_format(2) }}</td></tr>
+                    <tr class='table-group-divider table-success'>    
+                        <td>Solde 01-01-2024 </td><td></td><td class='text-end'>{{ credit_01_2024|number_format(2) }}</td></tr>
 
-                    <tr  >
+                    <tr>
                         <td>Bilan affectations</td><td class='text-end'>{{ total_bilan|number_format(2) }}</td><td></td></tr>
-                </tbody>
+               </tbody>
                 <tfoot class='table-group-divider table-success'>
-                    <td>Solde</td><td></td><td class='text-end text-success'><b>{{ solde|number_format(2) }}</b></td>
-                </tfoot>
+                    <td>Solde {{ "now"|date("m/d/Y") }} <br>
+                    <small><i>Titre ({{ compte_titre_01_2024|number_format(2) }})<br>
+                    Livret ({{ livret_now_2024|number_format(2) }})<br>
+                    CC ({{ compte_cheques_now_2024|number_format(2) }})<br>
+                    </td><td></td><td class='text-end text-success'><b>{{ solde|number_format(2) }}</b></td>
+                 </tfoot>
             </table>
         </div>
     </div>

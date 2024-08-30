@@ -37,8 +37,10 @@ affectation_homepage:
         affectationFilter: 'EDT' 
 
 cpt_chart_homepage:
-    path: /COMPTE/CHART
+    path: /COMPTE/CHART/{chartFilter}
     controller: App\Controller\Compte\CompteController::chart
+    defaults:  
+        chartFilter: 'ALL' 
     
 cpt_dashboard_homepage:
     path: /COMPTE/DASHBOARD
