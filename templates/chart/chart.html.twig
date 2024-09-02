@@ -43,7 +43,7 @@
 {% endfor %}
 
 
-<div class='bg-body-tertiary'>
+<div class="container-fluid bg-body-secondary">
     <div class='row justify-content-between m-0' 
         style='height: 2rem;'>
     </div>            
@@ -77,13 +77,14 @@
         <div class="col-md-1 "></div>
     </div>  #}
 
+    {# <div class="row row-cols-xs-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-4 row-cols-xxl-4 g-4 mt-2 justify-content-center"> #}
 <div class="row justify-content-start">
-    <div class="col-md-1 "></div>
 
-    <div class="col-md-3 ">
+    <div class="col-xxl-1"></div>
+    <div class="col-sm-10 col-md-5 col-xxl-3">
         <div><canvas id="chartAllProjectsAllBanksExp"  style="height:500px; width: 100%;"></canvas></div>
     </div>
-    <div class="col-md-2 ">
+    <div class="col-md-5 col-xxl-2" style="break-after:page">
         <div class='table-responsive-xl'>
             <table class="table table-sm table-light table-striped edt-euros-font">   
                 <thead class='table-info'>
@@ -115,10 +116,14 @@
            </table>
         </div>
     </div>
-    <div class="col-md-3 ">
+    <div class='row justify-content-between m-0 d-none d-print-block' 
+        style='height: 2rem;'>
+    </div>            
+
+    <div class="col-sm-10 col-md-5 col-xxl-3">
         <div><canvas id="chartAllProjectsAllBanksInc" ></canvas></div>
     </div>
-   <div class="col-md-2 ">
+   <div class="col-md-5 col-xxl-2 ">
         <div class='table-responsive-xl'>
             <table class="table table-sm table-light table-striped edt-euros-font">   
                 <thead class='table-info'>
@@ -149,22 +154,10 @@
             </table>
         </div>
     </div> 
- 
 </div>
 <div class='row  justify-content-between m-0' 
     style='height: 2rem;'>
 </div>
-<div class="row justify-content-start">
-    <div class="col-md-1 "></div>
-    <div class="col-md-3 ">
-        <div><canvas id="chartAllProjectsAllBanksInc" ></canvas></div>
-    </div>
-    <div class="col-md-1 "></div>
-        
 
- </div>
-    <div class='row justify-content-between m-0' 
-        style='height: 2rem;'>
-    </div>            
 </div>
 <script type='module' src="{{ asset('js/edtChart.js') }}"></script>

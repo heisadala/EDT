@@ -29,6 +29,13 @@ project_homepage:
     controller: App\Controller\Project\ProjectController::index
     defaults:  
         etatFilter: 'ALL' 
+        
+project_structure:
+    path: /PROJECT/{structureFilter}/{etatFilter}
+    controller: App\Controller\Project\ProjectController::structure
+    defaults:  
+        structureFilter: 'ESTRAN' 
+        etatFilter: 'ALL' 
 
 affectation_homepage:
     path: /COMPTE/COURANT/CHART/AFFECTATION/{affectationFilter}

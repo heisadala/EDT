@@ -27,6 +27,11 @@ class ProjectTableRepository extends ServiceEntityRepository
     {
         return $this->getEntityManager()->getConnection();
     }
+    public function send_sql_cmd($sql_cmd): array
+    {
+        $db = new Database;
+        return ($db->send_sql_cmd($this->get_connection(), $sql_cmd));
+    }
 
     public function fetch_header_fields_from_table($table_name): array
     {

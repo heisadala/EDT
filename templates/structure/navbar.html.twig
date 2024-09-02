@@ -1,3 +1,5 @@
+<p id='structureFilter' hidden>{{ structureFilter }}</p>
+<p id='etatFilter' hidden>{{ etatFilter }}</p>
 <div class='container-fluid justify-content-start'>
 
   <nav class="navbar navbar-expand-xl" >
@@ -16,10 +18,9 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          {# <li class="nav-item dropdown edt-dropdown "> #}
           <li class="dropdown">
-            <a class="nav-link dropdown-toggle  text-center text-white bg-success rounded mx-2 my-1" data-bs-toggle="dropdown" href=''
-                role="button" aria-expanded="false">PROJETS<span class="badge text-bg-danger mx-1">{{ (projets|length)-1 }}</span></a>
+            <a class="nav-link dropdown-toggle text-center text-white bg-success rounded mx-2 my-1" data-bs-toggle="dropdown" href=''
+                role="button" aria-expanded="false">PROJETS<span class="badge text-bg-danger ms-3">{{ (projets|length) }}</span></a>
             <ul class="dropdown-menu edt-dropdown-menu">
               <li>
                 <a class="dropdown-item edt-dropdown-item" href='{{ path('project_homepage') }}'>
@@ -41,27 +42,20 @@
             </ul>
           </li>
             {# <li>
-                <a role="button" class="btn btn-success mx-1 my-1" href="{{ path('project_homepage') }}" >
-                PROJETS <span class="badge text-bg-danger">{{ (projets|length)-1 }}</span>
+                <a role="button" class="btn btn-success mx-1 my-1" href="{{ path('project_structure') }}/{{ structureFilter }}/ALL" >
+                PROJETS <span class="badge text-bg-danger">{{ projets|length }}</span>
                 </a>
             </li> #}
             {% for etat in etats %}
-                {% set myPath = [path('project_homepage'), '/', etat.etat_id ]|join %}
+                {% set myPath = [path('project_structure'), '/', structureFilter , '/', etat.etat_id ]|join %}
                 <li>
                     <a role="button" class="btn mx-2 my-1 {{ etat.bg_color }} {{ etat.text_color }} d-block"
                     href="{{ myPath }}" >
-                    {% if etat.etat_id == 0 %}
-                        {{ etat.etat }}  <span class="badge text-bg-secondary ms-3">{{ etat.count - 1 }}</span>
-                    {% else %}
-                        {{ etat.etat }}  <span class="badge text-bg-secondary ms-3">{{ etat.count }}</span>
-                    {% endif %}
+                    {{ etat.etat }}  <span class="badge text-bg-secondary ms-3">{{ etat.count }}</span>
                     </a>                
                 </li>
             {% endfor %}
-            <li>
-                <a role="button" class="btn mx-2 my-1 bg-light text-black border" href='{{ path('project_homepage') }}/DASH' >
-            Bilan financier </a>  
-            </li>
+
             {% include ( "li_table.html.twig" ) %}
             {% include ( "li_chart.html.twig" ) %}
             {% include ( "li_banque.html.twig" ) %}

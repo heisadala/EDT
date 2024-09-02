@@ -89,7 +89,7 @@
 
 <div class="container-fluid bg-body-secondary">
     <div class='row justify-content-center m-3 p-2 text-success fs-3'>
-        BILAN FINANCIER
+        BILAN FINANCIER {{ "now"|date("Y") }}
     </div>   
     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 g-4 mt-2 justify-content-center">
     {# <div class='row row-cols-1'>
@@ -185,7 +185,7 @@
                         <td>Bilan affectations</td><td class='text-end'>{{ total_bilan|number_format(2) }}</td><td></td></tr>
                </tbody>
                 <tfoot class='table-group-divider table-success'>
-                    <td>Solde {{ "now"|date("m/d/Y") }} <br>
+                    <td>Solde {{ "now"|date("d/m/Y") }} <br>
                     <small><i>Titre ({{ compte_titre_01_2024|number_format(2) }})<br>
                     Livret ({{ livret_now_2024|number_format(2) }})<br>
                     CC ({{ compte_cheques_now_2024|number_format(2) }})<br>

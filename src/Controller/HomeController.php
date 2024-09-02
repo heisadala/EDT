@@ -6,16 +6,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\HomeTableRepository;
+use App\Repository\ProjectTableRepository;
 
 class HomeController extends AbstractController
 {
-    public function index(HomeTableRepository $homeTableRepository): Response
+    public function index(HomeTableRepository $homeTableRepository,
+                            ProjectTableRepository $projectTableRepository,): Response
     {
 
         $app = $this->getParameter('app.application_name');
         $table_name = $this->getParameter('app.database_home_table_name');
 
         $db = $homeTableRepository->findOneby(['name' => $table_name]);
+
+        $sql_cmd = "SELECT structure FROM project_table WHERE structure != 'EDT' GROUP BY structure ORDER by structure ASC;";
+        $structure = $projectTableRepository->send_sql_cmd($sql_cmd);
 
         $username = "";
         $role = "";
@@ -36,6 +41,7 @@ class HomeController extends AbstractController
             'db' => $db->getName(),
             'username' => $username,
             'role' => $role,
+            'structure' => $structure,
         ]);
     }
 }
