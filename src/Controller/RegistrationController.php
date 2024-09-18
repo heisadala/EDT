@@ -57,9 +57,11 @@ class RegistrationController extends AbstractController
             'background' => $db->getBackground(),
             'header_title' => $_SERVER['HTTP_HOST'],
             'news' => '',
-            'db' => $db->getName(),
+            'db' => "registration",
             'server_base' => $_SERVER['BASE'],
             'registrationForm' => $form->createView(),
-        ]);
+            'show_navbar' => true,
+
+                ]);
     }
 }

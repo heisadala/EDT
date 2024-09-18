@@ -5,7 +5,7 @@
             id: entry.compteid,
             bank: entry.banque ,
             assignment: entry.affectation ,
-            date: entry.date|date("d-m-Y") ,
+            date: entry.date,
             debit: entry.debit,
             credit: entry.credit,
             operation: entry.operation,
@@ -86,7 +86,7 @@
         {% endfor %}
                 </tbody>
                 <tfoot class='table-group-divider table-danger'>
-                    <td>TOTAL</a></td>
+                    <td>TOTAL</td>
                     <td class='text-end'> {{ total_expense|number_format(2) }} </td>
                 </tfoot>
             </table>
@@ -103,9 +103,11 @@
     {% set total_credit = 0 %}
     {% for category in categories %}
         {% set credit = 0 %}
+        {% set date = 2024-09-12 %}
         {% for eintrag in account %}
             {% if eintrag.affectation == affectationFilter and eintrag.categorie == category.categorie %}
                 {% set credit = credit + eintrag.credit %}   
+                {% set date = eintrag.date %}   
             {% endif %}
         {% endfor %}
         {% if credit != 0 %}
@@ -116,17 +118,18 @@
                         {% endif %}
           
                     </div>
-                    <div class="col-md-2 ">
-                        <div class='table-responsive-xl'>
+                    <div class="col-md-3 ">
+                        <div class='table-responsive-xl m-3'>
                             <table class="table table-sm table-light table-striped edt-euros-font">   
                                 <thead class='table-info'>
-                                    <th>Affectations</th><th class='text-end'>Credit</th>
+                                    <th>Date</th><th>Affectations</th><th class='text-end'>Credit</th>
                                 </thead>
                                 <tbody>
                                 {% set show_header = 0 %}
 
                 {% endif %}
                 <tr>
+                    <td>{{ date|date("d-m-Y")  }}</td>
                     <td>{{ category.categorie }}</td>
                     <td class='text-end'> {{ credit|number_format(2) }} </td>
                 </tr>
@@ -136,13 +139,15 @@
             {% if show_header == 0 %}
                 </tbody>
                 <tfoot class='table-group-divider table-danger'>
-                    <td>TOTAL</a></td>
+                    <td>TOTAL</td>
+                    <td></td>
                     <td class='text-end'> {{ total_credit|number_format(2) }} </td>
                 </tfoot>
                 {% if affectationFilter == 'EDT_ADHESIONS' %}
                     <tr class="table-warning">
                     <td>Nombres Adherants</a></td>
                     <td> {{ total_credit / 5 }} </td>
+                    <td></td>
                     </tr>
                 {% endif %}
                 </table>
