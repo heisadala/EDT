@@ -460,6 +460,48 @@ body {
   display: block;
 }
 
+.edt-compte-dropdown:hover .edt-year-dropdown-menu {
+  display: block;
+}
+
+.edt-year-dropdown-menu > li:hover > .edt-2023-dropdown-menu {
+  display: block;
+  left: 100%;
+  top: 0%;
+}
+
+.edt-year-dropdown-menu > li:hover > .edt-2024-dropdown-menu {
+  display: block;
+  left: 100%;
+  top: 29%;
+}
+
+.edt-year-dropdown-menu > li:hover > .edt-2025-dropdown-menu {
+  display: block;
+  left: 100%;
+  top: 60%;
+}
+
+.edt-asso-dropdown:hover .edt-asso-dropdown-menu {
+  display: block;
+}
+
+.edt-asso-dropdown-menu > li:hover > .edt-2024-asso-dropdown-menu {
+  display: block;
+  left: 100%;
+  top: 50%;
+}
+
+.edt-finance-dropdown:hover .edt-finance-dropdown-menu {
+  display: block;
+}
+
+.edt-finance-dropdown-menu > li:hover > .edt-2024-finance-dropdown-menu {
+  display: block;
+  left: 100%;
+  top: 0%;
+}
+
 .edt-dropdown-item {
   font-size: 1rem;
   gap: 0.5rem;
@@ -496,6 +538,11 @@ body {
   .edt-admin-btn {
     display: none;
   }
+  .edt-donateurs-titre, .edt-contact-titre, .edt-qsn-titre {
+    left: 50%;
+    transform: translate(-50%);
+    position: absolute;
+  }
 }
 @media screen and (max-width: 1024px) {
   .edt-body-news-content {
@@ -526,6 +573,10 @@ body {
   }
   .edt-btn-login-logo {
     padding-left: 0px;
+  }
+  .edt-donateurs-titre, .edt-contact-titre, .edt-qsn-titre {
+    transform: translate(20%);
+    position: relative;
   }
 }
 .breadcrumb-item > a {

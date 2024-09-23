@@ -147,6 +147,11 @@ class Database
                     . " WHERE projet_id" . "=" . $id .";";
         $res = $this->prepare_execute_and_fetch($conn, $sql_cmd);              
     }
+    public function update_montant($conn, $table_name, $column_name, $value, $id) {
+        $sql_cmd = "UPDATE " . $table_name . " SET " . $column_name . " = " . $value 
+                    . " WHERE donateur_id" . "=" . $id .";";
+        $res = $this->prepare_execute_and_fetch($conn, $sql_cmd);              
+    }
     public function get_max_id($conn, $table_name, $id) {
         $sql_cmd = "SELECT MAX(" . $id . ") FROM " . $table_name  .";";
         // dd($this->prepare_execute_and_fetch($conn, $sql_cmd));              
@@ -157,6 +162,16 @@ class Database
                 . " WHERE " . $table_name . "." . $table_name_id . " = " . $id . ";";
         // dd($this->prepare_execute_and_fetch($conn, $sql_cmd));              
         return $this->prepare_execute_and_fetch($conn, $sql_cmd);              
+    }
+    public function select_all($conn, $table_name) {
+        $sql_cmd = "SELECT * FROM " . $table_name . ";";
+        // dd($this->prepare_execute_and_fetch($conn, $sql_cmd));              
+        return $this->prepare_execute_and_fetch($conn, $sql_cmd);              
+    }
+    public function update($conn, $table_name, $column_name, $value, $id_column, $id) {
+        $sql_cmd = "UPDATE " . $table_name . " SET " . $column_name . " = " . $value 
+                    . " WHERE " . $id_column . "=" . $id .";";
+        $res = $this->prepare_execute_and_fetch($conn, $sql_cmd);              
     }
 
 }

@@ -104,9 +104,65 @@ body {
 {
     color: var(--bs-primary);
 }
+
 .edt-dropdown:hover .edt-dropdown-menu {
     display: block;
  }
+// ////////////
+// COMPTE DROPDOWN
+// ////////////
+ 
+ .edt-compte-dropdown:hover .edt-year-dropdown-menu{
+    display: block;
+ }
+
+ .edt-year-dropdown-menu > li:hover > .edt-2023-dropdown-menu {
+    display: block;
+    left: 100%;
+    top: 0%
+ }
+
+
+ .edt-year-dropdown-menu > li:hover > .edt-2024-dropdown-menu {
+    display: block;
+    left: 100%;
+    top: 29%
+ }
+
+ .edt-year-dropdown-menu > li:hover > .edt-2025-dropdown-menu {
+    display: block;
+    left: 100%;
+    top: 60%
+ }
+// ////////////
+// ASSO DROPDOWN
+// ////////////
+ 
+ .edt-asso-dropdown:hover .edt-asso-dropdown-menu{
+    display: block;
+ }
+
+ .edt-asso-dropdown-menu > li:hover > .edt-2024-asso-dropdown-menu {
+    display: block;
+    left: 100%;
+    top: 50%
+ }
+
+// ////////////
+// FINANCE DROPDOWN
+// ////////////
+ 
+.edt-finance-dropdown:hover .edt-finance-dropdown-menu{
+    display: block;
+ }
+
+ .edt-finance-dropdown-menu > li:hover > .edt-2024-finance-dropdown-menu {
+    display: block;
+    left: 100%;
+    top: 0%
+ }
+
+
 
  .edt-dropdown-item {
     font-size: 1rem;
@@ -121,6 +177,20 @@ body {
 }
  
 
+
+// .compte-dropdown-menu  .compte-dropdown-submenu {
+//     display: none;
+//     position: absolute;
+//     left: 100%;
+//     top: -7px;
+//     }
+//     .compte-dropdown-menu .compte-dropdown-submenu-left {
+//     right: 100%;
+//     left: auto;
+//     }
+//     .compte-dropdown-menu > li:hover > .compte-dropdown-submenu {
+//     display: block;
+//     }
 // ////////////
 // LARGE SCREEN
 // ////////////
@@ -151,6 +221,11 @@ body {
     }
     .edt-admin-btn {
         display: none
+    }
+    .edt-donateurs-titre, .edt-contact-titre, .edt-qsn-titre {
+        left: 50%;
+        transform: translate(-50%);
+        position: absolute;
     }
 }
 // ////////////
@@ -190,6 +265,10 @@ body {
     }
     .edt-btn-login-logo {
         padding-left: 0px;
+    }
+    .edt-donateurs-titre, .edt-contact-titre, .edt-qsn-titre {
+        transform: translate(20%);
+        position: relative;
     }
 }
 
