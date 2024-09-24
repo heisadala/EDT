@@ -74,6 +74,12 @@ donateurs_homepage:
     defaults:  
         year: '2024' 
 
+especes_homepage:
+    path: /ESPECES/{year}
+    controller: App\Controller\Especes\EspecesController::index
+    defaults:  
+        year: '2024' 
+
 livret_homepage:
     path: /COMPTE/LIVRET
     controller: App\Controller\Compte\CompteController::livret
