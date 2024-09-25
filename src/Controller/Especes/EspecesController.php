@@ -68,6 +68,22 @@ class EspecesController extends AbstractController
                     " ORDER BY e.especes_id ASC";
 
         $especes = $especesTableRepository->send_sql_cmd($sql_cmd);
+
+        $selectlist = 'ma.nom AS manifestation, ca.nom AS caisse, e.date, e.recette' ;
+        
+        $from_table = $especes_tbl . ' e';
+        $join_table = [ 
+            ['manifestation_table ma', 'e.manifestation_id', 'ma.manifestation_id'],
+            ['caisse_table ca', 'e.caisse_id', 'ca.caisse_id'],
+                    ];
+        $sql_cmd = "SELECT " . $selectlist . 
+                    " FROM " . $from_table . 
+                    " JOIN " . $join_table[0][0] . " ON " .  $join_table[0][1] . " = " . $join_table[0][2] .
+                    " JOIN " . $join_table[1][0] . " ON " .  $join_table[1][1] . " = " . $join_table[1][2] .
+                    " ORDER BY e.especes_id ASC";
+
+        $recettes = $especesTableRepository->send_sql_cmd($sql_cmd);
+        // dd($recettes);
         $username = "";
         $role = "";
         if ($this->getUser()) {
@@ -85,6 +101,7 @@ class EspecesController extends AbstractController
             'show_gallery' => true,
             'db' => $db->getName(),
             'especes' => $especes,
+            'recettes' => $recettes,
             'year' => $year,
             'username' => $username,
             'role' => $role,        

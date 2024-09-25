@@ -538,7 +538,7 @@ body {
   .edt-admin-btn {
     display: none;
   }
-  .edt-donateurs-titre, .edt-contact-titre, .edt-qsn-titre .edt-especes-titre {
+  .edt-donateurs-titre, .edt-contact-titre, .edt-qsn-titre, .edt-especes-titre {
     left: 50%;
     transform: translate(-50%);
     position: absolute;

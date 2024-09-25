@@ -1,4 +1,69 @@
 <div class="container-fluid bg-body-secondary">
+    {% set bijoux_recette = 0 %}
+    {% set produits_recette = 0 %}
+    {% set inscriptions_recette = 0 %}
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2 justify-content-center">
+        <div class="col md-1">
+            <div class="card text-center">
+                <div class="card-body">
+                    <table class='table table-sm edt-euros-font'>
+                        <thead>                                        
+                            <tr class="table-danger"><th colspan="3">BIJOUX</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for recette in recettes %}
+                                {% if recette.caisse == 'BIJOUX' %}
+                                    <tr><td>{{ recette.date|date("d/m/Y") }}</td><td>{{ recette.manifestation}}</td><td class='text-end'>{{ recette.recette}}</td>
+                                     {% set bijoux_recette = bijoux_recette + recette.recette %}
+                                {% endif %}
+                            {% endfor %}
+                            <tr class="table-light" ><td>Total</td><td></td><td class='text-end'>{{ bijoux_recette|number_format(2) }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col md-1">
+            <div class="card text-center">
+                <div class="card-body">
+                    <table class='table table-sm edt-euros-font'>
+                        <thead>                                        
+                            <tr class="table-danger"><th colspan="3">PRODUITS</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for recette in recettes %}
+                                {% if recette.caisse == 'PRODUITS' %}
+                                    <tr><td>{{ recette.date|date("d/m/Y") }}</td><td>{{ recette.manifestation}}</td><td class='text-end'>{{ recette.recette}}</td>
+                                     {% set produits_recette = produits_recette + recette.recette %}
+                                {% endif %}
+                            {% endfor %}
+                            <tr class="table-light" ><td>Total</td><td></td><td class='text-end'>{{ produits_recette|number_format(2) }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col md-1">
+            <div class="card text-center">
+                <div class="card-body">
+                    <table class='table table-sm edt-euros-font'>
+                        <thead>                                        
+                            <tr class="table-danger"><th colspan="3">INSCRIPTIONS</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for recette in recettes %}
+                                {% if 'INSCRIPTION' in recette.caisse %}
+                                    <tr><td>{{ recette.date|date("d/m/Y") }}</td><td>{{ recette.manifestation}}</td><td class='text-end'>{{ recette.recette}}</td>
+                                     {% set inscriptions_recette = inscriptions_recette + recette.recette %}
+                                {% endif %}
+                            {% endfor %}
+                            <tr class="table-light" ><td>Total</td><td></td><td class='text-end'>{{ inscriptions_recette|number_format(2) }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
         {% for espece in especes %}
             {% if loop.index0 == 0 %}
@@ -6,58 +71,63 @@
                     <div class="col md-1">
                         <div class="card text-center">
                             <div class="card-body">
-                                <table class='table table-sm'>
-                                    <thead>
+                                <table class='table table-sm edt-euros-font'>
+                                    <thead>                                        
+                                       <tr class="table-danger"><th colspan="2">{{ "now"|date("d/m/Y") }}</th><th>{{ espece.caisse }}</th></tr>
+
                                     </thead>
                                     <tbody>
-                                        <tr class="table-danger" ><td>{{ "now"|date("d/m/Y") }}</td><td>{{ espece.caisse }}</td><td></td></tr>
                                         <tr class="table-warning" ><td>Type</td><td>Nombres</td><td>Montant</td></tr>
-                                        <tr class="table-light" ><td>50</td><td>{{ espece.nombre_50_apres }}</td><td>{{ espece.montant_50_apres }}</td></tr>
-                                        <tr class="table-light" ><td>20</td><td>{{ espece.nombre_20_apres }}</td><td>{{ espece.montant_20_apres }}</td></tr>
-                                        <tr class="table-light" ><td>10</td><td>{{ espece.nombre_10_apres }}</td><td>{{ espece.montant_10_apres }}</td></tr>
-                                        <tr class="table-light" ><td>5</td><td>{{ espece.nombre_5_apres }}</td><td>{{ espece.montant_5_apres }}</td></tr>
-                                        <tr class="table-light" ><td>2</td><td>{{ espece.nombre_2_apres }}</td><td>{{ espece.montant_2_apres }}</td></tr>
-                                        <tr class="table-light" ><td>1</td><td>{{ espece.nombre_1_apres }}</td><td>{{ espece.montant_1_apres }}</td></tr>
-                                        <tr class="table-light" ><td>0.50</td><td>{{ espece.nombre_050_apres }}</td><td>{{ espece.montant_050_apres }}</td></tr>
-                                        <tr class="table-light" ><td>0.20</td><td>{{ espece.nombre_020_apres }}</td><td>{{ espece.montant_020_apres }}</td></tr>
-                                        <tr class="table-light" ><td>0.10</td><td>{{ espece.nombre_010_apres }}</td><td>{{ espece.montant_010_apres }}</td></tr>
-                                        <tr class="table-success" ><td>TOTAL</td><td></td><td>{{ espece.recette|number_format(2) }} Euros</td></tr>
+                                        <tr class="table-light" ><td>50</td><td>{{ espece.nombre_50_apres }}</td><td class='text-end'>{{ espece.montant_50_apres }}</td></tr>
+                                        <tr class="table-light" ><td>20</td><td>{{ espece.nombre_20_apres }}</td><td class='text-end'>{{ espece.montant_20_apres }}</td></tr>
+                                        <tr class="table-light" ><td>10</td><td>{{ espece.nombre_10_apres }}</td><td class='text-end'>{{ espece.montant_10_apres }}</td></tr>
+                                        <tr class="table-light" ><td>5</td><td>{{ espece.nombre_5_apres }}</td><td class='text-end'>{{ espece.montant_5_apres }}</td></tr>
+                                        <tr class="table-light" ><td>2</td><td>{{ espece.nombre_2_apres }}</td><td class='text-end'>{{ espece.montant_2_apres }}</td></tr>
+                                        <tr class="table-light" ><td>1</td><td>{{ espece.nombre_1_apres }}</td><td class='text-end'>{{ espece.montant_1_apres }}</td></tr>
+                                        <tr class="table-light" ><td>0.50</td><td>{{ espece.nombre_050_apres }}</td><td class='text-end'>{{ espece.montant_050_apres }}</td></tr>
+                                        <tr class="table-light" ><td>0.20</td><td>{{ espece.nombre_020_apres }}</td><td class='text-end'>{{ espece.montant_020_apres }}</td></tr>
+                                        <tr class="table-light" ><td>0.10</td><td>{{ espece.nombre_010_apres }}</td><td class='text-end'>{{ espece.montant_010_apres }}</td></tr>
+                                        <tr class="table-success" ><td>TOTAL</td><td></td><td class='text-end'>{{ espece.recette|number_format(2) }}</td></tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 g-4 mt-2 justify-content-center">
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2 justify-content-center">
 
             {% else %}
-                    <div class="col md-1">
-                        <div class="card text-center">
 
-                            <div class="card-body">
-                                <table class='table table-sm'>
-                                    <thead>
-                                    </thead>
-                                    <tbody> 
-                                        <tr class="table-danger" ><td>{{ espece.date|date("d-m-Y") }}</td><td>{{ espece.manifestation }}</td><td>{{ espece.caisse }}</td><td></td><td></td></tr>
-                                        <tr class="table-warning" ><td>Type</td><td>Nb av</td><td>Montant av</td><td>Nb ap</td><td>Montant ap</td></tr>
-                                        <tr class="table-light" ><td>50</td><td>{{ espece.nombre_50 }}</td><td>{{ espece.montant_50 }}</td><td>{{ espece.nombre_50_apres }}</td><td>{{ espece.montant_50_apres }}</td></tr>
-                                        <tr class="table-light" ><td>20</td><td>{{ espece.nombre_20 }}</td><td>{{ espece.montant_20 }}</td><td>{{ espece.nombre_20_apres }}</td><td>{{ espece.montant_20_apres }}</td></tr>
-                                        <tr class="table-light" ><td>10</td><td>{{ espece.nombre_10 }}</td><td>{{ espece.montant_10 }}</td><td>{{ espece.nombre_10_apres }}</td><td>{{ espece.montant_10_apres }}</td></tr>
-                                        <tr class="table-light" ><td>5</td><td>{{ espece.nombre_5 }}</td><td>{{ espece.montant_5 }}</td><td>{{ espece.nombre_5_apres }}</td><td>{{ espece.montant_5_apres }}</td></tr>
-                                        <tr class="table-light" ><td>2</td><td>{{ espece.nombre_2 }}</td><td>{{ espece.montant_2 }}</td><td>{{ espece.nombre_2_apres }}</td><td>{{ espece.montant_2_apres }}</td></tr>
-                                        <tr class="table-light" ><td>1</td><td>{{ espece.nombre_1 }}</td><td>{{ espece.montant_1 }}</td><td>{{ espece.nombre_1_apres }}</td><td>{{ espece.montant_1_apres }}</td></tr>
-                                        <tr class="table-light" ><td>0.50</td><td>{{ espece.nombre_050 }}</td><td>{{ espece.montant_050 }}</td><td>{{ espece.nombre_050_apres }}</td><td>{{ espece.montant_050_apres }}</td></tr>
-                                        <tr class="table-light" ><td>0.20</td><td>{{ espece.nombre_020 }}</td><td>{{ espece.montant_020 }}</td><td>{{ espece.nombre_020_apres }}</td><td>{{ espece.montant_020_apres }}</td></tr>
-                                        <tr class="table-light" ><td>0.10</td><td>{{ espece.nombre_010 }}</td><td>{{ espece.montant_010 }}</td><td>{{ espece.nombre_010_apres }}</td><td>{{ espece.montant_010_apres }}</td></tr>
-                                        <tr class="table-success" ><td>TOTAL</td><td></td><td>{{ espece.montant|number_format(2) }}</td><td></td><td>{{ espece.montant_apres|number_format(2) }}</td></tr>
-                                        <tr class="table-light" ><td>CHEQUES</td><td></td><td></td><td></td><td>{{ espece.cheques|number_format(2) }}</td></tr>
-                                        <tr class="table-success" ><td>RECETTE</td><td></td><td></td><td></td><td>{{ espece.recette|number_format(2) }} Euros</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                <div class="col md-1">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <table class='table table-responsive edt-euros-font'>
+                                <thead>
+                                <thead>                                        
+                                    <tr class="table-danger"><th colspan="2">{{ espece.date|date("d/m/Y") }}</th><th>{{ espece.manifestation }}</th><th>{{ espece.caisse }}</th><th></th></tr>
+
+                                </thead>                                    </thead>
+                                <tbody> 
+                                    <tr class="table-warning" ><td></td><td>Nb av</td><td class='text-end'>Montant av</td><td>Nb ap</td><td class='text-end'>Montant ap</td></tr>
+                                    <tr class="table-light" ><td>50</td><td>{{ espece.nombre_50 }}</td><td class='text-end'>{{ espece.montant_50 }}</td><td>{{ espece.nombre_50_apres }}</td><td class='text-end'>{{ espece.montant_50_apres }}</td></tr>
+                                    <tr class="table-light" ><td>20</td><td>{{ espece.nombre_20 }}</td><td class='text-end'>{{ espece.montant_20 }}</td><td>{{ espece.nombre_20_apres }}</td><td class='text-end'>{{ espece.montant_20_apres }}</td></tr>
+                                    <tr class="table-light" ><td>10</td><td>{{ espece.nombre_10 }}</td><td class='text-end'>{{ espece.montant_10 }}</td><td>{{ espece.nombre_10_apres }}</td><td class='text-end'>{{ espece.montant_10_apres }}</td></tr>
+                                    <tr class="table-light" ><td>5</td><td>{{ espece.nombre_5 }}</td><td class='text-end'>{{ espece.montant_5 }}</td><td>{{ espece.nombre_5_apres }}</td><td class='text-end'>{{ espece.montant_5_apres }}</td></tr>
+                                    <tr class="table-light" ><td>2</td><td>{{ espece.nombre_2 }}</td><td class='text-end'>{{ espece.montant_2 }}</td><td>{{ espece.nombre_2_apres }}</td><td class='text-end'>{{ espece.montant_2_apres }}</td></tr>
+                                    <tr class="table-light" ><td>1</td><td>{{ espece.nombre_1 }}</td><td class='text-end'>{{ espece.montant_1 }}</td><td>{{ espece.nombre_1_apres }}</td><td class='text-end'>{{ espece.montant_1_apres }}</td></tr>
+                                    <tr class="table-light" ><td>0.50</td><td>{{ espece.nombre_050 }}</td><td class='text-end'>{{ espece.montant_050 }}</td><td>{{ espece.nombre_050_apres }}</td><td class='text-end'>{{ espece.montant_050_apres }}</td></tr>
+                                    <tr class="table-light" ><td>0.20</td><td>{{ espece.nombre_020 }}</td><td class='text-end'>{{ espece.montant_020 }}</td><td>{{ espece.nombre_020_apres }}</td><td class='text-end'>{{ espece.montant_020_apres }}</td></tr>
+                                    <tr class="table-light" ><td>0.10</td><td>{{ espece.nombre_010 }}</td><td class='text-end'>{{ espece.montant_010 }}</td><td>{{ espece.nombre_010_apres }}</td><td class='text-end'>{{ espece.montant_010_apres }}</td></tr>
+                                    <tr class="table-success" ><td>TOTAL</td><td></td><td class='text-end'>{{ espece.montant|number_format(2) }}</td><td></td><td class='text-end'>{{ espece.montant_apres|number_format(2) }}</td></tr>
+                                    <tr class="table-light" ><td>CHEQUES</td><td></td><td></td><td></td><td class='text-end'>{{ espece.cheques|number_format(2) }}</td></tr>
+                                    <tr class="table-success" ><td>RECETTE</td><td></td><td></td><td></td><td class='text-end'>{{ espece.recette|number_format(2) }}</td></tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
+
+
             {% endif %}
         {% endfor %}
     </div>
