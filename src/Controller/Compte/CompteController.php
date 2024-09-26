@@ -71,7 +71,7 @@ class CompteController extends AbstractController
     {
         $app = 'TABLE';
 
-        $db = $courantTableRepository->findOneBy(['name' => $app]);
+        $db = $compteTableRepository->findOneBy(['name' => $app]);
         $table_header_fields = $courantTableRepository->fetch_header_fields_from_table($db->getTbl());
         $primary_key_name = $courantTableRepository->get_pk_name($db->getTbl());
         $primary_key_column = $this->get_pk_column($table_header_fields, $primary_key_name);
