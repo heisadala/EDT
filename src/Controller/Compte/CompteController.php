@@ -121,6 +121,7 @@ class CompteController extends AbstractController
             'asc_or_desc' => $asc_or_desc,
             'up_or_down' => $up_or_down,
             'username' => $username,
+            'year' => $year,
 
         ]);
     }
