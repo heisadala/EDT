@@ -63,14 +63,15 @@ class CompteController extends AbstractController
         ]);
     }
 
-    public function table(string $viewFormat, int $rowNumbers,
+    public function table(string $year,string $viewFormat, int $rowNumbers,
                             CompteTableRepository $compteTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
 
                         ): Response
     {
         $app = 'TABLE';
-        $db = $compteTableRepository->findOneBy(array('name' => $app));
+
+        $db = $courantTableRepository->findOneBy(['name' => $app]);
         $table_header_fields = $courantTableRepository->fetch_header_fields_from_table($db->getTbl());
         $primary_key_name = $courantTableRepository->get_pk_name($db->getTbl());
         $primary_key_column = $this->get_pk_column($table_header_fields, $primary_key_name);
@@ -80,7 +81,9 @@ class CompteController extends AbstractController
         $up_or_down = $sort_order == 'ASC' ? 'down' : 'up';
         $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
 
-        $courant_table_content = $courantTableRepository->fetch_class_from_table_ordered($db->getTbl(),
+        $table_name = $year . '_' . $db->getTbl();
+        $courantTableRepository->set_table_name($table_name);
+        $courant_table_content = $courantTableRepository->fetch_class_from_table_ordered($table_name,
                                                                                     $sort, $sort_order);
 
         $showTable = true;

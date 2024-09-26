@@ -14,7 +14,7 @@ use App\Repository\EtatTableRepository;
 class ProjectController extends AbstractController
 {
 
-    public function index(string $etatFilter, 
+    public function index(string $year,string $etatFilter, 
                             HomeTableRepository $homeTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
                             ProjectTableRepository $projectTableRepository,
@@ -24,11 +24,17 @@ class ProjectController extends AbstractController
     {
         $app = 'PROJECT';
         $db = $homeTableRepository->findOneBy(['name' => $app]);
+        $table_name = $year . '_' . $db->getTbl();
+        $projectTableRepository->set_table_name($table_name);
 
         $projets =$projectTableRepository->findAll();
+
+        $compte_table_name = $year . '_' . 'compte_cheques_table';
+        $courantTableRepository->set_table_name($compte_table_name);
         $account =$courantTableRepository->findAll();
+
         $etats =$etatTableRepository->findAll();
-        $sql_cmd = "SELECT structure FROM project_table WHERE structure != 'EDT' GROUP BY structure ORDER by structure ASC;";
+        $sql_cmd = "SELECT structure FROM $table_name WHERE structure != 'EDT' GROUP BY structure ORDER by structure ASC;";
         $structure = $projectTableRepository->send_sql_cmd($sql_cmd);
 
         for ($i=1; $i <  count($projets); $i++) {
@@ -43,7 +49,8 @@ class ProjectController extends AbstractController
                 }
 
             }
-            $projectTableRepository->update_f_montant( 'f_montant', 
+            $projectTableRepository->update_f_montant( $table_name, 
+                                                        'f_montant', 
                                                         $projets[$i]->getFMontant(),  
                                                         $projets[$i]->getProjetId()
                                                     );
@@ -53,7 +60,7 @@ class ProjectController extends AbstractController
         p.f_date, p.p_recu, p.p_sig, p.d_recu, p.d_sig, p.d_montant, 
         p.f_montant, p_e.bg_color, p_e.text_color' ;
         
-        $from_table = 'project_table p';
+        $from_table = $table_name . ' p';
         $join_table = [ 
                         ['prestataire_table pr', 'p.prestataire_id', 'pr.prestataire_id'],
                         ['etat_table p_e', 'p.etat_id', 'p_e.etat_id'],
@@ -64,11 +71,11 @@ class ProjectController extends AbstractController
                     " JOIN " . $join_table[1][0] . " ON " .  $join_table[1][1] . " = " . $join_table[1][2] .
                     " ORDER BY p.projet_id ASC";
 
-        $projets = $courantTableRepository->send_sql_cmd($sql_cmd);
+        $projets = $projectTableRepository->send_sql_cmd($sql_cmd);
 
         $new_sql_cmd = 'SELECT etat, etat_id, bg_color, text_color, count(etat) AS count FROM (' . $sql_cmd . " ) a 
                         GROUP BY etat ORDER by etat_id ASC;";
-        $etats = $courantTableRepository->send_sql_cmd($new_sql_cmd);
+        $etats = $projectTableRepository->send_sql_cmd($new_sql_cmd);
         //dd($etats);
         $username = "";
         $role = "";
@@ -101,12 +108,14 @@ class ProjectController extends AbstractController
             'etatFilter' => $etatFilter,
             'username' => $username,
             'role' => $role,       
-            'structure' => $structure,        ]);
+            'structure' => $structure,
+            'year' => $year,        
+        ]);
     }
 
 
 
-    public function structure(string $structureFilter, string $etatFilter, 
+    public function structure(string $year, string $structureFilter, string $etatFilter, 
                             HomeTableRepository $homeTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
                             ProjectTableRepository $projectTableRepository,
@@ -116,11 +125,16 @@ class ProjectController extends AbstractController
     {
         $app = 'STRUCTURE';
         $db = $homeTableRepository->findOneBy(['name' => $app]);
+        $table_name = $year . '_' . $db->getTbl();
+        $projectTableRepository->set_table_name($table_name);
 
         $projets =$projectTableRepository->findBy(['structure' => $structureFilter]);
+
+        $compte_table_name = $year . '_' . 'compte_cheques_table';
+        $courantTableRepository->set_table_name($compte_table_name);
         $account =$courantTableRepository->findBy(['affectation' => $structureFilter]);
         $etats =$etatTableRepository->findAll();
-        $sql_cmd = "SELECT structure FROM project_table WHERE structure != 'EDT' GROUP BY structure ORDER by structure ASC;";
+        $sql_cmd = "SELECT structure FROM $table_name WHERE structure != 'EDT' GROUP BY structure ORDER by structure ASC;";
         $structure = $projectTableRepository->send_sql_cmd($sql_cmd);
 
 
@@ -137,7 +151,8 @@ class ProjectController extends AbstractController
                 }
 
             }
-            $projectTableRepository->update_f_montant( 'f_montant', 
+            $projectTableRepository->update_f_montant( $table_name,
+                                                        'f_montant', 
                                                         $projets[$i]->getFMontant(),  
                                                         $projets[$i]->getProjetId()
                                                     );
@@ -147,7 +162,7 @@ class ProjectController extends AbstractController
         p.f_date, p.p_recu, p.p_sig, p.d_recu, p.d_sig, p.d_montant, 
         p.f_montant, p_e.bg_color, p_e.text_color' ;
         
-        $from_table = 'project_table p';
+        $from_table = $table_name . ' p';
         $join_table = [ 
                         ['prestataire_table pr', 'p.prestataire_id', 'pr.prestataire_id'],
                         ['etat_table p_e', 'p.etat_id', 'p_e.etat_id'],
@@ -158,11 +173,11 @@ class ProjectController extends AbstractController
                     " JOIN " . $join_table[1][0] . " ON " .  $join_table[1][1] . " = " . $join_table[1][2] .
                     " WHERE p.structure = '" . $structureFilter . "' ORDER BY p.projet_id ASC";
 
-        $projets = $courantTableRepository->send_sql_cmd($sql_cmd);
+        $projets = $projectTableRepository->send_sql_cmd($sql_cmd);
 
         $new_sql_cmd = 'SELECT etat, etat_id, bg_color, text_color, count(etat) AS count FROM (' . $sql_cmd . " ) a 
                         GROUP BY etat ORDER by etat_id ASC;";
-        $etats = $courantTableRepository->send_sql_cmd($new_sql_cmd);
+        $etats = $projectTableRepository->send_sql_cmd($new_sql_cmd);
         //dd($etats);
         $username = "";
         $role = "";
@@ -196,7 +211,9 @@ class ProjectController extends AbstractController
             'etatFilter' => $etatFilter,
             'username' => $username,
             'role' => $role,        
-            'structure' => $structure,        ]);
+            'structure' => $structure, 
+            'year' => $year,        
+        ]);
     }
 
 

@@ -21,15 +21,17 @@ handi_homepage:
     controller: App\Controller\Handi\HandiController::index
 
 project_homepage:
-    path: /PROJECT/{etatFilter}
+    path: /PROJECT/{year}/{etatFilter}
     controller: App\Controller\Project\ProjectController::index
     defaults:  
+        year: '2024' 
         etatFilter: 'ALL' 
         
 project_structure:
-    path: /PROJECT/{structureFilter}/{etatFilter}
+    path: /PROJECT/{year}/{structureFilter}/{etatFilter}
     controller: App\Controller\Project\ProjectController::structure
     defaults:  
+        year: '2024' 
         structureFilter: 'ESTRAN' 
         etatFilter: 'ALL' 
 
@@ -46,9 +48,10 @@ cpt_chart_homepage:
         chartFilter: 'ALL' 
     
 cpt_table_homepage:
-    path: /COMPTE/TABLE/{viewFormat}/{rowNumbers}
+    path: /COMPTE/TABLE/{year}/{viewFormat}/{rowNumbers}
     controller: App\Controller\Compte\CompteController::table
     defaults:  
+        year: '2024' 
         viewFormat: 'table' 
         rowNumbers: 10 
 
@@ -64,9 +67,6 @@ cpt_table_delete:
     path: /COMPTE/COURANT/DELETE/{pk_name}/{ref}
     controller: App\Controller\Compte\CompteController::delete
 
-caisses_homepage:
-    path: /COMPTE/CAISSES
-    controller: App\Controller\Compte\CompteController::caisses
 
 donateurs_homepage:
     path: /DONATEURS/{year}

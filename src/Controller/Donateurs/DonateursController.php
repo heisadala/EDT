@@ -35,13 +35,17 @@ class DonateursController extends AbstractController
                             DonateursTableRepository $donateursTableRepository): Response
     {
         $app = 'DONATEURS';
-        $donateur_tbl = $year . '_donateurs_table';
+
+        $db = $homeTableRepository->findOneBy(['name' => $app]);
+        $table_name = $year . '_' . $db->getTbl();
+        $donateursTableRepository->set_table_name($table_name);
+
+        $donateurs = $donateursTableRepository->findAll();
+
+        $compte_table_name = $year . '_' . 'compte_cheques_table';
+        $courantTableRepository->set_table_name($compte_table_name);
 
         $account_col_donateur_id = "donateur_id";
-
-        $db = $homeTableRepository->findOneBy(array('name' => $app));
-        $donateursTableRepository->set_table_name($donateur_tbl);
-        $donateurs = $donateursTableRepository->findAll();
         $dons_total = 0;
         for ($i=1; $i <  count($donateurs); $i++) {
             $donateurs[$i]->setMontant(0);
@@ -53,7 +57,7 @@ class DonateursController extends AbstractController
                 }
 
             }
-            $donateursTableRepository->update( $donateur_tbl, 'montant', 
+            $donateursTableRepository->update( $table_name, 'montant', 
                                                 $donateurs[$i]->getMontant() ,  
                                                 'donateur_id',
                                                 $donateurs[$i]->getDonateurId()

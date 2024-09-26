@@ -112,24 +112,24 @@ body {
 // COMPTE DROPDOWN
 // ////////////
  
- .edt-compte-dropdown:hover .edt-year-dropdown-menu{
+ .edt-compte-dropdown:hover .edt-compte-dropdown-menu{
     display: block;
  }
 
- .edt-year-dropdown-menu > li:hover > .edt-2023-dropdown-menu {
+ .edt-compte-dropdown-menu > li:hover > .edt-2023-compte-dropdown-menu {
     display: block;
     left: 100%;
     top: 0%
  }
 
 
- .edt-year-dropdown-menu > li:hover > .edt-2024-dropdown-menu {
+ .edt-compte-dropdown-menu > li:hover > .edt-2024-compte-dropdown-menu {
     display: block;
     left: 100%;
     top: 29%
  }
 
- .edt-year-dropdown-menu > li:hover > .edt-2025-dropdown-menu {
+ .edt-compte-dropdown-menu > li:hover > .edt-2025-compte-dropdown-menu {
     display: block;
     left: 100%;
     top: 60%
@@ -160,6 +160,28 @@ body {
     display: block;
     left: 100%;
     top: 0%
+ }
+
+ 
+// ////////////
+// PROJECTS DROPDOWN
+// ////////////
+ 
+.edt-projects-dropdown:hover .edt-projects-dropdown-menu{
+    display: block;
+ }
+
+ .edt-projects-dropdown-menu > li:hover > .edt-2024-projects-dropdown-menu {
+    display: block;
+    left: 100%;
+    top: 0%
+ }
+
+
+ .edt-projects-dropdown-menu > li:hover > .edt-2025-projects-dropdown-menu {
+    display: block;
+    left: 100%;
+    top: 50%
  }
 
 

@@ -19,7 +19,7 @@ class HomeController extends AbstractController
 
         $db = $homeTableRepository->findOneby(['name' => $table_name]);
 
-        $sql_cmd = "SELECT structure FROM project_table WHERE structure != 'EDT' GROUP BY structure ORDER by structure ASC;";
+        $sql_cmd = "SELECT structure FROM 2024_project_table WHERE structure != 'EDT' GROUP BY structure ORDER by structure ASC;";
         $structure = $projectTableRepository->send_sql_cmd($sql_cmd);
 
         $username = "";

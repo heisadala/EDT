@@ -17,7 +17,6 @@ use App\Service\Database;
  */
 class ProjectTableRepository extends ServiceEntityRepository
 {
-    private ?string $project_table_name = 'project_table';
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -27,47 +26,29 @@ class ProjectTableRepository extends ServiceEntityRepository
     {
         return $this->getEntityManager()->getConnection();
     }
+    function set_table_name($table_name) 
+    {
+        $entityManager = $this->getEntityManager();
+        $classMetaData = $entityManager->getClassMetadata(ProjectTable::class);
+        $classMetaData->setTableName($table_name);
+    }
+
     public function send_sql_cmd($sql_cmd): array
     {
         $db = new Database;
         return ($db->send_sql_cmd($this->get_connection(), $sql_cmd));
     }
 
-    public function fetch_header_fields_from_table($table_name): array
-    {
-        $db = new Database;
-        return ($db->fetch_header_fields_from_table($this->get_connection(), $table_name));
-    }
-
-
-    public function select_from_inner_on($table_name, $select, $id)
-    {
-        $db = new Database;
-        return ($db->select_from_inner_on($this->get_connection(), 
-            $table_name, $select, $id));
-    }
-    public function fetch_column_unique_value($table_name, $column_name): array
-    {
-        $db = new Database;
-        return ($db->fetch_column_unique_value($this->get_connection(), $table_name, $column_name));
-    }
-    
-    public function update_f_montant($column_name, $value, $id)
+    public function update_f_montant($table_name, $column_name, $value, $id)
     {
         $db = new Database;
         $db->update_f_montant($this->get_connection(), 
-                                $this->project_table_name, 
+                                $table_name, 
                                 $column_name, 
                                 $value, 
                                 $id);
     }
-    
-    public function get_max_id()
-    {
-        $db = new Database;
-        return $db->get_max_id($this->get_connection(), $this->project_table_name, 'proj_id')[0]["MAX(proj_id)"];
-    }
-    
+
     //    /**
     //     * @return ProjectTable[] Returns an array of ProjectTable objects
     //     */

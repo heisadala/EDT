@@ -29,6 +29,12 @@ class CompteChequesTableRepository extends ServiceEntityRepository
     {
         return $this->getEntityManager()->getConnection();
     }
+    function set_table_name($table_name) 
+    {
+        $entityManager = $this->getEntityManager();
+        $classMetaData = $entityManager->getClassMetadata(CompteChequesTable::class);
+        $classMetaData->setTableName($table_name);
+    }
     public function send_sql_cmd($sql_cmd): array
     {
         $db = new Database;
