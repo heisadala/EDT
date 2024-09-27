@@ -40,9 +40,9 @@ class ProjectController extends AbstractController
         for ($i=1; $i <  count($projets); $i++) {
             $projets[$i]->setFMontant(0);
 
-            $filter_proj = $courantTableRepository->select_all_from_where('projet_id', $projets[$i]->getProjetId());
-
+            $filter_proj = $courantTableRepository->select_all_from_where($compte_table_name, 'projet_id', $projets[$i]->getProjetId());
             if ($filter_proj != []) {
+                dd($filter_proj);
                 for ($j=0; $j < count($filter_proj); $j++) {
                     $projets[$i]->setFMontant($projets[$i]->getFMontant() + $filter_proj[$j]['debit']);
                     $projets[$i]->setFMontant($projets[$i]->getFMontant() - $filter_proj[$j]['credit']);
@@ -137,12 +137,10 @@ class ProjectController extends AbstractController
         $sql_cmd = "SELECT structure FROM $table_name WHERE structure != 'EDT' GROUP BY structure ORDER by structure ASC;";
         $structure = $projectTableRepository->send_sql_cmd($sql_cmd);
 
-
-
         for ($i=1; $i <  count($projets); $i++) {
             $projets[$i]->setFMontant(0);
 
-            $filter_proj = $courantTableRepository->select_all_from_where('projet_id', $projets[$i]->getProjetId());
+            $filter_proj = $courantTableRepository->select_all_from_where($compte_table_name, 'projet_id', $projets[$i]->getProjetId());
 
             if ($filter_proj != []) {
                 for ($j=0; $j < count($filter_proj); $j++) {

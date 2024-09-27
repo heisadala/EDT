@@ -140,11 +140,11 @@ class CompteChequesTableRepository extends ServiceEntityRepository
                 );
     }
 
-    function select_all_from_where($table_id, $id)
+    function select_all_from_where($table_name, $table_id, $id)
     {   
         $db = new Database;
         return $db->select_all_from_where($this->get_connection(), 
-                                            'compte_cheques_table', 
+                                            $table_name, 
                                             $table_id, $id
                                         );
     }
