@@ -49,6 +49,14 @@ class EspecesTableRepository extends ServiceEntityRepository
         $db = new Database;
         return ($db->send_sql_cmd($this->get_connection(), $sql_cmd));
     }
+    function select_all_from_where($table_name, $table_id, $id)
+    {   
+        $db = new Database;
+        return $db->select_all_from_where($this->get_connection(), 
+                                            $table_name, 
+                                            $table_id, $id
+                                        );
+    }
     //    /**
     //     * @return CompteFondsDeCaissesTable[] Returns an array of CompteFondsDeCaissesTable objects
     //     */

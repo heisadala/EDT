@@ -75,12 +75,15 @@
 
 
 {% set compte_titre_01_2024 = 3330.00 %}
+{% set caisse_01_2024 = caisse.montant %}
+{% set caisse_now_2024 = caisse.recette %}
+
 {% set livret_01_2024 = 33121.74 %}
 {% set livret_now_2024 = livret_01_2024 - total_intern_credit %}
 {% set compte_cheques_01_2024 = 11507.06 %}
 {% set solde = 0.00 %}
 
-{% set credit_01_2024 = compte_titre_01_2024 + livret_01_2024 + compte_cheques_01_2024 %}
+{% set credit_01_2024 = compte_titre_01_2024 + livret_01_2024 + caisse_01_2024 + compte_cheques_01_2024 %}
 {% set solde = credit_01_2024 - total_bilan %}
 
 {% set compte_cheques_now_2024 = compte_cheques_01_2024 + credit - debit  %}
@@ -177,6 +180,8 @@
                     <tr>    
                         <td>Livret</td><td></td><td class='text-end'>{{ livret_01_2024|number_format(2) }}</td></tr>
                     <tr>
+                        <td>Caisse</td><td></td><td class='text-end'>{{ caisse_01_2024|number_format(2) }}</td></tr>
+                    <tr>
                         <td>CC</td><td></td><td class='text-end'>{{ compte_cheques_01_2024|number_format(2) }}</td></tr>
                     <tr class='table-group-divider table-success'>    
                         <td>Solde 01-01-2024 </td><td></td><td class='text-end'>{{ credit_01_2024|number_format(2) }}</td></tr>
@@ -188,6 +193,7 @@
                     <td>Solde {{ "now"|date("d/m/Y") }} <br>
                     <small><i>Titre ({{ compte_titre_01_2024|number_format(2) }})<br>
                     Livret ({{ livret_now_2024|number_format(2) }})<br>
+                    Caisse ({{ caisse_now_2024|number_format(2) }})<br>
                     CC ({{ compte_cheques_now_2024|number_format(2) }})<br>
                     </td><td></td><td class='text-end text-success'><b>{{ solde|number_format(2) }}</b></td>
                  </tfoot>

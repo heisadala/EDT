@@ -2,6 +2,7 @@
 
 namespace App\Controller\Project;
 
+use App\Repository\EspecesTableRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,7 +19,7 @@ class ProjectController extends AbstractController
                             HomeTableRepository $homeTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
                             ProjectTableRepository $projectTableRepository,
-                            PrestataireTableRepository $prestataireTableRepository,
+                            EspecesTableRepository $especesTableRepository,
                             EtatTableRepository $etatTableRepository
                         ): Response
     {
@@ -33,6 +34,10 @@ class ProjectController extends AbstractController
         $courantTableRepository->set_table_name($compte_table_name);
         $account =$courantTableRepository->findAll();
 
+        $especes_table_name = $year . '_' . 'especes_table';
+        $especesTableRepository->set_table_name($especes_table_name);
+        $caisse =$especesTableRepository->findOneBy(['especes_id' => '0']);
+
         $etats =$etatTableRepository->findAll();
         $sql_cmd = "SELECT structure FROM $table_name WHERE structure != 'EDT' GROUP BY structure ORDER by structure ASC;";
         $structure = $projectTableRepository->send_sql_cmd($sql_cmd);
@@ -40,13 +45,24 @@ class ProjectController extends AbstractController
         for ($i=1; $i <  count($projets); $i++) {
             $projets[$i]->setFMontant(0);
 
-            $filter_proj = $courantTableRepository->select_all_from_where($compte_table_name, 'projet_id', $projets[$i]->getProjetId());
-            if ($filter_proj != []) {
-                dd($filter_proj);
-                for ($j=0; $j < count($filter_proj); $j++) {
-                    $projets[$i]->setFMontant($projets[$i]->getFMontant() + $filter_proj[$j]['debit']);
-                    $projets[$i]->setFMontant($projets[$i]->getFMontant() - $filter_proj[$j]['credit']);
+            $compte_proj = $courantTableRepository->select_all_from_where($compte_table_name, 'projet_id', $projets[$i]->getProjetId());
+            if ($compte_proj != []) {
+                for ($j=0; $j < count($compte_proj); $j++) {
+                    $projets[$i]->setFMontant($projets[$i]->getFMontant() + $compte_proj[$j]['debit']);
+                    $projets[$i]->setFMontant($projets[$i]->getFMontant() - $compte_proj[$j]['credit']);
                 }
+
+            }
+            $especes_proj = $especesTableRepository->select_all_from_where($especes_table_name, 'projet_id', $projets[$i]->getProjetId());
+            if ($especes_proj != []) {
+                for ($j=0; $j < count($especes_proj); $j++) {
+                    if ($especes_proj[$j]['recette'] < 0) {
+                        $projets[$i]->setFMontant($projets[$i]->getFMontant()
+                            + $especes_proj[$j]['montant']
+                            - $especes_proj[$j]['montant_apres']
+                            );
+                        }
+                    }
 
             }
             $projectTableRepository->update_f_montant( $table_name, 
@@ -110,6 +126,7 @@ class ProjectController extends AbstractController
             'role' => $role,       
             'structure' => $structure,
             'year' => $year,        
+            'caisse' => $caisse,        
         ]);
     }
 
@@ -119,7 +136,7 @@ class ProjectController extends AbstractController
                             HomeTableRepository $homeTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
                             ProjectTableRepository $projectTableRepository,
-                            PrestataireTableRepository $prestataireTableRepository,
+                            EspecesTableRepository $especesTableRepository,
                             EtatTableRepository $etatTableRepository
                         ): Response
     {
@@ -133,11 +150,14 @@ class ProjectController extends AbstractController
         $compte_table_name = $year . '_' . 'compte_cheques_table';
         $courantTableRepository->set_table_name($compte_table_name);
         $account =$courantTableRepository->findBy(['affectation' => $structureFilter]);
+
+        $especes_table_name = $year . '_' . 'especes_table';
+
         $etats =$etatTableRepository->findAll();
         $sql_cmd = "SELECT structure FROM $table_name WHERE structure != 'EDT' GROUP BY structure ORDER by structure ASC;";
         $structure = $projectTableRepository->send_sql_cmd($sql_cmd);
 
-        for ($i=1; $i <  count($projets); $i++) {
+        for ($i=0; $i <  count($projets); $i++) {
             $projets[$i]->setFMontant(0);
 
             $filter_proj = $courantTableRepository->select_all_from_where($compte_table_name, 'projet_id', $projets[$i]->getProjetId());
@@ -149,6 +169,18 @@ class ProjectController extends AbstractController
                 }
 
             }
+            $especes_proj = $especesTableRepository->select_all_from_where($especes_table_name, 'projet_id', $projets[$i]->getProjetId());
+            if ($especes_proj != []) {
+                for ($j=0; $j < count($especes_proj); $j++) {
+                    if ($especes_proj[$j]['recette'] < 0) {
+                        $projets[$i]->setFMontant($projets[$i]->getFMontant()
+                            + $especes_proj[$j]['montant']
+                            - $especes_proj[$j]['montant_apres']
+                            );
+                        }
+                    }
+
+            }            
             $projectTableRepository->update_f_montant( $table_name,
                                                         'f_montant', 
                                                         $projets[$i]->getFMontant(),  
