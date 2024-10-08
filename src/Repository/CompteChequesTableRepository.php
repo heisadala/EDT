@@ -17,8 +17,6 @@ use App\Service\Database;
  */
 class CompteChequesTableRepository extends ServiceEntityRepository
 {
-    private ?string $compte_cheques_table_name = 'compte_cheques_table';
-    private ?string $short_name = 'c';
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -93,26 +91,6 @@ class CompteChequesTableRepository extends ServiceEntityRepository
                                                     ));
     }
 
-
-    function join_compte_project_and_prestataire($selectlist, 
-                                                    $t1_id,
-                                                    $t2,
-                                                    $t2_id, $t2_key,
-                                                    $t3,
-                                                    $t3_key, $ordered_by, $sort_order): array
-    {
-
-        $db = new Database;
-        return ($db->join_compte_project_and_prestataire($this->get_connection(), 
-                                                            $this->compte_cheques_table_name, 
-                                                            $this->short_name, 
-                                                            $selectlist,
-                                                            $t2,
-                                                            $t2_id, $t2_key,
-                                                            $t3,
-                                                            $t3_key, $ordered_by, $sort_order
-                ));
-    }
     function join_three_tables_with_filter($t1, 
                                             $t1_id,
                                             $t2,

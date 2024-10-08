@@ -119,7 +119,10 @@ $(document).ready(function () {
         console.log(location);
         pathname = location.href.substring(0,location.href.indexOf('TABLE'));
         console.log(pathname);
-        location.href = pathname + 'TABLE/table/' + rowsShown;
+        var year = document.getElementById("year").innerHTML;
+        console.log(year);
+        location.href = pathname + 'TABLE/' + year + '/table/' + rowsShown;
+
     });
 
     if (document.getElementById("sm-lego-navbar-link-delete-img") != null) {

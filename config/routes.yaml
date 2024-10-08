@@ -26,6 +26,13 @@ project_homepage:
     defaults:  
         year: '2024' 
         etatFilter: 'ALL' 
+
+public_projects:
+    path: /PUBLIC_PROJECTS/{year}/{etatFilter}
+    controller: App\Controller\Project\ProjectController::public_projects
+    defaults:  
+        year: '2024' 
+        etatFilter: 1 
         
 project_structure:
     path: /PROJECT/{year}/{structureFilter}/{etatFilter}
@@ -36,15 +43,17 @@ project_structure:
         etatFilter: 'ALL' 
 
 affectation_homepage:
-    path: /COMPTE/COURANT/CHART/AFFECTATION/{affectationFilter}
+    path: /COMPTE/CHART/AFFECTATION/{year}/{affectationFilter}
     controller: App\Controller\Compte\CompteController::affectation
     defaults:  
+        year: '2024' 
         affectationFilter: 'EDT' 
 
 cpt_chart_homepage:
-    path: /COMPTE/CHART/{chartFilter}
+    path: /COMPTE/CHART/{year}/{chartFilter}
     controller: App\Controller\Compte\CompteController::chart
     defaults:  
+        year: '2024' 
         chartFilter: 'ALL' 
     
 cpt_table_homepage:

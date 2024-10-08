@@ -79,12 +79,13 @@
 {% set caisse_now_2024 = caisse.recette %}
 
 {% set livret_01_2024 = 33121.74 %}
-{% set livret_now_2024 = livret_01_2024 - total_intern_credit %}
+{% set livret_now_2024 = livret_01_2024 - total_intern_credit +  total_intern_debit %}
 {% set compte_cheques_01_2024 = 11507.06 %}
 {% set solde = 0.00 %}
 
 {% set credit_01_2024 = compte_titre_01_2024 + livret_01_2024 + caisse_01_2024 + compte_cheques_01_2024 %}
-{% set solde = credit_01_2024 - total_bilan %}
+
+{% set solde = credit_01_2024 - total_bilan  + caisse_now_2024 - caisse_01_2024 %}
 
 {% set compte_cheques_now_2024 = compte_cheques_01_2024 + credit - debit  %}
 
@@ -157,7 +158,7 @@
                     <tr>
                         <td>EDT</td><td class='text-end'>{{ total_edt_debit|number_format(2) }}</td><td></td></tr>
                     <tr>
-                        <td><a href='{{ server_base }}/COMPTE/COURANT/CHART/AFFECTATION/DON'>DON</a></td><td></td><td class='text-end'>{{ total_don|number_format(2) }}</td></tr>
+                        <td><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/DON'>DON</a></td><td></td><td class='text-end'>{{ total_don|number_format(2) }}</td></tr>
                     <tr>
                         <td>EDT</td><td></td><td class='text-end'>{{ total_edt_credit|number_format(2) }}</td></tr>
                     <tr class='table-secondary'>
@@ -172,7 +173,7 @@
             <table class="table table-sm table-light table-striped edt-euros-font">   
 
                 <thead class='table-warning'>
-                    <th>Année 2024</th><th class='text-end'>Debit</th><th class='text-end'>Credit</th>
+                    <th>Année {{ year }}</th><th class='text-end'>Debit</th><th class='text-end'>Credit</th>
                 </thead>
                 <tbody class='table-group-divider'>
                     <tr >

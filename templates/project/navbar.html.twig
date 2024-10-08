@@ -46,24 +46,22 @@
                 </a>
             </li> #}
             {% for etat in etats %}
+            {% if loop.index0 > 0 %}
                 {% set myPath = [path('project_homepage'), '/', year, '/', etat.etat_id ]|join %}
                 <li>
                     <a role="button" class="btn mx-2 my-1 {{ etat.bg_color }} {{ etat.text_color }} d-block"
                     href="{{ myPath }}" >
-                    {% if etat.etat_id == 0 %}
-                        {{ etat.etat }}  <span class="badge text-bg-secondary ms-3">{{ etat.count - 1 }}</span>
-                    {% else %}
                         {{ etat.etat }}  <span class="badge text-bg-secondary ms-3">{{ etat.count }}</span>
-                    {% endif %}
                     </a>                
                 </li>
+            {% endif %}
             {% endfor %}
             <li>
                 <a role="button" class="btn mx-2 my-1 bg-light text-black border" href='{{ path('project_homepage') }}/{{ year }}/DASH' >
             Bilan financier </a>  
             </li>
-            {% include ( "li_table.html.twig" ) %}
-            {% include ( "li_chart.html.twig" ) %}
+            {% include ( "li_table.html.twig" ) with { 'year' : year } %}
+            {% include ( "li_chart.html.twig" ) with { 'year' : year } %}
             {% include ( "li_banque.html.twig" ) %}
         </ul>
 

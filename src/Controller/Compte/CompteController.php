@@ -32,38 +32,7 @@ class CompteController extends AbstractController
     }
 
 
-    #[Route('/compte', name: 'app_compte')]
-    public function index(
-                            CompteTableRepository $compteTableRepository
-                        ): Response
-    {
-        $app = 'COMPTE';
-        $db = $compteTableRepository->findOneBy(array('name' => $app));
-
-        $databases = $compteTableRepository->findAll();
-
-        $username = "";
-        if ($this->getUser()) {
-            $username = $this->getUser()->getUsername();
-        }
-
-        return $this->render('index.html.twig', [
-            'controller_name' => 'CompteController',
-            'server_base' => $_SERVER['BASE'],
-            'meta_index' => 'noindex',
-            'title' => ucfirst(strtolower($app)),
-            'icon' => $db->getIcon(),
-            'show_navbar' => true,
-            'show_gallery' => true,
-            'background' => $db->getBackground(),
-            'db' => $db->getName(),
-            'databases' => $databases,
-            'username' => $username,
-
-        ]);
-    }
-
-    public function table(string $year,string $viewFormat, int $rowNumbers,
+     public function table(string $year,string $viewFormat, int $rowNumbers,
                             CompteTableRepository $compteTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
 
@@ -71,10 +40,12 @@ class CompteController extends AbstractController
     {
         $app = 'TABLE';
 
+
         $db = $compteTableRepository->findOneBy(['name' => $app]);
-        
-        $table_header_fields = $courantTableRepository->fetch_header_fields_from_table($db->getTbl());
-        $primary_key_name = $courantTableRepository->get_pk_name($db->getTbl());
+        $table_name = $year . '_' . $db->getTbl();
+        $courantTableRepository->set_table_name($table_name);
+        $table_header_fields = $courantTableRepository->fetch_header_fields_from_table($table_name);
+        $primary_key_name = $courantTableRepository->get_pk_name($table_name);
         $primary_key_column = $this->get_pk_column($table_header_fields, $primary_key_name);
 
         $sort = isset($_GET['sort']) ? $_GET['sort'] : 'date';
@@ -82,8 +53,6 @@ class CompteController extends AbstractController
         $up_or_down = $sort_order == 'ASC' ? 'down' : 'up';
         $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
 
-        $table_name = $year . '_' . $db->getTbl();
-        $courantTableRepository->set_table_name($table_name);
         $courant_table_content = $courantTableRepository->fetch_class_from_table_ordered($table_name,
                                                                                     $sort, $sort_order);
 
@@ -101,6 +70,8 @@ class CompteController extends AbstractController
         if ($this->getUser()) {
         $username = $this->getUser()->getUsername();
         }
+
+        $credit_2024 = 11507.06;
 
         return $this->render('index.html.twig', [
             'controller_name' => 'CompteController',
@@ -123,11 +94,11 @@ class CompteController extends AbstractController
             'up_or_down' => $up_or_down,
             'username' => $username,
             'year' => $year,
-
+            'credit_debut_annee' => $credit_2024,
         ]);
     }
 
-    public function chart (string $chartFilter,
+    public function chart (string $year, string $chartFilter,
         CompteTableRepository $compteTableRepository,
         CompteChequesTableRepository $courantTableRepository,
     ): Response
@@ -135,12 +106,14 @@ class CompteController extends AbstractController
 
         $app = 'CHART';
         $db = $compteTableRepository->findOneby(['name' => $app]);
+        $table_name = $year . '_' . $db->getTbl();
+        $courantTableRepository->set_table_name($table_name);
         $account = $courantTableRepository->findAll();
 
-        $banks = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'banque');
-        $affectation = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'affectation');
-        $operations = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'operation');
-        $categories = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'categorie');
+        $banks = $courantTableRepository->fetch_column_unique_value($table_name, 'banque');
+        $affectation = $courantTableRepository->fetch_column_unique_value($table_name, 'affectation');
+        $operations = $courantTableRepository->fetch_column_unique_value($table_name, 'operation');
+        $categories = $courantTableRepository->fetch_column_unique_value($table_name, 'categorie');
 
         $username = "";
         if ($this->getUser()) {
@@ -163,6 +136,7 @@ class CompteController extends AbstractController
                 'categories' => $categories,
                 'operations' => $operations,
                 'username' => $username,
+                'year' => $year,
 
         ]);
     }
@@ -209,7 +183,7 @@ class CompteController extends AbstractController
         ]);
     }
 
-    public function affectation (string $affectationFilter,
+    public function affectation (string $year, string $affectationFilter,
                             CompteTableRepository $compteTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
                             ): Response
@@ -217,12 +191,14 @@ class CompteController extends AbstractController
 
         $app = 'AFFECTATION';
         $db = $compteTableRepository->findOneby(['name' => $app]);
+        $table_name = $year . '_' . $db->getTbl();
+        $courantTableRepository->set_table_name($table_name);
         $account = $courantTableRepository->findAll();
 
-        $banks = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'banque');
-        $projects = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'affectation');
-        $operations = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'operation');
-        $categories = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'categorie');
+        $banks = $courantTableRepository->fetch_column_unique_value($table_name, 'banque');
+        $projects = $courantTableRepository->fetch_column_unique_value($table_name, 'affectation');
+        $operations = $courantTableRepository->fetch_column_unique_value($table_name, 'operation');
+        $categories = $courantTableRepository->fetch_column_unique_value($table_name, 'categorie');
 
         $username = "";
         if ($this->getUser()) {
@@ -246,6 +222,7 @@ class CompteController extends AbstractController
                 'operations' => $operations,
                 'affectationFilter' => $affectationFilter,
                 'username' => $username,
+                'year' => $year,
 
         ]);
 }

@@ -1,4 +1,3 @@
-{% set credit_2024 = 11507.06 %}
 {% set credit = 0.00 %}
 {% set debit = 0.00 %}
 
@@ -6,21 +5,21 @@
 	{% set credit = credit + row.credit %}
 	{% set debit = debit + row.debit %}
 {% endfor %}
-{% set credit_cc = credit_2024 + credit - debit %}
+{% set credit_cc = credit_debut_annee + credit - debit %}
 
 <div class='container-fluid justify-content-start'>
 	<nav class="navbar navbar-expand-lg">
 		{% include ( "navbar_brand.html.twig" ) %}
 
         <ul class="navbar-nav">
-                {% include ( "li_chart.html.twig" ) %}
-                {% include ( "li_dashboard.html.twig" ) %}
+                {% include ( "li_chart.html.twig" ) with { 'year' : year } %}
+                {% include ( "li_dashboard.html.twig" ) with { 'year' : year, 'filter' : 'DASH' }  %}
                 {% include ( "li_banque.html.twig" ) %}
 
         </ul>
         <ul class="navbar-nav me-auto">
             <li>
-                <div class="text-secondary fs-6 edt-euros-font ms-2 p-2">SOLDE:
+                <div class="text-secondary fs-6 edt-euros-font ms-2 p-2">SOLDE {{ year }}:
                     {{ credit_cc|number_format(2) }}
                     €</div>
             </li>

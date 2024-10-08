@@ -29,6 +29,8 @@
         <header>
             {% if show_navbar is defined and show_navbar == true %}
                 {% include ( "#{db|lower}/navbar.html.twig" ) %}
+            {% elseif show_public_navbar is defined and show_public_navbar == true%} 
+                {% include ( "#{db|lower}/public_navbar.html.twig" ) %}
             {% else %} 
                 {% include ( "navbar.html.twig" ) %}
             {% endif %} 
@@ -52,6 +54,9 @@
     {% endif %}
     {% if show_gallery is defined and show_gallery == true %}
         {% include ( "#{db|lower}/gallery.html.twig" ) %}
+    {% endif %}
+    {% if show_public_gallery is defined and show_public_gallery == true %}
+        {% include ( "#{db|lower}/public_gallery.html.twig" ) %}
     {% endif %}
     {% if show_table is defined and show_table == true %}
         {% include ( "#{db|lower}/table.html.twig" ) %}

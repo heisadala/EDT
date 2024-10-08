@@ -1,0 +1,160 @@
+
+<p id='etatFilter' hidden>{{ etatFilter }}</p>
+
+{% set etatFilterIndex = 0 %}
+{% set card_header_bg_color = 'bg-info-subtle' %}
+
+{% set tooltip_rows = '' %}
+{% set global_f_montant = 0.00 %}
+{% set global_d_montant = 0.00 %}
+{% set global_a_montant = 0.00 %}
+{% set global_c_diff = 0.00 %}
+{% set global_ec_diff = 0.00 %}
+{% set global_pf_montant = 0.00 %}
+{% set global_pdf_montant = 0.00 %}
+
+
+<div class="container-fluid bg-body-secondary">
+    <div class='d-print-none row justify-content-center m-0 text-secondary fs-4' 
+        style='height: 1rem;'>Projets realisés
+    </div>      
+{#     <div class="d-print-none row justify-content-start">
+        <div class='col-1'>
+            <a href='#' class="mx-1">
+                <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/add-48.png"  alt='ADD' title='ADD'></a>
+        </div>
+        <div class='col-1'>
+                <a href='#'>
+                    <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/update-48.png" alt='EDIT' title='EDIT'></a>
+        </div>
+        <div class='col-1'>
+                <a href='#'>
+                    <img class="img-fluid rounded-circle border" src="{{ server_base }}/images/icon/delete-48.png" alt='DELETE' title='DELETE'></a>
+        </div>
+    </div> #}
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 g-4 mt-2 justify-content-center">
+        {% for projet in projets %}
+            {% if loop.index0 > 0 %}
+                {% set tooltip_rows = '' %}
+                {% if etatFilter == 'ALL' %}
+                    {% set card_header_bg_color = projet.bg_color %}
+                    {# <div class="col md-1"> #}
+                    {% if loop.index0 % 4 == 0 %}
+                        <div class="col md-1 edt-page-break"> 
+                    {% else %}
+                        <div class="col md-1" >
+                    {% endif %}
+                        <div class="card" >            
+                            <div class="card-header {{ card_header_bg_color }} d-flex align-items-center justify-content-between" style='height:  3rem'>
+                                {{ projet.projet_id }}&nbsp;&nbsp;{{ projet.projet }} 
+                                {% set montant = (projet.f_montant - projet.d_montant )  %}
+                                {% set global_d_montant = global_d_montant + projet.d_montant %}
+                                {% set global_f_montant = global_f_montant + projet.f_montant %}
+                                {% if projet.etat == 'annulé' %}
+                                    {% set global_a_montant = global_a_montant + montant %}
+                                {% elseif projet.etat == 'clôturé' %}
+                                    {% set global_c_diff = global_c_diff + montant %}
+                                {% elseif projet.etat == 'en cours' %}
+                                    {% set global_ec_diff = global_ec_diff + montant %} 
+                                {% elseif projet.etat == 'pas facturé' %}
+                                    {% set global_pf_montant = global_pf_montant + montant %} 
+                                {% elseif projet.etat == 'pas de fiche' %}
+                                    {% set global_pdf_montant = global_pdf_montant + montant %} 
+                                {% endif %}
+                                {% if montant < 0 %}
+                                    <span class="badge text-bg-success">{{ montant|number_format(2) }} €</span>
+                                {% elseif montant > 0 %}
+                                    <span class="badge text-bg-danger">{{ montant|number_format(2) }} €</span>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <table class='table table-sm'>
+                                <thead>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-light" ><td>Prestataire</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.name }}</td></tr>
+                                    <tr class="table-success"><td>Structure</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.structure }}</td></tr>
+                                    {% if projet.p_recu|date("d-m-Y") != '01-01-2000' %}
+                                        <tr class="table-light"><td>Projet reçu</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.p_recu|date("d-m-Y") }}</td></tr>
+                                    {% else %}
+                                        <tr class="table-light"><td>Projet reçu</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+                                    {% endif %}
+                                    <tr class="table-success"><td>Date debut</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.d_date|date("d-m-Y") }}</td></tr>
+                                    <tr class="table-light"><td>Date fin</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.f_date|date("d-m-Y") }}</td></tr>
+                                    <tr class="table-success"><td>Devis</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.d_montant|number_format(2) }}</td></tr>
+                                    <tr class="table-danger"><td>Facture</td>
+                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                        <td>{{ projet.f_montant|number_format(2) }}
+                                    {% if projet.etat == 'en cours' %}
+                                        &nbsp;&nbsp;&nbsp;
+                                        <a class="text-dark p-0 " 
+                                            tabindex="-1" data-bs-custom-class="facture-tooltip" 
+                                            data-bs-toggle="tooltip"  
+                                            data-bs-html="true" 
+                                            data-bs-title="<h4>Factures payés</h4>{{ tooltip_rows }}" 
+                                            ><i class="bi bi-info-circle "></i>
+                                        </a>
+                                    {% endif %}
+                                    </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+
+                {% else %}
+                    {% if projet.etat_id == etatFilter or projet.etat_id == 4 %}
+                    {% set etatFilterIndex = etatFilterIndex + 1 %}
+                    {% if etatFilterIndex % 4 == 0 %}
+                        <div class="col md-1 edt-page-break"> 
+                    {% else %}
+                        <div class="col md-1" >
+                    {% endif %}
+                       <div class="card " >
+                            <div class="card-header bg-success-subtle d-flex align-items-center justify-content-between" style='height:  3rem'>
+                                {{ projet.projet_id }}&nbsp;&nbsp;{{ projet.projet }} 
+
+                            </div>
+                            <div class="card-body">
+                                <table class='table table-sm'>
+                                <thead>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-light"><td>Prestataire</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    {% if projet.url != '' %}
+                                        <td><a href='{{ projet.url }}' target='_blanc'>{{ projet.name }}</a></td>
+                                    {% else %}
+                                        <td>{{ projet.name }}</td>
+                                    {% endif %}
+                                    </tr>
+                                    <tr class="table-light"><td>Structure</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.structure }}</td></tr>
+                                    <tr class="table-danger"><td>Cout</td>
+                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                        <td>{{ projet.f_montant|round }} Euros
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endif %}
+                {% endif %}
+
+
+
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class='row justify-content-between m-0' 
+        style='height: 1rem;'>
+    </div>        
+
+</div>
+
+<script>
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl, {boundary: document.body}))
+</script>

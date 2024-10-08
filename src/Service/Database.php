@@ -73,13 +73,6 @@ class Database
         return($this->prepare_execute_and_fetch($conn, $sql_cmd));
     }
 
-    function select_from_inner_on($conn, $table_name, $select, $enterprise_id)
-    {
-        $sql_cmd = "SELECT " . $select . " FROM $table_name INNER JOIN edt.prestataire_table ON edt.prestataire_table.id=" . $enterprise_id . ";";
-        // return($this->prepare_execute_and_fetch($conn, $sql_cmd));
-        $result = $this->prepare_execute_and_fetch($conn, $sql_cmd);
-        return $result[0]['name'];
-    }
 
     function join_project_and_prestataire($conn, $t1, 
                                             $t1_id,

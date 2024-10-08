@@ -22,6 +22,7 @@ class EspecesController extends AbstractController
                             ): Response
     {
         $app = 'ESPECES';
+        $db_common = $_SERVER['DATABASE_COMMON_NAME'];
         $especes_tbl = $year . '_especes_table';
 
         $db = $homeTableRepository->findOneBy(array('name' => $app));
@@ -58,8 +59,8 @@ class EspecesController extends AbstractController
         
         $from_table = $especes_tbl . ' e';
         $join_table = [ 
-            ['manifestation_table ma', 'e.manifestation_id', 'ma.manifestation_id'],
-            ['caisse_table ca', 'e.caisse_id', 'ca.caisse_id'],
+            [$db_common . '.manifestation_table ma', 'e.manifestation_id', 'ma.manifestation_id'],
+            [$db_common . '.caisse_table ca', 'e.caisse_id', 'ca.caisse_id'],
                     ];
         $sql_cmd = "SELECT " . $selectlist . 
                     " FROM " . $from_table . 
@@ -73,8 +74,8 @@ class EspecesController extends AbstractController
         
         $from_table = $especes_tbl . ' e';
         $join_table = [ 
-            ['manifestation_table ma', 'e.manifestation_id', 'ma.manifestation_id'],
-            ['caisse_table ca', 'e.caisse_id', 'ca.caisse_id'],
+            [$db_common . '.manifestation_table ma', 'e.manifestation_id', 'ma.manifestation_id'],
+            [$db_common . '.caisse_table ca', 'e.caisse_id', 'ca.caisse_id'],
                     ];
         $sql_cmd = "SELECT " . $selectlist . 
                     " FROM " . $from_table . 

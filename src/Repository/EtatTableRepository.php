@@ -32,6 +32,13 @@ class EtatTableRepository extends ServiceEntityRepository
         return ($db->send_sql_cmd($this->get_connection(), $sql_cmd));
     }
 
+    function set_table_name($table_name) 
+    {
+        $entityManager = $this->getEntityManager();
+        $classMetaData = $entityManager->getClassMetadata(EtatTable::class);
+        $classMetaData->setTableName($table_name);
+    }
+
     //    /**
     //     * @return EtatTable[] Returns an array of EtatTable objects
     //     */

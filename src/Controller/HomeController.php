@@ -16,10 +16,10 @@ class HomeController extends AbstractController
 
         $app = $this->getParameter('app.application_name');
         $table_name = $this->getParameter('app.database_home_table_name');
-
+        $year = $this->getParameter('app.year');
         $db = $homeTableRepository->findOneby(['name' => $table_name]);
 
-        $sql_cmd = "SELECT structure FROM 2024_project_table WHERE structure != 'EDT' GROUP BY structure ORDER by structure ASC;";
+        $sql_cmd = "SELECT structure FROM " . $year . "_project_table WHERE structure != 'EDT' GROUP BY structure ORDER by structure ASC;";
         $structure = $projectTableRepository->send_sql_cmd($sql_cmd);
 
         $username = "";
