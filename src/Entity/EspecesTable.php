@@ -20,6 +20,9 @@ class EspecesTable
     #[ORM\Column(length: 5, nullable: false)]
     private ?int $caisse_id = 0;
 
+    #[ORM\Column(length: 5, nullable: false)]
+    private ?int $donateur_id = 0;
+
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date = null;
 
@@ -156,6 +159,16 @@ class EspecesTable
     public function setCaisseId(?int $caisse_id): static
     {
         $this->caisse_id = $caisse_id;
+
+        return $this;
+    }
+    public function getDonateurId(): ?int
+    {
+        return $this->donateur_id;
+    }
+    public function setDonateurId(?int $donateur_id): static
+    {
+        $this->donateur_id = $donateur_id;
 
         return $this;
     }

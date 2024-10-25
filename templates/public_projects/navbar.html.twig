@@ -7,10 +7,9 @@
   <nav class="navbar navbar-expand-lg" >
     {% include ( "navbar_brand.html.twig" ) %}
       <div class="container-fluid">
-            <p class="text-secondary edt-donateurs-titre">Déjà {{ nb_realized }} projets 
-            realisés en {{ year }} pour un coût total de {{ realized_total|round }} Euros 
-            <br><span class='fst-italic fs-6'>{{ nb_ongoing }} projets 
-            en cours ou validé pour un total de {{ ongoing_total|round }} Euros</span>
+            <p class="text-secondary edt-donateurs-titre">{{ nb_realized }} projets 
+            realisés en {{ year }} pour un coût total de  
+            <br><span class='edt-donateurs-titre'>{{ realized_total|round }} Euros</span>
       </div>
   </nav>
 </div>

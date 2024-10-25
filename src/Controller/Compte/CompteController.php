@@ -5,7 +5,7 @@ namespace App\Controller\Compte;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Repository\CompteTableRepository;
+use App\Repository\CompteControllerTableRepository;
 use App\Repository\CompteChequesTableRepository;
 use App\Repository\ProjectTableRepository;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -32,18 +32,17 @@ class CompteController extends AbstractController
     }
 
 
-     public function table(string $year,string $viewFormat, int $rowNumbers,
-                            CompteTableRepository $compteTableRepository,
+     public function table(string $year, string $viewFormat, int $rowNumbers,
+                            CompteControllerTableRepository $compteControllerTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
-
                         ): Response
     {
         $app = 'TABLE';
 
-
-        $db = $compteTableRepository->findOneBy(['name' => $app]);
+        $db = $compteControllerTableRepository->findOneBy(['name' => $app]);
         $table_name = $year . '_' . $db->getTbl();
         $courantTableRepository->set_table_name($table_name);
+
         $table_header_fields = $courantTableRepository->fetch_header_fields_from_table($table_name);
         $primary_key_name = $courantTableRepository->get_pk_name($table_name);
         $primary_key_column = $this->get_pk_column($table_header_fields, $primary_key_name);
@@ -55,16 +54,7 @@ class CompteController extends AbstractController
 
         $courant_table_content = $courantTableRepository->fetch_class_from_table_ordered($table_name,
                                                                                     $sort, $sort_order);
-
         $showTable = true;
-        $showGallery = false;
-        if ($viewFormat == 'table') {
-            $showTable = true;
-            $showGallery = false;
-        } else {
-            $showTable = false;
-            $showGallery = true;
-        }
 
         $username = "";
         if ($this->getUser()) {
@@ -78,8 +68,8 @@ class CompteController extends AbstractController
             'server_base' => $_SERVER['BASE'],
             'meta_index' => 'noindex',
             'server_name' => $_SERVER['SERVER_NAME'],
-            'title' => ucfirst(strtolower($app)),
-            'icon' => $db->getIcon(),
+            'header_title' => ucfirst(strtolower($app)),
+            'shortcut_icon' => $db->getIcon(),
             'show_navbar' => true,
             'show_table' => true,
             'show_gallery' => false,
@@ -99,13 +89,13 @@ class CompteController extends AbstractController
     }
 
     public function chart (string $year, string $chartFilter,
-        CompteTableRepository $compteTableRepository,
+        CompteControllerTableRepository $compteControllerTableRepository,
         CompteChequesTableRepository $courantTableRepository,
     ): Response
     {
 
         $app = 'CHART';
-        $db = $compteTableRepository->findOneby(['name' => $app]);
+        $db = $compteControllerTableRepository->findOneby(['name' => $app]);
         $table_name = $year . '_' . $db->getTbl();
         $courantTableRepository->set_table_name($table_name);
         $account = $courantTableRepository->findAll();
@@ -124,8 +114,8 @@ class CompteController extends AbstractController
                 'controller_name' => 'CompteController',
                 'server_base' => $_SERVER['BASE'],
                 'meta_index' => 'noindex',
-                'title' => $app,
-                'icon' => $db->getIcon(),
+                'header_title' => $app,
+                'shortcut_icon' => $db->getIcon(),
                 'header_image' => 'Trestel_2.jpg',
                 'show_navbar' => true,
                 'db' => $db->getName(),
@@ -166,8 +156,8 @@ class CompteController extends AbstractController
                 'controller_name' => 'CompteController',
                 'server_base' => $_SERVER['BASE'],
                 'meta_index' => 'noindex',
-                'title' => $app,
-                'icon' => $db->getIcon(),
+                'header_title' => $app,
+                'shortcut_icon' => $db->getIcon(),
                 'header_image' => 'Trestel_2.jpg',
                 'show_navbar' => true,
                 'db' => $db->getName(),
@@ -209,8 +199,8 @@ class CompteController extends AbstractController
                 'controller_name' => 'CompteController',
                 'server_base' => $_SERVER['BASE'],
                 'meta_index' => 'noindex',
-                'title' => $app,
-                'icon' => $db->getIcon(),
+                'header_title' => $app,
+                'shortcut_icon' => $db->getIcon(),
                 'header_image' => 'Trestel_2.jpg',
                 'show_navbar' => true,
                 'db' => $db->getName(),
@@ -246,8 +236,8 @@ class CompteController extends AbstractController
                 'controller_name' => 'CompteController',
                 'server_base' => $_SERVER['BASE'],
                 'meta_index' => 'noindex',
-                'title' => ucfirst(strtolower($app)),
-                'icon' => $db->getIcon(),
+                'header_title' => ucfirst(strtolower($app)),
+                'shortcut_icon' => $db->getIcon(),
                 'header_image' => 'Trestel_2.jpg',
                 'show_navbar' => true,
                 'show_gallery' => false,
@@ -278,8 +268,8 @@ class CompteController extends AbstractController
             'controller_name' => 'CompteController',
             'server_base' => $_SERVER['BASE'],
             'meta_index' => 'noindex',
-            'title' => ucfirst(strtolower($app)),
-            'icon' => $db->getIcon(),
+            'header_title' => ucfirst(strtolower($app)),
+            'shortcut_icon' => $db->getIcon(),
             'header_image' => 'Trestel_2.jpg',
             'show_navbar' => true,
             'show_gallery' => false,
@@ -321,8 +311,8 @@ class CompteController extends AbstractController
             'server_base' => $_SERVER['BASE'],
             'server_name' => $_SERVER['SERVER_NAME'],
             'meta_index' => 'noindex',
-            'title' => ucfirst(strtolower($app)),
-            'icon' => $db->getIcon(),
+            'header_title' => ucfirst(strtolower($app)),
+            'shortcut_icon' => $db->getIcon(),
             'header_image' => 'Trestel_2.jpg',
             'show_navbar' => true,
             'show_table' => false,
@@ -371,8 +361,8 @@ class CompteController extends AbstractController
             'server_base' => $_SERVER['BASE'],
             'server_name' => $_SERVER['SERVER_NAME'],
             'meta_index' => 'noindex',
-            'title' => ucfirst(strtolower($app)),
-            'icon' => $db->getIcon(),
+            'header_title' => ucfirst(strtolower($app)),
+            'shortcut_icon' => $db->getIcon(),
             'header_image' => 'Trestel_2.jpg',
             'show_navbar' => true,
             'show_table' => false,
@@ -422,8 +412,8 @@ class CompteController extends AbstractController
             'server_base' => $_SERVER['BASE'],
             'server_name' => $_SERVER['SERVER_NAME'],
             'meta_index' => 'noindex',
-            'title' => ucfirst(strtolower($app)),
-            'icon' => $db->getIcon(),
+            'header_title' => ucfirst(strtolower($app)),
+            'shortcut_icon' => $db->getIcon(),
             'header_image' => 'Trestel_2.jpg',
             'show_navbar' => true,
             'show_table' => false,

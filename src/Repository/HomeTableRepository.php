@@ -16,11 +16,17 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class HomeTableRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, HomeTable::class);
+        
+        $db_app = $_SERVER['DATABASE_APP_NAME'];
+        $home_table_name = $db_app . '.home_table';
+        $entityManager = $this->getEntityManager();
+        $classMetaData = $entityManager->getClassMetadata(HomeTable::class);
+        $classMetaData->setTableName($home_table_name);
     }
-
     //    /**
     //     * @return HomeTable[] Returns an array of HomeTable objects
     //     */

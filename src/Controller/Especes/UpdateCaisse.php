@@ -7,41 +7,63 @@ class UpdateCaisse {
     function update_caisse($especes_tbl, $especesTableRepository, $especes, $i) {
 
 
+        $total                 = 0;
+
         $total_nombre_50_debut = $especes[0]->getNombre_50();
         $total_nombre_50_avant = 0;
         $total_nombre_50_apres = 0;
+        $total_nombre_50       = $total_nombre_50_debut;
+        $total += $total_nombre_50 * 50;
 
         $total_nombre_20_debut = $especes[0]->getNombre_20();
         $total_nombre_20_avant = 0;
         $total_nombre_20_apres = 0;
+        $total_nombre_20       = $total_nombre_20_debut;
+        $total += $total_nombre_20 * 20;
 
         $total_nombre_10_debut = $especes[0]->getNombre_10();
         $total_nombre_10_avant = 0;
         $total_nombre_10_apres = 0;
+        $total_nombre_10 = $total_nombre_10_debut;
+        $total += $total_nombre_10 * 10;
 
         $total_nombre_5_debut = $especes[0]->getNombre_5();
         $total_nombre_5_avant = 0;
         $total_nombre_5_apres = 0;
+        $total_nombre_5       = $total_nombre_5_debut;
+        $total += $total_nombre_5 * 5;
 
         $total_nombre_2_debut = $especes[0]->getNombre_2();
         $total_nombre_2_avant = 0;
         $total_nombre_2_apres = 0;
+        $total_nombre_2       = $total_nombre_2_debut;
+        $total += $total_nombre_2 * 2;
 
         $total_nombre_1_debut = $especes[0]->getNombre_1();
         $total_nombre_1_avant = 0;
         $total_nombre_1_apres = 0;
+        $total_nombre_1       = $total_nombre_1_debut;
+        $total += $total_nombre_1 * 1;
 
         $total_nombre_050_debut = $especes[0]->getNombre_050();
         $total_nombre_050_avant = 0;
         $total_nombre_050_apres = 0;
+        $total_nombre_050       = $total_nombre_050_debut;
+        $total += $total_nombre_050 * 0.50;
 
         $total_nombre_020_debut = $especes[0]->getNombre_020();
         $total_nombre_020_avant = 0;
         $total_nombre_020_apres = 0;
+        $total_nombre_020       = $total_nombre_020_debut;
+        $total += $total_nombre_020 * 0.20;
 
         $total_nombre_010_debut = $especes[0]->getNombre_010();
         $total_nombre_010_avant = 0;
         $total_nombre_010_apres = 0;
+        $total_nombre_010       = $total_nombre_010_debut;
+        $total += $total_nombre_010 * 0.10;
+
+
 
 
         for ($i=1; $i < count($especes); $i++) {

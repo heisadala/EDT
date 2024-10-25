@@ -12,7 +12,6 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
@@ -48,13 +47,13 @@
                 </li> 
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                  <a class="dropdown-item edt-dropdown-item" href='{{ path('handi_homepage') }}'>
+                  <a class="dropdown-item edt-dropdown-item" href='{{ path('handi_homepage') }}/2024'>
                     <img src="{{ server_base }}/images/icon/danger-running-32.png">
                     HANDIFFERENCE 2 JUIN
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('handi_homepage') }}'>
+                  <a class="dropdown-item edt-dropdown-item" href='{{ path('christmas_homepage') }}/2024'>
                     <img src="{{ server_base }}/images/icon/color-christmas-32.png">
                     MARCHE DE NOEL
                   </a>
@@ -123,34 +122,34 @@
                     </a>
                   </li>
                   <li><hr class="dropdown-divider"></li>
-                  {% for struct in structure %}
+                  {% for struct in affectation %}
                     <li>
-                      <a class="dropdown-item edt-dropdown-item" href='{{ path('project_structure') }}/2024/{{ struct.structure }}/ALL'>
+                      <a class="dropdown-item edt-dropdown-item" href='{{ path('project_affectation') }}/2024/{{ struct.affectation }}/ALL'>
                         <img src="{{ server_base }}/images/icon/danger-project-16.png">
-                      {{ struct.structure }}
+                      {{ struct.affectation }}
                       </a>
                     </li>
                   {% endfor %}
                  </ul>
               </li>
               <li>
-                {% include ( "a_2025_dropdown_disabled.html.twig" ) %}
+                {% include ( "a_2025_dropdown.html.twig" ) %}
                 <ul class="dropdown-menu edt-2025-projects-dropdown-menu">
                   <li>
-                    <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('project_homepage') }}'>
-                      <img src="{{ server_base }}/images/icon/secondary-project-16.png">
+                    <a class="dropdown-item edt-dropdown-item" href='{{ path('project_homepage') }}/2025'>
+                      <img src="{{ server_base }}/images/icon/danger-project-16.png">
                     TOUS
                     </a>
                   </li>
-                  <li><hr class="dropdown-divider"></li>
-                  {% for struct in structure %}
+                  {# <li><hr class="dropdown-divider"></li>
+                  {% for struct in affectation %}
                     <li>
-                      <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('project_structure') }}/2025/{{ struct.structure }}/ALL'>
+                      <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('project_affectation') }}/2025/{{ struct.affectation }}/ALL'>
                         <img src="{{ server_base }}/images/icon/secondary-project-16.png">
-                      {{ struct.structure }}
+                      {{ struct.affectation }}
                       </a>
                     </li>
-                  {% endfor %}
+                  {% endfor %} #}
                  </ul>
               </li>
             </ul>
@@ -182,7 +181,7 @@
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('project_homepage') }}/DASH'>
+                    <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('project_dashboard') }}/2023'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-columns-gap" viewBox="0 0 16 16">
                         <path d="M6 1v3H1V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm14 12v3h-5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM6 8v7H1V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zm14-6v7h-5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z"/>
                       </svg>Bilan
@@ -208,7 +207,7 @@
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item edt-dropdown-item" href='{{ path('project_homepage') }}/2024/DASH'>
+                    <a class="dropdown-item edt-dropdown-item" href='{{ path('project_dashboard') }}/2024'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-columns-gap" viewBox="0 0 16 16">
                         <path d="M6 1v3H1V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm14 12v3h-5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM6 8v7H1V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zm14-6v7h-5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z"/>
                       </svg>Bilan
@@ -245,7 +244,7 @@
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('project_homepage') }}/DASH/2025'>
+                    <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('project_dashboard') }}/2025'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-columns-gap" viewBox="0 0 16 16">
                         <path d="M6 1v3H1V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm14 12v3h-5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM6 8v7H1V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zm14-6v7h-5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z"/>
                       </svg>Bilan

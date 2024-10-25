@@ -5,7 +5,7 @@
 {% for entry in projets %}
     {% set entryInfo = {
             id: entry.projetid,
-            structure: entry.structure ,
+            affectation: entry.affectation ,
             d_date: entry.ddate|date("d-m-Y") ,
             f_date: entry.fdate|date("d-m-Y") ,
             projet: entry.projet,

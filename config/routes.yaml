@@ -1,46 +1,88 @@
 homepage:
     path: /
     controller: App\Controller\HomeController::index
-
-assembly_homepage:
-    path: /AG/{subject}
-    controller: App\Controller\Ag\AgController::index
     defaults:  
-        subject: 'AG' 
+        title: 'HOME'
 
 contact_homepage:
     path: /CONTACT
     controller: App\Controller\Contact\ContactController::index
+    defaults:  
+        title: 'CONTACT'
 
 asso_homepage:
     path: /ASSO
     controller: App\Controller\Asso\AssoController::index
+    defaults:  
+        title: 'ASSO'
 
 handi_homepage:
-    path: /HANDI
+    path: /HANDI/{year}
     controller: App\Controller\Handi\HandiController::index
+    defaults:  
+        year: 2024
+        title: 'HANDI'
+    requirements:
+        year: '\d+'
+
+christmas_homepage:
+    path: /CHRISTMAS/{year}
+    controller: App\Controller\Christmas\ChristmasController::index
+    defaults:  
+        year: 2024
+        title: 'CHRISTMAS'
+    requirements:
+        year: '\d+'
+
+donateurs_homepage:
+    path: /DONATEURS/{year}
+    controller: App\Controller\Donateurs\DonateursController::index
+    defaults:  
+        year: 2024
+        title: 'DONATEURS'
+    requirements:
+        year: '\d+'
+
+public_projects:
+    path: /PUBLIC_PROJECTS/{year}
+    controller: App\Controller\PubProject\PubProjectController::index
+    defaults:  
+        year: 2024
+        title: 'PUBLIC_PROJECTS'
+    requirements:
+        year: '\d+'
 
 project_homepage:
     path: /PROJECT/{year}/{etatFilter}
     controller: App\Controller\Project\ProjectController::index
     defaults:  
-        year: '2024' 
         etatFilter: 'ALL' 
+        year: 2024
+        title: 'PROJECT'
+    requirements:
+        year: '\d+'
 
-public_projects:
-    path: /PUBLIC_PROJECTS/{year}/{etatFilter}
-    controller: App\Controller\Project\ProjectController::public_projects
+project_affectation:
+    path: /PROJECTAFF/{year}/{structureFilter}/{etatFilter}
+    controller: App\Controller\Project\ProjectController::affectation
     defaults:  
-        year: '2024' 
-        etatFilter: 1 
-        
-project_structure:
-    path: /PROJECT/{year}/{structureFilter}/{etatFilter}
-    controller: App\Controller\Project\ProjectController::structure
-    defaults:  
-        year: '2024' 
+        year: 2024
         structureFilter: 'ESTRAN' 
         etatFilter: 'ALL' 
+        title: 'PROJAFFECTATION'
+    requirements:
+        year: '\d+'
+
+project_dashboard:
+    path: /PROJECTDASH/{year}
+    controller: App\Controller\Project\ProjectController::dashboard
+    defaults:  
+        year: 2024
+        title: 'PROJDASHBOARD'
+    requirements:
+        year: '\d+'
+
+
 
 affectation_homepage:
     path: /COMPTE/CHART/AFFECTATION/{year}/{affectationFilter}
@@ -55,7 +97,7 @@ cpt_chart_homepage:
     defaults:  
         year: '2024' 
         chartFilter: 'ALL' 
-    
+
 cpt_table_homepage:
     path: /COMPTE/TABLE/{year}/{viewFormat}/{rowNumbers}
     controller: App\Controller\Compte\CompteController::table
@@ -77,12 +119,6 @@ cpt_table_delete:
     controller: App\Controller\Compte\CompteController::delete
 
 
-donateurs_homepage:
-    path: /DONATEURS/{year}
-    controller: App\Controller\Donateurs\DonateursController::index
-    defaults:  
-        year: '2024' 
-
 especes_homepage:
     path: /ESPECES/{year}
     controller: App\Controller\Especes\EspecesController::index
@@ -92,6 +128,12 @@ especes_homepage:
 livret_homepage:
     path: /COMPTE/LIVRET
     controller: App\Controller\Compte\CompteController::livret
+
+assembly_homepage:
+    path: /AG/{subject}
+    controller: App\Controller\Ag\AgController::index
+    defaults:  
+        subject: 'AG' 
 
 app_register:
     path: /register

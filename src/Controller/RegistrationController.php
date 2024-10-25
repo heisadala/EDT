@@ -50,9 +50,9 @@ class RegistrationController extends AbstractController
 
         return $this->render('index.html.twig', [
             'controller_name' => 'RegistrationController',
-            'title' => 'Register EDT user',
+            'header_title' => 'Register EDT user',
             'show_register' => true,
-            'icon' => $db->getIcon(),
+            'shortcut_icon' => $db->getIcon(),
             'meta_index' => 'noindex',
             'background' => $db->getBackground(),
             'header_title' => $_SERVER['HTTP_HOST'],

@@ -83,7 +83,7 @@
                                 </thead>
                                 <tbody>
                                     <tr class="table-light" ><td>Prestataire</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.name }}</td></tr>
-                                    <tr class="table-success"><td>Structure</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.structure }}</td></tr>
+                                    <tr class="table-success"><td>affectation</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.affectation }}</td></tr>
                                     {% if projet.p_recu|date("d-m-Y") != '01-01-2000' %}
                                         <tr class="table-light"><td>Projet reçu</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.p_recu|date("d-m-Y") }}</td></tr>
                                     {% else %}
@@ -138,7 +138,7 @@
                                 </thead>
                                 <tbody>
                                     <tr class="table-light"><td>Prestataire</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.name }}</td></tr>
-                                    <tr class="table-success"><td>Structure</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.structure }}</td></tr>
+                                    <tr class="table-success"><td>affectation</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.affectation }}</td></tr>
                                     {% if projet.p_recu|date("d-m-Y") != '01-01-2000' %}
                                         <tr class="table-light"><td>Projet reçu</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.p_recu|date("d-m-Y") }}</td></tr>
                                     {% else %}

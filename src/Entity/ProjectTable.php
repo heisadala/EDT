@@ -21,7 +21,7 @@ class ProjectTable
     private ?int $prestataire_id = null;
 
     #[ORM\Column(length: 20, nullable: true)]
-    private ?string $structure = null;
+    private ?string $affectation = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $d_date = null;
@@ -81,12 +81,12 @@ class ProjectTable
 
     public function getStructure(): ?string
     {
-        return $this->structure;
+        return $this->affectation;
     }
 
-    public function setStructure(?string $structure): static
+    public function setStructure(?string $affectation): static
     {
-        $this->structure = $structure;
+        $this->affectation = $affectation;
 
         return $this;
     }

@@ -24,8 +24,8 @@ class AgController extends AbstractController
         return $this->render('index.html.twig', [
             'controller_name' => 'AgController',
             'server_base' => $_SERVER['BASE'],
-            'title' => 'AG',
-            'icon' => 'Edt.png',
+            'header_title' => 'AG',
+            'shortcut_icon' => 'Edt.png',
             'db' => 'AG',
             'show_navbar' => false,
             'show_carousel_ag' => $show_carousel_ag,

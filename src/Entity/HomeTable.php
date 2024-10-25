@@ -28,6 +28,12 @@ class HomeTable
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $url = null;
 
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $navbar_title = null;
+
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $header_title = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -81,14 +87,27 @@ class HomeTable
         return $this;
     }
 
-    public function getUrl(): ?string
+
+    public function getNavbarTitle(): ?string
     {
-        return $this->url;
+        return $this->navbar_title;
     }
 
-    public function setUrl(?string $url): static
+    public function setNavbarTitle(?string $navbar_title): static
     {
-        $this->url = $url;
+        $this->navbar_title = $navbar_title;
+
+        return $this;
+    }
+
+    public function getHeaderTitle(): ?string
+    {
+        return $this->header_title;
+    }
+
+    public function setHeaderTitle(?string $header_title): static
+    {
+        $this->header_title = $header_title;
 
         return $this;
     }

@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CompteTableRepository;
+use App\Repository\CompteControllerTableRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CompteTableRepository::class)]
-class CompteTable
+#[ORM\Entity(repositoryClass: CompteControllerTableRepository::class)]
+class CompteControllerTable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -27,6 +27,13 @@ class CompteTable
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $url = null;
+
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $navbar_title = null;
+
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $header_title = null;
+
 
     public function getId(): ?int
     {
@@ -89,6 +96,31 @@ class CompteTable
     public function setUrl(?string $url): static
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+
+    public function getNavbarTitle(): ?string
+    {
+        return $this->navbar_title;
+    }
+
+    public function setNavbarTitle(?string $navbar_title): static
+    {
+        $this->navbar_title = $navbar_title;
+
+        return $this;
+    }
+
+    public function getHeaderTitle(): ?string
+    {
+        return $this->header_title;
+    }
+
+    public function setHeaderTitle(?string $header_title): static
+    {
+        $this->header_title = $header_title;
 
         return $this;
     }

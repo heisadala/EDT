@@ -4,28 +4,27 @@ namespace App\Controller\Handi;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
-use App\Repository\HomeTableRepository;
+use App\Repository\ControllerTableRepository;
 
 class HandiController extends AbstractController
 {
-    public function index(HomeTableRepository $homeTableRepository): Response
+    public function index(int $year, string $title,
+                            ControllerTableRepository $controllerTableRepository): Response
     {
-
-        $app = 'HANDI';
-
-        $db = $homeTableRepository->findOneBy(array('name' => $app));
-        $username = "";
+        $app = $title;
+        $controller = $controllerTableRepository->findOneBy(['name' => $app]);
 
         return $this->render('index.html.twig', [
-            'controller_name' => 'HomeController',
+            'controller_name' => $title . 'Controller',
             'server_base' => $_SERVER['BASE'],
             'meta_index' => 'index',
-            'title' => 'Accueil ' . $app,
-            'icon' => $db->getIcon(),
-            'header_image' => 'Trestel_2.jpg',
+            'header_title' => $controller->getHeaderTitle(),
+            'shortcut_icon' => $controller->getIcon(),
+            'db' => $controller->getName(),
+
+            'navbar_title' => $controller->getNavbarTitle(),
+            'year' => $year,
             'show_navbar' => true,
             'show_cards' => true,
-            'db' => $db->getName(),
         ]);
     }}
