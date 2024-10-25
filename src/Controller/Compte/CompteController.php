@@ -131,14 +131,14 @@ class CompteController extends AbstractController
         ]);
     }
     public function dashboard (
-        CompteTableRepository $compteTableRepository,
+        CompteControllerTableRepository $compteControllerTableRepository,
         CompteChequesTableRepository $courantTableRepository,
         ProjectTableRepository $projectTableRepository,
     ): Response
     {
 
         $app = 'DASHBOARD';
-        $db = $compteTableRepository->findOneby(['name' => $app]);
+        $db = $compteControllerTableRepository->findOneby(['name' => $app]);
         $projets = $projectTableRepository->findAll();
         $account = $courantTableRepository->findAll();
 
@@ -174,13 +174,13 @@ class CompteController extends AbstractController
     }
 
     public function affectation (string $year, string $affectationFilter,
-                            CompteTableRepository $compteTableRepository,
+                            CompteControllerTableRepository $compteControllerTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
                             ): Response
     {
 
         $app = 'AFFECTATION';
-        $db = $compteTableRepository->findOneby(['name' => $app]);
+        $db = $compteControllerTableRepository->findOneby(['name' => $app]);
         $table_name = $year . '_' . $db->getTbl();
         $courantTableRepository->set_table_name($table_name);
         $account = $courantTableRepository->findAll();
@@ -218,46 +218,14 @@ class CompteController extends AbstractController
 }
 
 
-    public function caisses(
-                            CompteTableRepository $compteTableRepository
-                        ): Response
-    {
-            $app = 'CAISSES';
-            $db = $compteTableRepository->findOneBy(array('name' => $app));
-
-            $databases = $compteTableRepository->findAll();
-
-            $username = "";
-            if ($this->getUser()) {
-            $username = $this->getUser()->getUsername();
-            }
-
-            return $this->render('index.html.twig', [
-                'controller_name' => 'CompteController',
-                'server_base' => $_SERVER['BASE'],
-                'meta_index' => 'noindex',
-                'header_title' => ucfirst(strtolower($app)),
-                'shortcut_icon' => $db->getIcon(),
-                'header_image' => 'Trestel_2.jpg',
-                'show_navbar' => true,
-                'show_gallery' => false,
-                'background' => $db->getBackground(),
-                'db' => $db->getName(),
-                'databases' => $databases,
-                'username' => $username,
-
-            ]);
-    }
-
-
     public function livret(
-        CompteTableRepository $compteTableRepository
-    ): Response
+        CompteControllerTableRepository $compteControllerTableRepository,
+        ): Response
     {
             $app = 'LIVRET';
-            $db = $compteTableRepository->findOneBy(array('name' => $app));
+            $db = $compteControllerTableRepository->findOneBy(array('name' => $app));
 
-            $databases = $compteTableRepository->findAll();
+            $databases = $compteControllerTableRepository->findAll();
 
             $username = "";
             if ($this->getUser()) {
@@ -282,13 +250,13 @@ class CompteController extends AbstractController
     }
 
     public function add (
-                            CompteTableRepository $compteTableRepository,
-                            CompteChequesTableRepository $courantTableRepository,
+        CompteControllerTableRepository $compteControllerTableRepository,
+        CompteChequesTableRepository $courantTableRepository,
 
                         ): Response
     {
         $app = 'COURANT';
-        $db = $compteTableRepository->findOneBy(array('name' => $app));
+        $db = $compteControllerTableRepository->findOneBy(array('name' => $app));
         $table_header_fields = $courantTableRepository->fetch_header_fields_from_table($db->getTbl());
         $primary_key_name = $courantTableRepository->get_pk_name($db->getTbl());
         $primary_key_column = $this->get_pk_column($table_header_fields, $primary_key_name);
@@ -331,13 +299,13 @@ class CompteController extends AbstractController
     }
 
     public function edit (string $pk_name, int $ref,
-                            CompteTableRepository $compteTableRepository,
-                            CompteChequesTableRepository $courantTableRepository,
+    CompteControllerTableRepository $compteControllerTableRepository,
+    CompteChequesTableRepository $courantTableRepository,
 
                         ): Response
     {
         $app = 'COURANT';
-        $db = $compteTableRepository->findOneBy(array('name' => $app));
+        $db = $compteControllerTableRepository->findOneBy(array('name' => $app));
         $table_header_fields = $courantTableRepository->fetch_header_fields_from_table($db->getTbl());
         $primary_key_name = $courantTableRepository->get_pk_name($db->getTbl());
         $primary_key_column = $this->get_pk_column($table_header_fields, $primary_key_name);
@@ -381,14 +349,14 @@ class CompteController extends AbstractController
     }
 
     public function delete (string $pk_name, int $ref,
-                            CompteTableRepository $compteTableRepository,
-                            CompteChequesTableRepository $courantTableRepository,
+    CompteControllerTableRepository $compteControllerTableRepository,
+    CompteChequesTableRepository $courantTableRepository,
 
                         ): Response
 
     {
         $app = 'COURANT';
-        $db = $compteTableRepository->findOneBy(array('name' => $app));
+        $db = $compteControllerTableRepository->findOneBy(array('name' => $app));
         $table_header_fields = $courantTableRepository->fetch_header_fields_from_table($db->getTbl());
         $primary_key_name = $courantTableRepository->get_pk_name($db->getTbl());
         $primary_key_column = $this->get_pk_column($table_header_fields, $primary_key_name);
