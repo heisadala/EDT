@@ -120,6 +120,7 @@
                                     <tr class="table-light" ><td>0.10</td><td>{{ espece.nombre_010 }}</td><td class='text-end'>{{ espece.montant_010 }}</td><td>{{ espece.nombre_010_apres }}</td><td class='text-end'>{{ espece.montant_010_apres }}</td></tr>
                                     <tr class="table-success" ><td>TOTAL</td><td></td><td class='text-end'>{{ espece.montant|number_format(2) }}</td><td></td><td class='text-end'>{{ espece.montant_apres|number_format(2) }}</td></tr>
                                     <tr class="table-light" ><td>CHEQUES</td><td></td><td></td><td></td><td class='text-end'>{{ espece.cheques|number_format(2) }}</td></tr>
+                                    <tr class="table-light" ><td>CB</td><td></td><td></td><td></td><td class='text-end'>{{ espece.cb|number_format(2) }}</td></tr>
                                     <tr class="table-success" ><td>RECETTE</td><td></td><td></td><td></td><td class='text-end'>{{ espece.recette|number_format(2) }}</td></tr>
                                 </tbody>
                             </table>

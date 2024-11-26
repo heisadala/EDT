@@ -131,6 +131,9 @@ class EspecesTable
     private ?string $cheques = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
+    private ?string $cb = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
     private ?string $dons = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
@@ -193,6 +196,18 @@ class EspecesTable
     public function setCheques(?string $cheques): static
     {
         $this->cheques = $cheques;
+
+        return $this;
+    }
+
+    public function getCb(): ?string
+    {
+        return $this->cb;
+    }
+
+    public function setCb(?string $cb): static
+    {
+        $this->cb = $cb;
 
         return $this;
     }
