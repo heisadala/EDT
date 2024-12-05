@@ -23,12 +23,7 @@
                                     <thead>
                                     </thead>
                                     <tbody>
-                                        {% if donateur.nom == 'BIJOUX SYLVIE' %}
-                                            <tr class="table-light" ><td>Montant</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>1007.00 Euros</td></tr>
-                                        {% else %}
-                                            <tr class="table-light" ><td>Montant</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ donateur.montant }} Euros</td></tr>
-                                        {% endif %}
-
+                                        <tr class="table-light" ><td>Montant</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ donateur.montant }} Euros</td></tr>
                                         <tr class="table-light" ><td>Date</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ donateur.date }}</td></tr>
                                     </tbody>
                                 </table>
