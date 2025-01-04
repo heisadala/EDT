@@ -487,35 +487,35 @@ body {
   padding: 15px 30px;
 }
 
-.edt-card .table-success {
+.edt-card-table .table-success {
   background: linear-gradient(60deg, #66bb6a, #388e3c);
 }
 
-.edt-card .table-info {
+.edt-card-table .table-info {
   background: linear-gradient(60deg, #26c6da, #0097a7);
 }
 
-.edt-card .table-primary {
+.edt-card-table .table-primary {
   background: linear-gradient(60deg, #ab47bc, #7b1fa2);
 }
 
-.edt-card .table-warning {
+.edt-card-table .table-warning {
   background: linear-gradient(60deg, #ffa726, #f57c00);
 }
 
-.edt-card .table-danger {
+.edt-card-table .table-danger {
   background: linear-gradient(60deg, #ef5350, #d32f2f);
 }
 
-.edt-card .table-rose {
+.edt-card-table .table-rose {
   background: linear-gradient(60deg, #FF99AC, #FF6A88);
 }
 
-.edt-card .table-test {
+.edt-card-table .table-test {
   background: linear-gradient(60deg, #48c6ef 0%, #6f86d6 100%);
 }
 
-.edt-card .table-test_2 {
+.edt-card-table .table-test_2 {
   background: linear-gradient(60deg, #93F9B9, #1D976C);
 }
 
