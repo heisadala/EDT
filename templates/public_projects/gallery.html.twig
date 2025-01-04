@@ -19,7 +19,7 @@
                     {% endif %}
                        <div class="card " >
                             <div class="card-header bg-success-subtle d-flex align-items-center justify-content-between" style='height:  3rem'>
-                                {{ projet.projet_id }}&nbsp;&nbsp;{{ projet.projet }} 
+                                {{ projet.projet }} 
                             </div>
                             <div class="card-body">
                                 <table class='table table-sm'>
@@ -33,8 +33,8 @@
                                         <td>{{ projet.name }}</td>
                                     {% endif %}
                                     </tr>
-                                    <tr class="table-light"><td>affectation</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.affectation }}</td></tr>
-                                    <tr class="table-danger"><td>Cout</td>
+                                    <tr class="table-light"><td>Affectation</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.affectation }}</td></tr>
+                                    <tr class="table-danger"><td>Coût</td>
                                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                         <td>{{ projet.f_montant|round }} Euros
                                         </td>

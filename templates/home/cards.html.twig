@@ -1,79 +1,107 @@
 
-        <div class='row justify-content-evenly bg-body-secondary'>
-            <div class='row justify-content-between m-0' 
+        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-4 mt-2 mx-2 bg-body-secondary justify-content-center">
+        {# <div class='row justify-content-evenly bg-body-secondary mx-2'> #}
+            {# <div class='row justify-content-between m-0' 
                 style='height: 1rem;'>
-            </div>            
-            <div class="col-md-3">
-{#                 #}
-{# QUI SOMMES NOUS #}
-{#                 #}
-            <div class="card border-warning border-5 my-2" style="max-width: 30rem;">
-                <div class="card-header text-center text-secondary bg-info-subtle fs-3">QUI SOMMES NOUS</div>
-                <div class="card-body bg-success-subtle">
-                    <p class="card-text text-center text-align-center text-secondary fs-6">
-                        C’est à l’initiative des médecins et du personnel du C.R.R.F. de Trestel que l’association « Les Enfants de Trestel » a vu le jour en 1989</p>
-                        <p>Les membres de l'association : </p>
-                    <ul>
-                        <li>Parents des enfants de Trestel
-                        <li>Personnel actif ou retraite du Centre de Rééducation et de Réadaptation Fonctionnelle
-                        <li>Tous les adhérents qui souscrivent librement à l'association
-                    </ul>
+            </div>             #}
+{# FIRST COLUMN #}
+            <div class="col-sm-1">
+
+    {#             #}
+    {# ACTUALITY   #}
+    {#             #}
+                <div class="edt-card text-center">
+                    <div class="edt-card-table table-success">
+                        <img class='img-fluid rounded' src="{{ server_base }}/images/actuality/2025.jpg"  >
+                    </div>
+                </div>
+    {#        #}
+    {# TREVOU #}
+    {#        #}
+               <div class="edt-card mt-2" >
+                    <div class="edt-card-table table-info">
+                    {# <div class="card border-primary border-5 my-2 mx-2 bg-primary-subtle text-center" style="max-width: 30rem;" > #}
+                        <img class='img-fluid rounded'
+                            src="{{ server_base }}/images/icon/navbar/Trestel.jpg" 
+                            alt='Trestel' 
+                            title='Trestel à Trévou-Treguignec' 
+                        >
+
+                        <a target="_blank" href="https://trevou-treguignec.bzh/">
+                            <img class='card-img mx-auto mt-1' style="max-width: 75%;"
+                            src="{{ server_base }}/images/logo/Trevou_small.png" 
+                            alt='Trévou-Treguignec' 
+                            title='Trévou-Treguignec' 
+                        ></a>
+                    </div>
                 </div>
             </div>
+
+{# SECOND COLUMN #}
+            <div class="col-sm-1 ">
 {#             #}
 {# FACEBOOK    #}
 {#             #}
-                <div class="card border-info border-5 my-2 bg-white" style="margin-top: 15px; margin-bottom: 15px;">
-
-                    <div class="fb-page text-center" 
-                        data-href="https://www.facebook.com/profile.php?id=100064342705474" 
-                        data-tabs="timeline" 
-                        data-width="" 
-                        data-height="" 
-                        data-small-header="false" 
-                        data-adapt-container-width="true" 
-                        data-hide-cover="false" 
-                        data-show-facepile="true">
-                        <blockquote cite="https://www.facebook.com/profile.php?id=100064342705474" class="fb-xfbml-parse-ignore">
-                            <a href="https://www.facebook.com/profile.php?id=100064342705474">Enfants de Trestel</a>
-                        </blockquote>
-                    </div>            
+                <div class="edt-card text-center" >
+                    <div class="edt-card-table table-rose">
+                    {# <div class="card border-info border-5 my-2 mx-2 bg-white" style="max-width: 30rem; margin-top: 15px; margin-bottom: 15px;"> #}
+                        <h4 class="card-caption"><a target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474" class="link-underline link-underline-opacity-0"><img class='img-fluid rounded'
+                            src="{{ server_base }}/images/icon/facebook-48.png">&nbsp;&nbsp;"Facebook"</a></h4>
+                        <br>
+                        <div class="fb-page" 
+                            data-href="https://www.facebook.com/profile.php?id=100064342705474" 
+                            data-tabs="timeline" 
+                            data-width="" 
+                            data-height="" 
+                            data-small-header="false" 
+                            data-adapt-container-width="true" 
+                            data-hide-cover="false" 
+                            data-show-facepile="true">
+                            <blockquote cite="https://www.facebook.com/profile.php?id=100064342705474" class="fb-xfbml-parse-ignore">
+                                <a href="https://www.facebook.com/profile.php?id=100064342705474">Enfants de Trestel</a>
+                            </blockquote>
+                        </div>
+                    </div>
                 </div>
-            </div>            
-            <div class="col-md-3 ">
-{#        #}
-{# TREVOU #}
-{#        #}
-                <div class="card border-primary border-5 my-2 bg-primary-subtle text-center" style="max-width: 30rem;">
-                    <img class='img-fluid'
-                        src="{{ server_base }}/images/icon/navbar/Trestel.jpg" 
-                        alt='Trestel' 
-                        title='Trestel à Trévou-Treguignec' 
-                    >
+            </div>
+{# THIRD COLUMN #}
+            <div class="col-sm-1">
 
-                    <a target="_blank" href="https://trevou-treguignec.bzh/">
-                        <img class='card-img mx-auto mt-1' style="max-width: 75%;"
-                        src="{{ server_base }}/images/logo/Trevou_small.png" 
-                        alt='Trévou-Treguignec' 
-                        title='Trévou-Treguignec' 
-                    ></a>
+    {#                 #}
+    {# QUI SOMMES NOUS #}
+    {#                 #}
+
+                <div class="edt-card " >
+                    <div class="edt-card-table table-success">
+                        <h4 class="card-caption"><a href='{{ path('asso_homepage') }}' class="link-underline link-underline-opacity-0">
+                        <img src="{{ server_base }}/images/icon/white-friends-32.png">&nbsp;&nbsp;"Qui sommes nous"</a></h4>
+                        <p class="text-align-center text-white fs-6 mt-4">
+                        C’est à l’initiative des médecins et du personnel du C.R.R.F. de Trestel que l’association « Les Enfants de Trestel » a vu le jour en 1989</p>
+                        <p class="smaller">Les membres de l'association : </p>
+                        <ul class="smaller">
+                            <li>Parents des enfants de Trestel
+                            <li>Personnel actif ou retraite du Centre de Rééducation et de Réadaptation Fonctionnelle
+                            <li>Tous les adhérents qui souscrivent librement à l'association
+                        </ul> 
+                    </div>
                 </div>
-
 {#           #}
 {# OBJECTIFS #}
 {#           #}
-            <div class="card border-warning border-5 my-2" style="max-width: 30rem;">
-                <div class="card-header text-center text-secondary bg-info-subtle fs-3">OBJECTIFS</div>
-                <div class="card-body bg-success-subtle">
-                    <p class="card-text text-center text-align-center text-secondary fs-6"></p>
-                    <ul>
-                        <li>Favoriser le lien social, la découverte en milieu extérieur à l'hôpital et l'épanouissement des enfants handicapes tout en leur procurant du plaisir
-                        <li>Procurer aux enfants du matériel extra médical
-                        <li>Soutenir les familles, notamment en facilitant les échanges et l'accès à l'information sur leurs droits, leurs demarches à effectuer au niveau handicap
-                        <li>Sensibiliser la population locale et les enfants au handicap, à la tolérance et à l'acceptation de la différence
-                    </ul>
+                <div class="edt-card mt-2" >
+                    <div class="edt-card-table table-info">
+                        <h4 class="card-caption"><a href='{{ path('asso_homepage') }}' class="link-underline link-underline-opacity-0">
+                            <img src="{{ server_base }}/images/icon/white-friends-32.png">&nbsp;&nbsp;"Objectifs"</a></h4>
+                            <p class="text-align-center text-white fs-6 mt-4"></p>
+                            <ul class="smaller">
+                                <li>Favoriser le lien social, la découverte en milieu extérieur à l'hôpital et l'épanouissement des enfants handicapes tout en leur procurant du plaisir
+                                <li>Procurer aux enfants du matériel extra médical
+                                <li>Soutenir les familles, notamment en facilitant les échanges et l'accès à l'information sur leurs droits, leurs demarches à effectuer au niveau handicap
+                                <li>Sensibiliser la population locale et les enfants au handicap, à la tolérance et à l'acceptation de la différence
+                            </ul>
+                    </div>
                 </div>
-            </div>
+            </div>            
 
 {#                #}
 {# GRANIT RUNNING #}
@@ -105,19 +133,7 @@
 
                     </div>
                 </div> #}
-            </div>
             
-            <div class="col-md-3">
-{#             #}
-{# MARCHE NOEL #}
-{#             #}
-
-
-                <div class="card border-success border-5 my-2" style="margin-top: 15px; margin-bottom: 15px;">
-                    <img src="{{ server_base }}/images/marche_de_noel/2025.jpg"  >
-                </div>
-
-
 
 {#             #}
 {# FINANCEMENT #}

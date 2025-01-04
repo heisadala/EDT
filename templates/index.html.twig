@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block news %}
-     <div class='d-print-none row justify-content-between m-0'>
+{#      <div class='d-print-none row justify-content-between m-0'>
         <div class='d-flex mt-1 p-1 justify-content-center text-white edt-body-news-content'>
             <div class='col-1 '></div>
             <div class='col-2 '>SITE EN CONSTRUCTION</div>
@@ -22,10 +22,11 @@
             <div class='col-1 '></div>
         </div>
     </div>
-{% endblock %}
+ #}
+ {% endblock %}
 
 {% block header %}
-    <div class='d-print-none container-fluid edt-header-container sticky-top' >
+    <div class='d-print-none container-fluid edt-header-container sticky-top bg-warning' >
         <header>
             {% if show_navbar is defined and show_navbar == true %}
                 {% include ( "#{db|lower}/navbar.html.twig" ) %}
@@ -76,7 +77,7 @@
 {% endblock %}
 
 {% block footer %}
-        <div class='d-print-none d-flex justify-content-center align-items-center m-0'>
+        <div class='d-print-none d-flex justify-content-center align-items-center m-0 bg-warning'>
             <a class='p-3' target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474">
                 <img class='img-fluid rounded'
                     src="{{ server_base }}/images/icon/facebook-48.png" >

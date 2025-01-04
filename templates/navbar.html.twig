@@ -1,5 +1,5 @@
-<div class='container-fluid justify-content-start'>
-  <nav class="navbar navbar-expand-lg" >
+<div class='container-fluid bg-warning justify-content-start'>
+  <nav class="navbar navbar-expand-lg " >
     {% include ( "navbar_brand.html.twig" ) %}
     <button 
         class="navbar-toggler edt-navbar-toggler text-info" 
@@ -85,6 +85,24 @@
                 <li><hr class="dropdown-divider"></li>
                 <li>
                   <a class="dropdown-item edt-dropdown-item " href='{{ path('public_projects') }}/2024'>
+                    <img src="{{ server_base }}/images/icon/danger-project-32.png">
+                    PROJETS
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              {% include ( "a_2025_dropdown.html.twig" ) %}
+              <ul class="dropdown-menu edt-2025-finance-dropdown-menu">
+                <li>
+                  <a class="dropdown-item edt-dropdown-item " href='{{ path('donateurs_homepage') }}/2025'>
+                    <img src="{{ server_base }}/images/icon/danger-charity-32.png">
+                    DONATEURS
+                  </a>
+                </li> 
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item edt-dropdown-item " href='{{ path('public_projects') }}/2025'>
                     <img src="{{ server_base }}/images/icon/danger-project-32.png">
                     PROJETS
                   </a>
@@ -264,20 +282,20 @@
             </ul>
           </li>
         {% endif %}
-        <li class="nav-item">
+{#         <li class="nav-item">
           <a target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474">
             <img class='img-fluid rounded'
               src="{{ server_base }}/images/icon/facebook-48.png" >
           </a>
         </li>
-      </ul>
+ #}      </ul>
       <ul class="navbar-nav ms-auto">
         {% if username is defined and username != '' %}
 
           <li class="nav-item">
             <div class="btn-group dropstart ">
               <button class="btn edt-btn-login-logo" data-bs-toggle="dropdown" type="button">
-                <img class="img-fluid rounded-circle border border-primary" src="{{ server_base }}/images/icon/person-48.png" style="max-width: 75%"
+                <img class="img-fluid rounded-circle border border-success" src="{{ server_base }}/images/icon/person-48-success.png" style="max-width: 75%"
                   alt={{ username }}
                   title={{ username }}
                 >
