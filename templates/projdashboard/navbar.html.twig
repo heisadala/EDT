@@ -1,4 +1,4 @@
-<div class='container-fluid justify-content-start'>
+<div class='container-fluid justify-content-start {{ bg_color }}'>
 
   <nav class="navbar navbar-expand-xl" >
     {% include ( "navbar_brand.html.twig" ) %}
@@ -16,7 +16,22 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          {# <li class="nav-item dropdown edt-dropdown "> #}
+        <li class="nav-item dropdown">
+        
+            <a class="nav-link dropdown-toggle " 
+              data-bs-toggle="dropdown" 
+              href=''
+              role="button" 
+              aria-expanded="false">{{ year }}
+            </a>
+            <ul class="dropdown-menu edt-dropdown-menu">
+              {% set other_year = '2024' %}
+              {% if year == '2024' %}
+              {% set other_year = year + 1 %}
+              {% endif %}
+              <li><a class="dropdown-item edt-dropdown-item" href='{{ path('project_dashboard') }}/{{ other_year }}'>{{ other_year }}</a></li>
+            </ul>
+          </li>
           <li class="dropdown">
             <a class="nav-link dropdown-toggle  text-center text-white bg-success rounded mx-2 my-1" data-bs-toggle="dropdown" href=''
                 role="button" aria-expanded="false">PROJETS<span class="badge text-bg-danger mx-1">{{ (projets|length)-1 }}</span></a>
@@ -58,12 +73,12 @@
                 </li>
             {% endif %}
             {% endfor %}
-            <li>
+            {# <li>
                 <a role="button" class="btn mx-2 my-1 bg-light text-black border" href='{{ path('project_dashboard') }}/{{ year }}' >
             Bilan financier </a>  
-            </li>
-            {% if year == '2024' %}
+            </li> #}
             {% include ( "li_table.html.twig" ) with { 'year' : year } %}
+            {% if year == '2024' %}
             {% include ( "li_chart.html.twig" ) with { 'year' : year } %}
             {% endif %}
             {% include ( "li_banque.html.twig" ) %}

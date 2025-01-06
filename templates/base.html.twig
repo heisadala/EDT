@@ -76,6 +76,9 @@
     <body>
         <div id="fb-root"></div>
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v21.0"></script>
+        {% if bg_color is not defined %}
+            {% set bg_color = 'edt-bg-rose' %}
+        {% endif %}
         {# ##################
         #      news 
         # ##################}

@@ -1,4 +1,4 @@
-<div class='container-fluid justify-content-start'>
+<div class='container-fluid justify-content-start {{ bg_color }}'>
 	<nav class="navbar navbar-expand-xl">
 		{% include ( "navbar_brand.html.twig" ) %}
 
@@ -15,13 +15,29 @@
         
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <ul class="navbar-nav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                
+                    <a class="nav-link dropdown-toggle " 
+                    data-bs-toggle="dropdown" 
+                    href=''
+                    role="button" 
+                    aria-expanded="false">{{ year }}
+                    </a>
+                    <ul class="dropdown-menu edt-dropdown-menu">
+                        {% set other_year = '2024' %}
+                        {% if year == '2024' %}
+                        {% set other_year = year + 1 %}
+                        {% endif %}
+                        <li><a class="dropdown-item edt-dropdown-item disabled" href='{{ path('cpt_chart_homepage', {'chartFilter' :'ALL', 'year' :  other_year }) }}'>{{ other_year }}</a>
+                        </li>
+                    </ul>
+                </li>
                 {% include ( "li_table.html.twig" ) with { 'year' : year } %}
                 {% include ( "li_dashboard.html.twig" ) with { 'year' : year, 'filter' : 'DASH' }  %}
                 {% include ( "li_banque.html.twig" ) %}
-            </ul>
-            <span class='p-3'>{{ year}}</span>
             <div class="ms-5" ><canvas id="chartAllBanksIncExpSav"></canvas></div>
+            </ul>
 
             {% include ( "user_navbar.html.twig" ) %}
         </div>

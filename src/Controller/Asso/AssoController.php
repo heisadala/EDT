@@ -22,6 +22,7 @@ class AssoController extends AbstractController
             'header_title' => $controller->getHeaderTitle(),
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
+            'bg_color' => $controller->getBgColor(),
             
             'navbar_title' => $controller->getNavbarTitle(),
             'show_navbar' => true,

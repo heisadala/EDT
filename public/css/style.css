@@ -413,7 +413,7 @@ body {
   background-position: center center;
   font-family: "Montserrat";
   color: var(--bs-info);
-  background-color: var(--bs-success-bg-subtle);
+  background-color: White;
 }
 
 .edt-body-news-content {
@@ -423,7 +423,7 @@ body {
 
 .edt-header-container {
   color: var(--bs-info);
-  background-color: var(--bs-success-bg-subtle);
+  background-color: White;
 }
 
 .edt-navbar-brand-logo {

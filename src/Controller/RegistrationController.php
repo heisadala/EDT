@@ -54,8 +54,6 @@ class RegistrationController extends AbstractController
             'show_register' => true,
             'shortcut_icon' => $db->getIcon(),
             'meta_index' => 'noindex',
-            'background' => $db->getBackground(),
-            'header_title' => $_SERVER['HTTP_HOST'],
             'news' => '',
             'db' => "registration",
             'server_base' => $_SERVER['BASE'],

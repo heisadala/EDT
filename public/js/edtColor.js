@@ -15,9 +15,9 @@ export const CHART_COLORS = {
   nickel: '#CC4C00',
   ca: '#0271A4',
 
-  debit: '#F75D59',
+  debit: '#DC4C64',
   credit: '#319731',
-  balance: '#CA76EE',
+  balance: '#7779ED',
 
 };
 

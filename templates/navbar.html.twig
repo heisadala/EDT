@@ -1,5 +1,5 @@
-<div class='container-fluid bg-warning justify-content-start'>
-  <nav class="navbar navbar-expand-lg " >
+ <div class='container-fluid justify-content-start {{ bg_color }}'>
+  <nav class="navbar navbar-expand-lg" >
     {% include ( "navbar_brand.html.twig" ) %}
     <button 
         class="navbar-toggler edt-navbar-toggler text-info" 
@@ -140,7 +140,7 @@
                     </a>
                   </li>
                   <li><hr class="dropdown-divider"></li>
-                  {% for struct in affectation %}
+                  {% for struct in affectation_1 %}
                     <li>
                       <a class="dropdown-item edt-dropdown-item" href='{{ path('project_affectation') }}/2024/{{ struct.affectation }}/ALL'>
                         <img src="{{ server_base }}/images/icon/danger-project-16.png">
@@ -159,15 +159,15 @@
                     TOUS
                     </a>
                   </li>
-                  {# <li><hr class="dropdown-divider"></li>
-                  {% for struct in affectation %}
+                  <li><hr class="dropdown-divider"></li>
+                  {% for struct in affectation_2 %}
                     <li>
-                      <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('project_affectation') }}/2025/{{ struct.affectation }}/ALL'>
-                        <img src="{{ server_base }}/images/icon/secondary-project-16.png">
+                      <a class="dropdown-item edt-dropdown-item" href='{{ path('project_affectation') }}/2025/{{ struct.affectation }}/ALL'>
+                        <img src="{{ server_base }}/images/icon/danger-project-16.png">
                       {{ struct.affectation }}
                       </a>
                     </li>
-                  {% endfor %} #}
+                  {% endfor %}
                  </ul>
               </li>
             </ul>
@@ -188,21 +188,20 @@
                     <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('cpt_table_homepage', {'year' :  '2023' }) }}'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
                         <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 2h-4v3h4zm0 4h-4v3h4zm0 4h-4v3h3a1 1 0 0 0 1-1zm-5 3v-3H6v3zm-5 0v-3H1v2a1 1 0 0 0 1 1zm-4-4h4V8H1zm0-4h4V4H1zm5-3v3h4V4zm4 4H6v3h4z"/>
-                      </svg>Table
+                      </svg>Compte
                     </a>
                   </li>
                   <li>
                     <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('cpt_chart_homepage', {'chartFilter' :'ALL', 'year' :  '2023' }) }}'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pie-chart-fill" viewBox="0 0 16 16">
                         <path d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778zM8.5.015V7.5h7.485A8 8 0 0 0 8.5.015"/>
-                      </svg>Chart
+                      </svg>Graphique
                     </a>
                   </li>
                   <li>
                     <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('project_dashboard') }}/2023'>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-columns-gap" viewBox="0 0 16 16">
-                        <path d="M6 1v3H1V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm14 12v3h-5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM6 8v7H1V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zm14-6v7h-5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z"/>
-                      </svg>Bilan
+                      <img src="{{ server_base }}/images/icon/secondary-balance-16.png">
+                      Bilan
                     </a>
                   </li>
                 </ul>
@@ -214,21 +213,20 @@
                     <a class="dropdown-item edt-dropdown-item" href='{{ path('cpt_table_homepage', {'year' :  '2024' }) }}'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
                         <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 2h-4v3h4zm0 4h-4v3h4zm0 4h-4v3h3a1 1 0 0 0 1-1zm-5 3v-3H6v3zm-5 0v-3H1v2a1 1 0 0 0 1 1zm-4-4h4V8H1zm0-4h4V4H1zm5-3v3h4V4zm4 4H6v3h4z"/>
-                      </svg>Table
+                      </svg>Compte
                     </a>
                   </li>
                   <li>
                     <a class="dropdown-item edt-dropdown-item" href='{{ path('cpt_chart_homepage', {'chartFilter' :'ALL', 'year' :  '2024' }) }}'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pie-chart-fill" viewBox="0 0 16 16">
                         <path d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778zM8.5.015V7.5h7.485A8 8 0 0 0 8.5.015"/>
-                      </svg>Chart
+                      </svg>Graphique
                     </a>
                   </li>
                   <li>
                     <a class="dropdown-item edt-dropdown-item" href='{{ path('project_dashboard') }}/2024'>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-columns-gap" viewBox="0 0 16 16">
-                        <path d="M6 1v3H1V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm14 12v3h-5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM6 8v7H1V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zm14-6v7h-5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z"/>
-                      </svg>Bilan
+                      <img src="{{ server_base }}/images/icon/danger-balance-16.png">
+                      Bilan
                     </a>
                   </li>
                   <li>
@@ -244,28 +242,27 @@
                  </ul>
               </li>
               <li>
-                {% include ( "a_2025_dropdown_disabled.html.twig" ) %}
+                {% include ( "a_2025_dropdown.html.twig" ) %}
 
                 <ul class="dropdown-menu edt-2025-compte-dropdown-menu">
                   <li>
-                    <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('cpt_table_homepage', {'year' :  '2025' }) }}'>
+                    <a class="dropdown-item edt-dropdown-item" href='{{ path('cpt_table_homepage', {'year' :  '2025' }) }}'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
                         <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 2h-4v3h4zm0 4h-4v3h4zm0 4h-4v3h3a1 1 0 0 0 1-1zm-5 3v-3H6v3zm-5 0v-3H1v2a1 1 0 0 0 1 1zm-4-4h4V8H1zm0-4h4V4H1zm5-3v3h4V4zm4 4H6v3h4z"/>
-                      </svg>Table
+                      </svg>Compte
                     </a>
                   </li>
                   <li>
                     <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('cpt_chart_homepage', {'chartFilter' :'ALL', 'year' :  '2025' }) }}'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pie-chart-fill" viewBox="0 0 16 16">
                         <path d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778zM8.5.015V7.5h7.485A8 8 0 0 0 8.5.015"/>
-                      </svg>Chart
+                      </svg>Graphique
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('project_dashboard') }}/2025'>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-columns-gap" viewBox="0 0 16 16">
-                        <path d="M6 1v3H1V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm14 12v3h-5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM6 8v7H1V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zm14-6v7h-5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z"/>
-                      </svg>Bilan
+                    <a class="dropdown-item edt-dropdown-item" href='{{ path('project_dashboard') }}/2025'>
+                      <img src="{{ server_base }}/images/icon/danger-balance-16.png">
+                      Bilan
                     </a>
                   </li>
                   <li>

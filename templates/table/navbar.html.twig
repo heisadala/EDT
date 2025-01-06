@@ -7,19 +7,39 @@
 {% endfor %}
 {% set credit_cc = credit_debut_annee + credit - debit %}
 
-<div class='container-fluid justify-content-start'>
+<div class='container-fluid justify-content-start {{ bg_color }}'>
 	<nav class="navbar navbar-expand-lg">
 		{% include ( "navbar_brand.html.twig" ) %}
 
         <ul class="navbar-nav">
+          <li class="dropdown">
+            <a class="nav-link dropdown-toggle text-center text-dark bg-white rounded mx-2 my-1" 
+              data-bs-toggle="dropdown" 
+              href=''
+              role="button" 
+              aria-expanded="false">{{ year }}
+            </a>
+            <ul class="dropdown-menu edt-dropdown-menu">
+              {% set other_year = '2024' %}
+              {% if year == '2024' %}
+              {% set other_year = year + 1 %}
+              {% endif %}
+              <li><a class="dropdown-item edt-dropdown-item" href='{{ path('cpt_table_homepage', {'year' :  other_year  }) }}'>{{ other_year }}</a></li>
+            </ul>
+          </li>
+
+            {% if year == '2024' %}
+
                 {% include ( "li_chart.html.twig" ) with { 'year' : year } %}
+            {% endif %}
                 {% include ( "li_dashboard.html.twig" ) with { 'year' : year, 'filter' : 'DASH' }  %}
+
                 {% include ( "li_banque.html.twig" ) %}
 
         </ul>
         <ul class="navbar-nav me-auto">
             <li>
-                <div class="text-secondary fs-6 edt-euros-font ms-2 p-2">SOLDE {{ year }}:
+                <div class="text-dark fs-6 edt-euros-font ms-2 p-2">SOLDE {{ year }}:
                     {{ credit_cc|number_format(2) }}
                     €</div>
             </li>

@@ -169,7 +169,11 @@
                         <td>Total operations</td><td class='text-end'>{{ total_debit|number_format(2) }}</td><td class='text-end'>{{ total_credit|number_format(2) }}</td></tr>
                 </tbody>
                 <tfoot class='table-group-divider table-danger'>
-                    <td>Bilan</td><td class='text-end text-danger'><b>{{ total_bilan|number_format(2) }}</b></td><td></td>
+                    {% if total_bilan < 0 %}
+                        <td>Bilan</td><td></td><td class='text-end text-success'><b>{{ total_bilan|abs|number_format(2) }}</b></td>
+                    {% else %}
+                        <td>Bilan</td><td class='text-end text-danger'><b>{{ total_bilan|number_format(2) }}</b></td><td></td>
+                    {% endif %}
                 </tfoot>
             </table>
         </div>
@@ -192,10 +196,18 @@
                         <td>Solde 01-01-{{ year }} </td><td></td><td class='text-end'>{{ credit_01_2024|number_format(2) }}</td></tr>
 
                     <tr>
-                        <td>Bilan affectations</td><td class='text-end'>{{ total_bilan|number_format(2) }}</td><td></td></tr>
+                        {% if total_bilan < 0 %}
+                            <td>Bilan affectations</td><td></td><td class='text-end'>{{ total_bilan|abs|number_format(2) }}</td>
+                        {% else %}
+                            <td>Bilan affectations</td><td class='text-end'>{{ total_bilan|number_format(2) }}</td><td></td>
+                        {% endif %}
                </tbody>
                 <tfoot class='table-group-divider table-success'>
-                    <td>Solde {{ "now"|date("d/m/Y") }} <br>
+                    {% if year == '2024' %}
+                        <td>Solde 31/12/2024 <br>
+                    {% else %}
+                        <td>Solde {{ "now"|date("d/m/Y") }} <br>
+                    {% endif %}
                     <small><i>Titre ({{ compte_titre_01_2024|number_format(2) }})<br>
                     Livret ({{ livret_now_2024|number_format(2) }})<br>
                     Caisse ({{ caisse_now_2024|number_format(2) }})<br>

@@ -82,6 +82,29 @@ project_dashboard:
     requirements:
         year: '\d+'
 
+cpt_table_homepage:
+    path: /COMPTE/TABLE/{year}/{viewFormat}/{rowNumbers}
+    controller: App\Controller\Compte\CompteController::table
+    defaults:  
+        year: 2024 
+        viewFormat: 'table' 
+        rowNumbers: 10 
+        title: 'TABLE'
+    requirements:
+        year: '\d+'
+
+cpt_chart_homepage:
+    path: /COMPTE/CHART/{year}/{chartFilter}
+    controller: App\Controller\Compte\CompteController::chart
+    defaults:  
+        year: 2024 
+        chartFilter: 'ALL' 
+        title: 'CHART'
+    requirements:
+        year: '\d+'
+
+
+
 
 
 affectation_homepage:
@@ -91,20 +114,6 @@ affectation_homepage:
         year: '2024' 
         affectationFilter: 'EDT' 
 
-cpt_chart_homepage:
-    path: /COMPTE/CHART/{year}/{chartFilter}
-    controller: App\Controller\Compte\CompteController::chart
-    defaults:  
-        year: '2024' 
-        chartFilter: 'ALL' 
-
-cpt_table_homepage:
-    path: /COMPTE/TABLE/{year}/{viewFormat}/{rowNumbers}
-    controller: App\Controller\Compte\CompteController::table
-    defaults:  
-        year: '2024' 
-        viewFormat: 'table' 
-        rowNumbers: 10 
 
 cpt_table_add:
     path: /COMPTE/COURANT/ADD

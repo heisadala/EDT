@@ -5,6 +5,7 @@ import { Category } from "./edtCategory.js";
 
 $(document).ready(function () {
 
+
 // https://www.w3schools.com/cssref/css_colors.php
 
   var BANK = [];
@@ -552,6 +553,7 @@ const dataAllCatsOneProjectAllBanksInc = {
         data:  dataAllBanksIncExpSav,
         options: {
           plugins: {
+
             legend: {
               display: false,
               position: 'bottom',

@@ -21,10 +21,14 @@ class HomeController extends AbstractController
         $controller = $controllerTableRepository->findOneBy(['name' => $app]);
 
         $project_controller = $projectControllerTableRepository->findOneBy(['name' => 'PROJECT']);
+
         $project_table_name = $app_year . '_' . $project_controller->getTbl();
         $projectTableRepository->set_table_name($project_table_name);
+        $affectation_list_1 = $projectTableRepository->get_affectation_list($project_table_name);
 
-        $affectation_list = $projectTableRepository->get_affectation_list($project_table_name);
+        $project_table_name = $app_year+1 . '_' . $project_controller->getTbl();
+        $projectTableRepository->set_table_name($project_table_name);
+        $affectation_list_2 = $projectTableRepository->get_affectation_list($project_table_name);
 
         $username = "";
         $role = "";
@@ -41,12 +45,14 @@ class HomeController extends AbstractController
             'header_title' => $controller->getHeaderTitle(),
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
+            'bg_color' => $controller->getBgColor(),
             
             'show_navbar' => true,
             'show_cards' => true,
             'username' => $username,
             'role' => $role,
-            'affectation' => $affectation_list,
+            'affectation_1' => $affectation_list_1,
+            'affectation_2' => $affectation_list_2,
         ]);
     }
 }

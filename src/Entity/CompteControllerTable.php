@@ -25,6 +25,10 @@ class CompteControllerTable
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $background = null;
 
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $bg_color = null;
+
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $url = null;
 
@@ -87,6 +91,21 @@ class CompteControllerTable
 
         return $this;
     }
+
+    
+    public function getBgColor(): ?string
+    {
+        return $this->bg_color;
+    }
+
+    public function setBgColor(?string $bg_color): static
+    {
+        $this->bg_color = $bg_color;
+
+        return $this;
+    }
+
+
 
     public function getUrl(): ?string
     {

@@ -78,6 +78,7 @@ class PubProjectController extends AbstractController
             'header_title' => $controller->getHeaderTitle(),
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
+            'bg_color' => $controller->getBgColor(),
 
             'show_navbar' => true,
             'show_gallery' => true,

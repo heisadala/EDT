@@ -32,15 +32,15 @@ class CompteController extends AbstractController
     }
 
 
-     public function table(string $year, string $viewFormat, int $rowNumbers,
+     public function table(int $year, string $viewFormat, int $rowNumbers, string $title,
                             CompteControllerTableRepository $compteControllerTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
-                        ): Response
+                                                ): Response
     {
-        $app = 'TABLE';
+        $app = $title;
+        $controller = $compteControllerTableRepository->findOneBy(['name' => $app]);
 
-        $db = $compteControllerTableRepository->findOneBy(['name' => $app]);
-        $table_name = $year . '_' . $db->getTbl();
+        $table_name = $year . '_' . $controller->getTbl();
         $courantTableRepository->set_table_name($table_name);
 
         $table_header_fields = $courantTableRepository->fetch_header_fields_from_table($table_name);
@@ -54,27 +54,30 @@ class CompteController extends AbstractController
 
         $courant_table_content = $courantTableRepository->fetch_class_from_table_ordered($table_name,
                                                                                     $sort, $sort_order);
-        $showTable = true;
-
         $username = "";
         if ($this->getUser()) {
         $username = $this->getUser()->getUsername();
         }
 
-        $credit_2024 = 11507.06;
+        if ($year == '2024') {
+            $credit_debut_annee = 11507.06;
+        } else {
+            $credit_debut_annee = 4294.78;
+        }
 
         return $this->render('index.html.twig', [
-            'controller_name' => 'CompteController',
+            'controller_name' => $title . 'Controller',
             'server_base' => $_SERVER['BASE'],
             'meta_index' => 'noindex',
-            'server_name' => $_SERVER['SERVER_NAME'],
-            'header_title' => ucfirst(strtolower($app)),
-            'shortcut_icon' => $db->getIcon(),
+            'header_title' => $controller->getHeaderTitle(),
+            'shortcut_icon' => $controller->getIcon(),
+            'db' => $controller->getName(),
+            'bg_color' => $controller->getBgColor(),
+            
+
             'show_navbar' => true,
             'show_table' => true,
             'show_gallery' => false,
-            'background' => $db->getBackground(),
-            'db' => $db->getName(),
             'table_header_fields' => $table_header_fields,
             'courant_table_content' => $courant_table_content,
             'primary_key_name' => $primary_key_name,
@@ -84,19 +87,19 @@ class CompteController extends AbstractController
             'up_or_down' => $up_or_down,
             'username' => $username,
             'year' => $year,
-            'credit_debut_annee' => $credit_2024,
+            'credit_debut_annee' => $credit_debut_annee,
         ]);
     }
 
-    public function chart (string $year, string $chartFilter,
+    public function chart (int $year, string $chartFilter, string $title,
         CompteControllerTableRepository $compteControllerTableRepository,
         CompteChequesTableRepository $courantTableRepository,
     ): Response
     {
 
-        $app = 'CHART';
-        $db = $compteControllerTableRepository->findOneby(['name' => $app]);
-        $table_name = $year . '_' . $db->getTbl();
+        $app = $title;
+        $controller = $compteControllerTableRepository->findOneBy(['name' => $app]);
+        $table_name = $year . '_' . $controller->getTbl();
         $courantTableRepository->set_table_name($table_name);
         $account = $courantTableRepository->findAll();
 
@@ -111,14 +114,17 @@ class CompteController extends AbstractController
         }
 
         return $this->render('index.html.twig', [
-                'controller_name' => 'CompteController',
-                'server_base' => $_SERVER['BASE'],
-                'meta_index' => 'noindex',
-                'header_title' => $app,
-                'shortcut_icon' => $db->getIcon(),
+            'controller_name' => $title . 'Controller',
+            'server_base' => $_SERVER['BASE'],
+            'meta_index' => 'noindex',
+            'header_title' => $controller->getHeaderTitle(),
+            'shortcut_icon' => $controller->getIcon(),
+            'db' => $controller->getName(),
+            'bg_color' => $controller->getBgColor(),
+            
+
                 'header_image' => 'Trestel_2.jpg',
                 'show_navbar' => true,
-                'db' => $db->getName(),
                 'show_chart' => true,
                 'account' => $account,
                 'banks' => $banks,

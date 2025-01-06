@@ -49,7 +49,7 @@ class ProjectController extends AbstractController
         $etat_table_name = $db_common . '.etat_table';
         $etatTableRepository->set_table_name($etat_table_name);
         $etats =$etatTableRepository->findAll();
-        $sql_cmd = "SELECT affectation FROM $table_name WHERE affectation != 'EDT' GROUP BY affectation ORDER by affectation ASC;";
+        $sql_cmd = "SELECT affectation, count(affectation) AS count FROM $table_name WHERE affectation != 'EDT' GROUP BY affectation ORDER by affectation ASC;";
         $affectation = $projectTableRepository->send_sql_cmd($sql_cmd);
 
         for ($i=1; $i <  count($projets); $i++) {
@@ -102,7 +102,7 @@ class ProjectController extends AbstractController
         $new_sql_cmd = 'SELECT etat, etat_id, bg_color, text_color, count(etat) AS count FROM (' . $sql_cmd . " ) a 
                         GROUP BY etat ORDER by etat_id ASC;";
         $etats = $projectTableRepository->send_sql_cmd($new_sql_cmd);
-        //dd($etats);
+        // dd($affectations);
         $username = "";
         $role = "";
         if ($this->getUser()) {
@@ -120,6 +120,7 @@ class ProjectController extends AbstractController
             'header_title' => $controller->getHeaderTitle(),
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
+            'bg_color' => $controller->getBgColor(),
 
             'show_navbar' => true,
             'show_gallery' => $show_gallery,
@@ -169,7 +170,7 @@ class ProjectController extends AbstractController
         $etat_table_name = $db_common . '.etat_table';
         $etatTableRepository->set_table_name($etat_table_name);
         $etats =$etatTableRepository->findAll();
-        $sql_cmd = "SELECT affectation FROM $table_name WHERE affectation != 'EDT' GROUP BY affectation ORDER by affectation ASC;";
+        $sql_cmd = "SELECT affectation, count(affectation) AS count FROM $table_name WHERE affectation != 'EDT' GROUP BY affectation ORDER by affectation ASC;";
         $affectation = $projectTableRepository->send_sql_cmd($sql_cmd);
 
         for ($i=0; $i <  count($projets); $i++) {
@@ -242,6 +243,7 @@ class ProjectController extends AbstractController
             'header_title' => $controller->getHeaderTitle(),
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
+            'bg_color' => $controller->getBgColor(),
 
             'show_navbar' => true,
             'show_gallery' => $show_gallery,
@@ -288,6 +290,7 @@ class ProjectController extends AbstractController
 
         $credit = 0;
         $debit = 0;
+        $livret_interets_2024 = 828.65;
         $total = $year_table->getCc_begin();
         $total_livret = $year_table->getLivret_begin();
         for ($i=0; $i < count($account); $i++) {
@@ -300,13 +303,17 @@ class ProjectController extends AbstractController
         }
         $total += $credit - $debit;
 
-        $yearTableRepository->update($db_app . '.year_table', 'cc_now', $total, 'year_id', '2024' );
-        $yearTableRepository->update($db_app . '.year_table', 'livret_now', $total_livret, 'year_id', '2024' );
-        $yearTableRepository->update($db_app . '.year_table', 'cc_begin', $total, 'year_id', '2025' );
-        $yearTableRepository->update($db_app . '.year_table', 'cc_now', $total, 'year_id', '2025' );
-        $yearTableRepository->update($db_app . '.year_table', 'livret_begin', $total_livret, 'year_id', '2025' );
-        $yearTableRepository->update($db_app . '.year_table', 'livret_now', $total_livret, 'year_id', '2025' );
-
+        if ($year == '2024') {
+            $total_livret += $livret_interets_2024;
+            $yearTableRepository->update($db_app . '.year_table', 'cc_now', $total, 'year_id', '2024' );
+            $yearTableRepository->update($db_app . '.year_table', 'livret_now', $total_livret, 'year_id', '2024' );
+            $yearTableRepository->update($db_app . '.year_table', 'cc_begin', $total, 'year_id', '2025' );
+            $yearTableRepository->update($db_app . '.year_table', 'livret_begin', $total_livret, 'year_id', '2025' );
+        }
+        if ($year == '2025') {
+            $yearTableRepository->update($db_app . '.year_table', 'cc_now', $total, 'year_id', '2025' );
+            $yearTableRepository->update($db_app . '.year_table', 'livret_now', $total_livret, 'year_id', '2025' );
+        }
         $especes_table_name = $year . '_' . 'especes_table';
         $especesTableRepository->set_table_name($especes_table_name);
         $caisse = $especesTableRepository->findOneBy(['especes_id' => '0']);
@@ -387,6 +394,7 @@ class ProjectController extends AbstractController
             'header_title' => $controller->getHeaderTitle(),
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
+            'bg_color' => $controller->getBgColor(),
 
             'show_navbar' => true,
             'show_dashboard' => $show_dashboard,

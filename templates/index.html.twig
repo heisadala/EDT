@@ -26,11 +26,12 @@
  {% endblock %}
 
 {% block header %}
-    <div class='d-print-none container-fluid edt-header-container sticky-top bg-warning' >
+
+    <div class='d-print-none container-fluid sticky-top {{ bg_color }}' >
         <header>
             {% if show_navbar is defined and show_navbar == true %}
                 {% include ( "#{db|lower}/navbar.html.twig" ) %}
-            {% elseif show_public_navbar is defined and show_public_navbar == true%} 
+            {% elseif show_public_navbar is defined and show_public_navbar == true %} 
                 {% include ( "#{db|lower}/public_navbar.html.twig" ) %}
             {% else %} 
                 {% include ( "navbar.html.twig" ) %}
@@ -77,7 +78,7 @@
 {% endblock %}
 
 {% block footer %}
-        <div class='d-print-none d-flex justify-content-center align-items-center m-0 bg-warning'>
+        <div class='d-print-none d-flex justify-content-center align-items-center m-0  {{ bg_color }}'>
             <a class='p-3' target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474">
                 <img class='img-fluid rounded'
                     src="{{ server_base }}/images/icon/facebook-48.png" >
