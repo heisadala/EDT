@@ -253,7 +253,7 @@ $(document).ready(function () {
   i=0;
   let sortedExpProjects = PROJECT.sort((p1, p2) => (p1.expenses < p2.expenses) ? 1 : (p1.expenses > p2.expenses) ? -1 : 0);
   for (p=0; p < PROJECT_INDEX; p++) {
-    if (PROJECT[p].getExpenses() > 0 && PROJECT[p].getName() != 'AUTRE'  ) {
+    if (PROJECT[p].getExpenses() > 0 && PROJECT[p].getName() != 'AUTRE' && PROJECT[p].getName() != 'INTERN' ) {
       project_exp_labels[i] = PROJECT[p].getName();
       project_exp_colors[i] = PROJECT[p].getColor();
       project_exp[i] = PROJECT[p].getExpenses();
@@ -622,7 +622,7 @@ const dataAllCatsOneProjectAllBanksInc = {
   // // ************************************
 
   if (document.getElementById('chartAllProjectsAllBanksInc')) {
-    const chartAllProjectsAllBanksExp =  new Chart(
+    const chartAllProjectsAllBanksInc =  new Chart(
       document.getElementById('chartAllProjectsAllBanksInc'),
       {
         type: 'pie',

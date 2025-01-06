@@ -99,9 +99,9 @@
                                 {% set expense = expense + eintrag.debit %}   
                             {% endif %}
                         {% endfor %}
-                        {% if expense != 0 and project.affectation != 'AUTRE'%}
+                        {% if expense != 0 and project.affectation != 'AUTRE' and project.affectation != 'INTERN' %}
                             <tr>
-                            <td><a href="{{ server_base }}/COMPTE/CHART/AFFECTATION/2024/{{ project.affectation }}"> {{ project.affectation }} </a></td>
+                            <td><a href="{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/{{ project.affectation }}"> {{ project.affectation }} </a></td>
                             <td class='text-end'> {{ expense|number_format(2) }} </td>
                             </tr>
                             {% set total_expense = total_expense + expense %}   
