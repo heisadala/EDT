@@ -158,13 +158,13 @@
                 </thead>
                 <tbody class='table-group-divider'>
                     <tr>
-                        <td class='text-start'>Projets payé</td><td class='text-end'>{{ global_f_montant|number_format(2) }}</td><td></td></tr>
+                        <td class='text-start'><a href='{{ server_base }}/COMPTE/CHART/{{ year }}/ALL'>Projets payé</a></td><td class='text-end'>{{ global_f_montant|number_format(2) }}</td><td></td></tr>
                     <tr>
-                        <td>EDT</td><td class='text-end'>{{ total_edt_debit|number_format(2) }}</td><td></td></tr>
+                        <td><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>EDT</a></td><td class='text-end'>{{ total_edt_debit|number_format(2) }}</td><td></td></tr>
                     <tr>
                         <td><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/DON'>DON</a></td><td></td><td class='text-end'>{{ total_don|number_format(2) }}</td></tr>
                     <tr>
-                        <td>EDT</td><td></td><td class='text-end'>{{ total_edt_credit|number_format(2) }}</td></tr>
+                        <td><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>EDT</a></td><td></td><td class='text-end'>{{ total_edt_credit|number_format(2) }}</td></tr>
                     <tr class='table-secondary'>
                         <td>Total operations</td><td class='text-end'>{{ total_debit|number_format(2) }}</td><td class='text-end'>{{ total_credit|number_format(2) }}</td></tr>
                 </tbody>

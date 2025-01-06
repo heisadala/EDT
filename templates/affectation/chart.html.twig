@@ -21,7 +21,7 @@
     } %}
     <div data-bank-id='{{ bankInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
 {% endfor %}
-{% for project in projects %}
+{% for project in affectation %}
     {% set projectInfo = {
         name: project.affectation,
     } %}
@@ -51,7 +51,44 @@
 
 {% set show_this = 1 %}
 <div class="row justify-content-start">
-    {% if affectationFilter != 'DON' and affectationFilter != 'EDT_ADHESIONS' %}
+    {% if affectationFilter == 'EDT' %}
+        <div class="col-md-2"></div>
+        <div class="col-md-2 ">
+            <div class='table-responsive-xl'>
+                <table class="table table-sm table-light table-striped edt-euros-font">   
+                    <thead class='table-info'>
+                        <th>Affectations</th><th class='text-end'>Debit</th>
+                    </thead>
+                    <tbody>
+                        {% set total_expense = 0 %}
+                        {% set edt_expense = 0 %}
+                        {% for project in affectation %}
+                            {% set expense = 0 %}
+                            {% for eintrag in account %}
+
+                                {% if eintrag.affectation == project.affectation %}
+                                    {% set expense = expense + eintrag.debit %}   
+                                {% endif %}
+                            {% endfor %}
+                            {% if expense != 0 and project.affectation[:3] == 'EDT' %}
+                                <tr>
+                                <td><a href="{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/{{ project.affectation }}"> {{ project.affectation }} </a></td>
+                                <td class='text-end'> {{ expense|number_format(2) }} </td>
+                                </tr>
+                                {% set total_expense = total_expense + expense %}   
+                            {% endif %}
+                        {% endfor %}
+
+                    </tbody>
+                    <tfoot class='table-group-divider table-danger'>
+                        <td>TOTAL</a></td>
+                        <td class='text-end'> {{ total_expense|number_format(2) }} </td>
+                    </tfoot>
+                </table>
+            </div>
+        </div> 
+
+    {% elseif affectationFilter != 'DON' and affectationFilter != 'EDT_ADHESIONS' %}
         {% set total_expense = 0 %}
         {% for category in categories %}
             {% set expense = 0 %}
@@ -77,46 +114,80 @@
                                 {% set show_this = 0 %}
 
                 {% endif %}
-                <tr>
-                    <td>{{ category.categorie }}</td>
-                    <td class='text-end'> {{ expense|number_format(2) }} </td>
-                </tr>
-                {% set total_expense = total_expense + expense %}   
+                                <tr>
+                                    <td>{{ category.categorie }}</td>
+                                    <td class='text-end'> {{ expense|number_format(2) }} </td>
+                                </tr>
+                                {% set total_expense = total_expense + expense %}   
             {% endif %}
         {% endfor %}
-                </tbody>
-                <tfoot class='table-group-divider table-danger'>
-                    <td>TOTAL</td>
-                    <td class='text-end'> {{ total_expense|number_format(2) }} </td>
-                </tfoot>
-            </table>
-        </div>
-    </div> 
+                                </tbody>
+                                <tfoot class='table-group-divider table-danger'>
+                                    <td>TOTAL</td>
+                                    <td class='text-end'> {{ total_expense|number_format(2) }} </td>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div> 
     {% else %}
         <div class="col-md-1"></div>
     {% endif %}
 
 
 
+    {% if affectationFilter == 'EDT' %}
+    <div class="col-md-2 "></div>
+    <div class="col-md-2">
+        <div class='table-responsive-xl'>
+            <table class="table table-sm table-light table-striped edt-euros-font">   
+                <thead class='table-info'>
+                    <th>Affectations</th><th class='text-end'>Credit</th>
+                </thead>
+                <tbody>
+                    {% set total_credit = 0 %}
+                    {% for project in affectation %}
+                        {% set credit = 0 %}
+                        {% for eintrag in account %}
+                            {% if eintrag.affectation == project.affectation %}
+                                {% set credit = credit + eintrag.credit %}   
+                            {% endif %}
+                        {% endfor %}
+                        {% if credit != 0 and project.affectation[:3] == 'EDT' %}
+                            <tr>
+                            <td><a href="{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/{{ project.affectation }}"> {{ project.affectation }} </a></td>
+                            <td class='text-end'> {{ credit|number_format(2) }} </td>
+                            </tr>
+                            {% set total_credit = total_credit + credit %}   
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+               <tfoot class='table-group-divider table-danger'>
+                    <td>TOTAL</a></td>
+                    <td class='text-end'> {{ total_credit|number_format(2) }} </td>
+                </tfoot>
 
-    {% set show_header = 1 %}
-    {% set total_credit = 0 %}
-    {% for category in categories %}
-        {% set credit = 0 %}
-        {% set date = 2024-09-12 %}
-        {% for eintrag in account %}
-            {% if eintrag.affectation == affectationFilter and eintrag.categorie == category.categorie %}
-                {% set credit = credit + eintrag.credit %}   
-                {% set date = eintrag.date %}   
-            {% endif %}
-        {% endfor %}
-        {% if credit != 0 %}
+            </table>
+        </div>
+    </div>
+    {% else %}
+
+        {% set show_header = 1 %}
+        {% set total_credit = 0 %}
+        {% for category in categories %}
+            {% set credit = 0 %}
+            {% set date = 2024-09-12 %}
+            {% for eintrag in account %}
+                {% if eintrag.affectation == affectationFilter and eintrag.categorie == category.categorie %}
+                    {% set credit = credit + eintrag.credit %}   
+                    {% set date = eintrag.date %}   
+                {% endif %}
+            {% endfor %}
+            {% if credit != 0 %}
                 {% if show_header == 1 %}
                     <div class="col-md-3 ">
                         {% if affectationFilter != 'DON' and affectationFilter != 'EDT_ADHESIONS' %}
                             <div><canvas id="chartAllCatsOneProjectAllBanksInc"></canvas></div>
                         {% endif %}
-          
                     </div>
                     <div class="col-md-3 ">
                         <div class='table-responsive-xl m-3'>
@@ -125,35 +196,36 @@
                                     <th>Date</th><th>Affectations</th><th class='text-end'>Credit</th>
                                 </thead>
                                 <tbody>
-                                {% set show_header = 0 %}
+                                    {% set show_header = 0 %}
 
                 {% endif %}
-                <tr>
-                    <td>{{ date|date("d-m-Y")  }}</td>
-                    <td>{{ category.categorie }}</td>
-                    <td class='text-end'> {{ credit|number_format(2) }} </td>
-                </tr>
-                {% set total_credit = total_credit + credit %}   
+                                    <tr>
+                                        <td>{{ date|date("d-m-Y")  }}</td>
+                                        <td>{{ category.categorie }}</td>
+                                        <td class='text-end'> {{ credit|number_format(2) }} </td>
+                                    </tr>
+                                    {% set total_credit = total_credit + credit %}   
             {% endif %}
         {% endfor %}
-            {% if show_header == 0 %}
-                </tbody>
-                <tfoot class='table-group-divider table-danger'>
-                    <td>TOTAL</td>
-                    <td></td>
-                    <td class='text-end'> {{ total_credit|number_format(2) }} </td>
-                </tfoot>
-                {% if affectationFilter == 'EDT_ADHESIONS' %}
-                    <tr class="table-warning">
-                    <td>Nombres Adherants</a></td>
-                    <td> {{ total_credit / 5 }} </td>
-                    <td></td>
-                    </tr>
-                {% endif %}
-                </table>
-            </div>
+        {% if show_header == 0 %}
+                                </tbody>
+                                <tfoot class='table-group-divider table-danger'>
+                                    <td>TOTAL</td>
+                                    <td></td>
+                                    <td class='text-end'> {{ total_credit|number_format(2) }} </td>
+                                </tfoot>
+                            {% if affectationFilter == 'EDT_ADHESIONS' %}
+                                <tr class="table-warning">
+                                        <td>Nombres Adherants</a></td>
+                                        <td> {{ total_credit / 5 }} </td>
+                                        <td></td>
+                                </tr>
+                            {% endif %}
+                            </table>
+                        </div>
             {% endif %}
-    </div> 
+        {% endif %}
+</div>
 </div>
 
 <script type='module' src="{{ asset('js/edtChart.js') }}"></script>

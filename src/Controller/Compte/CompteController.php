@@ -136,63 +136,21 @@ class CompteController extends AbstractController
 
         ]);
     }
-    public function dashboard (
-        CompteControllerTableRepository $compteControllerTableRepository,
-        CompteChequesTableRepository $courantTableRepository,
-        ProjectTableRepository $projectTableRepository,
-    ): Response
-    {
 
-        $app = 'DASHBOARD';
-        $db = $compteControllerTableRepository->findOneby(['name' => $app]);
-        $projets = $projectTableRepository->findAll();
-        $account = $courantTableRepository->findAll();
-
-        // $banks = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'banque');
-        // $projects = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'projet');
-        // $operations = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'operation');
-        // $categories = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'categorie');
-
-        $username = "";
-        if ($this->getUser()) {
-        $username = $this->getUser()->getUsername();
-        }
-
-        return $this->render('index.html.twig', [
-                'controller_name' => 'CompteController',
-                'server_base' => $_SERVER['BASE'],
-                'meta_index' => 'noindex',
-                'header_title' => $app,
-                'shortcut_icon' => $db->getIcon(),
-                'header_image' => 'Trestel_2.jpg',
-                'show_navbar' => true,
-                'db' => $db->getName(),
-                'show_dashboard' => true,
-                'projets' => $projets,
-                'account' => $account,
-                // 'banks' => $banks,
-                // 'projects' => $projects,
-                // 'categories' => $categories,
-                // 'operations' => $operations,
-                'username' => $username,
-
-        ]);
-    }
-
-    public function affectation (string $year, string $affectationFilter,
+    public function affectation (int $year, string $affectationFilter, string $title,
                             CompteControllerTableRepository $compteControllerTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
                             ): Response
     {
 
-        $app = 'AFFECTATION';
-        $db = $compteControllerTableRepository->findOneby(['name' => $app]);
-        $table_name = $year . '_' . $db->getTbl();
+        $app = $title;
+        $controller = $compteControllerTableRepository->findOneBy(['name' => $app]);
+        $table_name = $year . '_' . $controller->getTbl();
         $courantTableRepository->set_table_name($table_name);
         $account = $courantTableRepository->findAll();
 
         $banks = $courantTableRepository->fetch_column_unique_value($table_name, 'banque');
-        $projects = $courantTableRepository->fetch_column_unique_value($table_name, 'affectation');
+        $affectation = $courantTableRepository->fetch_column_unique_value($table_name, 'affectation');
         $operations = $courantTableRepository->fetch_column_unique_value($table_name, 'operation');
         $categories = $courantTableRepository->fetch_column_unique_value($table_name, 'categorie');
 
@@ -202,18 +160,20 @@ class CompteController extends AbstractController
         }
 
         return $this->render('index.html.twig', [
-                'controller_name' => 'CompteController',
-                'server_base' => $_SERVER['BASE'],
-                'meta_index' => 'noindex',
-                'header_title' => $app,
-                'shortcut_icon' => $db->getIcon(),
+            'controller_name' => $title . 'Controller',
+            'server_base' => $_SERVER['BASE'],
+            'meta_index' => 'noindex',
+            'header_title' => $controller->getHeaderTitle(),
+            'shortcut_icon' => $controller->getIcon(),
+            'db' => $controller->getName(),
+            'bg_color' => $controller->getBgColor(),
+
                 'header_image' => 'Trestel_2.jpg',
                 'show_navbar' => true,
-                'db' => $db->getName(),
                 'show_chart' => true,
                 'account' => $account,
                 'banks' => $banks,
-                'projects' => $projects,
+                'affectation' => $affectation,
                 'categories' => $categories,
                 'operations' => $operations,
                 'affectationFilter' => $affectationFilter,
@@ -404,4 +364,48 @@ class CompteController extends AbstractController
 
         ]);
     }
+
+    public function dashboard (
+        CompteControllerTableRepository $compteControllerTableRepository,
+        CompteChequesTableRepository $courantTableRepository,
+        ProjectTableRepository $projectTableRepository,
+    ): Response
+    {
+
+        $app = 'DASHBOARD';
+        $db = $compteControllerTableRepository->findOneby(['name' => $app]);
+        $projets = $projectTableRepository->findAll();
+        $account = $courantTableRepository->findAll();
+
+        // $banks = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'banque');
+        // $projects = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'projet');
+        // $operations = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'operation');
+        // $categories = $courantTableRepository->fetch_column_unique_value($db->getTbl(), 'categorie');
+
+        $username = "";
+        if ($this->getUser()) {
+        $username = $this->getUser()->getUsername();
+        }
+
+        return $this->render('index.html.twig', [
+                'controller_name' => 'CompteController',
+                'server_base' => $_SERVER['BASE'],
+                'meta_index' => 'noindex',
+                'header_title' => $app,
+                'shortcut_icon' => $db->getIcon(),
+                'header_image' => 'Trestel_2.jpg',
+                'show_navbar' => true,
+                'db' => $db->getName(),
+                'show_dashboard' => true,
+                'projets' => $projets,
+                'account' => $account,
+                // 'banks' => $banks,
+                // 'projects' => $projects,
+                // 'categories' => $categories,
+                // 'operations' => $operations,
+                'username' => $username,
+
+        ]);
+    }
+
 }

@@ -103,17 +103,15 @@ cpt_chart_homepage:
     requirements:
         year: '\d+'
 
-
-
-
-
 affectation_homepage:
     path: /COMPTE/CHART/AFFECTATION/{year}/{affectationFilter}
     controller: App\Controller\Compte\CompteController::affectation
     defaults:  
-        year: '2024' 
+        year: 2024 
         affectationFilter: 'EDT' 
-
+        title: 'AFFECTATION'
+    requirements:
+        year: '\d+'
 
 cpt_table_add:
     path: /COMPTE/COURANT/ADD

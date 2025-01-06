@@ -92,14 +92,17 @@
                 </thead>
                 <tbody>
                     {% set total_expense = 0 %}
+                    {% set edt_expense = 0 %}
                     {% for project in affectation %}
                         {% set expense = 0 %}
                         {% for eintrag in account %}
-                            {% if eintrag.affectation == project.affectation %}
+                            {% if eintrag.affectation == project.affectation and project.affectation[:3] == 'EDT' %}
+                                {% set edt_expense = edt_expense + eintrag.debit %}   
+                            {% elseif eintrag.affectation == project.affectation and project.affectation[:3] != 'EDT' %}
                                 {% set expense = expense + eintrag.debit %}   
                             {% endif %}
                         {% endfor %}
-                        {% if expense != 0 and project.affectation != 'AUTRE' and project.affectation != 'INTERN' %}
+                        {% if expense != 0 and project.affectation != 'AUTRE' and project.affectation != 'INTERN' and project.affectation[:3] != 'EDT' %}
                             <tr>
                             <td><a href="{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/{{ project.affectation }}"> {{ project.affectation }} </a></td>
                             <td class='text-end'> {{ expense|number_format(2) }} </td>
@@ -107,7 +110,11 @@
                             {% set total_expense = total_expense + expense %}   
                         {% endif %}
                     {% endfor %}
-
+                    <tr>
+                    <td><a href="{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT">EDT</a></td>
+                    <td class='text-end'> {{ edt_expense|number_format(2) }} </td>
+                    </tr>
+                    {% set total_expense = total_expense + edt_expense %}   
                 </tbody>
                 <tfoot class='table-group-divider table-danger'>
                     <td>TOTAL</a></td>
@@ -139,7 +146,7 @@
                         {% endfor %}
                         {% if credit != 0 %}
                             <tr>
-                            <td><a href="{{ server_base }}/COMPTE/CHART/AFFECTATION/2024/{{ project.affectation }}"> {{ project.affectation }} </a></td>
+                            <td><a href="{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/{{ project.affectation }}"> {{ project.affectation }} </a></td>
                             <td class='text-end'> {{ credit|number_format(2) }} </td>
                             </tr>
                             {% set total_credit = total_credit + credit %}   
