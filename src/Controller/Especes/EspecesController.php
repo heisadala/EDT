@@ -5,6 +5,7 @@ namespace App\Controller\Especes;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\ControllerTableRepository;
 use App\Repository\HomeTableRepository;
 use App\Repository\YearTableRepository;
 use App\Repository\EspecesTableRepository;
@@ -17,14 +18,17 @@ use App\Controller\Especes\UpdateCaisse2025;
 class EspecesController extends AbstractController
 {
 
-    public function index(string $year, 
+    public function index(int $year, string $title,
+                            ControllerTableRepository $controllerTableRepository,
                             HomeTableRepository $homeTableRepository,
                             EspecesTableRepository $especesTableRepository,
                             YearTableRepository $yearTableRepository,
 
                             ): Response
     {
-        $app = 'ESPECES';
+        $app = $title;
+        $controller = $controllerTableRepository->findOneBy(['name' => $app]);
+
         $db_common = $_SERVER['DATABASE_COMMON_NAME'];
         $db_app = $_SERVER['DATABASE_APP_NAME'];
         $especes_tbl = $year . '_especes_table';
@@ -106,14 +110,17 @@ class EspecesController extends AbstractController
         }
 
         return $this->render('index.html.twig', [
-            'controller_name' => 'EspecesController',
+            'controller_name' => $title . 'Controller',
             'server_base' => $_SERVER['BASE'],
             'meta_index' => 'noindex',
-            'header_title' => ucfirst(strtolower($app)),
-            'shortcut_icon' => $db->getIcon(),
+            'header_title' => $controller->getHeaderTitle(),
+            'shortcut_icon' => $controller->getIcon(),
+            'db' => $controller->getName(),
+            'bg_color' => $controller->getBgColor(),
+            
+            
             'show_navbar' => true,
             'show_gallery' => true,
-            'db' => $db->getName(),
             'especes' => $especes,
             'recettes' => $recettes,
             'year' => $year,

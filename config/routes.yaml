@@ -113,6 +113,16 @@ affectation_homepage:
     requirements:
         year: '\d+'
 
+especes_homepage:
+    path: /ESPECES/{year}
+    controller: App\Controller\Especes\EspecesController::index
+    defaults:  
+        year: 2024 
+        title: 'ESPECES'
+    requirements:
+        year: '\d+'
+
+
 cpt_table_add:
     path: /COMPTE/COURANT/ADD
     controller: App\Controller\Compte\CompteController::add
@@ -125,12 +135,6 @@ cpt_table_delete:
     path: /COMPTE/COURANT/DELETE/{pk_name}/{ref}
     controller: App\Controller\Compte\CompteController::delete
 
-
-especes_homepage:
-    path: /ESPECES/{year}
-    controller: App\Controller\Especes\EspecesController::index
-    defaults:  
-        year: '2024' 
 
 livret_homepage:
     path: /COMPTE/LIVRET

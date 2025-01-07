@@ -658,3 +658,15 @@ input.nosubmit {
     --bs-tooltip-bg: var(--bs-info);
     --bs-tooltip-color: var(--bs-info-bg-subtle);
 }
+
+.edt-back-to-top{
+    position: fixed;
+    display: none;
+    text-align: center;
+    line-height: 1;
+    right: 15px;
+    bottom: 25%;
+    transition: background 0.5s;
+    z-index: 11;
+}
+  

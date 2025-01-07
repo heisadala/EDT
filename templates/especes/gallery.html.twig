@@ -1,9 +1,69 @@
 <div class="container-fluid bg-body-secondary">
+    {% set trail_recette = 0 %}
+    {% set rando_recette = 0 %}
+    {% set noel_recette = 0 %}
+    {% set handi_recette = 0 %}
     {% set bijoux_recette = 0 %}
     {% set produits_recette = 0 %}
     {% set inscriptions_recette = 0 %}
     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2 justify-content-center">
         <div class="col md-1">
+            <div class="card text-center">
+                <div class="card-body">
+                    <table class='table table-sm edt-euros-font'>
+                        <thead>                                        
+                            <tr class="table-danger"><th colspan="3">HANDIFFERENCE</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for recette in recettes %}
+                                {% if 'HANDI' in recette.manifestation and recette.caisse != 'DONS'  and recette.caisse != 'ADHERANTS' %}
+                                    <tr><td>{{ recette.date|date("d/m/Y") }}</td><td>{{ recette.caisse}}</td><td class='text-end'>{{ recette.recette}}</td>
+                                     {% set handi_recette = handi_recette + recette.recette %}
+                                {% endif %}
+                            {% endfor %}
+                            <tr class="table-light" ><td>Total</td><td></td><td class='text-end'>{{ handi_recette|number_format(2) }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {# </div> #}
+        {# <div class="col md-1"> #}
+            <div class="card text-center mt-2">
+                <div class="card-body">
+                    <table class='table table-sm edt-euros-font'>
+                        <thead>                                        
+                            <tr class="table-danger"><th colspan="3">RANDO NATURE</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for recette in recettes %}
+                                {% if 'RANDO' in recette.manifestation and recette.caisse != 'DONS' and recette.caisse != 'ADHERANTS' %}
+                                    <tr><td>{{ recette.date|date("d/m/Y") }}</td><td>{{ recette.caisse}}</td><td class='text-end'>{{ recette.recette}}</td>
+                                     {% set rando_recette = rando_recette + recette.recette %}
+                                {% endif %}
+                            {% endfor %}
+                            <tr class="table-light" ><td>Total</td><td></td><td class='text-end'>{{ rando_recette|number_format(2) }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card text-center mt-2">
+                <div class="card-body">
+                    <table class='table table-sm edt-euros-font'>
+                        <thead>                                        
+                            <tr class="table-danger"><th colspan="3">TRAIL ESTRAN</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for recette in recettes %}
+                                {% if 'TRAIL' in recette.manifestation and recette.caisse != 'DONS' and recette.caisse != 'ADHERANTS' %}
+                                    <tr><td>{{ recette.date|date("d/m/Y") }}</td><td>{{ recette.caisse}}</td><td class='text-end'>{{ recette.recette}}</td>
+                                     {% set trail_recette = trail_recette + recette.recette %}
+                                {% endif %}
+                            {% endfor %}
+                            <tr class="table-light" ><td>Total</td><td></td><td class='text-end'>{{ trail_recette|number_format(2) }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div class="card text-center">
                 <div class="card-body">
                     <table class='table table-sm edt-euros-font'>
@@ -28,36 +88,16 @@
                 <div class="card-body">
                     <table class='table table-sm edt-euros-font'>
                         <thead>                                        
-                            <tr class="table-danger"><th colspan="3">PRODUITS</th></tr>
+                            <tr class="table-danger"><th colspan="3">MARCHES DE NOEL</th></tr>
                         </thead>
                         <tbody>
                             {% for recette in recettes %}
-                                {% if recette.caisse == 'PRODUITS' %}
-                                    <tr><td>{{ recette.date|date("d/m/Y") }}</td><td>{{ recette.manifestation}}</td><td class='text-end'>{{ recette.recette}}</td>
-                                     {% set produits_recette = produits_recette + recette.recette %}
+                                {% if 'MARCHE' in recette.manifestation and recette.caisse != 'DONS' and recette.caisse != 'ADHERANTS' %}
+                                    <tr><td>{{ recette.date|date("d/m/Y") }}</td><td>{{ recette.caisse}}</td><td class='text-end'>{{ recette.recette}}</td>
+                                     {% set noel_recette = noel_recette + recette.recette %}
                                 {% endif %}
                             {% endfor %}
-                            <tr class="table-light" ><td>Total</td><td></td><td class='text-end'>{{ produits_recette|number_format(2) }}</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col md-1">
-            <div class="card text-center">
-                <div class="card-body">
-                    <table class='table table-sm edt-euros-font'>
-                        <thead>                                        
-                            <tr class="table-danger"><th colspan="3">INSCRIPTIONS</th></tr>
-                        </thead>
-                        <tbody>
-                            {% for recette in recettes %}
-                                {% if 'INSCRIPTION' in recette.caisse %}
-                                    <tr><td>{{ recette.date|date("d/m/Y") }}</td><td>{{ recette.manifestation}}</td><td class='text-end'>{{ recette.recette}}</td>
-                                     {% set inscriptions_recette = inscriptions_recette + recette.recette %}
-                                {% endif %}
-                            {% endfor %}
-                            <tr class="table-light" ><td>Total</td><td></td><td class='text-end'>{{ inscriptions_recette|number_format(2) }}</td></tr>
+                            <tr class="table-light" ><td>Total</td><td></td><td class='text-end'>{{ noel_recette|number_format(2) }}</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -94,6 +134,7 @@
                         </div>
                     </div>
                 </div>
+                <a href="#" class="edt-back-to-top"><img class="img-fluid rounded-circle" src="{{ server_base }}/images/icon/orange-top-50.png"></a>
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2 justify-content-center">
 
             {% else %}
@@ -136,3 +177,4 @@
         style='height: 1rem;'>
     </div>        
 </div>
+<script type='module' src="{{ asset('js/top.js') }}"></script>
