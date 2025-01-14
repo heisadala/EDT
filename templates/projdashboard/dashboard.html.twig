@@ -2,7 +2,7 @@
 
 {% set card_header_bg_color = 'bg-info-subtle' %}
 
-{% set global_f_montant = 0.00 %}
+{% set global_montant = 0.00 %}
 {% set global_d_montant = 0.00 %}
 {% set global_a_montant = 0.00 %}
 {% set global_c_diff = 0.00 %}
@@ -16,9 +16,9 @@
 
 {% for projet in projets %}
     {% if loop.index0 > 0 %}
-        {% set montant = (projet.f_montant - projet.d_montant )  %}
+        {% set montant = (projet.montant - projet.d_montant )  %}
         {% set global_d_montant = global_d_montant + projet.d_montant %}
-        {% set global_f_montant = global_f_montant + projet.f_montant %}
+        {% set global_montant = global_montant + projet.montant %}
         {% if projet.etat == 'annulé' %}
             {% set global_a_montant = (global_a_montant + montant) %}
         {% elseif projet.etat == 'clôturé' %}
@@ -35,12 +35,13 @@
     {% endif %}
 {% endfor %}
 {% set devis_sous_total = global_d_montant + global_pdf_montant + global_a_montant + global_c_diff %}
-{% set devis_total = devis_sous_total - global_f_montant %}
+{% set devis_total = devis_sous_total - global_montant %}
 {% set devis_a_venir = (global_ec_diff + global_pf_montant + global_prob_montant) * (-1) %}
 
 {% set credit = 0.00 %}
 {% set debit = 0.00 %}
 {% set total_bilan = 0.00 %}
+{% set total_edt_caisse = 0.00 %}
 {% set total_don = 0.00 %}
 {% set total_credit = 0.00 %}
 {% set total_debit = 0.00 %}
@@ -58,8 +59,10 @@
     {% if entry.affectation is defined and entry.affectation == 'DON' %}
         {% set total_don = total_don + entry.credit %}
     {% elseif entry.affectation is defined and entry.affectation|split('',3)[0] == 'EDT' %}
-        {% set total_edt_credit = total_edt_credit + entry.credit %}
-        {% set total_edt_debit = total_edt_debit + entry.debit %}
+        {% if entry.affectation != 'EDT_CAISSES' %}
+            {% set total_edt_credit = total_edt_credit + entry.credit %}
+            {% set total_edt_debit = total_edt_debit + entry.debit %}
+        {% endif %}
     {% elseif entry.affectation is defined and entry.affectation == 'AUTRE' %}
         {% set total_autre_credit = total_autre_credit + entry.credit %}
         {% set total_autre_debit = total_autre_debit + entry.debit %}
@@ -68,11 +71,20 @@
         {% set total_intern_debit = total_intern_debit + entry.debit %}
     {% endif %}
 {% endfor %}
-{% set total_credit = total_don + total_edt_credit %}
-{% set total_debit = global_f_montant + total_edt_debit %}
+
+{% for entry in caisse_don %}
+        {% set total_don = total_don + entry.recette %}
+{% endfor %}
+        
+{% for entry in caisse_edt %}
+        {% set total_edt_caisse = total_edt_caisse + entry.cmontant %}
+{% endfor %}
+
+
+{% set total_credit = total_don + total_edt_caisse + total_edt_credit %}
+{% set total_debit = global_montant + total_edt_debit %}
 {% set total_bilan = total_debit - total_credit %}
-
-
+        
 {# {% set compte_titre_01_2024 = 3330.00 %} #}
 {% set compte_titre_01_2024 = year_table.titre_begin %}
 {% set caisse_01_2024 = year_table.caisse_begin %}
@@ -126,7 +138,7 @@
                         <td></td></tr>
                     <tr>
                         <td class='text-start'>Payé</td>
-                            <td class='text-end'>{{ (global_f_montant * (-1))|number_format(2) }}</td><td></td></tr>
+                            <td class='text-end'>{{ ((global_montant) * (-1))|number_format(2) }}</td><td></td></tr>
 
                     <tr>
                         <td class='text-start'>En cours</td>
@@ -139,8 +151,6 @@
                         <td class='text-start'>Problème</td>
                             <td></td><td class='text-end'>{{ (global_prob_montant  * (-1))|number_format(2) }}</td></tr>
                     {% endif %}
-                    {# <tr>
-                        <td class='text-start'>Payé</td><td class='text-end'>{{ global_f_montant }}</td><td></td></tr> #}
 
                 </tbody>
                 <tfoot class='table-group-divider table-danger '>
@@ -158,13 +168,13 @@
                 </thead>
                 <tbody class='table-group-divider'>
                     <tr>
-                        <td class='text-start'><a href='{{ server_base }}/COMPTE/CHART/{{ year }}/ALL'>Projets payé</a></td><td class='text-end'>{{ global_f_montant|number_format(2) }}</td><td></td></tr>
+                        <td class='text-start'><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/PROJET'>Projets payé</a></td><td class='text-end'>{{ global_montant|number_format(2) }}</td><td></td></tr>
                     <tr>
                         <td><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>EDT</a></td><td class='text-end'>{{ total_edt_debit|number_format(2) }}</td><td></td></tr>
                     <tr>
                         <td><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/DON'>DON</a></td><td></td><td class='text-end'>{{ total_don|number_format(2) }}</td></tr>
                     <tr>
-                        <td><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>EDT</a></td><td></td><td class='text-end'>{{ total_edt_credit|number_format(2) }}</td></tr>
+                        <td><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>EDT</a></td><td></td><td class='text-end'>{{ (total_edt_credit + total_edt_caisse)|number_format(2) }}</td></tr>
                     <tr class='table-secondary'>
                         <td>Total operations</td><td class='text-end'>{{ total_debit|number_format(2) }}</td><td class='text-end'>{{ total_credit|number_format(2) }}</td></tr>
                 </tbody>
@@ -185,7 +195,7 @@
                 </thead>
                 <tbody class='table-group-divider'>
                     <tr >
-                        <td>Titre</td><td></td><td class='text-end'>{{ compte_titre_01_2024|number_format(2) }}</td></tr>
+                        <td><small>Titre</td><td></td><td class='text-end'><small>{{ compte_titre_01_2024|number_format(2) }}</td></tr>
                     <tr>    
                         <td>Livret</td><td></td><td class='text-end'>{{ livret_01_2024|number_format(2) }}</td></tr>
                     <tr>

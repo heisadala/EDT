@@ -13,4 +13,12 @@ class UpdateRecette {
             $especes[$i]->getEspecesId()
         );
     }
+    function update_project($project_tbl, $projectTableRepository, $recette, $i) {
+ 
+        $projectTableRepository->update_proj_montant( 
+            $project_tbl, 'c_montant', 
+            $recette,
+            $i
+        );
+    }
 }

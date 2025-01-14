@@ -21,7 +21,14 @@ class EspecesTable
     private ?int $caisse_id = 0;
 
     #[ORM\Column(length: 5, nullable: false)]
+    private ?int $projet_id = 0;
+
+    #[ORM\Column(length: 5, nullable: false)]
     private ?int $donateur_id = 0;
+
+
+    #[ORM\Column(length: 5, nullable: false)]
+    private ?int $edt_id = 0;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date = null;
@@ -165,6 +172,18 @@ class EspecesTable
 
         return $this;
     }
+    public function getProjetId(): ?int
+    {
+        return $this->projet_id;
+    }
+    public function setProjetId(?int $projet_id): static
+    {
+        $this->projet_id = $projet_id;
+
+        return $this;
+    }
+
+    
     public function getDonateurId(): ?int
     {
         return $this->donateur_id;
@@ -175,6 +194,18 @@ class EspecesTable
 
         return $this;
     }
+   
+    public function getEdtId(): ?int
+    {
+        return $this->edt_id;
+    }
+    public function setEdtId(?int $edt_id): static
+    {
+        $this->edt_id = $edt_id;
+
+        return $this;
+    }
+
 
     public function getDate(): ?\DateTimeInterface
     {

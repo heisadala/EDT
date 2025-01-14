@@ -17,6 +17,9 @@ class DonateursTable
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
+    #[ORM\Column]
+    private ?int $type_id = null;
+
     #[ORM\Column(length:15)]
     private ?string $date = null;
 
@@ -45,6 +48,18 @@ class DonateursTable
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getTypeId(): ?int
+    {
+        return $this->type_id;
+    }
+
+    public function setTypeId(int $type_id): static
+    {
+        $this->type_id = $type_id;
 
         return $this;
     }

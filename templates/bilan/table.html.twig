@@ -1,0 +1,187 @@
+{% for entry in bilan %}
+{% set int_livret_a_2024 = 828.65 %}
+{% set int_livret_a_2025 = 0 %}
+
+{% set recettes = 0.00 %}
+{% set depenses = 0.00 %}
+
+<div class="container-fluid bg-body-secondary">
+
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 g-4 mt-2 justify-content-center">
+    {# <div class='row row-cols-1'>
+    <div class='col-2'></div> #}
+        <div class='table-responsive-xl'>
+            <table class="table table-sm table-light edt-euros-font">   
+                <thead class='table-success'>
+                    <th>RECETTES</th><th class='text-end'></th>
+                </thead>
+                <tbody class='table-group-divider'>
+                    <tr>
+                        <td class='text-start table-info'><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/DON'>DONS</a></td><td class='text-end table-info'>{{ entry.don|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Dons particuliers</td><td class='text-end'><small>{{ entry.donParticuliers|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Dons associations</td><td class='text-end'><small>{{ entry.donAssociations|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Dons entreprises</td><td class='text-end'><small>{{ entry.donEntreprises|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Dons ecoles</td><td class='text-end'><small>{{ entry.donEcoles|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'>&nbsp;</td><td class='text-end'>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'>&nbsp;</td><td class='text-end'>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start table-info'>ADHESIONS</td><td class='text-end table-info'>{{ entry.adhesions|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>{{ entry.adhesions|abs / 5}} membres</td><td class='text-end'><small>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'>&nbsp;</td><td class='text-end'>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start table-info'><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>MANIFESTATIONS</a></td><td class='text-end table-info'>{{ entry.Rmanifestations|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Handifference</td><td class='text-end'><small>{{ entry.Rhandifference|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Rando Nature</td><td class='text-end'><small>{{ entry.RrandoNature|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Trail Estran</td><td class='text-end'><small>{{ entry.RtrailEstran|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Marche Noel</td><td class='text-end'><small>{{ entry.RmarcheNoel|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'>&nbsp;</td><td class='text-end'>&nbsp;</td></tr>
+                    </tr>
+                    <tr>
+                        <td class='text-start'>&nbsp;</td><td class='text-end'>&nbsp;</td></tr>
+                    </tr>
+                    <tr>
+                        <td class='text-start'>&nbsp;</td><td class='text-end'>&nbsp;</td></tr>
+                    </tr>
+                    <tr>
+                        <td class='text-start'>&nbsp;</td><td class='text-end'>&nbsp;</td></tr>
+                    </tr>
+                    <tr>
+                        <td class='text-start'>&nbsp;</td><td class='text-end'>&nbsp;</td></tr>
+                    </tr>
+                    <tr>
+                        {% if year == 2024 %}
+                        <td class='text-start table-info'><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>BANQUE</a></td><td class='text-end table-info'>{{ (entry.Rbanque + int_livret_a_2024)|number_format(2) }}</td>
+                        {% else %}
+                        <td class='text-start table-info'><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>BANQUE</a></td><td class='text-end table-info'>{{ (entry.Rbanque + int_livret_a_2025)|number_format(2) }}</td>
+                        {% endif %}
+                    </tr>
+                </tbody>
+                {% set recettes = entry.don + entry.Rmanifestations + entry.adhesions + entry.Rbanque %}
+                <tfoot class='table-group-divider table-success'>
+                    <td>TOTAL</td><td class='text-end'><b>{{ recettes|number_format(2) }}</b></td>
+                </tfoot>
+            </table>
+        </div>
+        <div class='table-responsive-xl'>
+            <table class="table table-sm table-light edt-euros-font">   
+
+                <thead class='table-danger'>
+                    <th>DEPENSES</th><th class='text-end'></th>
+                </thead>
+                <tbody class='table-group-divider'>
+                    <tr>
+                        <td class='text-start table-warning'><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/PROJET'>PROJETS</a></td><td class='text-end  table-warning'>{{ entry.projets|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>HDJ</td><td class='text-end'><small>{{ entry.hdj|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>CAMSP</td><td class='text-end'><small>{{ entry.camsp|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>TRESTEL</td><td class='text-end'><small>{{ entry.trestel|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>ESTRAN</td><td class='text-end'><small>{{ entry.estran|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>HDS</td><td class='text-end'><small>{{ entry.hds|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>JE</td><td class='text-end'><small>{{ entry.je|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>SESAD</td><td class='text-end'><small>{{ entry.sesad|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>UE</td><td class='text-end'><small>{{ entry.ue|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'>&nbsp;</td><td class='text-end'>&nbsp;</td></tr>
+                    </tr>
+                    <tr>
+                        <td class='text-start table-warning'><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>MANIFESTATIONS</a></td><td class='text-end table-warning'>{{ entry.Dmanifestations|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Handifference</td><td class='text-end'><small>{{ entry.Dhandifference|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Rando Nature</td><td class='text-end'><small>{{ entry.DrandoNature|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Trail Estran</td><td class='text-end'><small>{{ entry.DtrailEstran|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Marche Noel</td><td class='text-end'><small>{{ entry.DmarcheNoel|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'>&nbsp;</td><td class='text-end'>&nbsp;</td></tr>
+                    </tr>
+                    <tr>
+                        <td class='text-start table-warning'><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>FONCTIONNEMENT</a></td><td class='text-end table-warning'>{{ entry.fonctionnement|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Fournitures</td><td class='text-end'><small>{{ entry.fournitures|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Assurance</td><td class='text-end'><small>{{ entry.assurance|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Divers</td><td class='text-end'><small>{{ entry.divers|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start table-warning'><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>BANQUE</a></td><td class='text-end table-warning'>{{ entry.Dbanque|number_format(2) }}</td>
+                    </tr>
+
+                </tbody>
+                {% set depenses = entry.projets + entry.Dmanifestations + entry.Fonctionnement + entry.Dbanque %}
+                <tfoot class='table-group-divider table-danger'>
+                    <td>TOTAL</td><td class='text-end'><b>{{ depenses|number_format(2) }}</b></td>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class='table-responsive-xl'>
+            <table class="table table-sm table-light edt-euros-font">
+                {% if (recettes - depenses) >= 0 %}
+                    <thead class='table-success'>
+                        <th>BENEFICE</th><th class='text-end'>{{ (recettes - depenses)|number_format(2) }}</th>
+                    </thead>
+                {% else %}
+                    <thead class='table-danger'>
+                        <th>DEFICIT</th><th class='text-end'>{{ (recettes - depenses)|number_format(2) }}</th>
+                    </thead>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endfor %}

@@ -9,6 +9,8 @@ use App\Repository\CompteControllerTableRepository;
 use App\Repository\CompteChequesTableRepository;
 use App\Repository\ProjectTableRepository;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use App\Repository\ProjectControllerTableRepository;
+use App\Repository\EdtTableRepository;
 
 class CompteController extends AbstractController
 {
@@ -138,9 +140,12 @@ class CompteController extends AbstractController
     }
 
     public function affectation (int $year, string $affectationFilter, string $title,
-                            CompteControllerTableRepository $compteControllerTableRepository,
-                            CompteChequesTableRepository $courantTableRepository,
-                            ): Response
+                                    CompteControllerTableRepository $compteControllerTableRepository,
+                                    ProjectControllerTableRepository $projectControllerTableRepository,
+                                    CompteChequesTableRepository $courantTableRepository,
+                                    ProjectTableRepository $projectTableRepository,
+                                    EdtTableRepository $edtTableRepository,
+                                    ): Response
     {
 
         $app = $title;
@@ -149,16 +154,39 @@ class CompteController extends AbstractController
         $courantTableRepository->set_table_name($table_name);
         $account = $courantTableRepository->findAll();
 
+
+        $proj_controller = $projectControllerTableRepository->findOneBy(['name' => 'PROJECT']);
+        $proj_table_name = $year . '_' . $proj_controller->getTbl();
+        $projectTableRepository->set_table_name($proj_table_name);
+        $projets = $projectTableRepository->findAll();
+
         $banks = $courantTableRepository->fetch_column_unique_value($table_name, 'banque');
         $affectation = $courantTableRepository->fetch_column_unique_value($table_name, 'affectation');
         $operations = $courantTableRepository->fetch_column_unique_value($table_name, 'operation');
         $categories = $courantTableRepository->fetch_column_unique_value($table_name, 'categorie');
 
+
+        $proj_affectation = $projectTableRepository->fetch_column_unique_value($proj_table_name, 'affectation');
+
+        $edt_controller = $compteControllerTableRepository->findOneBy(['name' => 'EDT']);
+        $edt_table_name = $year . '_' . $edt_controller->getTbl();
+        $edtTableRepository->set_table_name($edt_table_name);
+        $edts = $edtTableRepository->findAll();
+
+        $sql_cmd = "SELECT affectation FROM $edt_table_name WHERE affectation LIKE '%EDT%' GROUP BY affectation ORDER by affectation ASC;";
+        $edt_affectation = $edtTableRepository->send_sql_cmd($sql_cmd);
+
+
         $username = "";
         if ($this->getUser()) {
         $username = $this->getUser()->getUsername();
         }
-
+        $show_table = false;
+        $show_chart = true;
+        if ($affectationFilter == 'PROJET' or $affectationFilter == 'EDT') {
+            $show_table = true;
+            $show_chart = false;
+        }
         return $this->render('index.html.twig', [
             'controller_name' => $title . 'Controller',
             'server_base' => $_SERVER['BASE'],
@@ -170,8 +198,10 @@ class CompteController extends AbstractController
 
                 'header_image' => 'Trestel_2.jpg',
                 'show_navbar' => true,
-                'show_chart' => true,
+                'show_chart' => $show_chart,
+                'show_table' => $show_table,
                 'account' => $account,
+                'projets' => $projets,
                 'banks' => $banks,
                 'affectation' => $affectation,
                 'categories' => $categories,
@@ -179,6 +209,9 @@ class CompteController extends AbstractController
                 'affectationFilter' => $affectationFilter,
                 'username' => $username,
                 'year' => $year,
+                'proj_affectation' => $proj_affectation,
+                'edt_affectation' => $edt_affectation,
+                'edts' => $edts,
 
         ]);
 }

@@ -1,0 +1,298 @@
+<p id='affectationFilter' hidden>{{ affectationFilter }}</p>
+<script src="{{ asset('js/collapse.js') }}"></script>
+
+{% for entry in account %}
+    {% set entryInfo = {
+            id: entry.compteid,
+            bank: entry.banque ,
+            assignment: entry.affectation ,
+            date: entry.date,
+            debit: entry.debit,
+            credit: entry.credit,
+            operation: entry.operation,
+            category: entry.categorie,
+            comment: entry.commentaire,
+    } %}
+    <div data-table-info='{{ entryInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
+{% endfor %}
+
+{% for bank in banks %}
+    {% set bankInfo = {
+        name: bank.banque,
+    } %}
+    <div data-bank-id='{{ bankInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
+{% endfor %}
+{% for project in affectation %}
+    {% set projectInfo = {
+        name: project.affectation,
+    } %}
+    <div data-project-id='{{ projectInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
+{% endfor %}
+{% for operation in operations %}
+    {% set operationInfo = {
+        name: operation.operation,
+    } %}
+    <div data-operation-id='{{ operationInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
+{% endfor %}
+{% for category in categories %}
+    {% set categoryInfo = {
+        name: category.categorie,
+    } %}
+    <div data-category-id='{{ categoryInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
+{% endfor %}
+
+
+<div class="row justify-content-start">
+    <div class="col-md-1"></div>
+    <div class="col-md-3 "></div>
+    <div class="col-md-2 text-secondary text-center fs-2">
+        {{ affectationFilter }} {{ year }}
+    </div>
+</div>
+
+{% set show_this = 1 %}
+<div class="row justify-content-start">
+    {% if affectationFilter == 'EDT' %}
+        <div class="col-md-3"></div>
+        <div class="col-md-4 ">
+            <div class='table-responsive-xl'>
+                <table class="table table-sm table-light edt-euros-font">   
+                    <thead class='table-info'>
+                        <tr>
+                            <th>
+                                <button class="btn myColButton" onclick="colFunction(this.value)"  
+                                    value="collapseAll" >
+                                    <span class="edt-bi-toggle"><i class="bi bi-eye-slash" id='#btncollapseAll'></i></span>
+                                </button>
+                            </th>                            
+                            <th>Affectations</th>
+                            <th>debit</th>
+                            <th>credit</th>
+                            <th>caisse</th>
+                            <th class='text-end'>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set total = 0 %}
+                        {% set total_expense = 0 %}
+                        {% set total_credit = 0 %}
+                        {% set total_caisse = 0 %}
+                        {% set expense = 0 %}
+                        {% set credit = 0 %}
+                        {% set caisse = 0 %}
+                        {% for edt_aff in edt_affectation %}
+                            {% set expense = 0 %}
+                            {% set credit = 0 %}
+                            {% set caisse = 0 %}
+                            {% for edt in edts %}
+                                {% if edt_aff.affectation == edt.affectation %}
+                                    {% set expense = expense + edt.debit %}
+                                    {% set credit = credit + edt.credit %}
+                                    {% set caisse = caisse + edt.cmontant %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if expense != 0 or credit != 0 or caisse != 0 %}
+                                <tr>
+                                    <td>
+                                        <button class="btn myColButton" onclick="colFunction(this.value)"  
+                                            value="collapse{{ edt_aff.affectation }}" >
+                                            <span class="edt-bi-toggle"><i class="bi bi-eye-slash" id='#btncollapse{{ edt_aff.affectation }}'></i></span>
+                                        </button>
+                                    </td>
+                                    <td>{{ edt_aff.affectation }}</td>
+                                    <td class='text-end'> {{ (expense)|number_format(2) }} </td>
+                                    {% if credit == 0 %}
+                                        <td class='text-end'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    {% else %}
+                                        <td class='text-end'> {{ (credit)|number_format(2) }} </td>
+                                    {% endif %}
+                                    {% if caisse == 0 %}
+                                        <td class='text-end'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    {% else %}
+                                        <td class='text-end'> {{ (caisse)|number_format(2) }} </td>
+                                    {% endif %}
+                                    <td class='text-end'> {{ (credit - expense + caisse)|number_format(2) }} </td>
+                                </tr>
+
+                                {% for edt in edts %}
+                                    {% if edt_aff.affectation == edt.affectation and edt.montant !=0 %}
+                                        <tr id="collapse{{ edt_aff.affectation }}" class="collapse{{ edt_aff.affectation }} collapse table-success">
+                                                        <td></td>
+                                                        <td><small>{{ edt.edtProj }}</td>
+                                                        <td class="text-end"><small> {{ edt.debit|number_format(2) }} </td>
+                                                        <td class="text-end"><small> {{ edt.credit|number_format(2) }} </td>
+                                                        <td class="text-end"><small> {{ edt.cmontant|number_format(2) }} </td>
+                                                        <td><small></td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                {% set total_expense = total_expense + expense %}   
+                                {% set total_credit = total_credit + credit %}   
+                                {% set total_caisse = total_caisse + caisse %}   
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                    <tfoot class='table-group-divider table-danger'>
+                        <td></td>
+                        <td>TOTAL</td>
+                        <td class='text-end'> {{ total_expense|number_format(2) }} </td>
+                        <td class='text-end'> {{ total_credit|number_format(2) }} </td>
+                        <td class='text-end'> {{ total_caisse|number_format(2) }} </td>
+                        <td class='text-end'> {{ (total_credit + total_caisse - total_expense)|number_format(2) }} </td>
+                    </tfoot>
+                </table>
+            </div>
+        </div> 
+    {% elseif affectationFilter == 'PROJET' %}
+        <div class="col-md-3"></div>
+        <div class="col-md-4 ">
+            <div class='table-responsive-xl'>
+                <table class="table table-sm table-light edt-euros-font">   
+                    <thead class='table-info'>
+                        <tr>
+                            <th>
+                                <button class="btn myColButton" onclick="colFunction(this.value)"  
+                                    value="collapseAll" >
+                                    <span class="edt-bi-toggle"><i class="bi bi-eye-slash" id='#btncollapseAll'></i></span>
+                                </button>
+                            </th>                            <th>Affectations</th>
+                            <th class='text-end'>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set total = 0 %}
+                        {% set expense = 0 %}
+                        {% for project in proj_affectation %}
+                            {% set expense = 0 %}
+                            {% for prj in projets %}
+                                {% if prj.affectation == project.affectation %}
+                                    {% set expense = expense + prj.montant %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if expense != 0 %}
+                                <tr>
+                                    <td>
+                                        <button class="btn myColButton" onclick="colFunction(this.value)"  
+                                            value="collapse{{ project.affectation }}" >
+                                            <span class="edt-bi-toggle"><i class="bi bi-eye-slash" id='#btncollapse{{ project.affectation }}'></i></span>
+                                        </button>
+                                    </td>
+                                    <td>{{ project.affectation }}</td>
+                                    <td class='text-end'> {{ (expense)|number_format(2) }} </td>
+                                </tr>
+
+                                {% for prj in projets %}
+                                    {% if prj.affectation == project.affectation and prj.montant !=0 %}
+                                        <tr id="collapse{{ project.affectation }}" class="collapse{{ project.affectation }} collapse table-success">
+                                                        <td></td>
+                                                        <td><small>{{ prj.projet }}</td>
+                                                        <td class="text-end"><small> {{ prj.montant|number_format(2) }} </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                {% set total = total + expense %}   
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                    <tfoot class='table-group-divider table-danger'>
+                        <td></td>
+                        <td>TOTAL</td>
+                        <td class='text-end'> {{ total|number_format(2) }} </td>
+                    </tfoot>
+                </table>
+            </div>
+        </div> 
+
+    {% elseif affectationFilter != 'DON' and affectationFilter != 'EDT_ADHESIONS' and affectationFilter != 'PROJECT' and affectationFilter != 'EDT' %}
+        {% set total_expense = 0 %}
+        {% for category in categories %}
+            {% set expense = 0 %}
+            {% for eintrag in account %}
+                {% if eintrag.affectation == affectationFilter and eintrag.categorie == category.categorie %}
+                    {% set expense = expense + eintrag.debit %}   
+                {% endif %}
+            {% endfor %}
+            {% if expense != 0 %}
+                {% if show_this == 1 %}
+
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3 ">
+                        <div><canvas id="chartAllCatsOneProjectAllBanksExp"></canvas></div>
+                    </div>
+                    <div class="col-md-2 ">
+                        <div class='table-responsive-xl'>
+                            <table class="table table-sm table-light table-striped edt-euros-font">   
+                                <thead class='table-info'>
+                                    <th>Affectations</th><th class='text-end'>Debit</th>
+                                </thead>                
+                                <tbody>
+                                {% set show_this = 0 %}
+
+                {% endif %}
+                                <tr>
+                                    <td>{{ category.categorie }}</td>
+                                    <td class='text-end'> {{ expense|number_format(2) }} </td>
+                                </tr>
+                                {% set total_expense = total_expense + expense %}   
+            {% endif %}
+        {% endfor %}
+                                </tbody>
+                                <tfoot class='table-group-divider table-danger'>
+                                    <td>TOTAL</td>
+                                    <td class='text-end'> {{ total_expense|number_format(2) }} </td>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div> 
+    {% else %}
+        <div class="col-md-1"></div>
+    {% endif %}
+
+
+
+ 
+</div>
+</div>
+<script>
+    function onlyUnique(value, index, array) {
+        console.log("VALUE: " + value);
+        console.log("INDEX: " + index);
+        console.log("ARRAY: " + array);
+        return array.indexOf(value) === index;
+    }
+
+    function colFunction(value) {
+
+        if (value.includes('All')) {
+            console.log("HELLO");
+            const array = []
+            let elements = Array.from(document.querySelectorAll('[id^="collapse"]'));
+            for (const[i, elem] of elements.entries()) {
+                array[i] = elem.id;
+            }
+            u_array = array.filter(onlyUnique)
+            console.log(u_array);
+            for (const elem of u_array.entries()) {
+                console.log(elem[1]);
+
+                cls = '.' + elem[1];
+                btnId = '#btn' + elem[1];
+                togglebutton = document.getElementById(btnId)
+                $(cls).collapse('toggle');
+                togglebutton.classList.toggle("bi-eye");
+            }
+                btnId = '#btncollapseAll';
+                togglebutton = document.getElementById(btnId)
+                togglebutton.classList.toggle("bi-eye");        }
+        else {
+            cls = '.' + value;
+            btnId = '#btn' + value;
+            togglebutton = document.getElementById(btnId)
+            $(cls).collapse('toggle');
+            togglebutton.classList.toggle("bi-eye");
+        }
+    }
+</script>
+<script type='module' src="{{ asset('js/edtChart.js') }}"></script>

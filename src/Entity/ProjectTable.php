@@ -47,6 +47,13 @@ class ProjectTable
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2, nullable: true)]
     private ?string $f_montant = null;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2, nullable: true)]
+    private ?string $c_montant = null;
+
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2, nullable: true)]
+    private ?string $montant = null;
+
     #[ORM\Column(length: 5, nullable: false)]
     private ?int $etat_id = 0;
 
@@ -79,12 +86,12 @@ class ProjectTable
         return $this;
     }
 
-    public function getStructure(): ?string
+    public function getAffectation(): ?string
     {
         return $this->affectation;
     }
 
-    public function setStructure(?string $affectation): static
+    public function setAffectation(?string $affectation): static
     {
         $this->affectation = $affectation;
 
@@ -186,6 +193,29 @@ class ProjectTable
 
         return $this;
     }
+    public function getCMontant(): ?string
+    {
+        return $this->c_montant;
+    }
+
+    public function setCMontant(?string $c_montant): static
+    {
+        $this->c_montant = $c_montant;
+
+        return $this;
+    }
+    public function getMontant(): ?string
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(?string $montant): static
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
     public function getEtatId(): ?int
     {
         return $this->etat_id;

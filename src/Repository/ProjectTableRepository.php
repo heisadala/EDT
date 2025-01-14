@@ -38,6 +38,16 @@ class ProjectTableRepository extends ServiceEntityRepository
         $db = new Database;
         return ($db->send_sql_cmd($this->get_connection(), $sql_cmd));
     }
+    public function send_sql_update_cmd($sql_cmd)
+    {
+        $db = new Database;
+        $db->send_sql_update_cmd($this->get_connection(), $sql_cmd);
+    }
+    public function fetch_column_unique_value($table_name, $column_name): array
+    {
+        $db = new Database;
+        return ($db->fetch_column_unique_value($this->get_connection(), $table_name, $column_name));
+    }
 
     public function get_affectation_list ($table_name)
     {
@@ -54,6 +64,26 @@ class ProjectTableRepository extends ServiceEntityRepository
     {
         $db = new Database;
         $db->update_f_montant($this->get_connection(), 
+                                $table_name, 
+                                $column_name, 
+                                $value, 
+                                $id);
+    }
+
+    public function update_c_montant($table_name, $column_name, $value, $id)
+    {
+        $db = new Database;
+        $db->update_c_montant($this->get_connection(), 
+                                $table_name, 
+                                $column_name, 
+                                $value, 
+                                $id);
+    }
+
+    public function update_proj_montant($table_name, $column_name, $value, $id)
+    {
+        $db = new Database;
+        $db->update_proj_montant($this->get_connection(), 
                                 $table_name, 
                                 $column_name, 
                                 $value, 

@@ -34,14 +34,17 @@ class PubProjectController extends AbstractController
         $closed_projets_total = 0;
         for ($i=0; $i <  count($closed_projets); $i++) {
             $closed_projets_total += $closed_projets[$i]->getFMontant();
+            $closed_projets_total += $closed_projets[$i]->getCMontant();
         }
         $unknown_projets_total = 0;
         for ($i=0; $i <  count($unknown_projets); $i++) {
             $unknown_projets_total += $unknown_projets[$i]->getFMontant();
+            $unknown_projets_total += $unknown_projets[$i]->getCMontant();
         }
         $ongoing_projets_total = 0;
         for ($i=0; $i <  count($ongoing_projets); $i++) {
             $ongoing_projets_total += $ongoing_projets[$i]->getFMontant();
+            $ongoing_projets_total += $ongoing_projets[$i]->getCMontant();
         }
         $foreseen_projets_total = 0;
         for ($i=0; $i <  count($foreseen_projets); $i++) {
@@ -52,7 +55,7 @@ class PubProjectController extends AbstractController
 
         $selectlist = 'p.projet_id, p.etat_id, p_e.etat, p.projet, p.affectation, pr.name, pr.url, pr.mail, p.d_date, 
         p.f_date, p.p_recu, p.p_sig, p.d_recu, p.d_sig, p.d_montant, 
-        p.f_montant, p_e.bg_color, p_e.text_color' ;
+        p.montant, p_e.bg_color, p_e.text_color' ;
         
         $from_table = $table_name . ' p';
         $join_table = [ 

@@ -10,6 +10,12 @@ contact_homepage:
     defaults:  
         title: 'CONTACT'
 
+update_homepage:
+    path: /UPDATE
+    controller: App\Controller\Update\UpdateController::index
+    defaults:  
+        title: 'HOME'
+
 asso_homepage:
     path: /ASSO
     controller: App\Controller\Asso\AssoController::index
@@ -119,6 +125,15 @@ especes_homepage:
     defaults:  
         year: 2024 
         title: 'ESPECES'
+    requirements:
+        year: '\d+'
+
+bilan_homepage:
+    path: /BILAN/{year}
+    controller: App\Controller\Bilan\BilanController::index
+    defaults:  
+        year: 2024 
+        title: 'BILAN'
     requirements:
         year: '\d+'
 

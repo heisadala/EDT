@@ -17,9 +17,21 @@ class Database
         return($resultSet->fetchAllAssociative());
 
     }
+    
+    function prepare_execute_statement($conn, $sql_cmd)
+    {
+        $stmt = $conn->prepare($sql_cmd);
+        $resultSet = $stmt->executeStatement();
+        // return $resultSet;
+
+    }
     public function send_sql_cmd($conn, $sql_cmd): array
     {
         return($this->prepare_execute_and_fetch($conn, $sql_cmd));
+    }
+    public function send_sql_update_cmd($conn, $sql_cmd)
+    {
+        $this->prepare_execute_statement($conn, $sql_cmd);
     }
     public function fetch_header_fields_from_table($conn, $table_name): array
     {
@@ -131,19 +143,37 @@ class Database
 
 
 
-                    dd($sql_cmd);
+                    // dd($sql_cmd);
         return $this->prepare_execute_and_fetch($conn, $sql_cmd);
     }
 
-    public function update_f_montant($conn, $table_name, $column_name, $value, $id) {
+    public function update_proj_montant($conn, $table_name, $column_name, $value, $id) {
         $sql_cmd = "UPDATE " . $table_name . " SET " . $column_name . " = " . $value 
                     . " WHERE projet_id" . "=" . $id .";";
-        $res = $this->prepare_execute_and_fetch($conn, $sql_cmd);              
+        $this->prepare_execute_statement($conn, $sql_cmd);              
+    }    
+    
+    public function update_edt_montant($conn, $table_name, $column_name, $value, $id) {
+        $sql_cmd = "UPDATE " . $table_name . " SET " . $column_name . "='" . $value 
+                    . "' WHERE edt_id" . "=" . $id . ";";
+        $this->prepare_execute_statement($conn, $sql_cmd); 
+        // if ($table_name == '2025_edt_table') dd($res, $column_name, $value, $id);             
+    }    
+    public function update_bilan_montant($conn, $table_name, $column_name, $value) {
+        $sql_cmd = "UPDATE " . $table_name . " SET " . $column_name . "='" . $value 
+                    . "' WHERE bilan_id=1;";
+        $this->prepare_execute_statement($conn, $sql_cmd);              
+    }    
+    
+    public function update_c_montant($conn, $table_name, $column_name, $value, $id) {
+        $sql_cmd = "UPDATE " . $table_name . " SET " . $column_name . " = " . $value 
+                    . " WHERE projet_id" . "=" . $id .";";
+        $res = $this->prepare_execute_statement($conn, $sql_cmd);              
     }
     public function update_montant($conn, $table_name, $column_name, $value, $id) {
         $sql_cmd = "UPDATE " . $table_name . " SET " . $column_name . " = " . $value 
                     . " WHERE donateur_id" . "=" . $id .";";
-        $res = $this->prepare_execute_and_fetch($conn, $sql_cmd);              
+        $res = $this->prepare_execute_statement($conn, $sql_cmd);              
     }
     public function get_max_id($conn, $table_name, $id) {
         $sql_cmd = "SELECT MAX(" . $id . ") FROM " . $table_name  .";";

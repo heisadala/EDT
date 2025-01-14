@@ -4,7 +4,7 @@
   --edt-yellow-color: rgb(255, 242, 2);
   --edt-green-color: rgb(190, 224, 5);
   --edt-iceblue-color: rgb(149, 173, 207);
-  --edt-rose-color: rgb(224, 161, 192);
+  --edt-rose-color: #e0a1c0;
   --edt-lightblue-color: rgb(167, 202, 240);
   --edt-red-color: rgb(224, 97, 127);
   --edt-orange-color: rgb(222, 128, 62);
@@ -61,15 +61,15 @@
 }
 
 .edt-text-rose {
-  color: rgb(224, 161, 192);
+  color: #e0a1c0;
 }
 
 .edt-bg-rose {
-  background-color: rgb(224, 161, 192);
+  background-color: #e0a1c0;
 }
 
 .edt-border-rose {
-  border-color: rgb(224, 161, 192);
+  border-color: #e0a1c0;
 }
 
 .edt-text-lightblue {

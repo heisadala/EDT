@@ -13,9 +13,18 @@ use App\Repository\CompteChequesTableRepository;
 use App\Repository\ProjectTableRepository;
 use App\Repository\EtatTableRepository;
 use App\Repository\YearTableRepository;
+use App\Repository\EdtTableRepository;
 
 class ProjectController extends AbstractController
 {
+
+    function set_repo_tbl_name($year, $name, $ctrlrepo, $tblrepo) {
+
+        $controller = $ctrlrepo->findOneBy(['name' => $name]);
+        $table_name = $year . '_' . $controller->getTbl();
+        $tblrepo->set_table_name($table_name);
+        return $table_name;
+    }
 
     public function index(int $year, string $etatFilter, string $title,
                             ProjectControllerTableRepository $projectControllerTableRepository,
@@ -26,67 +35,26 @@ class ProjectController extends AbstractController
                             EtatTableRepository $etatTableRepository
                         ): Response
     {
-        $app = $title;
-        $controller = $projectControllerTableRepository->findOneBy(['name' => $app]);
-
         $db_common = $_SERVER['DATABASE_COMMON_NAME'];
+        $controller = $projectControllerTableRepository->findOneBy(criteria: ['name' => $title]);
 
-        $table_name = $year . '_' . $controller->getTbl();
-        $projectTableRepository->set_table_name($table_name);
-
+        $project_table_name = $this->set_repo_tbl_name($year, $title, $projectControllerTableRepository, $projectTableRepository);
         $projets =$projectTableRepository->findAll();
 
-        $cc_controller = $compteControllerTableRepository->findOneBy(criteria: ['name' => 'COMPTE']);
-        $compte_table_name = $year . '_' .  $cc_controller->getTbl();
-        $courantTableRepository->set_table_name($compte_table_name);
+        $compte_table_name = $this->set_repo_tbl_name($year, 'COMPTE', $compteControllerTableRepository, $courantTableRepository);
         $account =$courantTableRepository->findAll();
-
-        $cc_controller = $compteControllerTableRepository->findOneBy(criteria: ['name' => 'CAISSES']);
-        $especes_table_name = $year . '_' . $cc_controller->getTbl();
-        $especesTableRepository->set_table_name($especes_table_name);
-        $caisse =$especesTableRepository->findOneBy(['especes_id' => '0']);
 
         $etat_table_name = $db_common . '.etat_table';
         $etatTableRepository->set_table_name($etat_table_name);
-        $etats =$etatTableRepository->findAll();
-        $sql_cmd = "SELECT affectation, count(affectation) AS count FROM $table_name WHERE affectation != 'EDT' GROUP BY affectation ORDER by affectation ASC;";
+
+        $sql_cmd = "SELECT affectation, count(affectation) AS count FROM $project_table_name GROUP BY affectation ORDER by affectation ASC;";
         $affectation = $projectTableRepository->send_sql_cmd($sql_cmd);
 
-        for ($i=1; $i <  count($projets); $i++) {
-            $projets[$i]->setFMontant(0);
-
-            $compte_proj = $courantTableRepository->select_all_from_where($compte_table_name, 'projet_id', $projets[$i]->getProjetId());
-            if ($compte_proj != []) {
-                for ($j=0; $j < count($compte_proj); $j++) {
-                    $projets[$i]->setFMontant($projets[$i]->getFMontant() + $compte_proj[$j]['debit']);
-                    $projets[$i]->setFMontant($projets[$i]->getFMontant() - $compte_proj[$j]['credit']);
-                }
-
-            }
-            $especes_proj = $especesTableRepository->select_all_from_where($especes_table_name, 'projet_id', $projets[$i]->getProjetId());
-            if ($especes_proj != []) {
-                for ($j=0; $j < count($especes_proj); $j++) {
-                    if ($especes_proj[$j]['recette'] < 0) {
-                        $projets[$i]->setFMontant($projets[$i]->getFMontant()
-                            + $especes_proj[$j]['montant']
-                            - $especes_proj[$j]['montant_apres']
-                            );
-                        }
-                    }
-
-            }
-            $projectTableRepository->update_f_montant( $table_name, 
-                                                        'f_montant', 
-                                                        $projets[$i]->getFMontant(),  
-                                                        $projets[$i]->getProjetId()
-                                                    );
-        
-        }
         $selectlist = 'p.projet_id, p.etat_id, p_e.etat, p.projet, p.affectation, pr.name, pr.mail, p.d_date, 
         p.f_date, p.p_recu, p.p_sig, p.d_recu, p.d_sig, p.d_montant, 
-        p.f_montant, p_e.bg_color, p_e.text_color' ;
+        p.montant, p_e.bg_color, p_e.text_color' ;
         
-        $from_table = $table_name . ' p';
+        $from_table = $project_table_name . ' p';
         $join_table = [ 
                         [$db_common . '.prestataire_table pr', 'p.prestataire_id', 'pr.prestataire_id'],
                         [$db_common . '.etat_table p_e', 'p.etat_id', 'p_e.etat_id'],
@@ -111,10 +79,9 @@ class ProjectController extends AbstractController
         }
         $show_dashboard = false;
         $show_gallery = true;
-        $title = ucfirst(strtolower($app));
         
         return $this->render('index.html.twig', [
-            'controller_name' => $title . 'Controller',
+            'controller_name' => ucfirst($title) . 'Controller',
             'server_base' => $_SERVER['BASE'],
             'meta_index' => 'noindex',
             'header_title' => $controller->getHeaderTitle(),
@@ -132,7 +99,6 @@ class ProjectController extends AbstractController
             'role' => $role,       
             'affectation' => $affectation,
             'year' => $year,        
-            'caisse' => $caisse,        
         ]);
     }
 
@@ -164,8 +130,6 @@ class ProjectController extends AbstractController
 
         $account =$courantTableRepository->findBy(['affectation' => $structureFilter]);
 
-        $cc_controller = $compteControllerTableRepository->findOneBy(criteria: ['name' => 'CAISSES']);
-        $especes_table_name = $year . '_' . $cc_controller->getTbl();
 
         $etat_table_name = $db_common . '.etat_table';
         $etatTableRepository->set_table_name($etat_table_name);
@@ -173,40 +137,9 @@ class ProjectController extends AbstractController
         $sql_cmd = "SELECT affectation, count(affectation) AS count FROM $table_name WHERE affectation != 'EDT' GROUP BY affectation ORDER by affectation ASC;";
         $affectation = $projectTableRepository->send_sql_cmd($sql_cmd);
 
-        for ($i=0; $i <  count($projets); $i++) {
-            $projets[$i]->setFMontant(0);
-
-            $filter_proj = $courantTableRepository->select_all_from_where($compte_table_name, 'projet_id', $projets[$i]->getProjetId());
-
-            if ($filter_proj != []) {
-                for ($j=0; $j < count($filter_proj); $j++) {
-                    $projets[$i]->setFMontant($projets[$i]->getFMontant() + $filter_proj[$j]['debit']);
-                    $projets[$i]->setFMontant($projets[$i]->getFMontant() - $filter_proj[$j]['credit']);
-                }
-
-            }
-            $especes_proj = $especesTableRepository->select_all_from_where($especes_table_name, 'projet_id', $projets[$i]->getProjetId());
-            if ($especes_proj != []) {
-                for ($j=0; $j < count($especes_proj); $j++) {
-                    if ($especes_proj[$j]['recette'] < 0) {
-                        $projets[$i]->setFMontant($projets[$i]->getFMontant()
-                            + $especes_proj[$j]['montant']
-                            - $especes_proj[$j]['montant_apres']
-                            );
-                        }
-                    }
-
-            }            
-            $projectTableRepository->update_f_montant( $table_name,
-                                                        'f_montant', 
-                                                        $projets[$i]->getFMontant(),  
-                                                        $projets[$i]->getProjetId()
-                                                    );
-        
-        }
         $selectlist = 'p.projet_id, p.etat_id, p_e.etat, p.projet, p.affectation, pr.name, pr.mail, p.d_date, 
         p.f_date, p.p_recu, p.p_sig, p.d_recu, p.d_sig, p.d_montant, 
-        p.f_montant, p_e.bg_color, p_e.text_color' ;
+        p.montant, p_e.bg_color, p_e.text_color' ;
         
         $from_table = $table_name . ' p';
         $join_table = [ 
@@ -266,6 +199,7 @@ class ProjectController extends AbstractController
                             CompteChequesTableRepository $courantTableRepository,
                             ProjectTableRepository $projectTableRepository,
                             EspecesTableRepository $especesTableRepository,
+                            EdtTableRepository $edtTableRepository,
                             EtatTableRepository $etatTableRepository,
                             YearTableRepository $yearTableRepository
                         ): Response
@@ -296,6 +230,7 @@ class ProjectController extends AbstractController
         for ($i=0; $i < count($account); $i++) {
             $credit += $account[$i]->getCredit();
             $debit += $account[$i]->getDebit();
+            // INTERN = 4
             if ($account[$i]->getAffectationId() ==  4 ) {
                 $total_livret -= $account[$i]->getCredit();
                 $total_livret += $account[$i]->getDebit();
@@ -316,7 +251,16 @@ class ProjectController extends AbstractController
         }
         $especes_table_name = $year . '_' . 'especes_table';
         $especesTableRepository->set_table_name($especes_table_name);
+
         $caisse = $especesTableRepository->findOneBy(['especes_id' => '0']);
+
+        $sql_cmd = "SELECT * FROM $especes_table_name WHERE donateur_id != 0 ORDER by donateur_id ASC;";
+        $caisse_don = $especesTableRepository->send_sql_cmd($sql_cmd);
+
+        $edt_table_name = $year . '_' . 'edt_table';
+        $edtTableRepository->set_table_name($edt_table_name);
+        $caisse_edt = $edtTableRepository->findAll();
+
 
 
         $etat_table_name = $db_common . '.etat_table';
@@ -326,39 +270,10 @@ class ProjectController extends AbstractController
         $sql_cmd = "SELECT affectation FROM $table_name WHERE affectation != 'EDT' GROUP BY affectation ORDER by affectation ASC;";
         $affectation = $projectTableRepository->send_sql_cmd($sql_cmd);
 
-        for ($i=1; $i <  count($projets); $i++) {
-            $projets[$i]->setFMontant(0);
 
-            $compte_proj = $courantTableRepository->select_all_from_where($compte_table_name, 'projet_id', $projets[$i]->getProjetId());
-            if ($compte_proj != []) {
-                for ($j=0; $j < count($compte_proj); $j++) {
-                    $projets[$i]->setFMontant($projets[$i]->getFMontant() + $compte_proj[$j]['debit']);
-                    $projets[$i]->setFMontant($projets[$i]->getFMontant() - $compte_proj[$j]['credit']);
-                }
-
-            }
-            $especes_proj = $especesTableRepository->select_all_from_where($especes_table_name, 'projet_id', $projets[$i]->getProjetId());
-            if ($especes_proj != []) {
-                for ($j=0; $j < count($especes_proj); $j++) {
-                    if ($especes_proj[$j]['recette'] < 0) {
-                        $projets[$i]->setFMontant($projets[$i]->getFMontant()
-                            + $especes_proj[$j]['montant']
-                            - $especes_proj[$j]['montant_apres']
-                            );
-                        }
-                    }
-
-            }
-            $projectTableRepository->update_f_montant( $table_name, 
-                                                        'f_montant', 
-                                                        $projets[$i]->getFMontant(),  
-                                                        $projets[$i]->getProjetId()
-                                                    );
-        
-        }
         $selectlist = 'p.projet_id, p.etat_id, p_e.etat, p.projet, p.affectation, pr.name, pr.mail, p.d_date, 
         p.f_date, p.p_recu, p.p_sig, p.d_recu, p.d_sig, p.d_montant, 
-        p.f_montant, p_e.bg_color, p_e.text_color' ;
+        p.montant, p_e.bg_color, p_e.text_color' ;
         
         $from_table = $table_name . ' p';
         $join_table = [ 
@@ -406,11 +321,11 @@ class ProjectController extends AbstractController
             'affectation' => $affectation,
             'year' => $year,        
             'caisse' => $caisse,        
+            'caisse_don' => $caisse_don,        
+            'caisse_edt' => $caisse_edt,        
             'year_table' => $year_table,        
         ]);
     }
-
-
 
 function toto() {
 

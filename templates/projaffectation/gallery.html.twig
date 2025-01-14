@@ -6,7 +6,7 @@
 {% set card_header_bg_color = 'bg-info-subtle' %}
 
 {% set tooltip_rows = '' %}
-{% set global_f_montant = 0.00 %}
+{% set global_montant = 0.00 %}
 {% set global_d_montant = 0.00 %}
 {% set global_a_montant = 0.00 %}
 {% set global_c_diff = 0.00 %}
@@ -57,9 +57,9 @@
                         <div class="card" >            
                             <div class="card-header {{ card_header_bg_color }} d-flex align-items-center justify-content-between" style='height:  3rem'>
                                 {{ projet.projet_id }}&nbsp;&nbsp;{{ projet.projet }} 
-                                {% set montant = (projet.f_montant - projet.d_montant )  %}
+                                {% set montant = (projet.montant - projet.d_montant )  %}
                                 {% set global_d_montant = global_d_montant + projet.d_montant %}
-                                {% set global_f_montant = global_f_montant + projet.f_montant %}
+                                {% set global_montant = global_montant + projet.montant %}
                                 {% if projet.etat == 'annulé' %}
                                     {% set global_a_montant = global_a_montant + montant %}
                                 {% elseif projet.etat == 'clôturé' %}
@@ -94,7 +94,7 @@
                                     <tr class="table-success"><td>Devis</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.d_montant|number_format(2) }}</td></tr>
                                     <tr class="table-danger"><td>Facture</td>
                                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                        <td>{{ projet.f_montant|number_format(2) }}
+                                        <td>{{ projet.montant|number_format(2) }}
                                     {% if projet.etat == 'en cours' %}
                                         &nbsp;&nbsp;&nbsp;
                                         <a class="text-dark p-0 " 
@@ -125,7 +125,7 @@
                        <div class="card " >
                             <div class="card-header {{ card_header_bg_color }} d-flex align-items-center justify-content-between" style='height:  3rem'>
                                 {{ projet.projet_id }}&nbsp;&nbsp;{{ projet.projet }} 
-                                {% set montant = (projet.f_montant - projet.d_montant ) |number_format(2) %}
+                                {% set montant = (projet.montant - projet.d_montant ) |number_format(2) %}
                                 {% if montant < 0 %}
                                     <span class="badge text-bg-success">{{ montant }} €</span>
                                 {% elseif montant > 0 %}
@@ -149,7 +149,7 @@
                                     <tr class="table-success"><td>Devis</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.d_montant|number_format(2) }}</td></tr>
                                     <tr class="table-danger"><td>Facture</td>
                                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                        <td>{{ projet.f_montant|number_format(2) }}
+                                        <td>{{ projet.montant|number_format(2) }}
                                     {% if projet.etat == 'en cours' %}
                                         &nbsp;&nbsp;&nbsp;
                                         {# <a class="link-dark link-underline link-underline-opacity-0 disabled "  #}

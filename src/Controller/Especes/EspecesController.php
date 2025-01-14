@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\ControllerTableRepository;
 use App\Repository\HomeTableRepository;
+use App\Repository\ProjectTableRepository;
 use App\Repository\YearTableRepository;
 use App\Repository\EspecesTableRepository;
 use App\Controller\Especes\UpdateMontantAvant;
@@ -21,6 +22,7 @@ class EspecesController extends AbstractController
     public function index(int $year, string $title,
                             ControllerTableRepository $controllerTableRepository,
                             HomeTableRepository $homeTableRepository,
+                            ProjectTableRepository $projectTableRepository,
                             EspecesTableRepository $especesTableRepository,
                             YearTableRepository $yearTableRepository,
 
@@ -38,6 +40,9 @@ class EspecesController extends AbstractController
         $especesTableRepository->set_table_name($especes_tbl);
         $especes = $especesTableRepository->findAll();
 
+        $project_tbl = $year . '_project_table';
+        $projectTableRepository->set_table_name($project_tbl);
+
         $updateMontantAvant = new UpdateMontantAvant;
         $updateMontantApres = new UpdateMontantApres;
         $updateRecette = new UpdateRecette;
@@ -50,6 +55,12 @@ class EspecesController extends AbstractController
             if ($i > 0) {
                 $updateMontantApres->update_montant_apres($especes_tbl, $especesTableRepository, $especes, $i);
                 $updateRecette->update_recette($especes_tbl, $especesTableRepository, $especes, $i);
+                if ($especes[$i]->getProjetId() != 0) {
+                    $updateRecette->update_project($project_tbl, 
+                    $projectTableRepository, 
+                    $especes[$i]->getRecette(), 
+                    $especes[$i]->getProjetId());
+                }
             }
         }
         $especes = $especesTableRepository->findAll();
@@ -117,7 +128,6 @@ class EspecesController extends AbstractController
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
             'bg_color' => $controller->getBgColor(),
-            
             
             'show_navbar' => true,
             'show_gallery' => true,
