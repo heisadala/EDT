@@ -8,12 +8,13 @@ class HelloAssoApi {
     public function getToken (){
 
         $client = new \GuzzleHttp\Client();
-
+        $clientId = $_SERVER['HELLO_ASSO_CLIENT_ID'];
+        $secret = $_SERVER['HELLO_ASSO_SECRET'];
         $response = $client->request('POST', 'https://api.helloasso.com/oauth2/token', [
           'form_params' => [
             'grant_type' => 'client_credentials',
-            'client_id' => 'c8f02126696b4b769d0afde6dd185bea',
-            'client_secret' => 'Ua4hwjwxYRhGQHmRXu3MbpJwJS/2HzUz'
+            'client_id' => $clientId,
+            'client_secret' => $secret
           ],
           'headers' => [
             'Content-Type' => 'application/x-www-form-urlencoded',
