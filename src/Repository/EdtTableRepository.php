@@ -32,7 +32,13 @@ class EdtTableRepository extends ServiceEntityRepository
     {
         $entityManager = $this->getEntityManager();
         $classMetaData = $entityManager->getClassMetadata(EdtTable::class);
+        $entityManager->clear();
+
         $classMetaData->setTableName($table_name);
+    }
+    function clear() 
+    {
+        $entityManager = $this->getEntityManager();
     }
 
     public function send_sql_cmd($sql_cmd): array

@@ -31,6 +31,7 @@ class CompteChequesTableRepository extends ServiceEntityRepository
     {
         $entityManager = $this->getEntityManager();
         $classMetaData = $entityManager->getClassMetadata(CompteChequesTable::class);
+        $entityManager->clear();
         $classMetaData->setTableName($table_name);
     }
     public function send_sql_cmd($sql_cmd): array

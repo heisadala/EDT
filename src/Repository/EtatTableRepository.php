@@ -36,6 +36,7 @@ class EtatTableRepository extends ServiceEntityRepository
     {
         $entityManager = $this->getEntityManager();
         $classMetaData = $entityManager->getClassMetadata(EtatTable::class);
+        $entityManager->clear();
         $classMetaData->setTableName($table_name);
     }
 

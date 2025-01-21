@@ -13,6 +13,7 @@ use App\Repository\EspecesTableRepository;
 use App\Repository\DonateursTableRepository;
 use App\Repository\EdtTableRepository;
 use App\Repository\BilanTableRepository;
+use App\Controller\HelloAssoApi;
 
 class UpdateController extends AbstractController
 {
@@ -37,7 +38,6 @@ class UpdateController extends AbstractController
                             ProjectTableRepository $projectTableRepository): Response
     {
         $year = $this->getParameter('app.year');
-
         for ($app_year=$year; $app_year < $year+2; $app_year++) {
         // $app_year = 2025;
 
@@ -105,6 +105,9 @@ class UpdateController extends AbstractController
             // UPDATE EDT TABLE FROM ACCOUNT TABLE AND CASH TABLE - MONTANT
             // if ($app_year == 2025) dd($edt);
             $edt = $edtTableRepository->findAll();
+
+
+            // if ($app_year == 2025) dd($edt);
             for ($i=1; $i < count($edt); $i++) {
                 $edt[$i]->setDebit(0);;
                 $edt[$i]->setCredit(0);
@@ -112,6 +115,7 @@ class UpdateController extends AbstractController
                 $edt[$i]->setMontant(0);
             
                 $compte_edt = $courantTableRepository->findBy(['edt_id' => $edt[$i]->getEdtId()]);
+                // if ($i == 3) dd($edt[$i]->getEdtId());
                 if ($compte_edt != []) {
                     for ($j=0; $j < count($compte_edt); $j++) {
                         $edt[$i]->setCredit($edt[$i]->getCredit() + $compte_edt[$j]->getCredit());
@@ -330,6 +334,22 @@ class UpdateController extends AbstractController
             $projectTableRepository->set_table_name($project_table_name);
             $affectation_list_2 = $projectTableRepository->get_affectation_list($project_table_name);
 
+            $helloAssoApi = new HelloAssoApi;
+            $resp = $helloAssoApi->getToken();
+            $obj = json_decode($resp, true);
+            $resp = $helloAssoApi->getPaiementsInfo($obj['access_token']);
+            // echo $resp;
+            $obj = json_decode($resp, true);
+            // dd( $obj['data']);
+            $counter = 0;
+            for ($i=0; $i < count($obj['data']); $i++){
+                for ($j=0; $j < count($obj['data'][$i]['items']); $j++) {
+                    if ($obj['data'][$i]['items'][$j]['type'] == 'Registration') {
+                        $counter = $counter + 1;
+                    }
+                }
+            }
+    
             $username = "";
             $role = "";
             if ($this->getUser()) {
@@ -353,6 +373,7 @@ class UpdateController extends AbstractController
                 'role' => $role,
                 'affectation_1' => $affectation_list_1,
                 'affectation_2' => $affectation_list_2,
+                'participants' => $counter
             ]);
     }
 }

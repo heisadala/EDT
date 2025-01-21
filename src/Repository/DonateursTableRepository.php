@@ -31,6 +31,7 @@ class DonateursTableRepository extends ServiceEntityRepository
     {
         $entityManager = $this->getEntityManager();
         $classMetaData = $entityManager->getClassMetadata(DonateursTable::class);
+        $entityManager->clear();
         $classMetaData->setTableName($table_name);
     }
 
