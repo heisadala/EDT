@@ -34,6 +34,13 @@ class DonateursTableRepository extends ServiceEntityRepository
         $classMetaData->setTableName($table_name);
     }
 
+    
+    public function send_sql_update_cmd($sql_cmd)
+    {
+        $db = new Database;
+        $db->send_sql_update_cmd($this->get_connection(), $sql_cmd);
+    }
+
     public function update($table_name, $column_name, $value, $id_column, $id)
     {
         $db = new Database;

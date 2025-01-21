@@ -19,6 +19,8 @@
                             style="width: 100%; height: 70px; border: none;">
                         </iframe>
                         <h4 class="card-caption text-white">et remplir la salle le 30 mars 2025</h4>
+                        {% set dispo = 280 - participants %}
+                        <h4 class="card-caption text-danger">{{ dispo }} places disponible</h4>
                     </div>
                 {# </div>
                 <div class="edt-card text-center"> #}

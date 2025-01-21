@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Repository\ControllerTableRepository;
 use App\Repository\ProjectControllerTableRepository;
 use App\Repository\ProjectTableRepository;
+use App\Controller\HelloAssoApi;
 
 class HomeController extends AbstractController
 {
@@ -29,6 +30,32 @@ class HomeController extends AbstractController
         $project_table_name = $app_year+1 . '_' . $project_controller->getTbl();
         $projectTableRepository->set_table_name($project_table_name);
         $affectation_list_2 = $projectTableRepository->get_affectation_list($project_table_name);
+
+
+        $helloAssoApi = new HelloAssoApi;
+        $resp = $helloAssoApi->getToken();
+        $obj = json_decode($resp, true);
+        $resp = $helloAssoApi->getPaiementsInfo($obj['access_token']);
+        // echo $resp;
+        $obj = json_decode($resp, true);
+        // dd( $obj['data']);
+        $counter = 0;
+        $amount = 0;
+        $donation_counter = 0;
+        $donation_amount = 0;
+        for ($i=0; $i < count($obj['data']); $i++){
+            for ($j=0; $j < count($obj['data'][$i]['items']); $j++) {
+                if ($obj['data'][$i]['items'][$j]['type'] == 'Registration') {
+                    $counter = $counter + 1;
+                    $amount = $amount + $obj['data'][$i]['items'][$j]['amount'];
+                }
+                if ($obj['data'][$i]['items'][$j]['type'] == 'Donation') {
+                    $donation_counter = $donation_counter + 1;
+                    $donation_amount = $donation_amount + $obj['data'][$i]['items'][$j]['amount'];
+                }
+            }
+        }
+        // echo $amount . "  " . $donation_amount;
 
         $username = "";
         $role = "";
@@ -53,6 +80,7 @@ class HomeController extends AbstractController
             'role' => $role,
             'affectation_1' => $affectation_list_1,
             'affectation_2' => $affectation_list_2,
+            'participants' => $counter
         ]);
     }
 }

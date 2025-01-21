@@ -1,3 +1,6 @@
+{# <script src="{{ asset('js/pdf.js') }}"></script> #}
+{# <script src="{{ asset('js/excel.js') }}"></script> #}
+
 {% for entry in bilan %}
 {% set int_livret_a_2024 = 828.65 %}
 {% set int_livret_a_2025 = 0 %}
@@ -185,3 +188,15 @@
     </div>
 </div>
 {% endfor %}
+
+<script>
+  var $table = $('#bilan-2')
+
+  $(function() {
+      $table.bootstrapTable('destroy').bootstrapTable({
+        exportDataType: $(this).val(),
+        exportTypes: ['csv', 'txt', 'excel', 'pdf'],
+
+      })
+  })
+</script>

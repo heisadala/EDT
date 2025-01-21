@@ -32,6 +32,8 @@ class CompteChequesTable
     #[ORM\Column(length: 5, nullable: false)]
     private ?int $donateur_id = 0;
 
+    #[ORM\Column(length: 5, nullable: false)]
+    private ?int $edt_id = 0;
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date = null;
 
@@ -221,6 +223,18 @@ class CompteChequesTable
 
         return $this;
     }
+    public function getEdtId(): ?int
+    {
+        return $this->edt_id;
+    }
+
+    public function setEdtId(int $edt_id): static
+    {
+        $this->edt_id = $edt_id;
+
+        return $this;
+    }
+
     public function getOperationId(): ?int
     {
         return $this->operation_id;
