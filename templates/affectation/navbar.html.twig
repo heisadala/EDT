@@ -18,7 +18,9 @@
             <ul class="navbar-nav">
                 {% include ( "li_table.html.twig" ) with { 'year' : year } %}
                 {% include ( "li_dashboard.html.twig" ) with { 'year' : year, 'filter' : 'DASH' }  %}
-                {% include ( "li_chart.html.twig" ) with { 'year' : year } %}
+                {% include ( "li_bilan.html.twig" ) with { 'year' : year }  %}
+                {% include ( "li_caisse.html.twig" ) with { 'year' : year }  %}
+                {# {% include ( "li_chart.html.twig" ) with { 'year' : year } %} #}
                 {% include ( "li_banque.html.twig" ) %}
             </ul>
             {% include ( "user_navbar.html.twig" ) %}

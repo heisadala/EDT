@@ -11,6 +11,7 @@ use App\Repository\ProjectTableRepository;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use App\Repository\ProjectControllerTableRepository;
 use App\Repository\EdtTableRepository;
+use App\Repository\YearTableRepository;
 
 class CompteController extends AbstractController
 {
@@ -37,6 +38,7 @@ class CompteController extends AbstractController
      public function table(int $year, string $viewFormat, int $rowNumbers, string $title,
                             CompteControllerTableRepository $compteControllerTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
+                            YearTableRepository $yearTableRepository,
                                                 ): Response
     {
         $app = $title;
@@ -60,12 +62,8 @@ class CompteController extends AbstractController
         if ($this->getUser()) {
         $username = $this->getUser()->getUsername();
         }
-
-        if ($year == '2024') {
-            $credit_debut_annee = 11507.06;
-        } else {
-            $credit_debut_annee = 4294.78;
-        }
+        $year_table = $yearTableRepository->findOneBy(['year_id' => $year]);
+        $credit_debut_annee = $year_table->getCc_begin();
 
         return $this->render('index.html.twig', [
             'controller_name' => $title . 'Controller',
@@ -75,11 +73,11 @@ class CompteController extends AbstractController
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
             'bg_color' => $controller->getBgColor(),
-            
 
             'show_navbar' => true,
             'show_table' => true,
             'show_gallery' => false,
+
             'table_header_fields' => $table_header_fields,
             'courant_table_content' => $courant_table_content,
             'primary_key_name' => $primary_key_name,

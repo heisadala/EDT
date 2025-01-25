@@ -83,7 +83,7 @@ class EspecesController extends AbstractController
                         e.nombre_5_apres, e.montant_5_apres, e.nombre_2_apres, e.montant_2_apres, 
                         e.nombre_1_apres, e.montant_1_apres, e.nombre_050_apres, e.montant_050_apres, 
                         e.nombre_020_apres, e.montant_020_apres, e.nombre_010_apres, e.montant_010_apres, 
-                        e.montant_apres, e.cheques, e.cb, e.dons, e.recette' ;
+                        e.montant_apres, e.cheques, e.tpe, e.dons, e.recette' ;
         
         $from_table = $especes_tbl . ' e';
         $join_table = [ 

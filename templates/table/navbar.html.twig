@@ -28,14 +28,13 @@
             </ul>
           </li>
 
-            {% if year == '2024' %}
-
-                {% include ( "li_chart.html.twig" ) with { 'year' : year } %}
-            {% endif %}
                 {% include ( "li_dashboard.html.twig" ) with { 'year' : year, 'filter' : 'DASH' }  %}
-
+                {% include ( "li_bilan.html.twig" ) with { 'year' : year }  %}
+                {% include ( "li_caisse.html.twig" ) with { 'year' : year }  %}
                 {% include ( "li_banque.html.twig" ) %}
-
+{#             {% if year == '2024' %}
+                {% include ( "li_chart.html.twig" ) with { 'year' : year } %}
+            {% endif %} #}
         </ul>
         <ul class="navbar-nav me-auto">
             <li>

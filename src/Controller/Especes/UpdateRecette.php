@@ -8,7 +8,7 @@ class UpdateRecette {
  
         $especesTableRepository->update( 
             $especes_tbl, 'recette', 
-            $especes[$i]->getMontantApres() - $especes[$i]->getMontant() + $especes[$i]->getCheques() + $especes[$i]->getCb(),
+            $especes[$i]->getMontantApres() - $especes[$i]->getMontant() + $especes[$i]->getCheques() + $especes[$i]->getTpe(),
             'especes_id',
             $especes[$i]->getEspecesId()
         );

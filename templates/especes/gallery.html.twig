@@ -6,6 +6,9 @@
     {% set bijoux_recette = 0 %}
     {% set produits_recette = 0 %}
     {% set inscriptions_recette = 0 %}
+    <div class='row justify-content-center m-3 p-2 text-success fs-3'>
+        CAISSE {{ year }}
+    </div>
     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2 justify-content-center">
         <div class="col md-1">
             <div class="card text-center">
@@ -161,7 +164,7 @@
                                     <tr class="table-light" ><td>0.10</td><td>{{ espece.nombre_010 }}</td><td class='text-end'>{{ espece.montant_010 }}</td><td>{{ espece.nombre_010_apres }}</td><td class='text-end'>{{ espece.montant_010_apres }}</td></tr>
                                     <tr class="table-success" ><td>TOTAL</td><td></td><td class='text-end'>{{ espece.montant|number_format(2) }}</td><td></td><td class='text-end'>{{ espece.montant_apres|number_format(2) }}</td></tr>
                                     <tr class="table-light" ><td>CHEQUES</td><td></td><td></td><td></td><td class='text-end'>{{ espece.cheques|number_format(2) }}</td></tr>
-                                    <tr class="table-light" ><td>CB</td><td></td><td></td><td></td><td class='text-end'>{{ espece.cb|number_format(2) }}</td></tr>
+                                    <tr class="table-light" ><td>TPE</td><td></td><td></td><td></td><td class='text-end'>{{ espece.tpe|number_format(2) }}</td></tr>
                                     <tr class="table-success" ><td>RECETTE</td><td></td><td></td><td></td><td class='text-end'>{{ espece.recette|number_format(2) }}</td></tr>
                                 </tbody>
                             </table>

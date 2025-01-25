@@ -21,6 +21,10 @@ class BilanController extends AbstractController
         $bilan_table_name = $year . '_' . 'bilan_table';
         $bilanTableRepository->set_table_name($bilan_table_name);
         $bilan = $bilanTableRepository->findAll();
+        $username = "";
+        if ($this->getUser()) {
+            $username = $this->getUser()->getUsername();
+        }
 
         return $this->render('index.html.twig', [
             'controller_name' => $title . 'Controller',
@@ -36,6 +40,7 @@ class BilanController extends AbstractController
             'show_table' => true,
             'bilan' => $bilan,
             'year' => $year,        
+            'username' => $username,
    
         ]);
     }
