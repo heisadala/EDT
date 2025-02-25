@@ -41,6 +41,7 @@ class CompteController extends AbstractController
                             YearTableRepository $yearTableRepository,
                                                 ): Response
     {
+        // TABLE
         $app = $title;
         $controller = $compteControllerTableRepository->findOneBy(['name' => $app]);
 
@@ -69,9 +70,10 @@ class CompteController extends AbstractController
             'controller_name' => $title . 'Controller',
             'server_base' => $_SERVER['BASE'],
             'meta_index' => 'noindex',
-            'header_title' => $controller->getHeaderTitle(),
-            'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
+            'header_title' => $controller->getHeaderTitle(),
+            'navbar_title' => $controller->getNavbarTitle(),
+            'shortcut_icon' => $controller->getIcon(),
             'bg_color' => $controller->getBgColor(),
 
             'show_navbar' => true,
@@ -238,7 +240,6 @@ class CompteController extends AbstractController
             'header_image' => 'Trestel_2.jpg',
             'show_navbar' => true,
             'show_gallery' => false,
-            'background' => $db->getBackground(),
             'db' => $db->getName(),
             'databases' => $databases,
             'username' => $username,
@@ -282,7 +283,6 @@ class CompteController extends AbstractController
             'show_navbar' => true,
             'show_table' => false,
             'show_gallery' => false,
-            'background' => $db->getBackground(),
             'db' => $db->getName(),
             'table_header_fields' => $table_header_fields,
             'courant_table_content' => $courant_table_content,
@@ -332,7 +332,6 @@ class CompteController extends AbstractController
             'show_navbar' => true,
             'show_table' => false,
             'show_gallery' => false,
-            'background' => $db->getBackground(),
             'db' => $db->getName(),
             'table_header_fields' => $table_header_fields,
             'courant_table_content' => $courant_table_content,
@@ -383,7 +382,6 @@ class CompteController extends AbstractController
             'show_navbar' => true,
             'show_table' => false,
             'show_gallery' => false,
-            'background' => $db->getBackground(),
             'db' => $db->getName(),
             'table_header_fields' => $table_header_fields,
             'courant_table_content' => $courant_table_content,

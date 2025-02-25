@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\ControllerTableRepository;
-use App\Repository\HomeTableRepository;
 use App\Repository\ProjectTableRepository;
 use App\Repository\YearTableRepository;
 use App\Repository\EspecesTableRepository;
@@ -21,7 +20,6 @@ class EspecesController extends AbstractController
 
     public function index(int $year, string $title,
                             ControllerTableRepository $controllerTableRepository,
-                            HomeTableRepository $homeTableRepository,
                             ProjectTableRepository $projectTableRepository,
                             EspecesTableRepository $especesTableRepository,
                             YearTableRepository $yearTableRepository,
@@ -36,7 +34,6 @@ class EspecesController extends AbstractController
         $especes_tbl = $year . '_especes_table';
         $especes_tbl_2025 = '2025_especes_table';
 
-        $db = $homeTableRepository->findOneBy(array('name' => $app));
         $especesTableRepository->set_table_name($especes_tbl);
         $especes = $especesTableRepository->findAll();
 
@@ -124,13 +121,15 @@ class EspecesController extends AbstractController
             'controller_name' => $title . 'Controller',
             'server_base' => $_SERVER['BASE'],
             'meta_index' => 'noindex',
-            'header_title' => $controller->getHeaderTitle(),
-            'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
+            'header_title' => $controller->getHeaderTitle(),
+            'navbar_title' => $controller->getNavbarTitle(),
+            'shortcut_icon' => $controller->getIcon(),
             'bg_color' => $controller->getBgColor(),
             
             'show_navbar' => true,
             'show_gallery' => true,
+            
             'especes' => $especes,
             'recettes' => $recettes,
             'year' => $year,

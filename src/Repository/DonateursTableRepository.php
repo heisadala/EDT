@@ -22,12 +22,12 @@ class DonateursTableRepository extends ServiceEntityRepository
         parent::__construct($registry, DonateursTable::class);
     }
 
-    function get_connection ()
+    private function get_connection ()
     {
         return $this->getEntityManager()->getConnection();
     }
 
-    function set_table_name($table_name) 
+    public function set_table_name($table_name) 
     {
         $entityManager = $this->getEntityManager();
         $classMetaData = $entityManager->getClassMetadata(DonateursTable::class);
@@ -35,23 +35,12 @@ class DonateursTableRepository extends ServiceEntityRepository
         $classMetaData->setTableName($table_name);
     }
 
-    
     public function send_sql_update_cmd($sql_cmd)
     {
         $db = new Database;
         $db->send_sql_update_cmd($this->get_connection(), $sql_cmd);
     }
 
-    public function update($table_name, $column_name, $value, $id_column, $id)
-    {
-        $db = new Database;
-        $db->update($this->get_connection(), 
-                                $table_name, 
-                                $column_name, 
-                                $value, 
-                                $id_column, 
-                                $id);
-    }
     //    /**
     //     * @return DonateursTable[] Returns an array of DonateursTable objects
     //     */

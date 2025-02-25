@@ -16,9 +16,11 @@ class PubProjectController extends AbstractController
                             ProjectTableRepository $projectTableRepository,
                         ): Response
     {
+        // PUBLIC_PROJETS
         $app = $title;
+        $controller_column_name = $this->getParameter('app.controller_column_name');
 
-        $controller = $controllerTableRepository->findOneBy(['name' => $app]);
+        $controller = $controllerTableRepository->findOneBy([$controller_column_name => $app]);
         $table_name = $year . '_' . $controller->getTbl();
         $projectTableRepository->set_table_name($table_name);
 
@@ -78,9 +80,10 @@ class PubProjectController extends AbstractController
             'controller_name' => $title . 'Controller',
             'server_base' => $_SERVER['BASE'],
             'meta_index' => 'index',
-            'header_title' => $controller->getHeaderTitle(),
-            'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
+            'header_title' => $controller->getHeaderTitle(),
+            'navbar_title' => $controller->getNavbarTitle(),
+            'shortcut_icon' => $controller->getIcon(),
             'bg_color' => $controller->getBgColor(),
 
             'show_navbar' => true,

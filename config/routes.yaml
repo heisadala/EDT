@@ -162,12 +162,16 @@ assembly_homepage:
         subject: 'AG' 
 
 app_register:
-    path: /register
+    path: /REGISTER
     controller: App\Controller\RegistrationController::register
+    defaults:  
+        title: 'REGISTER'
 
 app_login:
-    path: /login
+    path: /LOGIN
     controller: App\Controller\SecurityController::login
+    defaults:  
+        title: 'SECURITY'
 
 login_check:
     path: /login_check

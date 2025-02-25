@@ -22,18 +22,21 @@ class DonateursController extends AbstractController
                             EspecesTableRepository $especesTableRepository,
                             DonateursTableRepository $donateursTableRepository): Response
     {
+        // DONATEURS
         $app = $title;
-        $controller = $controllerTableRepository->findOneBy(['name' => $app]);
+        $controller_column_name = $this->getParameter('app.controller_column_name');
+
+        $controller = $controllerTableRepository->findOneBy([$controller_column_name => $app]);
         $table_name = $year . '_' . $controller->getTbl();
         $donateursTableRepository->set_table_name($table_name);
 
         $donateurs = $donateursTableRepository->findAll();
 
-        $cc_controller = $compteControllerTableRepository->findOneBy(criteria: ['name' => 'COMPTE']);
+        $cc_controller = $compteControllerTableRepository->findOneBy(criteria: [$controller_column_name => 'COMPTE']);
         $cc_table_name = $year . '_' . $cc_controller->getTbl();
         $courantTableRepository->set_table_name($cc_table_name);
 
-        $cc_controller = $compteControllerTableRepository->findOneBy(criteria: ['name' => 'CAISSES']);
+        $cc_controller = $compteControllerTableRepository->findOneBy(criteria: [$controller_column_name => 'CAISSES']);
         $especes_table_name = $year . '_' . $cc_controller->getTbl();
         $especesTableRepository->set_table_name($especes_table_name);
 
@@ -56,30 +59,30 @@ class DonateursController extends AbstractController
                 }
 
             }
-            $donateursTableRepository->update( $table_name, 'montant', 
-                                                $donateurs[$i]->getMontant() ,  
-                                                'donateur_id',
-                                                $donateurs[$i]->getDonateurId()
-                                            );
+            $sql_cmd = 'UPDATE ' . $table_name . 
+                        ' SET montant=' . $donateurs[$i]->getMontant() . 
+                        ' WHERE donateur_id=' . $donateurs[$i]->getDonateurId() . ';';
+            $donateursTableRepository->send_sql_update_cmd($sql_cmd);
+
             $dons_total += $donateurs[$i]->getMontant();
         }
-
         $donateurs = $donateursTableRepository->findAll();
 
         return $this->render('index.html.twig', [
             'controller_name' => $title . 'Controller',
             'server_base' => $_SERVER['BASE'],
-            'meta_index' => 'index',
-            'header_title' => $controller->getHeaderTitle(),
-            'shortcut_icon' => $controller->getIcon(),
+            'meta_index' => $controller->getMetaIndex(),
             'db' => $controller->getName(),
-            'bg_color' => $controller->getBgColor(),
-
+            'header_title' => $controller->getHeaderTitle(),
             'navbar_title' => $controller->getNavbarTitle(),
+            'shortcut_icon' => $controller->getIcon(),
+            'bg_color' => $controller->getBgColor(),
+            'year' => $year,
+
             'show_navbar' => true,
             'show_gallery' => true,
+
             'donateurs' => $donateurs,
-            'year' => $year,
             'dons_total' => $dons_total,
         ]);
     }

@@ -11,21 +11,24 @@ class HandiController extends AbstractController
     public function index(int $year, string $title,
                             ControllerTableRepository $controllerTableRepository): Response
     {
+        // HANDI
         $app = $title;
-        $controller = $controllerTableRepository->findOneBy(['name' => $app]);
+        $controller_column_name = $this->getParameter('app.controller_column_name');
+        $controller = $controllerTableRepository->findOneBy([$controller_column_name => $app]);
 
         return $this->render('index.html.twig', [
             'controller_name' => $title . 'Controller',
             'server_base' => $_SERVER['BASE'],
-            'meta_index' => 'index',
-            'header_title' => $controller->getHeaderTitle(),
-            'shortcut_icon' => $controller->getIcon(),
+            'meta_index' => $controller->getMetaIndex(),
             'db' => $controller->getName(),
+            'header_title' => $controller->getHeaderTitle(),
+            'navbar_title' => $controller->getNavbarTitle(),
+            'shortcut_icon' => $controller->getIcon(),
             'bg_color' => $controller->getBgColor(),
 
-            'navbar_title' => $controller->getNavbarTitle(),
-            'year' => $year,
             'show_navbar' => true,
             'show_cards' => true,
+
+            'year' => $year,
         ]);
     }}

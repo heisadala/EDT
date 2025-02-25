@@ -6,21 +6,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use App\Repository\HomeTableRepository;
+use App\Repository\ControllerTableRepository;
 
 class SecurityController extends AbstractController
 {
-    #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils,
-                            HomeTableRepository $homeTableRepository): Response
+    public function login(string $title,
+                            AuthenticationUtils $authenticationUtils,
+                            ControllerTableRepository $controllerTableRepository): Response
     {
         // dd ($this->getUser());
         if ($this->getUser()) {
             return $this->redirectToRoute('homepage');
         }
+        $app = $title;
+        $controller = $controllerTableRepository->findOneBy(['name' => $app]);
 
-        $table_name = $this->getParameter('app.database_home_table_name');
-        $db = $homeTableRepository->findOneby(['name' => $table_name]);
         $username = "";
         if ($this->getUser()) {
             $username = $this->getUser()->getUsername();
@@ -32,19 +32,21 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('index.html.twig', [
-            'last_username' => $lastUsername, 
-            'error' => $error,
-            'controller_name' => 'SecurityController',
+            'controller_name' => $title . 'Controller',
             'server_base' => $_SERVER['BASE'],
             'meta_index' => 'noindex',
-            'header_title' => 'Login',
-            'shortcut_icon' => 'Edt.png',
-            'header_image' => 'Trestel_2.jpg',
+            'db' => $controller->getName(),
+            'header_title' => $controller->getHeaderTitle(),
+            'navbar_title' => $controller->getNavbarTitle(),
+            'shortcut_icon' => $controller->getIcon(),
+            'bg_color' => $controller->getBgColor(),
+
             'show_navbar' => false,
             'show_login' => true,
-            'db' => $db->getName(),
-            'username' => $username,
 
+            'last_username' => $lastUsername, 
+            'error' => $error,
+            'username' => $username,
 
         ]);
     }

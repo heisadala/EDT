@@ -55,6 +55,9 @@
                         <td class='text-start table-info'><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>MANIFESTATIONS</a></td><td class='text-end table-info'>{{ entry.Rmanifestations|number_format(2) }}</td>
                     </tr>
                     <tr>
+                        <td class='text-start'><small>Theatre</td><td class='text-end'><small>{{ entry.RTheatre|number_format(2) }}</td>
+                    </tr>
+                    <tr>
                         <td class='text-start'><small>Handifference</td><td class='text-end'><small>{{ entry.Rhandifference|number_format(2) }}</td>
                     </tr>
                     <tr>
@@ -134,6 +137,9 @@
                     </tr>
                     <tr>
                         <td class='text-start table-warning'><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>MANIFESTATIONS</a></td><td class='text-end table-warning'>{{ entry.Dmanifestations|number_format(2) }}</td>
+                    </tr>
+                    <tr>
+                        <td class='text-start'><small>Theatre</td><td class='text-end'><small>{{ entry.DTheatre|number_format(2) }}</td>
                     </tr>
                     <tr>
                         <td class='text-start'><small>Handifference</td><td class='text-end'><small>{{ entry.Dhandifference|number_format(2) }}</td>

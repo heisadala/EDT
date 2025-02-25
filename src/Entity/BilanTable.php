@@ -34,6 +34,8 @@ class BilanTable
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
     private ?string $r_manifestations = null;
+    #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
+    private ?string $r_theatre = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
     private ?string $r_handifference = null;
@@ -50,6 +52,9 @@ class BilanTable
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
     private ?string $d_manifestations = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
+    private ?string $d_theatre = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
     private ?string $d_handifference = null;
@@ -204,6 +209,18 @@ class BilanTable
         return $this;
     }
 
+    public function getRTheatre(): ?string
+    {
+        return $this->r_theatre;
+    }
+
+    public function setRTheatre(string $r_theatre): static
+    {
+        $this->r_theatre = $r_theatre;
+
+        return $this;
+    }
+
     public function getRHandifference(): ?string
     {
         return $this->r_handifference;
@@ -266,6 +283,17 @@ class BilanTable
         return $this;
     }
 
+    public function getDTheatre(): ?string
+    {
+        return $this->d_theatre;
+    }
+
+    public function setDTheatre(string $d_theatre): static
+    {
+        $this->d_theatre = $d_theatre;
+
+        return $this;
+    }
     public function getDHandifference(): ?string
     {
         return $this->d_handifference;

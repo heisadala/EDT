@@ -17,12 +17,12 @@ class BilanTableRepository extends ServiceEntityRepository
         parent::__construct($registry, BilanTable::class);
     }
 
-    function get_connection ()
+    private function get_connection ()
     {
         return $this->getEntityManager()->getConnection();
     }
 
-    function set_table_name($table_name) 
+    public function set_table_name($table_name) 
     {
         $entityManager = $this->getEntityManager();
         $classMetaData = $entityManager->getClassMetadata(BilanTable::class);

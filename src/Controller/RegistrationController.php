@@ -12,24 +12,23 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
-use App\Repository\HomeTableRepository;
+use App\Repository\ControllerTableRepository;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
-    public function register(Request $request, 
+    public function register(string $title, Request $request, 
                                 UserPasswordHasherInterface $userPasswordHasher, 
                                 UserAuthenticatorInterface $userAuthenticator, 
                                 // AdminAuthenticator $authenticator, 
                                 EntityManagerInterface $entityManager,
-                                HomeTableRepository $homeTableRepository): Response
+                                ControllerTableRepository $controllerTableRepository): Response
     {
+        $app = $title;
+        $controller = $controllerTableRepository->findOneBy(['name' => $app]);
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
-        $table_name = $this->getParameter('app.database_home_table_name');
-        $db = $homeTableRepository->findOneby(['name' => $table_name]);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
@@ -49,17 +48,20 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('index.html.twig', [
-            'controller_name' => 'RegistrationController',
-            'header_title' => 'Register EDT user',
-            'show_register' => true,
-            'shortcut_icon' => $db->getIcon(),
-            'meta_index' => 'noindex',
-            'news' => '',
-            'db' => "registration",
+            'controller_name' => $title . 'Controller',
             'server_base' => $_SERVER['BASE'],
-            'registrationForm' => $form->createView(),
+            'meta_index' => 'noindex',
+            'db' => $controller->getName(),
+            'header_title' => $controller->getHeaderTitle(),
+            'navbar_title' => $controller->getNavbarTitle(),
+            'shortcut_icon' => $controller->getIcon(),
+            'bg_color' => $controller->getBgColor(),
+            
+            'show_register' => true,
             'show_navbar' => true,
 
-                ]);
+            'registrationForm' => $form->createView(),
+
+        ]);
     }
 }

@@ -37,6 +37,9 @@ class ControllerTable
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $header_title = null;
 
+    #[ORM\Column(length: 10, nullable: false)]
+    private ?string $meta_index = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,6 +128,18 @@ class ControllerTable
     public function setHeaderTitle(?string $header_title): static
     {
         $this->header_title = $header_title;
+
+        return $this;
+    }
+    
+    public function getMetaIndex(): ?string
+    {
+        return $this->meta_index;
+    }
+
+    public function setMetaIndex(?string $meta_index): static
+    {
+        $this->meta_index = $meta_index;
 
         return $this;
     }

@@ -21,7 +21,7 @@ class AffectationTableRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, AffectationTable::class);
     }
-    function get_connection ()
+    private function get_connection ()
     {
         return $this->getEntityManager()->getConnection();
     }

@@ -70,10 +70,10 @@
         {% include ( "#{db|lower}/dashboard.html.twig" ) %}
     {% endif %}
     {% if show_login is defined and show_login == true %}
-        {% include ( "security/login.html.twig" ) %}
+        {% include ( "#{db|lower}/login.html.twig" ) %}
     {% endif %}
     {% if show_register is defined and show_register == true %}
-        {% include ( "registration/register.html.twig" ) %}
+        {% include ( "#{db|lower}/register.html.twig" ) %}
     {% endif %}
 {% endblock %}
 

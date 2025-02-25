@@ -5,8 +5,9 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     app.year: '2024'
-    app.database_home_table_name: 'HOME'
     app.application_name: 'EDT'
+    app.project_controller_name: 'PROJECT'
+    app.controller_column_name: 'name'
 
 
 services:

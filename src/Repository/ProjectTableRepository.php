@@ -22,11 +22,11 @@ class ProjectTableRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ProjectTable::class);
     }
-    function get_connection ()
+    private function get_connection ()
     {
         return $this->getEntityManager()->getConnection();
     }
-    function set_table_name($table_name) 
+    public function set_table_name($table_name) 
     {
         $entityManager = $this->getEntityManager();
         $classMetaData = $entityManager->getClassMetadata(ProjectTable::class);
@@ -37,19 +37,13 @@ class ProjectTableRepository extends ServiceEntityRepository
     public function send_sql_cmd($sql_cmd): array
     {
         $db = new Database;
-        return ($db->send_sql_cmd($this->get_connection(), $sql_cmd));
+        return $db->send_sql_cmd($this->get_connection(), $sql_cmd);
     }
     public function send_sql_update_cmd($sql_cmd)
     {
         $db = new Database;
         $db->send_sql_update_cmd($this->get_connection(), $sql_cmd);
     }
-    public function fetch_column_unique_value($table_name, $column_name): array
-    {
-        $db = new Database;
-        return ($db->fetch_column_unique_value($this->get_connection(), $table_name, $column_name));
-    }
-
     public function get_affectation_list ($table_name)
     {
         $db = new Database;
@@ -60,6 +54,16 @@ class ProjectTableRepository extends ServiceEntityRepository
                       WHERE p.affectation_id > 0 GROUP BY a.nom ORDER BY a.nom ASC";
         return ($db->send_sql_cmd($this->get_connection(), $sql_cmd));
     }
+
+
+
+
+    public function fetch_column_unique_value($table_name, $column_name): array
+    {
+        $db = new Database;
+        return ($db->fetch_column_unique_value($this->get_connection(), $table_name, $column_name));
+    }
+
 
     public function update_f_montant($table_name, $column_name, $value, $id)
     {
