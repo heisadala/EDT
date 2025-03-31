@@ -34,8 +34,8 @@ class HomeController extends AbstractController
         $projectTableRepository->set_table_name($project_table_name);
         $affectation_list_2 = $projectTableRepository->get_affectation_list($project_table_name);
 
-        $helloAssoApi = new HelloAssoApi;
-        $participants = $helloAssoApi->getParticipants();
+        // $helloAssoApi = new HelloAssoApi;
+        // $participants = $helloAssoApi->getParticipants();
 
         $username = "";
         $role = "";
@@ -64,7 +64,7 @@ class HomeController extends AbstractController
 
             'affectation_1' => $affectation_list_1,
             'affectation_2' => $affectation_list_2,
-            'participants' => $participants
+            // 'participants' => $participants
         ]);
     }
 }

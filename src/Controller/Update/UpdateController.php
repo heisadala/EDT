@@ -188,11 +188,13 @@ class UpdateController extends AbstractController
 
             // BILAN MANIFESTATIONS
             $r_manifestations = 0;
+            $r_theatre = 0;
             $r_handifference = 0;
             $r_trail_estran = 0;
             $r_rando_nature = 0;
             $r_marche_noel = 0;
             $d_manifestations = 0;
+            $d_theatre = 0;
             $d_handifference = 0;
             $d_trail_estran = 0;
             $d_rando_nature = 0;
@@ -200,6 +202,10 @@ class UpdateController extends AbstractController
             $edt = $edtTableRepository->findAll();
     // if ($app_year == 2025) dd( $edt);
             for ($i=1; $i < count($edt); $i++) {
+                if ($edt[$i]->getAffectation() == 'EDT_THEATRE') {
+                    $r_theatre += $edt[$i]->getCredit() + $edt[$i]->getCMontant();
+                    $d_theatre += $edt[$i]->getDebit();
+                }
                 if ($edt[$i]->getAffectation() == 'EDT_HANDIFFERENCE') {
                     $r_handifference += $edt[$i]->getCredit() + $edt[$i]->getCMontant();
                     $d_handifference += $edt[$i]->getDebit();
@@ -217,15 +223,17 @@ class UpdateController extends AbstractController
                     $d_marche_noel += $edt[$i]->getDebit();
                 }
             }
-            $r_manifestations += $r_handifference + $r_rando_nature + $r_trail_estran + $r_marche_noel;
-            $d_manifestations += $d_handifference + $d_rando_nature + $d_trail_estran + $d_marche_noel;
+            $r_manifestations += $r_theatre + $r_handifference + $r_rando_nature + $r_trail_estran + $r_marche_noel;
+            $d_manifestations += $d_theatre + $d_handifference + $d_rando_nature + $d_trail_estran + $d_marche_noel;
 
             $column_value = 'r_manifestations=' . $r_manifestations
+                            . ', r_theatre=' . $r_theatre
                             . ', r_handifference=' . $r_handifference
                             . ', r_rando_nature=' . $r_rando_nature
                             . ', r_trail_estran=' . $r_trail_estran
                             . ', r_marche_noel=' . $r_marche_noel
                             . ', d_manifestations=' . $d_manifestations
+                            . ', d_theatre=' . $d_theatre
                             . ', d_handifference=' . $d_handifference
                             . ', d_rando_nature=' . $d_rando_nature
                             . ', d_trail_estran=' . $d_trail_estran
@@ -364,7 +372,7 @@ class UpdateController extends AbstractController
                 'role' => $role,
                 'affectation_1' => $affectation_list_1,
                 'affectation_2' => $affectation_list_2,
-                'participants' => $counter
+                'participants' => $participants
             ]);
     }
 }

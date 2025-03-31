@@ -11,7 +11,7 @@
     {# ACTUALITY   #}
     {#             #}
                 <div class="edt-card text-center">
-                    <div class="edt-card-table table-warning">
+                    {# <div class="edt-card-table table-warning">
                         <h4 class="card-caption text-white">C'est par ici pour</h4>
                         <p class="text-align-center mt-4">
                         <iframe id="haWidget" allowtransparency="true" 
@@ -21,11 +21,18 @@
                         <h4 class="card-caption text-white">et remplir la salle le 30 mars 2025</h4>
                         {% set dispo = 280 - participants %}
                         <h4 class="card-caption text-danger">{{ dispo }} places disponible</h4>
+                    </div> #}
+                    <div class="edt-card-table table-warning">
+                        <img class='img-fluid rounded' src="{{ server_base }}/images/actuality/theatre_fb.png"  >
+
                     </div>
                 {# </div>
                 <div class="edt-card text-center"> #}
                     <div class="edt-card-table table-success">
-                        <img class='img-fluid rounded' src="{{ server_base }}/images/actuality/theatre_web.jpg"  >
+                        <img class='img-fluid rounded' src="{{ server_base }}/images/actuality/theatre_fin.jpg"  >
+                    </div>
+                    <div class="edt-card-table table-warning">
+                        <img class='img-fluid rounded' src="{{ server_base }}/images/actuality/AG_invit.png"  >
                     </div>
                 </div>
             </div>
