@@ -1,5 +1,49 @@
 // import { jsPDF } from "jspdf";
 
+function exportTableToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    // Sélectionner la table
+    const table = document.getElementById("myTable");
+
+    // Convertir la table en format autoTable
+    doc.autoTable({ html: table });
+    
+    // Enregistrer ou afficher le fichier PDF
+    doc.save("table.pdf");
+}
+
+function exportSectionToPDFPortrait() {
+    const { jsPDF } = window.jspdf;
+    const section = document.getElementById("printable_area");
+    
+    html2canvas(section).then(canvas => {
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const imgWidth = 210; // Largeur A4 en mm
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        pdf.save("section.pdf");
+    });
+}
+
+function exportSectionToPDFPaysage() {
+    const { jsPDF } = window.jspdf;
+    const section = document.getElementById("printable_area");
+    
+    html2canvas(section).then(canvas => {
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF('l', 'mm', 'a4'); // 'l' pour paysage
+        const imgWidth = 297; // Largeur A4 en mm en mode paysage
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        pdf.save("section.pdf");
+    });
+}
 
 function generatePDF ()  {
     let printable_area = document.querySelector(".printable_area").innerHTML;

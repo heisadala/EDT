@@ -269,6 +269,7 @@ class UpdateController extends AbstractController
             $column_value = 'fonctionnement=' . $fonctionnement
                             . ', fournitures=' . $fournitures
                             . ', assurance=' . $assurance
+                            . ', divers=' . $divers
                             . ', r_banque=' . $r_banque
                             . ', d_banque=' . $d_banque
                             ;

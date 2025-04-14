@@ -1,5 +1,7 @@
 <p id='affectationFilter' hidden>{{ affectationFilter }}</p>
 <script src="{{ asset('js/collapse.js') }}"></script>
+<script src="{{ asset('js/pdf.js') }}"></script>
+<script src="{{ asset('js/excel.js') }}"></script>
 
 {% for entry in account %}
     {% set entryInfo = {
@@ -41,22 +43,36 @@
     <div data-category-id='{{ categoryInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
 {% endfor %}
 
+<div class="container-fluid bg-body-secondary">
+    <div class='row justify-content-center m-3 p-2 text-secondary fs-3'>
+        {{ affectationFilter }} {{ year }}
+    </div> 
+    <div class='row justify-content-start'>
+        <div class="col-md-6"></div>
 
-<div class="row justify-content-start">
+        <div class="col-md-2">
+        <button onclick="exportTableToPDF();">Export en PDF</button>
+        {# <button onclick="exportSectionToPDFPortrait();">Export en PDF</button> #}
+        </div>
+        <div class="col-md-2">
+        <button onclick="exportTableToExcel();">Export en EXCEL</button>
+        {# <button onclick="exportSectionToPDFPortrait();">Export en PDF</button> #}
+        </div>    </div>
+{# <div class="row justify-content-start">
     <div class="col-md-1"></div>
     <div class="col-md-3 "></div>
     <div class="col-md-2 text-secondary text-center fs-2">
         {{ affectationFilter }} {{ year }}
     </div>
-</div>
+</div> #}
 
-{% set show_this = 1 %}
-<div class="row justify-content-start">
+{# <div class="row justify-content-start"> #}
     {% if affectationFilter == 'EDT' %}
-        <div class="col-md-3"></div>
-        <div class="col-md-4 ">
+        {# <div class="d-print-none col-md-3"></div>
+        <div class="col-md-4 "> #}
+        <div id="printable_area" class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 g-4 mt-2 justify-content-center">
             <div class='table-responsive-xl'>
-                <table class="table table-sm table-light edt-euros-font">   
+                <table id="myTable" class="table table-sm table-light edt-euros-font">   
                     <thead class='table-info'>
                         <tr>
                             <th>
@@ -143,12 +159,14 @@
                     </tfoot>
                 </table>
             </div>
+
         </div> 
+
     {% elseif affectationFilter == 'PROJET' %}
-        <div class="col-md-3"></div>
-        <div class="col-md-4 ">
+        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-3 g-4 mt-2 justify-content-center">
+
             <div class='table-responsive-xl'>
-                <table class="table table-sm table-light edt-euros-font">   
+                <table id="myTable" class="table table-sm table-light edt-euros-font">   
                     <thead class='table-info'>
                         <tr>
                             <th>
@@ -247,13 +265,12 @@
                         </div>
                     </div> 
     {% else %}
-        <div class="col-md-1"></div>
+        </div>
     {% endif %}
 
 
 
  
-</div>
 </div>
 <script>
     function onlyUnique(value, index, array) {

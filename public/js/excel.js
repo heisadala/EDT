@@ -1,3 +1,16 @@
+function exportTableToExcel() {
+    // Sélectionner la table
+    const table = document.getElementById("myTable");
+    
+    // Convertir la table en feuille de calcul
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.table_to_sheet(table);
+    XLSX.utils.book_append_sheet(wb, ws, "Feuille1");
+    
+    // Enregistrer le fichier Excel
+    XLSX.writeFile(wb, "table.xlsx");
+}
+
 function exportToExcel() {
 	// var location = 'data:application/vnd.ms-excel;base64,';
 	// var excelTemplate = '<html> ' +
