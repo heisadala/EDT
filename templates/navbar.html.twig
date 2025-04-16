@@ -36,7 +36,7 @@
             </li>
             <li><hr class="dropdown-divider"></li>
             <li>
-                {% include ( "a_2024_dropdown.html.twig" ) %}
+              {% include ( "a_2024_dropdown.html.twig" ) %}
               <ul class="dropdown-menu edt-2024-asso-dropdown-menu">
                 <li>
                   <a class="dropdown-item edt-dropdown-item" 
@@ -57,6 +57,27 @@
                     <img src="{{ server_base }}/images/icon/color-christmas-32.png">
                     MARCHE DE NOEL
                   </a>
+                </li>
+              </ul>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              {% include ( "a_2025_dropdown.html.twig" ) %}
+              <ul class="dropdown-menu edt-2024-asso-dropdown-menu">
+                <li>
+                  <a class="dropdown-item edt-dropdown-item" href='{{ path('theatre_homepage') }}/2025'>
+                    <img src="{{ server_base }}/images/icon/color-theatre-32.png">
+                    Theatre 30 mars
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item edt-dropdown-item" 
+                      href='{{ server_base }}/ag/PV_AG_11_04_2025.pdf'>
+                    <img src="{{ server_base }}/images/icon/danger-pdf-32.png">
+                    AG 11 AVRIL (PV)
+                  </a>
+                </li> 
               </ul>
             </li>
           </ul>

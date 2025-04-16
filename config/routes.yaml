@@ -31,6 +31,15 @@ handi_homepage:
     requirements:
         year: '\d+'
 
+theatre_homepage:
+    path: /THEATRE/{year}
+    controller: App\Controller\Theatre\TheatreController::index
+    defaults:  
+        year: 2025
+        title: 'THEATRE'
+    requirements:
+        year: '\d+'
+
 christmas_homepage:
     path: /CHRISTMAS/{year}
     controller: App\Controller\Christmas\ChristmasController::index
@@ -161,6 +170,7 @@ assembly_homepage:
     defaults:  
         subject: 'AG' 
 
+        
 app_register:
     path: /REGISTER
     controller: App\Controller\RegistrationController::register
