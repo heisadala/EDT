@@ -4,7 +4,7 @@ namespace App\Controller\Especes;
 
 class UpdateCaisse {
 
-    function update_caisse($especes_tbl, $especesTableRepository, $especes, $i) {
+    function update_caisse($especes_tbl, $especesTableRepository, $especes) {
 
 
         $total                 = 0;

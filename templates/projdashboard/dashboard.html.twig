@@ -77,9 +77,14 @@
 {% endfor %}
         
 {% for entry in caisse_edt %}
-        {% set total_edt_caisse = total_edt_caisse + entry.cmontant %}
+        {% if entry.cmontant < 0 %}
+            {% set total_edt_debit = total_edt_debit + entry.montant %}
+        {% else %}
+            {% set total_edt_caisse = total_edt_caisse + entry.cmontant %}
+        {% endif %}
 {% endfor %}
 
+{# {{ dump(total_edt_caisse) }} #}
 
 {% set total_credit = total_don + total_edt_caisse + total_edt_credit %}
 {% set total_debit = global_montant + total_edt_debit %}
@@ -87,6 +92,7 @@
         
 {# {% set compte_titre_01_2024 = 3330.00 %} #}
 {% set compte_titre_01_2024 = year_table.titre_begin %}
+{% set compte_titre_now_2024 = year_table.titre_now %}
 {% set caisse_01_2024 = year_table.caisse_begin %}
 {% set caisse_now_2024 = year_table.caisse_now %}
 
@@ -100,11 +106,11 @@
 
 {% set credit_01_2024 = compte_titre_01_2024 + livret_01_2024 + caisse_01_2024 + compte_cheques_01_2024 %}
 
-{% set solde = credit_01_2024 - total_bilan  + caisse_now_2024 - caisse_01_2024 %}
 
 {# {% set compte_cheques_now_2024 = compte_cheques_01_2024 + credit - debit  %} #}
 {% set compte_cheques_now_2024 = year_table.cc_now  %}
 
+{% set solde = compte_titre_now_2024 + livret_now_2024  + caisse_now_2024 + compte_cheques_now_2024 %}
 
 
 <div class="container-fluid bg-body-secondary">
@@ -218,7 +224,7 @@
                     {% else %}
                         <td>Solde {{ "now"|date("d/m/Y") }} <br>
                     {% endif %}
-                    <small><i>Titre ({{ compte_titre_01_2024|number_format(2) }})<br>
+                    <small><i>Titre ({{ compte_titre_now_2024|number_format(2) }})<br>
                     Livret ({{ livret_now_2024|number_format(2) }})<br>
                     Caisse ({{ caisse_now_2024|number_format(2) }})<br>
                     CC ({{ compte_cheques_now_2024|number_format(2) }})<br>

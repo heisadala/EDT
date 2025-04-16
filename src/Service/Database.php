@@ -194,7 +194,7 @@ class Database
     public function update($conn, $table_name, $column_name, $value, $id_column, $id) {
         $sql_cmd = "UPDATE " . $table_name . " SET " . $column_name . " = " . $value 
                     . " WHERE " . $id_column . "=" . $id .";";
-        $res = $this->prepare_execute_and_fetch($conn, $sql_cmd);              
+        $this->prepare_execute_statement($conn, $sql_cmd);              
     }
 
 }

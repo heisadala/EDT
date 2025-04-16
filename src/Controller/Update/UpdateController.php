@@ -68,8 +68,10 @@ class UpdateController extends AbstractController
                 $especes_proj = $especesTableRepository->findBy(['projet_id' => $projets[$i]->getProjetId()]);
                 if ($especes_proj != []) {
                     for ($j=0; $j < count($especes_proj); $j++) {
+                        //
+                        // getMontantApres < getMontant, only outgoings -  no incomings
+                        //
                         $c_montant = $c_montant + $especes_proj[$j]->getMontant() - $especes_proj[$j]->getMontantApres();
-
                     }
                     $projets[$i]->setCMontant($c_montant);
                 }
@@ -140,11 +142,26 @@ class UpdateController extends AbstractController
                 $sql_cmd = 'UPDATE ' . $edt_table_name . ' SET ' . $column_value . ' WHERE edt_id=' . $edt[$i]->getEdtId() . ';';
                 $edtTableRepository->send_sql_update_cmd($sql_cmd);
             }
+            // ADHESION 140 from 2024, EDT_ID = 7
+            $edt = $edtTableRepository->findAll();
             if ($app_year == 2025) {
-                $column_value = 'montant=-140' ;
-                $sql_cmd = "UPDATE " . $edt_table_name . " SET montant=-140 WHERE edt_id=7;" ;
-                $edtTableRepository->send_sql_update_cmd($sql_cmd);
+                for ($i=1; $i < count($edt); $i++) {
+                    if ($edt[$i]->getEdtId() == 7) {
+                        $edt[$i]->setCMontant($edt[$i]->getCMontant());
+                        $edt[$i]->setMontant(-1*($edt[$i]->getCMontant()));
+
+                        $column_value = 'c_montant=' . $edt[$i]->getCMontant()
+                        . ', montant=' . $edt[$i]->getMontant()
+                        ;
+                        $sql_cmd = "UPDATE " . $edt_table_name . " SET " . $column_value . " WHERE edt_id=7;";
+                        $edtTableRepository->send_sql_update_cmd($sql_cmd);
+                    }
+                }
             }
+            //     $column_value = 'montant=-140' ;
+            //     $sql_cmd = "UPDATE " . $edt_table_name . " SET montant=-140 WHERE edt_id=7;" ;
+            //     $edtTableRepository->send_sql_update_cmd($sql_cmd);
+            // }
 
             // if ($app_year == 2025) dd( $edtTableRepository);
             // BILAN DONS
@@ -203,8 +220,11 @@ class UpdateController extends AbstractController
     // if ($app_year == 2025) dd( $edt);
             for ($i=1; $i < count($edt); $i++) {
                 if ($edt[$i]->getAffectation() == 'EDT_THEATRE') {
-                    $r_theatre += $edt[$i]->getCredit() + $edt[$i]->getCMontant();
-                    $d_theatre += $edt[$i]->getDebit();
+                    if ($edt[$i]->getCMontant() > 0) {
+                        $r_theatre += $edt[$i]->getCredit() + $edt[$i]->getCMontant();
+                    } else {
+                        $d_theatre += $edt[$i]->getDebit()  - $edt[$i]->getCMontant();
+                    }
                 }
                 if ($edt[$i]->getAffectation() == 'EDT_HANDIFFERENCE') {
                     $r_handifference += $edt[$i]->getCredit() + $edt[$i]->getCMontant();
