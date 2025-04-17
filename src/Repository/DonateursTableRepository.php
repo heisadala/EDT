@@ -40,7 +40,13 @@ class DonateursTableRepository extends ServiceEntityRepository
         $db = new Database;
         $db->send_sql_update_cmd($this->get_connection(), $sql_cmd);
     }
+    public function fetch_class_from_table_ordered ($table_name, $ordered_by, $sort_order)
+    {
+        $db = new Database;
+        return ($db->fetch_class_from_table_ordered($this->get_connection(), $table_name, 
+                                                    $ordered_by, $sort_order));
 
+    }
     //    /**
     //     * @return DonateursTable[] Returns an array of DonateursTable objects
     //     */

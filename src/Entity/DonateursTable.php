@@ -23,6 +23,8 @@ class DonateursTable
     #[ORM\Column(length:15)]
     private ?string $date = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $d_date = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2, nullable: true)]
     private ?string $montant = null;
@@ -75,6 +77,19 @@ class DonateursTable
 
         return $this;
     }
+
+    public function getDDate(): ?\DateTimeInterface
+    {
+        return $this->d_date;
+    }
+
+    public function setDDate(?\DateTimeInterface $d_date): static
+    {
+        $this->d_date = $d_date;
+
+        return $this;
+    }
+
     public function getMontant(): ?string
     {
         return $this->montant;
