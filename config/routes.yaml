@@ -146,6 +146,15 @@ bilan_homepage:
     requirements:
         year: '\d+'
 
+evolution_homepage:
+    path: /EVOLUTION/{year}
+    controller: App\Controller\Bilan\BilanController::evolution
+    defaults:  
+        year: 2024 
+        title: 'EVOLUTION'
+    requirements:
+        year: '\d+'
+
 
 cpt_table_add:
     path: /COMPTE/COURANT/ADD

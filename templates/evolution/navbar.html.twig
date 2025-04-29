@@ -1,0 +1,25 @@
+<div class='container-fluid justify-content-start {{ bg_color }}'>
+	<nav class="navbar navbar-expand-xl">
+		{% include ( "navbar_brand.html.twig" ) %}
+
+        <button 
+            class="navbar-toggler edt-navbar-toggler text-info" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarSupportedContent" 
+            aria-controls="navbarSupportedContent" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <div class="container-fluid">
+              <p class="text-dark edt-donateurs-titre">{{ navbar_title }}&nbsp;{{ year }}</li>
+        </div>
+        {% include ( "user_navbar.html.twig" ) %}
+      </div>
+	</nav>
+</div>
+

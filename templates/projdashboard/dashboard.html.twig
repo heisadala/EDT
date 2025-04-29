@@ -90,27 +90,22 @@
 {% set total_debit = global_montant + total_edt_debit %}
 {% set total_bilan = total_debit - total_credit %}
         
-{# {% set compte_titre_01_2024 = 3330.00 %} #}
-{% set compte_titre_01_2024 = year_table.titre_begin %}
-{% set compte_titre_now_2024 = year_table.titre_now %}
-{% set caisse_01_2024 = year_table.caisse_begin %}
-{% set caisse_now_2024 = year_table.caisse_now %}
+{% set compte_titre_begin_year = year_table.titre_begin %}
+{% set compte_titre_now_year = year_table.titre_now %}
+{% set caisse_begin_year = year_table.caisse_begin %}
+{% set caisse_now_year = year_table.caisse_now %}
 
-{# {% set livret_01_2024 = 33121.74 %} #}
-{% set livret_01_2024 = year_table.livret_begin %}
-{# {% set livret_now_2024 = livret_01_2024 - total_intern_credit +  total_intern_debit %} #}
-{% set livret_now_2024 = year_table.livret_now %}
-{# {% set compte_cheques_01_2024 = 11507.06 %} #}
-{% set compte_cheques_01_2024 = year_table.cc_begin %}
-{% set solde = 0.00 %}
+{% set livret_begin_year = year_table.livret_begin %}
+{% set livret_now_year = year_table.livret_now %}
+{% set compte_cheques_begin_year = year_table.cc_begin %}
+{% set compte_cheques_now_year = year_table.cc_now  %}
 
-{% set credit_01_2024 = compte_titre_01_2024 + livret_01_2024 + caisse_01_2024 + compte_cheques_01_2024 %}
+{% set credit_begin_year = 0.00 %}
+{% set solde_now_year = 0.00 %}
 
+{% set credit_begin_year = compte_titre_begin_year + livret_begin_year + caisse_begin_year + compte_cheques_begin_year %}
 
-{# {% set compte_cheques_now_2024 = compte_cheques_01_2024 + credit - debit  %} #}
-{% set compte_cheques_now_2024 = year_table.cc_now  %}
-
-{% set solde = compte_titre_now_2024 + livret_now_2024  + caisse_now_2024 + compte_cheques_now_2024 %}
+{% set solde_now_year = compte_titre_now_year + livret_now_year + caisse_now_year + compte_cheques_now_year %}
 
 
 <div class="container-fluid bg-body-secondary">
@@ -201,15 +196,15 @@
                 </thead>
                 <tbody class='table-group-divider'>
                     <tr >
-                        <td><small>Titre</td><td></td><td class='text-end'><small>{{ compte_titre_01_2024|number_format(2) }}</td></tr>
+                        <td><small>Titre</td><td></td><td class='text-end'><small>{{ compte_titre_begin_year|number_format(2) }}</td></tr>
                     <tr>    
-                        <td>Livret</td><td></td><td class='text-end'>{{ livret_01_2024|number_format(2) }}</td></tr>
+                        <td><small>Livret</td><td></td><td class='text-end'><small>{{ livret_begin_year|number_format(2) }}</td></tr>
                     <tr>
-                        <td>Caisse</td><td></td><td class='text-end'>{{ caisse_01_2024|number_format(2) }}</td></tr>
+                        <td><small>Caisse</td><td></td><td class='text-end'><small>{{ caisse_begin_year|number_format(2) }}</td></tr>
                     <tr>
-                        <td>CC</td><td></td><td class='text-end'>{{ compte_cheques_01_2024|number_format(2) }}</td></tr>
+                        <td><small>CC</td><td></td><td class='text-end'><small>{{ compte_cheques_begin_year|number_format(2) }}</td></tr>
                     <tr class='table-group-divider table-success'>    
-                        <td>Solde 01-01-{{ year }} </td><td></td><td class='text-end'>{{ credit_01_2024|number_format(2) }}</td></tr>
+                        <td>Solde 01-01-{{ year }} </td><td></td><td class='text-end'>{{ credit_begin_year|number_format(2) }}</td></tr>
 
                     <tr>
                         {% if total_bilan < 0 %}
@@ -224,11 +219,11 @@
                     {% else %}
                         <td>Solde {{ "now"|date("d/m/Y") }} <br>
                     {% endif %}
-                    <small><i>Titre ({{ compte_titre_now_2024|number_format(2) }})<br>
-                    Livret ({{ livret_now_2024|number_format(2) }})<br>
-                    Caisse ({{ caisse_now_2024|number_format(2) }})<br>
-                    CC ({{ compte_cheques_now_2024|number_format(2) }})<br>
-                    </td><td></td><td class='text-end text-success'><b>{{ solde|number_format(2) }}</b></td>
+                    <small><i>Titre ({{ compte_titre_now_year|number_format(2) }})<br>
+                    Livret ({{ livret_now_year|number_format(2) }})<br>
+                    Caisse ({{ caisse_now_year|number_format(2) }})<br>
+                    CC ({{ compte_cheques_now_year|number_format(2) }})<br>
+                    </td><td></td><td class='text-end text-success'><b>{{ solde_now_year|number_format(2) }}</b></td>
                  </tfoot>
             </table>
         </div>

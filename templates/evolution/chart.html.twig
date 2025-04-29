@@ -1,0 +1,50 @@
+<script src="{{ asset('js/chartFilter.js') }}"></script>
+{% for projet in projets %}
+    {% set projetInfo = {
+            year: projet.year,
+            month: projet.month,
+            day: projet.day,
+            credit: projet.credit,
+            debit: projet.debit,
+    } %}
+    <div data-projet-info='{{ projetInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
+{% endfor %}
+
+{% for donateur in donateurs %}
+    {% set donateurInfo = {
+            year: donateur.year,
+            month: donateur.month,
+            day: donateur.day,
+            credit: donateur.credit,
+            debit: donateur.debit,
+    } %}
+    <div data-donateur-info='{{ donateurInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
+{% endfor %}
+
+
+{% for edt in edts %}
+    {% set edtInfo = {
+            year: edt.year,
+            month: edt.month,
+            day: edt.day,
+            credit: edt.credit,
+            debit: edt.debit,
+    } %}
+    <div data-edt-info='{{ edtInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
+{% endfor %}
+
+{% for devis in projets_devis %}
+    {% set devisInfo = {
+            year: devis.year,
+            month: devis.month,
+            day: devis.day,
+            devis: devis.devis,
+    } %}
+    <div data-devis-info='{{ devisInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
+{% endfor %}
+
+ 
+<div class="ms-5" ><canvas id="chartAllYear"></canvas></div>
+
+
+<script type='module' src="{{ asset('js/edtEvolution.js') }}"></script>

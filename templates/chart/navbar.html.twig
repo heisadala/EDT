@@ -29,7 +29,7 @@
                         {% if year == '2024' %}
                         {% set other_year = year + 1 %}
                         {% endif %}
-                        <li><a class="dropdown-item edt-dropdown-item disabled" href='{{ path('cpt_chart_homepage', {'chartFilter' :'ALL', 'year' :  other_year }) }}'>{{ other_year }}</a>
+                        <li><a class="dropdown-item edt-dropdown-item" href='{{ path('cpt_chart_homepage', {'chartFilter' :'ALL', 'year' :  other_year }) }}'>{{ other_year }}</a>
                         </li>
                     </ul>
                 </li>

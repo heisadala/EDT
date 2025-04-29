@@ -115,11 +115,6 @@ class BilanTable
     private ?string $d_banque = null;
 
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getBilanId(): ?int
     {
         return $this->bilan_id;

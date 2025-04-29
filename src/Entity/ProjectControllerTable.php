@@ -19,6 +19,9 @@ class ProjectControllerTable
     #[ORM\Column(length: 20)]
     private ?string $tbl = null;
 
+    #[ORM\Column(length: 3, nullable: false)]
+    private ?int $tbl_id_start = 0;
+    
     #[ORM\Column(length: 20)]
     private ?string $icon = null;
 
@@ -65,7 +68,17 @@ class ProjectControllerTable
 
         return $this;
     }
+    public function getTblIdStart(): ?int
+    {
+        return $this->tbl_id_start;
+    }
 
+    public function setTblIdStart(?int $tbl_id_start): static
+    {
+        $this->tbl_id_start = $tbl_id_start;
+
+        return $this;
+    }
     public function getIcon(): ?string
     {
         return $this->icon;

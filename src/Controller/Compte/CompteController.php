@@ -123,18 +123,17 @@ class CompteController extends AbstractController
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
             'bg_color' => $controller->getBgColor(),
-            
+            'show_navbar' => true,
+            'show_chart' => true,
 
-                'header_image' => 'Trestel_2.jpg',
-                'show_navbar' => true,
-                'show_chart' => true,
                 'account' => $account,
                 'banks' => $banks,
                 'affectation' => $affectation,
                 'categories' => $categories,
                 'operations' => $operations,
-                'username' => $username,
-                'year' => $year,
+
+            'username' => $username,
+            'year' => $year,
 
         ]);
     }

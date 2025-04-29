@@ -42,14 +42,14 @@ class BilanTableRepository extends ServiceEntityRepository
         $db->send_sql_update_cmd($this->get_connection(), $sql_cmd);
     }
     
-    public function update_montant($table_name, $column_name, $value)
-    {
-        $db = new Database;
-        $db->update_bilan_montant($this->get_connection(), 
-                                $table_name, 
-                                $column_name, 
-                                $value);
-    }
+    // public function update_montant($table_name, $column_name, $value)
+    // {
+    //     $db = new Database;
+    //     $db->update_bilan_montant($this->get_connection(), 
+    //                             $table_name, 
+    //                             $column_name, 
+    //                             $value);
+    // }
     //    /**
     //     * @return BilanTable[] Returns an array of BilanTable objects
     //     */

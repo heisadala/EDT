@@ -5,7 +5,7 @@ export const CHART_COLORS = {
   rose: '#E0A1C0',
   green: '#BEE005',
   orange: '#95ADCF',
-  iceblue : '#E0617F',  
+  iceblue : '#0080FF',  
   red: '#DE803E',
   violet: '#CA76EE',
   gray: '#A8A8A8',
@@ -18,6 +18,14 @@ export const CHART_COLORS = {
   debit: '#DC4C64',
   credit: '#319731',
   balance: '#7779ED',
+
+  dons: '#BEE005',
+  projets: '#E0A1C0',
+  edt_credit: '#319731',
+  edt_debit: '#DC4C64',
+  solde: '#CA76EE',
+  devis: '#0080FF'
+  
 
 };
 

@@ -221,7 +221,9 @@ class ProjectController extends AbstractController
         $account =$courantTableRepository->findAll();
 
         $year_table = $yearTableRepository->findOneBy(['year_id' => $year]);
-
+//
+// COMPTE CHEQUES
+//
         $credit = 0;
         $debit = 0;
         $livret_interets_2024 = 828.65;
@@ -249,6 +251,9 @@ class ProjectController extends AbstractController
             $yearTableRepository->update($db_app . '.year_table', 'cc_now', $total, 'year_id', '2025' );
             $yearTableRepository->update($db_app . '.year_table', 'livret_now', $total_livret, 'year_id', '2025' );
         }
+//
+// ESPECES
+//
         $especes_table_name = $year . '_' . 'especes_table';
         $especesTableRepository->set_table_name($especes_table_name);
 
@@ -256,7 +261,9 @@ class ProjectController extends AbstractController
 
         $sql_cmd = "SELECT * FROM $especes_table_name WHERE donateur_id != 0 ORDER by donateur_id ASC;";
         $caisse_don = $especesTableRepository->send_sql_cmd($sql_cmd);
-
+//
+// EDT
+//
         $edt_table_name = $year . '_' . 'edt_table';
         $edtTableRepository->set_table_name($edt_table_name);
         $caisse_edt = $edtTableRepository->findAll();
@@ -270,7 +277,9 @@ class ProjectController extends AbstractController
         $sql_cmd = "SELECT affectation FROM $table_name WHERE affectation != 'EDT' GROUP BY affectation ORDER by affectation ASC;";
         $affectation = $projectTableRepository->send_sql_cmd($sql_cmd);
 
-
+//
+// PROJET
+//
         $selectlist = 'p.projet_id, p.etat_id, p_e.etat, p.projet, p.affectation, pr.name, pr.mail, p.d_date, 
         p.f_date, p.p_recu, p.p_sig, p.d_recu, p.d_sig, p.d_montant, 
         p.montant, p_e.bg_color, p_e.text_color' ;

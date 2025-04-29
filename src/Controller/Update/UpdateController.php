@@ -21,8 +21,11 @@ class UpdateController extends AbstractController
 
         $controller = $ctrlrepo->findOneBy(['name' => $name]);
         $table_name = $year . '_' . $controller->getTbl();
+        $table_id_start = $controller->getTblIdStart();
+        $id_upd = ($year - 2000)*1000;
+        $table_id_start = $id_upd + $table_id_start;
         $tblrepo->set_table_name($table_name);
-        return $table_name;
+        return [$table_name, $table_id_start];
     }
 
 
@@ -39,14 +42,16 @@ class UpdateController extends AbstractController
     {
         $year = $this->getParameter('app.year');
         for ($app_year=$year; $app_year < $year+2; $app_year++) {
+
+
         // $app_year = 2025;
 
-            $compte_table_name = $this->set_repo_tbl_name($app_year, 'COMPTE', $compteControllerTableRepository, $courantTableRepository);
-            $project_table_name = $this->set_repo_tbl_name($app_year, 'PROJECT', $projectControllerTableRepository, $projectTableRepository);
-            $especes_table_name = $this->set_repo_tbl_name($app_year, 'CAISSES', $compteControllerTableRepository, $especesTableRepository);
-            $edt_table_name = $this->set_repo_tbl_name($app_year, 'EDT', $compteControllerTableRepository, $edtTableRepository);
-            $donateur_table_name = $this->set_repo_tbl_name($app_year, 'DONATEURS', $controllerTableRepository, $donateursTableRepository);
-            $bilan_table_name = $this->set_repo_tbl_name($app_year, 'BILAN', $compteControllerTableRepository, $bilanTableRepository);
+            [$compte_table_name, $compte_id_start] = $this->set_repo_tbl_name($app_year, 'COMPTE', $compteControllerTableRepository, $courantTableRepository);
+            [$project_table_name, $project_id_start] = $this->set_repo_tbl_name($app_year, 'PROJECT', $projectControllerTableRepository, $projectTableRepository);
+            [$especes_table_name, $especes_id_start] = $this->set_repo_tbl_name($app_year, 'CAISSES', $compteControllerTableRepository, $especesTableRepository);
+            [$edt_table_name, $edt_id_start] = $this->set_repo_tbl_name($app_year, 'EDT', $compteControllerTableRepository, $edtTableRepository);
+            [$donateur_table_name, $donateur_id_start] = $this->set_repo_tbl_name($app_year, 'DONATEURS', $controllerTableRepository, $donateursTableRepository);
+            [$bilan_table_name, $bilan_id_start] = $this->set_repo_tbl_name($app_year, 'BILAN', $compteControllerTableRepository, $bilanTableRepository);
 
             // UPDATE CASH TABLE
 
@@ -192,15 +197,15 @@ class UpdateController extends AbstractController
                             . ', don_ecoles=' . $don_ecoles
                             . ', don_entreprises=' . $don_entreprises
                             ;
-            $sql_cmd = 'UPDATE ' . $bilan_table_name . ' SET ' . $column_value . ' WHERE bilan_id=1;';
+            // bilan_id
+            $sql_cmd = 'UPDATE ' . $bilan_table_name . ' SET ' . $column_value . ' WHERE bilan_id=' . $bilan_id_start . ';';
             $bilanTableRepository->send_sql_update_cmd($sql_cmd);
-
             // BILAN ADHESIONS
             $sql_cmd = "SELECT * FROM " . $edt_table_name . " WHERE affectation='EDT_ADHESIONS_" . $app_year . "';";
             $adherants = $edtTableRepository->send_sql_cmd($sql_cmd);
             $montant = $adherants[0]['montant'] * (-1);
             $column_value = 'adhesions=' . $montant;
-            $sql_cmd = 'UPDATE ' . $bilan_table_name . ' SET ' . $column_value . ' WHERE bilan_id=1;';
+            $sql_cmd = 'UPDATE ' . $bilan_table_name . ' SET ' . $column_value . ' WHERE bilan_id=' . $bilan_id_start . ';';
             $bilanTableRepository->send_sql_update_cmd($sql_cmd);
 
             // BILAN MANIFESTATIONS
@@ -259,7 +264,7 @@ class UpdateController extends AbstractController
                             . ', d_trail_estran=' . $d_trail_estran
                             . ', d_marche_noel=' . $d_marche_noel
                             ;
-            $sql_cmd = 'UPDATE ' . $bilan_table_name . ' SET ' . $column_value . ' WHERE bilan_id=1;';
+            $sql_cmd = 'UPDATE ' . $bilan_table_name . ' SET ' . $column_value . ' WHERE bilan_id=' . $bilan_id_start . ';';
             $bilanTableRepository->send_sql_update_cmd($sql_cmd);
 
             // BILAN FONCTIONNEMENT
@@ -293,7 +298,7 @@ class UpdateController extends AbstractController
                             . ', r_banque=' . $r_banque
                             . ', d_banque=' . $d_banque
                             ;
-            $sql_cmd = 'UPDATE ' . $bilan_table_name . ' SET ' . $column_value . ' WHERE bilan_id=1;';
+            $sql_cmd = 'UPDATE ' . $bilan_table_name . ' SET ' . $column_value . ' WHERE bilan_id=' . $bilan_id_start . ';';
             $bilanTableRepository->send_sql_update_cmd($sql_cmd);
 
             // BILAN PROJETS
@@ -344,7 +349,7 @@ class UpdateController extends AbstractController
                             . ', sesad=' . $sesad
                             . ', ue=' . $ue
                             ;
-            $sql_cmd = 'UPDATE ' . $bilan_table_name . ' SET ' . $column_value . ' WHERE bilan_id=1;';
+            $sql_cmd = 'UPDATE ' . $bilan_table_name . ' SET ' . $column_value . ' WHERE bilan_id=' . $bilan_id_start . ';';
             $bilanTableRepository->send_sql_update_cmd($sql_cmd);
 
             }
