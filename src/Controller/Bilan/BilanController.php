@@ -83,7 +83,7 @@ class BilanController extends AbstractController
         return $sql_cmd;     
     }
     private function get_day_table_from_project($table_name, $id){
-        $sql_cmd = "SELECT YEAR(`p_recu`) AS year, MONTH(`p_recu`) AS month, DAY(`p_recu`) AS day, SUM(`d_montant`) AS devis 
+        $sql_cmd = "SELECT YEAR(`p_recu`) AS year, MONTH(`p_recu`) AS month, DAY(`p_recu`) AS day, SUM(`d_montant`) AS devis, SUM(`d_montant`) AS devis
             FROM $table_name 
             WHERE $id<>0 
             GROUP BY YEAR(`p_recu`), MONTH(`p_recu`), DAY(`p_recu`);";
@@ -101,13 +101,13 @@ class BilanController extends AbstractController
 {
         
         $app = $title;
-        $year= 2025;
+        // $year= 2025;
+        $projets_devis = [];
 
         $controller = $controllerTableRepository->findOneBy(criteria: ['name' => $app]);
 
         $courant_table_name = $year . '_' . 'compte_cheques_table';
         $courantTableRepository->set_table_name($courant_table_name);
-        // $account = $courantTableRepository->findAll();
 
         $sql_cmd = $this->get_day_table_from_account($courant_table_name, 'projet_id');
         $projets_account = $courantTableRepository->send_sql_cmd($sql_cmd);
@@ -115,7 +115,7 @@ class BilanController extends AbstractController
         $donateurs_account = $courantTableRepository->send_sql_cmd($sql_cmd);
         $sql_cmd = $this->get_day_table_from_account($courant_table_name, 'edt_id');
         $edt_account = $courantTableRepository->send_sql_cmd($sql_cmd);
-        // dd($donateurs_account);
+        // dd($edt_account);
 
         $especes_table_name = $year . '_' . 'especes_table';
         $especesTableRepository->set_table_name($especes_table_name);
@@ -128,8 +128,8 @@ class BilanController extends AbstractController
 
         for ($i=0; $i<count($projets_especes); $i++){
             if ($projets_especes[$i]['credit'] < 0) {
-                $projets_especes[$i]['debit'] = -($projets_especes[$i]['credit']);
-                $projets_especes[$i]['credit'] = 0;
+                $projets_especes[$i]['debit'] = strval(-($projets_especes[$i]['credit']));
+                $projets_especes[$i]['credit'] = "0.00";
             }
         } 
         // dd($projets_especes);
@@ -139,16 +139,17 @@ class BilanController extends AbstractController
         $sql_cmd = $this->get_day_table_from_especes($especes_table_name, 'edt_id');
         $edt_especes = $especesTableRepository->send_sql_cmd($sql_cmd);
 
-        //dd($projets_especes);
+        // dd($projets_especes, $projets_account);
 
         for ($i=0; $i<count($edt_especes); $i++){
             if ($edt_especes[$i]['credit'] < 0) {
-                $edt_especes[$i]['debit'] = -($projets_especes[$i]['credit']);
-                $edt_especes[$i]['credit'] = 0;
+                $edt_especes[$i]['debit'] = strval(-($projets_especes[$i]['credit']));
+                $edt_especes[$i]['credit'] = "0.00";
             } else {
-                $edt_especes[$i]['debit'] = 0;
+                $edt_especes[$i]['debit'] = "0.00";
             }
         } 
+        // dd($edt_especes);
 
         $project_table_name = $year . '_' . 'project_table';
         $projectTableRepository->set_table_name($project_table_name);
@@ -158,13 +159,11 @@ class BilanController extends AbstractController
         $projets = array_merge($projets_account, $projets_especes);
         $donateurs = array_merge($donateurs_account, $donateurs_especes);
         $edts = array_merge($edt_account, $edt_especes);
-        // dd($projets);
-        // dd($donateurs);
-        // dd($edts);
+        // dd($projets_account, $projets_especes, $projets);
+        // dd($donateurs_account, $donateurs_especes, $donateurs);
+        // dd($edt_account, $edt_especes, $edts);
         // dd($projets_devis);
-
-
-
+        // dd($edts);
 
         $username = "";
         $role = "";

@@ -1,3 +1,4 @@
+
 export const CHART_COLORS = {
 
   yellow: '#FFF202',
@@ -48,6 +49,20 @@ export const NAMED_COLORS = [
   CHART_COLORS.gray,
 
 ];
+
+
+const COLORS = [
+  '#4dc9f6', // bleu clair
+  '#f67019', // Orange
+  '#f53794', // rose
+  '#537bc4', // blau
+  '#acc236', // vert clair
+  '#166a8f', // dunkelblau
+  '#00a950', // vert
+  '#58595b', // gris
+  '#8549ba'  // violet
+];
+
 
 // aqua: '#00FFFF',
 // chartreuse: '#7FFF00',

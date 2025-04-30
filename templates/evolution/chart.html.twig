@@ -1,4 +1,6 @@
 <script src="{{ asset('js/chartFilter.js') }}"></script>
+<p id='yearFilter' hidden>{{ year }}</p>
+
 {% for projet in projets %}
     {% set projetInfo = {
             year: projet.year,
@@ -43,8 +45,14 @@
     <div data-devis-info='{{ devisInfo|json_encode|replace({"'": "&#39;"})|raw }}'></div>
 {% endfor %}
 
- 
-<div class="ms-5" ><canvas id="chartAllYear"></canvas></div>
+<div class="container-fluid bg-body-secondary">
 
+    {# <div class='table-responsive-xl'>
+        <table  id='evolutionTable'>
+        </table>
+    </div> #}
+        
+    <div class="ms-5" ><canvas id="chartAllYear"></canvas></div>
 
+</div>
 <script type='module' src="{{ asset('js/edtEvolution.js') }}"></script>

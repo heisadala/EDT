@@ -13,26 +13,32 @@ $(document).ready(function () {
   var edt_month_debit_dataset = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   var solde_month_dataset = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   var devis_month_dataset = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  var debug = 1;
 
+  const yearFilter = document.getElementById("yearFilter").innerHTML;
+  console.log('yearFilter', yearFilter);
 
 // https://www.w3schools.com/cssref/css_colors.php
 
   const projetInfoElements = document.querySelectorAll('[data-projet-info]');
-  // console.log('ALL', projetInfoElements);
+  // console.log('projetInfoElements', projetInfoElements);
   const projetInfoObjects = Array.from(projetInfoElements).map(item => JSON.parse(item.dataset.projetInfo));
+  if (debug == 1) console.log('INPUT projetInfoObjects', projetInfoObjects);
 
   const donateurInfoElements = document.querySelectorAll('[data-donateur-info]');
   // console.log('ALL', projetInfoElements);
   const donateurInfoObjects = Array.from(donateurInfoElements).map(item => JSON.parse(item.dataset.donateurInfo));
-  
+  if (debug == 1) console.log('INPUT donateurInfoObjects', donateurInfoObjects);
+
   const edtInfoElements = document.querySelectorAll('[data-edt-info]');
-  // console.log('ALL', projetInfoElements);
+  // console.log('ALL', edtInfoElements);
   const edtInfoObjects = Array.from(edtInfoElements).map(item => JSON.parse(item.dataset.edtInfo));
-    
+  if (debug == 1) console.log('INPUT edtInfoObjects', edtInfoObjects);
+  
   const devisInfoElements = document.querySelectorAll('[data-devis-info]');
   // console.log('ALL', projetInfoElements);
   const devisInfoObjects = Array.from(devisInfoElements).map(item => JSON.parse(item.dataset.devisInfo));
-  console.log('INPUT devisInfoObjects', devisInfoObjects);
+  if (debug == 1)  console.log('INPUT devisInfoObjects', devisInfoObjects);
 
   const labels = months({count: 12});
 
@@ -40,59 +46,76 @@ $(document).ready(function () {
 
       projet_month_debit_dataset[projetInfoObjects[p].month-1] = projet_month_debit_dataset[projetInfoObjects[p].month-1] + 
                                                             Number(projetInfoObjects[p].debit)
-    // console.log (projetInfoObjects[p].debit);
   }
-  console.log ('projet_month_debit_dataset', projet_month_debit_dataset);
+  if (debug == 1)  console.log ('projet_month_debit_dataset', projet_month_debit_dataset);
 
 
   for (d=0; d < donateurInfoObjects.length; d++) {
 
     donateur_month_credit_dataset[donateurInfoObjects[d].month-1] = donateur_month_credit_dataset[donateurInfoObjects[d].month-1] + 
                                                           Number(donateurInfoObjects[d].credit)
-  // console.log (projetInfoObjects[p].debit);
    }
 
-  console.log ('donateur_month_credit_dataset', donateur_month_credit_dataset);
-
+   if (debug == 1)  console.log ('donateur_month_credit_dataset', donateur_month_credit_dataset);
 
   for (e=0; e < edtInfoObjects.length; e++) {
-    if (edtInfoObjects[e].year == 2024) {
-      edtInfoObjects[e].year = 2025;
+    if (edtInfoObjects[e].year == yearFilter-1) {
+      edtInfoObjects[e].year = yearFilter;
       edtInfoObjects[e].month = 1;
     }
+    if (edtInfoObjects[e].year == yearFilter+1) {
+      edtInfoObjects[e].year = yearFilter;
+      edtInfoObjects[e].month = 12;
+    }
+
     edt_month_credit_dataset[edtInfoObjects[e].month-1] = edt_month_credit_dataset[edtInfoObjects[e].month-1] + 
                                                           Number(edtInfoObjects[e].credit)
     edt_month_debit_dataset[edtInfoObjects[e].month-1] = edt_month_debit_dataset[edtInfoObjects[e].month-1] + 
                                                           Number(edtInfoObjects[e].debit)
-  // console.log (projetInfoObjects[p].debit);
   }
 
-  console.log ('edt_month_credit_dataset', edt_month_credit_dataset);
-  console.log ('edt_month_debit_dataset', edt_month_debit_dataset);
+  if (debug == 1)  console.log ('edt_month_credit_dataset', edt_month_credit_dataset);
+  if (debug == 1)  console.log ('edt_month_debit_dataset', edt_month_debit_dataset);
 
   for (s=0; s < solde_month_dataset.length; s++){
     solde_month_dataset[s] = solde_month_dataset[s] + edt_month_credit_dataset[s] + donateur_month_credit_dataset[s]
                                                     - edt_month_debit_dataset[s] - projet_month_debit_dataset[s];
     if (s > 0 ) {solde_month_dataset[s] = solde_month_dataset[s] + solde_month_dataset[s-1]}
   }
-  console.log ('devisInfoObjects', devisInfoObjects);
+  if (debug == 1)console.log ('devisInfoObjects', devisInfoObjects);
 
   for (d=0; d < devisInfoObjects.length; d++){
-    if (devisInfoObjects[d].year == 2024) {
-      devisInfoObjects[d].year = 2025;
+    if (devisInfoObjects[d].year == yearFilter-1) {
+      devisInfoObjects[d].year = yearFilter;
       devisInfoObjects[d].month = 1;
+    }    
+    if (devisInfoObjects[d].year == yearFilter+1) {
+      devisInfoObjects[d].year = yearFilter;
+      devisInfoObjects[d].month = 12;
     }
     devis_month_dataset[devisInfoObjects[d].month-1] = devis_month_dataset[devisInfoObjects[d].month-1] 
                                                      + Number(devisInfoObjects[d].devis) ;
   }
-  console.log('2025 devisInfoObjects', devisInfoObjects);
-  console.log ('2025 devis_month_dataset', devis_month_dataset);
+  if (debug == 1) console.log('devisInfoObjects', devisInfoObjects);
+  if (debug == 1) console.log ('2devis_month_dataset', devis_month_dataset);
 
+  devis_month_dataset[0] = devis_month_dataset[0] - projet_month_debit_dataset[0] 
   for (d=1; d < devis_month_dataset.length; d++)
     {devis_month_dataset[d] = devis_month_dataset[d] - projet_month_debit_dataset[d] + devis_month_dataset[d-1]}
-  console.log ('end devis_month_dataset', devis_month_dataset);
+  if (debug == 1) console.log ('end devis_month_dataset', devis_month_dataset);
 
 
+  // var toto = 0;
+  // if (document.getElementById('evolutionTable')) {
+  //   document.getElementById('evolutionTable').innerHTML = "<tr>"
+  //   document.getElementById('evolutionTable').innerHTML = "<tr>"
+  //   for (d=0; d < projet_month_debit_dataset.length; d++) {
+  //     toto = toto + Number(projet_month_debit_dataset[d]);
+  //     console.log ( toto)
+  //     document.getElementById('evolutionTable').innerHTML = "<td>" + toto + "</td>"
+  //   }
+  //   document.getElementById('evolutionTable').innerHTML = "</tr>"
+  // }
   // ************************************
   // DATASET EXAMPLE
   // ************************************
@@ -154,9 +177,8 @@ $(document).ready(function () {
     {
       label: 'edt_credit',
       data: edt_month_credit_dataset,
-      backgroundColor: [
-        CHART_COLORS.edt_credit,
-      ],
+      backgroundColor: CHART_COLORS.edt_credit,
+      // backgroundColor: transparentize(CHART_COLORS.edt_credit, 0.5),
       order: 2,
       stack: 'Stack 2',
     },
