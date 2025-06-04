@@ -1,5 +1,8 @@
 <script src="{{ asset('js/chartFilter.js') }}"></script>
+<script src="{{ asset('js/edtDateRange.js') }}"></script>
 <p id='yearFilter' hidden>{{ year }}</p>
+<p id='startDate' hidden>{{ startDate }}</p>
+<p id='endDate' hidden>{{ endDate }}</p>
 
 {% for projet in projets %}
     {% set projetInfo = {
@@ -51,8 +54,20 @@
         <table  id='evolutionTable'>
         </table>
     </div> #}
-        
+    <div class="row justify-content-evenly">
+        <div class="col-md-5"></div>
+        <div class="col-md-2" id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
+            <i class="bi bi-calendar"></i>&nbsp;
+            <span></span> 
+            <i class="bi bi-caret-down-fill"></i>
+        </div>       
+        <div class="col-md-5"></div>
+    </div>
+
     <div class="ms-5" ><canvas id="chartAllYear"></canvas></div>
+
 
 </div>
 <script type='module' src="{{ asset('js/edtEvolution.js') }}"></script>
+
+

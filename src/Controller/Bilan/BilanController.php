@@ -59,7 +59,7 @@ class BilanController extends AbstractController
         return $sql_cmd;     
     }
 
-        private function get_month_table_from_account($table_name, $id){
+    private function get_month_table_from_account($table_name, $id){
         $sql_cmd = "SELECT YEAR(`date`) AS year, MONTH(`date`) AS month, SUM(`debit`) AS debit, SUM(`credit`) AS credit 
             FROM $table_name 
             WHERE $id<>0 
@@ -115,7 +115,7 @@ class BilanController extends AbstractController
         $donateurs_account = $courantTableRepository->send_sql_cmd($sql_cmd);
         $sql_cmd = $this->get_day_table_from_account($courant_table_name, 'edt_id');
         $edt_account = $courantTableRepository->send_sql_cmd($sql_cmd);
-        // dd($edt_account);
+        // dd($projets_account);
 
         $especes_table_name = $year . '_' . 'especes_table';
         $especesTableRepository->set_table_name($especes_table_name);
@@ -163,7 +163,7 @@ class BilanController extends AbstractController
         // dd($donateurs_account, $donateurs_especes, $donateurs);
         // dd($edt_account, $edt_especes, $edts);
         // dd($projets_devis);
-        // dd($edts);
+        // dd($projets);
 
         $username = "";
         $role = "";
@@ -196,6 +196,8 @@ class BilanController extends AbstractController
             'edts' => $edts,        
             'donateurs' => $donateurs,
             'projets_devis' => $projets_devis,
+            'startDate' => '01/01/2025',
+            'endDate' => date('m/d/Y'),
 
             'year' => $year
 
