@@ -1,0 +1,85 @@
+<div class="container-fluid bg-body-secondary">
+
+    <div class='row justify-content-center m-3 p-2 text-success fs-3'>
+        CAISSE {{ year }} RANDO NATURE
+    </div>
+
+
+        {% for espece in especes %}
+            {% if loop.index0 == 0 %}
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-3 g-4 mt-2 justify-content-center">
+                    {# <div class="d-none edt-col-break edt-page-break">titi</div> #}
+                    <div class="col md-1" >
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <table class='table table-sm edt-euros-font'>
+                                    <thead>                                        
+                                       <tr class="table-danger"><th colspan="2">{{ "now"|date("d/m/Y") }}</th><th>{{ espece.caisse }}</th></tr>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-warning" ><td>Type</td><td>Nombres</td><td>Montant</td></tr>
+                                        <tr class="table-light" ><td>50</td><td>{{ espece.nombre_50_apres }}</td><td class='text-end'>{{ espece.montant_50_apres }}</td></tr>
+                                        <tr class="table-light" ><td>20</td><td>{{ espece.nombre_20_apres }}</td><td class='text-end'>{{ espece.montant_20_apres }}</td></tr>
+                                        <tr class="table-light" ><td>10</td><td>{{ espece.nombre_10_apres }}</td><td class='text-end'>{{ espece.montant_10_apres }}</td></tr>
+                                        <tr class="table-light" ><td>5</td><td>{{ espece.nombre_5_apres }}</td><td class='text-end'>{{ espece.montant_5_apres }}</td></tr>
+                                        <tr class="table-light" ><td>2</td><td>{{ espece.nombre_2_apres }}</td><td class='text-end'>{{ espece.montant_2_apres }}</td></tr>
+                                        <tr class="table-light" ><td>1</td><td>{{ espece.nombre_1_apres }}</td><td class='text-end'>{{ espece.montant_1_apres }}</td></tr>
+                                        <tr class="table-light" ><td>0.50</td><td>{{ espece.nombre_050_apres }}</td><td class='text-end'>{{ espece.montant_050_apres }}</td></tr>
+                                        <tr class="table-light" ><td>0.20</td><td>{{ espece.nombre_020_apres }}</td><td class='text-end'>{{ espece.montant_020_apres }}</td></tr>
+                                        <tr class="table-light" ><td>0.10</td><td>{{ espece.nombre_010_apres }}</td><td class='text-end'>{{ espece.montant_010_apres }}</td></tr>
+                                        <tr class="table-success" ><td>TOTAL</td><td></td><td class='text-end'>{{ espece.recette|number_format(2) }}</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="edt-back-to-top"><img class="img-fluid rounded-circle" src="{{ server_base }}/images/icon/orange-top-50.png"></a>
+                {# <div class="edt-page-break"></div> #}
+                <div style="page-break-before: always;" class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-3 g-4 mt-2 justify-content-center">
+
+            {% else %}
+                {% if loop.index0 % 2 == 0 %} 
+                    <div class="col md-1 edt-page-break">
+                {% else %}
+                    <div class="col md-1">
+                {% endif %}
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <table class='table table-responsive edt-euros-font'>
+                                <thead>
+                                <thead>                                        
+                                    <tr class="table-danger"><th colspan="2">{{ espece.date|date("d/m/Y") }}</th><th>{{ espece.manifestation }}</th><th>{{ espece.caisse }}</th><th></th></tr>
+
+                                </thead>                                    </thead>
+                                <tbody> 
+                                    <tr class="table-warning" ><td></td><td>Nb av</td><td class='text-end'>Montant av</td><td>Nb ap</td><td class='text-end'>Montant ap</td></tr>
+                                    <tr class="table-light" ><td>50</td><td>{{ espece.nombre_50 }}</td><td class='text-end'>{{ espece.montant_50 }}</td><td>{{ espece.nombre_50_apres }}</td><td class='text-end'>{{ espece.montant_50_apres }}</td></tr>
+                                    <tr class="table-light" ><td>20</td><td>{{ espece.nombre_20 }}</td><td class='text-end'>{{ espece.montant_20 }}</td><td>{{ espece.nombre_20_apres }}</td><td class='text-end'>{{ espece.montant_20_apres }}</td></tr>
+                                    <tr class="table-light" ><td>10</td><td>{{ espece.nombre_10 }}</td><td class='text-end'>{{ espece.montant_10 }}</td><td>{{ espece.nombre_10_apres }}</td><td class='text-end'>{{ espece.montant_10_apres }}</td></tr>
+                                    <tr class="table-light" ><td>5</td><td>{{ espece.nombre_5 }}</td><td class='text-end'>{{ espece.montant_5 }}</td><td>{{ espece.nombre_5_apres }}</td><td class='text-end'>{{ espece.montant_5_apres }}</td></tr>
+                                    <tr class="table-light" ><td>2</td><td>{{ espece.nombre_2 }}</td><td class='text-end'>{{ espece.montant_2 }}</td><td>{{ espece.nombre_2_apres }}</td><td class='text-end'>{{ espece.montant_2_apres }}</td></tr>
+                                    <tr class="table-light" ><td>1</td><td>{{ espece.nombre_1 }}</td><td class='text-end'>{{ espece.montant_1 }}</td><td>{{ espece.nombre_1_apres }}</td><td class='text-end'>{{ espece.montant_1_apres }}</td></tr>
+                                    <tr class="table-light" ><td>0.50</td><td>{{ espece.nombre_050 }}</td><td class='text-end'>{{ espece.montant_050 }}</td><td>{{ espece.nombre_050_apres }}</td><td class='text-end'>{{ espece.montant_050_apres }}</td></tr>
+                                    <tr class="table-light" ><td>0.20</td><td>{{ espece.nombre_020 }}</td><td class='text-end'>{{ espece.montant_020 }}</td><td>{{ espece.nombre_020_apres }}</td><td class='text-end'>{{ espece.montant_020_apres }}</td></tr>
+                                    <tr class="table-light" ><td>0.10</td><td>{{ espece.nombre_010 }}</td><td class='text-end'>{{ espece.montant_010 }}</td><td>{{ espece.nombre_010_apres }}</td><td class='text-end'>{{ espece.montant_010_apres }}</td></tr>
+                                    <tr class="table-success" ><td>TOTAL</td><td></td><td class='text-end'>{{ espece.montant|number_format(2) }}</td><td></td><td class='text-end'>{{ espece.montant_apres|number_format(2) }}</td></tr>
+                                    <tr class="table-light" ><td>CHEQUES</td><td></td><td></td><td></td><td class='text-end'>{{ espece.cheques|number_format(2) }}</td></tr>
+                                    <tr class="table-light" ><td>TPE</td><td></td><td></td><td></td><td class='text-end'>{{ espece.tpe|number_format(2) }}</td></tr>
+                                    <tr class="table-success" ><td>RECETTE</td><td></td><td></td><td></td><td class='text-end'>{{ espece.recette|number_format(2) }}</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class='row justify-content-between m-0' 
+        style='height: 1rem;'>
+    </div>        
+</div>
+<script type='module' src="{{ asset('js/top.js') }}"></script>

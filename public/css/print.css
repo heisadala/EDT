@@ -4,3 +4,7 @@
       .edt-page-break {
         page-break-after: always;
       };
+      .edt-col-break {
+        break-before: column;
+
+      };
