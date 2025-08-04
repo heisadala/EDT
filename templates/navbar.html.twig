@@ -146,7 +146,7 @@
 {# Projets           #}
 {# ----------------- #}
 
-        {% if username is defined and username != '' %}
+        {% if username is defined and username != ''  and role != 'ROLE_GUEST' %}
           <li class="nav-item dropdown edt-projects-dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href=''
                 role="button" aria-expanded="false">Projets</a>

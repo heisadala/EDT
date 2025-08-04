@@ -52,7 +52,12 @@ class AdminAuthenticator extends AbstractLoginFormAuthenticator
         // For example:
         // return new RedirectResponse($this->urlGenerator->generate('some_route'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-        return new RedirectResponse($this->urlGenerator->generate('homepage'));
+        $username = $request->request->get('username', '');
+        if ($username == "Rando Nature") {
+            return new RedirectResponse($this->urlGenerator->generate('rn_especes_homepage'));
+        } else {
+            return new RedirectResponse($this->urlGenerator->generate('homepage'));
+        }
 
     }
 

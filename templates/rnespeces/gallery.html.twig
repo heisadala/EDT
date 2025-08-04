@@ -1,7 +1,19 @@
-<div class="container-fluid bg-body-secondary">
 
+{% set recette = 0 %}
+{% for espece in especes %}
+    {% if loop.index0 == 0 %}
+        {% set caisse_av = espece.montant %}
+    {% else %}
+        {% set recette = recette + espece.recette %}
+    {% endif %}
+{% endfor %}
+<div class="container-fluid bg-body-white">
+
+    <div class='row justify-content-center m-3 p-2 text-info fs-3'>
+        CAISSE {{ year }} RANDO NATURE 
+    </div>    
     <div class='row justify-content-center m-3 p-2 text-success fs-3'>
-        CAISSE {{ year }} RANDO NATURE
+        RECETTE {{ recette|number_format(2) }} EUROS
     </div>
 
 
