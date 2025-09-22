@@ -40,6 +40,16 @@ theatre_homepage:
     requirements:
         year: '\d+'
 
+noel_homepage:
+    path: /NOEL/{year}
+    controller: App\Controller\Noel\NoelController::index
+    defaults:  
+        year: 2025
+        title: 'NOEL'
+    requirements:
+        year: '\d+'
+
+
 christmas_homepage:
     path: /CHRISTMAS/{year}
     controller: App\Controller\Christmas\ChristmasController::index
