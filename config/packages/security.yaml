@@ -40,6 +40,7 @@ security:
         - { path: ^/COMPTE, roles: [ROLE_USER, ROLE_ADMIN] }
         - { path: ^/PROJECT, roles: [ROLE_USER, ROLE_ADMIN] }
         - { path: ^/ESPECES, roles: [ROLE_USER, ROLE_ADMIN] }
+        - { path: ^/NOEL/2025, roles: [ROLE_USER, ROLE_ADMIN] }
         - { path: ^/RNESPECES, roles: [ROLE_GUEST, ROLE_ADMIN] }
         - { path: ^/register, roles: ROLE_ADMIN }
 when@test:
