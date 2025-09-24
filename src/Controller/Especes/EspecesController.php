@@ -33,6 +33,7 @@ class EspecesController extends AbstractController
         $db_app = $_SERVER['DATABASE_APP_NAME'];
         $especes_tbl = $year . '_especes_table';
         $especes_tbl_2025 = '2025_especes_table';
+        $especes_tbl_2026 = '2026_especes_table';
 
         $especesTableRepository->set_table_name($especes_tbl);
         $especes = $especesTableRepository->findAll();
@@ -70,7 +71,12 @@ class EspecesController extends AbstractController
             // $yearTableRepository->update($db_app . '.year_table', 'caisse_now', $especes[0]->getRecette(), 'year_id', '2025' );
         }
         if ($year == '2025') {
+            $updateCaisse2025->update_caisse_2025($especes_tbl_2026, $especesTableRepository, $especes, $i);
             $yearTableRepository->update($db_app . '.year_table', 'caisse_now', $especes[0]->getRecette(), 'year_id', '2025' );
+            $yearTableRepository->update($db_app . '.year_table', 'caisse_now', $especes[0]->getRecette(), 'year_id', '2026' );
+        }
+        if ($year == '2026') {
+            $yearTableRepository->update($db_app . '.year_table', 'caisse_now', $especes[0]->getRecette(), 'year_id', '2026' );
         }
         $selectlist = 'e.especes_id, ma.nom AS manifestation, ca.nom AS caisse, e.date,
                         e.nombre_50, e.montant_50, e.nombre_20, e.montant_20, 

@@ -579,6 +579,12 @@ body {
 .edt-asso-dropdown-menu > li:hover > .edt-2024-asso-dropdown-menu {
   display: block;
   left: 100%;
+  top: 25%;
+}
+
+.edt-asso-dropdown-menu > li:hover > .edt-2025-asso-dropdown-menu {
+  display: block;
+  left: 100%;
   top: 50%;
 }
 

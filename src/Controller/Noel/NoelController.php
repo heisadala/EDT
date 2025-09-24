@@ -16,7 +16,6 @@ final class NoelController extends AbstractController
     {
         // PUBLIC_PROJETS
         $app = $title;
-        $year = 2024;
 
         $controller_column_name = $this->getParameter('app.controller_column_name');
 
@@ -27,7 +26,7 @@ final class NoelController extends AbstractController
  
         $db_common = $_SERVER['DATABASE_COMMON_NAME'];
 
-        $selectlist = 'e.nom, e.artisanat' ;
+        $selectlist = 'e.nom, e.artisanat, e.fb, e.insta, e.url, e.img, e.nouveau' ;
         
         $from_table = $table_name . ' m';
         $join_table = [ 
@@ -54,9 +53,10 @@ final class NoelController extends AbstractController
             'show_gallery' => true,
 
             'exposants' => $exposants,
+            'year' => $year,        
+
 /* 
             'etats' => $etats,
-            'year' => $year,        
             'closed_projets_total' => $closed_projets_total,
             'nb_closed_projets' => $nb_closed_projets,        
             'unknown_projets_total' => $unknown_projets_total,
