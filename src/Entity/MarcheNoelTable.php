@@ -18,7 +18,10 @@ class MarcheNoelTable
     private ?int $salle_id = null;
 
     #[ORM\Column]
-    private ?int $numTable = null;
+    private ?int $table = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $inscription = null;
 
     #[ORM\Column]
     private ?int $exposant_id = null;
@@ -26,29 +29,48 @@ class MarcheNoelTable
     #[ORM\Column]
     private ?int $metres = null;
 
+
+    #[ORM\Column]
+    private ?int $metres_conf = null;
+
     #[ORM\Column]
     private ?int $grille = null;
+
+    #[ORM\Column]
+    private ?int $grille_conf = null;
+
 
     #[ORM\Column(length: 3)]
     private ?string $electricite = null;
 
+    
+    #[ORM\Column(length: 3)]
+    private ?string $elec_conf = null;
+
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
     private ?string $tarif = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
+    private ?string $tarif_conf = null;
 
     #[ORM\Column]
     private ?int $reglt_salle_id = null;
 
     #[ORM\Column]
-    private ?int $repas_1 = null;
+    private ?int $patate = null;
 
     #[ORM\Column]
-    private ?int $repas_2 = null;
+    private ?int $brandade = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
     private ?string $prix = null;
 
     #[ORM\Column]
     private ?int $reglt_repas_id = null;
+
+        
+    #[ORM\Column(length: 100)]
+    private ?string $commentaire = null;
 
     public function getId(): ?int
     {
@@ -67,14 +89,14 @@ class MarcheNoelTable
         return $this;
     }
 
-    public function getNumTable(): ?string
+    public function geTable(): ?int
     {
-        return $this->numTable;
+        return $this->table;
     }
 
-    public function setNumTable(string $numTable): static
+    public function setTable(int $table): static
     {
-        $this->numTable = $numTable;
+        $this->table = $table;
 
         return $this;
     }
@@ -103,6 +125,19 @@ class MarcheNoelTable
         return $this;
     }
 
+    public function getMetresConf(): ?int
+    {
+        return $this->metres_conf;
+    }
+
+    public function setMetresConf(int $metres_conf): static
+    {
+        $this->metres_conf = $metres_conf;
+
+        return $this;
+    }
+
+
     public function getGrille(): ?int
     {
         return $this->grille;
@@ -111,6 +146,19 @@ class MarcheNoelTable
     public function setGrille(int $grille): static
     {
         $this->grille = $grille;
+
+        return $this;
+    }
+
+
+    public function getGrilleConf(): ?int
+    {
+        return $this->grille_conf;
+    }
+
+    public function setGrilleConf(int $grille_conf): static
+    {
+        $this->grille_conf = $grille_conf;
 
         return $this;
     }
@@ -127,6 +175,20 @@ class MarcheNoelTable
         return $this;
     }
 
+    
+    public function getElecConf(): ?string
+    {
+        return $this->elec_conf;
+    }
+
+    public function setElecConf(string $elec_conf): static
+    {
+        $this->elec_conf = $elec_conf;
+
+        return $this;
+    }
+
+
     public function getTarif(): ?string
     {
         return $this->tarif;
@@ -138,6 +200,20 @@ class MarcheNoelTable
 
         return $this;
     }
+
+
+    public function getTarifConf(): ?string
+    {
+        return $this->tarif_conf;
+    }
+
+    public function setTarifConf(string $tarif_conf): static
+    {
+        $this->tarif_conf = $tarif_conf;
+
+        return $this;
+    }
+
 
     public function getRegltSalleId(): ?int
     {
@@ -151,26 +227,26 @@ class MarcheNoelTable
         return $this;
     }
 
-    public function getRepas1(): ?int
+    public function getPatate(): ?int
     {
-        return $this->repas_1;
+        return $this->patate;
     }
 
-    public function setRepas1(int $repas_1): static
+    public function setPatate(int $patate): static
     {
-        $this->repas_1 = $repas_1;
+        $this->patate = $patate;
 
         return $this;
     }
 
-    public function getRepas2(): ?int
+    public function getBrandade(): ?int
     {
-        return $this->repas_2;
+        return $this->brandade;
     }
 
-    public function setRepas2(int $repas_2): static
+    public function setRepas2(int $brandade): static
     {
-        $this->repas_2 = $repas_2;
+        $this->brandade = $brandade;
 
         return $this;
     }
@@ -198,4 +274,18 @@ class MarcheNoelTable
 
         return $this;
     }
+
+    
+    public function getCommentaire(): ?string
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(string $commentaire): static
+    {
+        $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
 }

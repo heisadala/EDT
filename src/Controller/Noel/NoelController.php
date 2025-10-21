@@ -26,7 +26,7 @@ final class NoelController extends AbstractController
  
         $db_common = $_SERVER['DATABASE_COMMON_NAME'];
 
-        $selectlist = 'e.nom, e.artisanat, e.fb, e.insta, e.url, e.img, e.nouveau' ;
+        $selectlist = 'e.nom, e.artisanat, e.fb, e.insta, e.url, e.img, e.nouveau, m.table' ;
         
         $from_table = $table_name . ' m';
         $join_table = [ 
