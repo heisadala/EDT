@@ -11,6 +11,7 @@ use App\Repository\CompteControllerTableRepository;
 use App\Repository\CompteChequesTableRepository;
 use App\Repository\DonateursTableRepository;
 use App\Repository\EspecesTableRepository;
+use App\Repository\DonProjTableRepository;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 class DonateursController extends AbstractController
@@ -21,6 +22,7 @@ class DonateursController extends AbstractController
                             CompteControllerTableRepository $compteControllerTableRepository,
                             CompteChequesTableRepository $courantTableRepository,
                             EspecesTableRepository $especesTableRepository,
+                            DonProjTableRepository $donprojTableRepository,
                             DonateursTableRepository $donateursTableRepository): Response
     {
         // DONATEURS
@@ -81,7 +83,28 @@ class DonateursController extends AbstractController
         $sort_order = 'ASC';
         $donateurs = $donateursTableRepository->fetch_class_from_table_ordered($table_name,
                                                                                     $sort, $sort_order);
+        $donprojs = [];
+        if ($year == '2025') {
+            $table_name = $year . '_' . 'donproj_table';
+            $donprojTableRepository->set_table_name($table_name);
+            $donprojs = $donprojTableRepository->findAll();
 
+            $selectlist = 'dp.donateur_id, p1.projet AS p1_project, p1.affectation AS p1_affectation, 
+                            p2.projet AS p2_project, p2.affectation AS p2_affectation' ;
+            
+            $from_table = $table_name . ' dp';
+            $join_table = [ 
+                            ['2025_project_table p1', 'dp.p1', 'p1.projet_id'],
+                            ['2026_project_table p2', 'dp.p2', 'p2.projet_id'],
+                        ];
+            $sql_cmd = "SELECT " . $selectlist . 
+                        " FROM " . $from_table . 
+                        " JOIN " . $join_table[0][0] . " ON " .  $join_table[0][1] . " = " . $join_table[0][2] .
+                        " JOIN " . $join_table[1][0] . " ON " .  $join_table[1][1] . " = " . $join_table[1][2] 
+                        ;
+
+            $donprojs = $donprojTableRepository->send_sql_cmd($sql_cmd);
+        }
         return $this->render('index.html.twig', [
             'controller_name' => $title . 'Controller',
             'server_base' => $_SERVER['BASE'],
@@ -98,6 +121,7 @@ class DonateursController extends AbstractController
 
             'donateurs' => $donateurs,
             'dons_total' => $dons_total,
+            'donprojs' => $donprojs,
         ]);
     }
 }

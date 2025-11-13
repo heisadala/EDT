@@ -3,7 +3,7 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4 mt-2 justify-content-center">
         {% for donateur in donateurs %}
             {% if loop.index0 > 0 %}
-                    <div class="col md-1">
+                    <div class="col md-1 d-flex align-items-stretch">
                         <div class="card text-center">
                             <img src="{{ server_base }}/donateurs/{{ year }}/{{ donateur.image }}" 
                                 class="card-img-top" alt="{{ donateur.nom }}">
@@ -25,6 +25,18 @@
                                     <tbody>
                                         <tr class="table-light" ><td>Montant</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ donateur.montant }} Euros</td></tr>
                                         <tr class="table-light" ><td>Date</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ donateur.date }}</td></tr>
+
+                                        {% for donproj in donprojs %}
+                                           {% if donateur.donateur_id == donproj.donateur_id %}
+                                                {% if donproj.p1_project != NULL %}
+                                                    <tr class="table-success" ><td>Projet financé 2025</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ donproj.p1_project }}</td></tr>
+                                                    <tr class="table-warning" ><td>Structure</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ donproj.p1_affectation }}</td></tr>
+                                                {% elseif donproj.p2_project != NULL %}
+                                                    <tr class="table-success" ><td>Projet financé 2026</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ donproj.p2_project }}</td></tr>
+                                                    <tr class="table-warning" ><td>Structure</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ donproj.p2_affectation }}</td></tr>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
                                     </tbody>
                                 </table>
                                 {% if donateur.url != NULL %}

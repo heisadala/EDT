@@ -244,7 +244,7 @@ class MarcheNoelTable
         return $this->brandade;
     }
 
-    public function setRepas2(int $brandade): static
+    public function setBrandade(int $brandade): static
     {
         $this->brandade = $brandade;
 

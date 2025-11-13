@@ -204,4 +204,120 @@ class BilanController extends AbstractController
         ]);
     }
 
+
+
+        public function evolution_dons (int $year, string $title,
+                                ControllerTableRepository $controllerTableRepository,
+                                CompteChequesTableRepository $courantTableRepository,
+                                EspecesTableRepository $especesTableRepository,
+
+                                ProjectTableRepository $projectTableRepository,
+                                EdtTableRepository $edtTableRepository,
+                                DonateursTableRepository $donateursTableRepository
+                            ): Response
+{
+        
+        $app = $title;
+        // $year= 2025;
+        $projets_devis = [];
+
+        $controller = $controllerTableRepository->findOneBy(criteria: ['name' => $app]);
+
+        $courant_table_name = $year . '_' . 'compte_cheques_table';
+        $courantTableRepository->set_table_name($courant_table_name);
+
+        $sql_cmd = $this->get_day_table_from_account($courant_table_name, 'projet_id');
+        $projets_account = $courantTableRepository->send_sql_cmd($sql_cmd);
+        $sql_cmd = $this->get_day_table_from_account($courant_table_name, 'donateur_id');
+        $donateurs_account = $courantTableRepository->send_sql_cmd($sql_cmd);
+        $sql_cmd = $this->get_day_table_from_account($courant_table_name, 'edt_id');
+        $edt_account = $courantTableRepository->send_sql_cmd($sql_cmd);
+        // dd($projets_account);
+
+        $especes_table_name = $year . '_' . 'especes_table';
+        $especesTableRepository->set_table_name($especes_table_name);
+        // $especes = $especesTableRepository->findAll();
+
+        $sql_cmd = $this->get_day_table_from_especes($especes_table_name, 'projet_id');
+        $projets_especes = $especesTableRepository->send_sql_cmd($sql_cmd);
+
+        //dd($projets_especes);
+
+        for ($i=0; $i<count($projets_especes); $i++){
+            if ($projets_especes[$i]['credit'] < 0) {
+                $projets_especes[$i]['debit'] = strval(-($projets_especes[$i]['credit']));
+                $projets_especes[$i]['credit'] = "0.00";
+            }
+        } 
+        // dd($projets_especes);
+        $sql_cmd = $this->get_day_table_from_especes($especes_table_name, 'donateur_id');
+        $donateurs_especes = $especesTableRepository->send_sql_cmd($sql_cmd);
+        // dd($donateurs_especes);
+        $sql_cmd = $this->get_day_table_from_especes($especes_table_name, 'edt_id');
+        $edt_especes = $especesTableRepository->send_sql_cmd($sql_cmd);
+
+        // dd($projets_especes, $projets_account);
+
+        for ($i=0; $i<count($edt_especes); $i++){
+            if ($edt_especes[$i]['credit'] < 0) {
+                $edt_especes[$i]['debit'] = strval(-($projets_especes[$i]['credit']));
+                $edt_especes[$i]['credit'] = "0.00";
+            } else {
+                $edt_especes[$i]['debit'] = "0.00";
+            }
+        } 
+        // dd($edt_especes);
+
+        $project_table_name = $year . '_' . 'project_table';
+        $projectTableRepository->set_table_name($project_table_name);
+        $sql_cmd = $this->get_day_table_from_project($project_table_name, 'affectation_id');
+        $projets_devis = $projectTableRepository->send_sql_cmd($sql_cmd);
+
+        $projets = array_merge($projets_account, $projets_especes);
+        $donateurs = array_merge($donateurs_account, $donateurs_especes);
+        $edts = array_merge($edt_account, $edt_especes);
+        // dd($projets_account, $projets_especes, $projets);
+        // dd($donateurs_account, $donateurs_especes, $donateurs);
+        // dd($edt_account, $edt_especes, $edts);
+        // dd($projets_devis);
+        // dd($projets);
+
+        $username = "";
+        $role = "";
+        if ($this->getUser()) {
+            $username = $this->getUser()->getUsername();
+            $role = ($this->getUser()->getRoles())[0];
+        }
+        $title = ucfirst(strtolower($app));
+            $show_dashboard = true;
+            $title = "Bilan";           
+        
+        return $this->render('index.html.twig', [
+            'controller_name' => $title . 'Controller',
+            'server_base' => $_SERVER['BASE'],
+            'meta_index' => 'noindex',
+            'header_title' => $controller->getHeaderTitle(),
+            'navbar_title' => $controller->getNavbarTitle(),
+            'shortcut_icon' => $controller->getIcon(),
+            'db' => $controller->getName(),
+            'bg_color' => $controller->getBgColor(),
+
+            'show_navbar' => true,
+            'show_chart' => true,
+
+            'username' => $username,
+            'role' => $role,       
+
+//            'account' => $account,
+            'projets' => $projets,
+            'edts' => $edts,        
+            'donateurs' => $donateurs,
+            'projets_devis' => $projets_devis,
+            'startDate' => '01/01/2025',
+            'endDate' => date('m/d/Y'),
+
+            'year' => $year
+
+        ]);
+    }
 }
