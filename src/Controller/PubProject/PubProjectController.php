@@ -55,12 +55,13 @@ class PubProjectController extends AbstractController
 
         $db_common = $_SERVER['DATABASE_COMMON_NAME'];
 
-        $selectlist = 'p.projet_id, p.etat_id, p_e.etat, p.projet, p.affectation, pr.name, pr.url, pr.mail, p.d_date, 
+        $selectlist = 'p.projet_id, p.etat_id, p_e.etat, p.projet, p.affectation, d.nom, pr.name, pr.url, pr.mail, p.d_date, 
         p.f_date, p.p_recu, p.p_sig, p.d_recu, p.d_sig, p.d_montant, 
         p.montant, p_e.bg_color, p_e.text_color' ;
         
         $from_table = $table_name . ' p';
         $join_table = [ 
+                        [$year . '_donateurs_table d', 'p.donateur_id', 'd.donateur_id'],
                         [$db_common . '.prestataire_table pr', 'p.prestataire_id', 'pr.prestataire_id'],
                         [$db_common . '.etat_table p_e', 'p.etat_id', 'p_e.etat_id'],
                     ];
@@ -68,6 +69,7 @@ class PubProjectController extends AbstractController
                     " FROM " . $from_table . 
                     " JOIN " . $join_table[0][0] . " ON " .  $join_table[0][1] . " = " . $join_table[0][2] .
                     " JOIN " . $join_table[1][0] . " ON " .  $join_table[1][1] . " = " . $join_table[1][2] .
+                    " JOIN " . $join_table[2][0] . " ON " .  $join_table[2][1] . " = " . $join_table[2][2] .
                     " ORDER BY p.projet_id ASC";
 
         $projets = $projectTableRepository->send_sql_cmd($sql_cmd);

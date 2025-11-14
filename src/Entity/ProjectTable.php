@@ -23,6 +23,12 @@ class ProjectTable
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $affectation = null;
 
+    #[ORM\Column(length: 5, nullable: false)]
+    private ?int $affectation_id = null;
+ 
+    #[ORM\Column(length: 5, nullable: false)]
+    private ?int $donateur_id = null;
+    
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $d_date = null;
 
@@ -94,6 +100,31 @@ class ProjectTable
     public function setAffectation(?string $affectation): static
     {
         $this->affectation = $affectation;
+
+        return $this;
+    }
+
+    
+    public function getAffectationId(): ?int
+    {
+        return $this->affectation_id;
+    }
+
+    public function setAffectationId(int $affectation_id): static
+    {
+        $this->affectation_id = $affectation_id;
+
+        return $this;
+    }
+
+    public function getDonateurId(): ?int
+    {
+        return $this->donateur_id;
+    }
+
+    public function setDonateurId(int $donateur_id): static
+    {
+        $this->donateur_id = $donateur_id;
 
         return $this;
     }

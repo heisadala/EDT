@@ -7,18 +7,18 @@
         style='height: 1rem;'>
     </div>      
 
-    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 g-4 mt-2 justify-content-center">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4 mt-2 justify-content-center">
         {% for projet in projets %}
             {% if loop.index0 > 0 %}
                 {# cloturé or pas de fiche #}
                 {% if projet.etat_id == 1 or projet.etat_id == 4 %}
                     {% set etatFilterIndex = etatFilterIndex + 1 %}
                     {% if etatFilterIndex % 4 == 0 %}
-                        <div class="col md-1 edt-page-break"> 
+                        <div class="col md-1 d-flex align-items-stretch edt-page-break"> 
                     {% else %}
-                        <div class="col md-1" >
+                        <div class="col md-1 d-flex align-items-stretch" >
                     {% endif %}
-                       <div class="card " >
+                       <div class='card ' style='width:22rem;'>
                             <div class="card-header bg-success-subtle d-flex align-items-center justify-content-between" style='height:  3rem'>
                                 {{ projet.projet }} 
                             </div>
@@ -40,6 +40,9 @@
                                         <td>{{ projet.montant|round }} Euros
                                         </td>
                                     </tr>
+                                    {% if projet.nom != NULL %}
+                                    <tr class="table-warning"><td>Donateur</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.nom }}</td></tr>
+                                    {% endif %}
                                 </tbody>
                             </table>
                             </div>
