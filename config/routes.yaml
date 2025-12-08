@@ -50,6 +50,16 @@ noel_homepage:
         year: '\d+'
 
 
+noel_trestel_homepage:
+    path: /NOEL_TRESTEL/{year}
+    controller: App\Controller\Noel\NoelController::trestel
+    defaults:  
+        year: 2025
+        title: 'NOEL_TRESTEL'
+    requirements:
+        year: '\d+'
+
+
 christmas_homepage:
     path: /CHRISTMAS/{year}
     controller: App\Controller\Christmas\ChristmasController::index
