@@ -18,7 +18,11 @@
       </li>
     </ul>      
       <div class="container-fluid">
-          <p class="text-secondary text-center edt-asso-titre">{{ navbar_title }} 17 DEC {{ year }} <br> Exposants à Trestel</p>
+              {% if year == '2025' %}
+                <p class="text-secondary text-center edt-asso-titre">{{ navbar_title }} 17 DEC {{ year }} <br> Exposants à Trestel</p>
+              {% else %}
+                <p class="text-secondary text-center edt-asso-titre">{{ navbar_title }} 18 DEC {{ year }} <br> Exposants à Trestel</p>
+        {% endif %}
       </div>
   </nav>
 </div>
