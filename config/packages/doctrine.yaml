@@ -33,7 +33,7 @@ when@prod:
     doctrine:
         orm:
             # update symfony 8 auto_generate_proxy_classes: false
-            proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+            # update symfony 8 proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
             query_cache_driver:
                 type: pool
                 pool: doctrine.system_cache_pool
