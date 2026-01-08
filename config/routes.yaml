@@ -73,7 +73,7 @@ donateurs_homepage:
     path: /DONATEURS/{year}
     controller: App\Controller\Donateurs\DonateursController::index
     defaults:  
-        year: 2024
+        year: 2025
         title: 'DONATEURS'
     requirements:
         year: '\d+'
@@ -82,7 +82,7 @@ public_projects:
     path: /PUBLIC_PROJECTS/{year}
     controller: App\Controller\PubProject\PubProjectController::index
     defaults:  
-        year: 2024
+        year: 2025
         title: 'PUBLIC_PROJECTS'
     requirements:
         year: '\d+'
@@ -92,7 +92,7 @@ project_homepage:
     controller: App\Controller\Project\ProjectController::index
     defaults:  
         etatFilter: 'ALL' 
-        year: 2024
+        year: 2025
         title: 'PROJECT'
     requirements:
         year: '\d+'
@@ -101,7 +101,7 @@ project_affectation:
     path: /PROJECTAFF/{year}/{structureFilter}/{etatFilter}
     controller: App\Controller\Project\ProjectController::affectation
     defaults:  
-        year: 2024
+        year: 2025
         structureFilter: 'ESTRAN' 
         etatFilter: 'ALL' 
         title: 'PROJAFFECTATION'
@@ -112,7 +112,7 @@ project_dashboard:
     path: /PROJECTDASH/{year}
     controller: App\Controller\Project\ProjectController::dashboard
     defaults:  
-        year: 2024
+        year: 2025
         title: 'PROJDASHBOARD'
     requirements:
         year: '\d+'
@@ -121,7 +121,7 @@ cpt_table_homepage:
     path: /COMPTE/TABLE/{year}/{viewFormat}/{rowNumbers}
     controller: App\Controller\Compte\CompteController::table
     defaults:  
-        year: 2024 
+        year: 2025 
         viewFormat: 'table' 
         rowNumbers: 10 
         title: 'TABLE'
@@ -132,7 +132,7 @@ cpt_chart_homepage:
     path: /COMPTE/CHART/{year}/{chartFilter}
     controller: App\Controller\Compte\CompteController::chart
     defaults:  
-        year: 2024 
+        year: 2025 
         chartFilter: 'ALL' 
         title: 'CHART'
     requirements:
@@ -142,7 +142,7 @@ affectation_homepage:
     path: /COMPTE/CHART/AFFECTATION/{year}/{affectationFilter}
     controller: App\Controller\Compte\CompteController::affectation
     defaults:  
-        year: 2024 
+        year: 2025 
         affectationFilter: 'EDT' 
         title: 'AFFECTATION'
     requirements:
@@ -152,7 +152,7 @@ especes_homepage:
     path: /ESPECES/{year}
     controller: App\Controller\Especes\EspecesController::index
     defaults:  
-        year: 2024 
+        year: 2025 
         title: 'ESPECES'
     requirements:
         year: '\d+'
@@ -172,7 +172,7 @@ bilan_homepage:
     path: /BILAN/{year}
     controller: App\Controller\Bilan\BilanController::index
     defaults:  
-        year: 2024 
+        year: 2025 
         title: 'BILAN'
     requirements:
         year: '\d+'
@@ -181,7 +181,7 @@ evolution_homepage:
     path: /EVOLUTION/{year}
     controller: App\Controller\Bilan\BilanController::evolution
     defaults:  
-        year: 2024 
+        year: 2025 
         title: 'EVOLUTION'
     requirements:
         year: '\d+'
