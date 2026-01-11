@@ -43,6 +43,8 @@ class CompteController extends AbstractController
     {
         // TABLE
         $app = $title;
+        $homepage = 'cpt_' . strtolower($title) . "_homepage";
+
         $controller = $compteControllerTableRepository->findOneBy(['name' => $app]);
 
         $table_name = $year . '_' . $controller->getTbl();
@@ -75,6 +77,7 @@ class CompteController extends AbstractController
             'navbar_title' => $controller->getNavbarTitle(),
             'shortcut_icon' => $controller->getIcon(),
             'bg_color' => $controller->getBgColor(),
+            'homepage' => $homepage,
 
             'show_navbar' => true,
             'show_table' => true,
@@ -100,6 +103,7 @@ class CompteController extends AbstractController
     {
 
         $app = $title;
+        $homepage = 'chart_' . strtolower($title) . "_homepage";
         $controller = $compteControllerTableRepository->findOneBy(['name' => $app]);
         $table_name = $year . '_' . $controller->getTbl();
         $courantTableRepository->set_table_name($table_name);
@@ -123,6 +127,8 @@ class CompteController extends AbstractController
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
             'bg_color' => $controller->getBgColor(),
+            'homepage' => $homepage,
+
             'show_navbar' => true,
             'show_chart' => true,
 

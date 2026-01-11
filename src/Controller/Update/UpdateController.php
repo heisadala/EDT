@@ -41,7 +41,8 @@ class UpdateController extends AbstractController
                             ProjectTableRepository $projectTableRepository): Response
     {
         $year = $this->getParameter('app.year');
-        for ($app_year=$year; $app_year < $year+2; $app_year++) {
+        $homepage = strtolower($title) . "_homepage";
+        for ($app_year=$year; $app_year < $year+3; $app_year++) {
 
 
         // $app_year = 2025;
@@ -163,6 +164,22 @@ class UpdateController extends AbstractController
                     }
                 }
             }
+
+            if ($app_year == 2026) {
+                for ($i=1; $i < count($edt); $i++) {
+                    if ($edt[$i]->getEdtId() == 2) {
+                        $edt[$i]->setCMontant($edt[$i]->getCMontant());
+                        $edt[$i]->setMontant(-1*($edt[$i]->getCMontant()));
+
+                        $column_value = 'c_montant=' . $edt[$i]->getCMontant()
+                        . ', montant=' . $edt[$i]->getMontant()
+                        ;
+                        $sql_cmd = "UPDATE " . $edt_table_name . " SET " . $column_value . " WHERE edt_id=2;";
+                        $edtTableRepository->send_sql_update_cmd($sql_cmd);
+                    }
+                }
+            }
+
             //     $column_value = 'montant=-140' ;
             //     $sql_cmd = "UPDATE " . $edt_table_name . " SET montant=-140 WHERE edt_id=7;" ;
             //     $edtTableRepository->send_sql_update_cmd($sql_cmd);
@@ -390,6 +407,7 @@ class UpdateController extends AbstractController
                 'shortcut_icon' => $controller->getIcon(),
                 'bg_color' => $controller->getBgColor(),
                 'year' => $app_year,
+                'homepage' => $homepage,
                 
                 'show_navbar' => true,
                 'show_cards' => true,

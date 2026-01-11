@@ -12,6 +12,7 @@ final class TheatreController extends AbstractController
                             ControllerTableRepository $controllerTableRepository): Response
     {
         $app = $title;
+        $homepage = strtolower($title) . "_homepage";
         $controller = $controllerTableRepository->findOneBy(['name' => $app]);
 
         return $this->render('index.html.twig', [
@@ -22,6 +23,7 @@ final class TheatreController extends AbstractController
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
             'bg_color' => $controller->getBgColor(),
+            'homepage' => $homepage,
             
             'navbar_title' => $controller->getNavbarTitle(),
             'year' => $year,

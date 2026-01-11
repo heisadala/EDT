@@ -9,19 +9,18 @@
           role="button" 
           aria-expanded="false">{{ year }}
         </a>
-        {% if year == '2024' %}
-          {% include ( "ul_2024_year_dropdown.twig" ) %}
-        {% elseif year == '2025' %}
-          {% include ( "ul_2025_year_dropdown.twig" ) %}
-        {% endif %}
+          {% include ( "ul_year_dropdown.twig" ) %}
+
 
       </li>
     </ul>      
       <div class="container-fluid">
-        {% if year == '2025' %}
-            <p class="text-secondary text-center edt-asso-titre">{{ navbar_title }} 22/23 NOV {{ year }} <br> Exposants à Trévou-Tréguinnec</p>
-        {% else %}
+        {% if year == '2024' %}
             <p class="text-secondary text-center edt-asso-titre">{{ navbar_title }} 23/24 NOV {{ year }} <br> Exposants à Trélévern</p>
+        {% elseif year == '2025'  %}
+            <p class="text-secondary text-center edt-asso-titre">{{ navbar_title }} 22/23 NOV {{ year }} <br> Exposants à Trévou-Tréguinnec</p>
+        {% elseif year == '2026'  %}
+            <p class="text-secondary text-center edt-asso-titre">{{ navbar_title }} 21/22 NOV {{ year }} <br> Exposants à Trélévern</p>
         {% endif %}
       </div>
   </nav>

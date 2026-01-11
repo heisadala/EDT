@@ -12,13 +12,15 @@
           role="button" 
           aria-expanded="false">{{ year }}
         </a>
-        <ul class="dropdown-menu edt-dropdown-menu">
+          {% include ( "ul_year_dropdown.twig" ) %}
+
+{#         <ul class="dropdown-menu edt-dropdown-menu">
           {% set other_year = '2024' %}
           {% if year == '2024' %}
           {% set other_year = year + 1 %}
           {% endif %}
           <li><a class="dropdown-item edt-dropdown-item" href='{{ path('public_projects') }}/{{ other_year }}'>{{ other_year }}</a></li>
-        </ul>
+        </ul> #}
       </li>
     </ul>
       <div class="container-fluid">

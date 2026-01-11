@@ -78,7 +78,7 @@ donateurs_homepage:
     requirements:
         year: '\d+'
 
-public_projects:
+public_projects_homepage:
     path: /PUBLIC_PROJECTS/{year}
     controller: App\Controller\PubProject\PubProjectController::index
     defaults:  

@@ -12,7 +12,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse border border-3 border-white border-solid" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
 {# ----------------- #}
@@ -107,6 +107,36 @@
                 </li>
               </ul>
             </li>
+
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              {% include ( "a_2026_dropdown.html.twig" ) %}
+              <ul class="dropdown-menu edt-2026-asso-dropdown-menu">
+
+                <li>
+                  <a class="dropdown-item edt-dropdown-item disabled" 
+                      href='{{ server_base }}/ag/PV_AG_11_04_2025.pdf'>
+                    <img src="{{ server_base }}/images/icon/danger-pdf-32.png">
+                    AG 27 MARS (PV)
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('noel_homepage') }}/2025'>
+                    <img src="{{ server_base }}/images/icon/color-christmas-32.png">
+                    MARCHÉ DE NOËL TRELEVERN 21 et 22 NOVEMBRE 
+                  </a>
+                </li>
+               <li><hr class="dropdown-divider"></li>
+                 <li>
+                  <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('noel_trestel_homepage') }}/2026'>
+                    <img src="{{ server_base }}/images/icon/color-christmas-32.png">
+                    MARCHÉ DE NOËL TRESTEL 16 DECEMBRE 
+                  </a>
+                </li>
+              </ul>
+            </li>
+
 {#             <li><hr class="dropdown-divider"></li>
             <li>
               {% include ( "a_2026_dropdown.html.twig" ) %}
@@ -152,7 +182,7 @@
                 </li> 
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                  <a class="dropdown-item edt-dropdown-item " href='{{ path('public_projects') }}/2024'>
+                  <a class="dropdown-item edt-dropdown-item " href='{{ path('public_projects_homepage') }}/2024'>
                     <img src="{{ server_base }}/images/icon/danger-project-32.png">
                     PROJETS
                   </a>
@@ -170,16 +200,16 @@
                 </li> 
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                  <a class="dropdown-item edt-dropdown-item " href='{{ path('public_projects') }}/2025'>
+                  <a class="dropdown-item edt-dropdown-item " href='{{ path('public_projects_homepage') }}/2025'>
                     <img src="{{ server_base }}/images/icon/danger-project-32.png">
                     PROJETS
                   </a>
                 </li>
               </ul>
             </li>
-{#             <li>
-              {% include ( "a_2026_dropdown_disabled.html.twig" ) %}
-              <ul class="dropdown-menu edt-2025-finance-dropdown-menu">
+            <li>
+              {% include ( "a_2026_dropdown.html.twig" ) %}
+              <ul class="dropdown-menu edt-2026-finance-dropdown-menu">
                 <li>
                   <a class="dropdown-item edt-dropdown-item " href='{{ path('donateurs_homepage') }}/2026'>
                     <img src="{{ server_base }}/images/icon/danger-charity-32.png">
@@ -188,13 +218,13 @@
                 </li> 
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                  <a class="dropdown-item edt-dropdown-item " href='{{ path('public_projects') }}/2026'>
+                  <a class="dropdown-item edt-dropdown-item " href='{{ path('public_projects_homepage') }}/2026'>
                     <img src="{{ server_base }}/images/icon/danger-project-32.png">
                     PROJETS
                   </a>
                 </li>
               </ul>
-            </li> #}
+            </li>
           </ul>
         </li>
 
@@ -266,9 +296,9 @@
                   {% endfor %}
                  </ul>
               </li>
-{#               <li>
-                {% include ( "a_2026_dropdown_disabled.html.twig" ) %}
-                <ul class="dropdown-menu edt-2025-projects-dropdown-menu">
+              <li>
+                {% include ( "a_2026_dropdown.html.twig" ) %}
+                <ul class="dropdown-menu edt-2026-projects-dropdown-menu">
                   <li>
                     <a class="dropdown-item edt-dropdown-item" href='{{ path('project_homepage') }}/2026'>
                       <img src="{{ server_base }}/images/icon/danger-project-16.png">
@@ -286,7 +316,7 @@
                   {% endfor %}
                  </ul>
               </li>
- #}            </ul>
+            </ul>
           </li>
 
 {# ----------------- #}
@@ -297,7 +327,7 @@
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href=''
                 role="button" aria-expanded="false">Compte</a>
             <ul class="dropdown-menu edt-compte-dropdown-menu">
-              <li>
+{#               <li>
                 {% include ( "a_2023_dropdown_disabled.html.twig" ) %}
                 <ul class="dropdown-menu edt-2023-compte-dropdown-menu">
                   <li>
@@ -322,7 +352,7 @@
                   </li>
 
                 </ul>
-              </li>
+              </li> #}
               <li>
                 {% include ( "a_2024_dropdown.html.twig" ) %}
                 <ul class="dropdown-menu edt-2024-compte-dropdown-menu">
@@ -415,10 +445,10 @@
                   </li>
                 </ul>
               </li>
-{#               <li>
-                {% include ( "a_2026_dropdown_disabled.html.twig" ) %}
+              <li>
+                {% include ( "a_2026_dropdown.html.twig" ) %}
 
-                <ul class="dropdown-menu edt-2025-compte-dropdown-menu">
+                <ul class="dropdown-menu edt-2026-compte-dropdown-menu">
                   <li>
                     <a class="dropdown-item edt-dropdown-item" href='{{ path('cpt_table_homepage', {'year' :  '2026' }) }}'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
@@ -439,13 +469,13 @@
                       Bilan
                     </a>
                   </li>
-                  <li>
+{#                   <li>
                     <a class="dropdown-item edt-dropdown-item disabled" href='{{ path('cpt_chart_homepage', {'chartFilter' :'ALL', 'year' :  '2025' }) }}'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pie-chart-fill" viewBox="0 0 16 16">
                         <path d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778zM8.5.015V7.5h7.485A8 8 0 0 0 8.5.015"/>
                       </svg>Graphique
                     </a>
-                  </li>
+                  </li> #}
 
                   <li>
                     <a class="dropdown-item edt-dropdown-item" href='{{ path('especes_homepage') }}/2026'>
@@ -458,7 +488,7 @@
                     </a>
                   </li>
                 </ul>
-              </li> #}
+              </li>
             </ul>
           </li>
         {% endif %}

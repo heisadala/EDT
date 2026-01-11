@@ -27,6 +27,7 @@ class EspecesController extends AbstractController
                             ): Response
     {
         $app = $title;
+        $homepage = strtolower($title) . "_homepage";
         $controller = $controllerTableRepository->findOneBy(['name' => $app]);
 
         $db_common = $_SERVER['DATABASE_COMMON_NAME'];
@@ -68,6 +69,7 @@ class EspecesController extends AbstractController
             $updateCaisse2025->update_caisse_2025($especes_tbl_2025, $especesTableRepository, $especes, $i);
             $yearTableRepository->update($db_app . '.year_table', 'caisse_now', $especes[0]->getRecette(), 'year_id', '2024' );
             $yearTableRepository->update($db_app . '.year_table', 'caisse_begin', $especes[0]->getRecette(), 'year_id', '2025' );
+            $yearTableRepository->update($db_app . '.year_table', 'caisse_begin', $especes[0]->getRecette(), 'year_id', '2026' );
             // $yearTableRepository->update($db_app . '.year_table', 'caisse_now', $especes[0]->getRecette(), 'year_id', '2025' );
         }
         if ($year == '2025') {
@@ -134,6 +136,7 @@ class EspecesController extends AbstractController
             'navbar_title' => $controller->getNavbarTitle(),
             'shortcut_icon' => $controller->getIcon(),
             'bg_color' => $controller->getBgColor(),
+            'homepage' => $homepage,
             
             'show_navbar' => true,
             'show_gallery' => true,

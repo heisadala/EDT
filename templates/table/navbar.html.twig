@@ -11,21 +11,18 @@
 	<nav class="navbar navbar-expand-lg">
 		{% include ( "navbar_brand.html.twig" ) %}
 
+    <div class="collapse navbar-collapse border border-3 border-white border-solid" id="navbarSupportedContent">
+
         <ul class="navbar-nav">
           <li class="dropdown">
-            <a class="nav-link dropdown-toggle text-center text-dark bg-white rounded mx-2 my-1" 
+            <a class="nav-link dropdown-toggle " 
               data-bs-toggle="dropdown" 
               href=''
               role="button" 
               aria-expanded="false">{{ year }}
             </a>
-            <ul class="dropdown-menu edt-dropdown-menu">
-              {% set other_year = '2024' %}
-              {% if year == '2024' %}
-              {% set other_year = year + 1 %}
-              {% endif %}
-              <li><a class="dropdown-item edt-dropdown-item" href='{{ path('cpt_table_homepage', {'year' :  other_year  }) }}'>{{ other_year }}</a></li>
-            </ul>
+          {% include ( "ul_year_dropdown.twig" ) %}
+
           </li>
 
                 {% include ( "li_dashboard.html.twig" ) with { 'year' : year, 'filter' : 'DASH' }  %}
@@ -46,6 +43,7 @@
 
 		{% include ( "user_navbar.html.twig" ) %}
 		</div>
+    </div>
 
 
 	</nav>

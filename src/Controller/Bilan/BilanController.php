@@ -23,6 +23,7 @@ class BilanController extends AbstractController
                         ): Response
     {
         
+        $homepage = strtolower($title) . "_homepage";
         $controller = $compteControllerTableRepository->findOneBy(criteria: ['name' => $title]);
         $bilan_table_name = $year . '_' . 'bilan_table';
         $bilanTableRepository->set_table_name($bilan_table_name);
@@ -41,6 +42,7 @@ class BilanController extends AbstractController
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
             'bg_color' => $controller->getBgColor(),
+            'homepage' =>$homepage,
 
             'show_navbar' => true,
             'show_table' => true,
@@ -218,7 +220,7 @@ class BilanController extends AbstractController
 {
         
         $app = $title;
-        // $year= 2025;
+        $homepage = strtolower($title) . "_homepage";
         $projets_devis = [];
 
         $controller = $controllerTableRepository->findOneBy(criteria: ['name' => $app]);
@@ -301,6 +303,7 @@ class BilanController extends AbstractController
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
             'bg_color' => $controller->getBgColor(),
+            'homepage' => $homepage,
 
             'show_navbar' => true,
             'show_chart' => true,

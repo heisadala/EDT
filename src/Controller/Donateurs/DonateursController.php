@@ -27,6 +27,7 @@ class DonateursController extends AbstractController
     {
         // DONATEURS
         $app = $title;
+        $homepage = strtolower($title) . "_homepage";
         $controller_column_name = $this->getParameter('app.controller_column_name');
 
         $controller = $controllerTableRepository->findOneBy([$controller_column_name => $app]);
@@ -115,7 +116,8 @@ class DonateursController extends AbstractController
             'shortcut_icon' => $controller->getIcon(),
             'bg_color' => $controller->getBgColor(),
             'year' => $year,
-
+            'homepage' => $homepage,
+            
             'show_navbar' => true,
             'show_gallery' => true,
 

@@ -35,6 +35,7 @@ class ProjectController extends AbstractController
                             EtatTableRepository $etatTableRepository
                         ): Response
     {
+        $homepage = strtolower($title) . "_homepage";
         $db_common = $_SERVER['DATABASE_COMMON_NAME'];
         $controller = $projectControllerTableRepository->findOneBy(criteria: ['name' => $title]);
 
@@ -88,6 +89,7 @@ class ProjectController extends AbstractController
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
             'bg_color' => $controller->getBgColor(),
+            'homepage' => $homepage,
 
             'show_navbar' => true,
             'show_gallery' => $show_gallery,
@@ -205,6 +207,7 @@ class ProjectController extends AbstractController
                         ): Response
     {
         $app = $title;
+        $homepage = 'project_dashboard';
         $db_common = $_SERVER['DATABASE_COMMON_NAME'];
         $db_app = $_SERVER['DATABASE_APP_NAME'];
 
@@ -250,6 +253,12 @@ class ProjectController extends AbstractController
         if ($year == '2025') {
             $yearTableRepository->update($db_app . '.year_table', 'cc_now', $total, 'year_id', '2025' );
             $yearTableRepository->update($db_app . '.year_table', 'livret_now', $total_livret, 'year_id', '2025' );
+            $yearTableRepository->update($db_app . '.year_table', 'cc_begin', $total, 'year_id', '2026' );
+            $yearTableRepository->update($db_app . '.year_table', 'livret_begin', $total_livret, 'year_id', '2026' );
+        }
+        if ($year == '2026') {
+            $yearTableRepository->update($db_app . '.year_table', 'cc_begin', $total, 'year_id', '2026' );
+            $yearTableRepository->update($db_app . '.year_table', 'livret_begin', $total_livret, 'year_id', '2026' );
         }
 //
 // ESPECES
@@ -319,6 +328,7 @@ class ProjectController extends AbstractController
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
             'bg_color' => $controller->getBgColor(),
+            'homepage' => $homepage,
 
             'show_navbar' => true,
             'show_dashboard' => $show_dashboard,

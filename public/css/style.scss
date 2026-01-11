@@ -93,7 +93,7 @@ body {
 .edt-navbar-container
 {
     // background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
-    background: var(--bs-success-bg-subtle);
+    background: var(--bs-secondary-bg-subtle);
 }
 .edt-user-navbar-container
 {
@@ -101,19 +101,19 @@ body {
 }
 .nav-item:hover
 {
-    background-color: var(--bs-success-bg-subtle);
+    background-color: var(--bs-secondary-bg-subtle);
 }
 .nav-link {
-    color: var(--bs-success);
+    color: var(--bs-secondary);
     font-size: 1rem;
 }
 .nav-link:hover
 {
-    color: var(--bs-success);
+    color: var(--bs-secondary);
 }
 .nav-link:visited
 {
-    color: var(--bs-success);
+    color: var(--bs-secondary);
 }
 
 .edt-dropdown:hover .edt-dropdown-menu {
@@ -131,7 +131,7 @@ body {
     margin-bottom: 30px;
     border-radius: 6px;
     color: rgba(0, 0, 0, 0.87);
-    background: #fff;
+    background: linear-gradient(60deg, #ffa726, #f57c00);
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
@@ -223,13 +223,19 @@ body {
  .edt-compte-dropdown-menu > li:hover > .edt-2024-compte-dropdown-menu {
     display: block;
     left: 100%;
-    top: 29%
+    top: 0%
  }
 
  .edt-compte-dropdown-menu > li:hover > .edt-2025-compte-dropdown-menu {
     display: block;
     left: 100%;
-    top: 60%
+    top: 30%
+ }
+
+ .edt-compte-dropdown-menu > li:hover > .edt-2026-compte-dropdown-menu {
+    display: block;
+    left: 100%;
+    top: 65%
  }
 // ////////////
 // ASSO DROPDOWN
@@ -250,6 +256,11 @@ body {
     left: 100%;
     top: 50%
  }
+ .edt-asso-dropdown-menu > li:hover > .edt-2026-asso-dropdown-menu {
+    display: block;
+    left: 100%;
+    top: 75%
+ }
 
 // ////////////
 // FINANCE DROPDOWN
@@ -268,7 +279,12 @@ body {
  .edt-finance-dropdown-menu > li:hover > .edt-2025-finance-dropdown-menu {
     display: block;
     left: 100%;
-    top: 50%
+    top: 35%
+ } 
+ .edt-finance-dropdown-menu > li:hover > .edt-2026-finance-dropdown-menu {
+    display: block;
+    left: 100%;
+    top: 65%
  }
 
 // ////////////
@@ -289,10 +305,15 @@ body {
  .edt-projects-dropdown-menu > li:hover > .edt-2025-projects-dropdown-menu {
     display: block;
     left: 100%;
-    top: 50%
+    top: 30%
  }
 
 
+ .edt-projects-dropdown-menu > li:hover > .edt-2026-projects-dropdown-menu {
+    display: block;
+    left: 100%;
+    top: 65%
+ }
 
  .edt-dropdown-item {
     font-size: 1rem;
@@ -335,9 +356,9 @@ body {
         padding-right: .25rem;
         margin-bottom: .25rem;
         margin-right: .5rem;
-        box-shadow: var(--bs-box-shadow);
-        border-radius: 1rem;
-        background-color:snow ;
+        // box-shadow: var(--bs-box-shadow);
+        // border-radius: 1rem;
+        // background-color:snow ;
      }
     
 

@@ -9,19 +9,18 @@
           role="button" 
           aria-expanded="false">{{ year }}
         </a>
-        {% if year == '2024' %}
-          {% include ( "ul_2024_trestel_year_dropdown.twig" ) %}
-        {% elseif year == '2025' %}
-          {% include ( "ul_2025_trestel_year_dropdown.twig" ) %}
-        {% endif %}
+          {% include ( "ul_year_dropdown.twig" ) %}
+
 
       </li>
     </ul>      
       <div class="container-fluid">
-              {% if year == '2025' %}
-                <p class="text-secondary text-center edt-asso-titre">{{ navbar_title }} 17 DEC {{ year }} <br> Exposants à Trestel</p>
-              {% else %}
+              {% if year == '2024' %}
                 <p class="text-secondary text-center edt-asso-titre">{{ navbar_title }} 18 DEC {{ year }} <br> Exposants à Trestel</p>
+              {% elseif year == '2025' %}
+                <p class="text-secondary text-center edt-asso-titre">{{ navbar_title }} 17 DEC {{ year }} <br> Exposants à Trestel</p>
+              {% elseif year == '2026' %}
+                <p class="text-secondary text-center edt-asso-titre">{{ navbar_title }} 16 DEC {{ year }} <br> Exposants à Trestel</p>
         {% endif %}
       </div>
   </nav>

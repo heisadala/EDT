@@ -14,6 +14,7 @@ class AssoController extends AbstractController
     {
         // ASSO
         $app = $title;
+        $homepage = strtolower($title) . "_homepage";
         $controller_column_name = $this->getParameter('app.controller_column_name');
         $controller = $controllerTableRepository->findOneBy([$controller_column_name => $app]);
 
@@ -26,7 +27,8 @@ class AssoController extends AbstractController
             'navbar_title' => $controller->getNavbarTitle(),
             'shortcut_icon' => $controller->getIcon(),
             'bg_color' => $controller->getBgColor(),
-            
+            'homepage' => $homepage,
+           
             'show_navbar' => true,
             'show_cards' => true,
         ]);

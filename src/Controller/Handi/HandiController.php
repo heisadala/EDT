@@ -13,6 +13,7 @@ class HandiController extends AbstractController
     {
         // HANDI
         $app = $title;
+        $homepage = strtolower($title) . "_homepage";
         $controller_column_name = $this->getParameter('app.controller_column_name');
         $controller = $controllerTableRepository->findOneBy([$controller_column_name => $app]);
 
@@ -25,6 +26,7 @@ class HandiController extends AbstractController
             'navbar_title' => $controller->getNavbarTitle(),
             'shortcut_icon' => $controller->getIcon(),
             'bg_color' => $controller->getBgColor(),
+            'homepage' => $homepage,
 
             'show_navbar' => true,
             'show_cards' => true,

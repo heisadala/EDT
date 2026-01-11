@@ -16,6 +16,7 @@ final class NoelController extends AbstractController
     {
         // PUBLIC_PROJETS
         $app = $title;
+        $homepage = strtolower($title) . "_homepage";
 
         $controller_column_name = $this->getParameter('app.controller_column_name');
 
@@ -48,6 +49,7 @@ final class NoelController extends AbstractController
             'navbar_title' => $controller->getNavbarTitle(),
             'shortcut_icon' => $controller->getIcon(),
             'bg_color' => $controller->getBgColor(),
+            'homepage' => $homepage,
 
             'show_navbar' => true,
             'show_gallery' => true,
@@ -75,6 +77,7 @@ final class NoelController extends AbstractController
     {
         // PUBLIC_PROJETS
         $app = $title;
+        $homepage = strtolower($title) . "_homepage";
 
         $controller_column_name = $this->getParameter('app.controller_column_name');
 
@@ -107,6 +110,7 @@ final class NoelController extends AbstractController
             'navbar_title' => $controller->getNavbarTitle(),
             'shortcut_icon' => $controller->getIcon(),
             'bg_color' => $controller->getBgColor(),
+            'homepage' => $homepage,
 
             'show_navbar' => true,
             'show_gallery' => true,
