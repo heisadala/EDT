@@ -230,6 +230,7 @@ class ProjectController extends AbstractController
         $credit = 0;
         $debit = 0;
         $livret_interets_2024 = 828.65;
+        $livret_interets_2025 = 910.15;
         $total = $year_table->getCc_begin();
         $total_livret = $year_table->getLivret_begin();
         for ($i=0; $i < count($account); $i++) {
@@ -251,14 +252,15 @@ class ProjectController extends AbstractController
             $yearTableRepository->update($db_app . '.year_table', 'livret_begin', $total_livret, 'year_id', '2025' );
         }
         if ($year == '2025') {
+            $total_livret += $livret_interets_2025;
             $yearTableRepository->update($db_app . '.year_table', 'cc_now', $total, 'year_id', '2025' );
             $yearTableRepository->update($db_app . '.year_table', 'livret_now', $total_livret, 'year_id', '2025' );
             $yearTableRepository->update($db_app . '.year_table', 'cc_begin', $total, 'year_id', '2026' );
             $yearTableRepository->update($db_app . '.year_table', 'livret_begin', $total_livret, 'year_id', '2026' );
         }
         if ($year == '2026') {
-            $yearTableRepository->update($db_app . '.year_table', 'cc_begin', $total, 'year_id', '2026' );
-            $yearTableRepository->update($db_app . '.year_table', 'livret_begin', $total_livret, 'year_id', '2026' );
+            $yearTableRepository->update($db_app . '.year_table', 'cc_now', $total, 'year_id', '2026' );
+            $yearTableRepository->update($db_app . '.year_table', 'livret_now', $total_livret, 'year_id', '2026' );
         }
 //
 // ESPECES

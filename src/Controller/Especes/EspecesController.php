@@ -75,7 +75,7 @@ class EspecesController extends AbstractController
         if ($year == '2025') {
             $updateCaisse2025->update_caisse_2025($especes_tbl_2026, $especesTableRepository, $especes, $i);
             $yearTableRepository->update($db_app . '.year_table', 'caisse_now', $especes[0]->getRecette(), 'year_id', '2025' );
-            $yearTableRepository->update($db_app . '.year_table', 'caisse_now', $especes[0]->getRecette(), 'year_id', '2026' );
+            $yearTableRepository->update($db_app . '.year_table', 'caisse_begin', $especes[0]->getRecette(), 'year_id', '2026' );
         }
         if ($year == '2026') {
             $yearTableRepository->update($db_app . '.year_table', 'caisse_now', $especes[0]->getRecette(), 'year_id', '2026' );
