@@ -1,7 +1,8 @@
 
 {% for entry in bilan %}
 {% set int_livret_a_2024 = 828.65 %}
-{% set int_livret_a_2025 = 0 %}
+{% set int_livret_a_2025 = 910.15 %}
+{% set int_livret_a_2026 = 0 %}
 
 {% set recettes = 0.00 %}
 {% set depenses = 0.00 %}
@@ -85,15 +86,19 @@
                     <tr>
                         {% if year == 2024 %}
                         <td class='text-start table-info'><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>BANQUE</a></td><td class='text-end table-info'>{{ (entry.Rbanque + int_livret_a_2024)|number_format(2) }}</td>
-                        {% else %}
+                        {% elseif year == 2025 %}
                         <td class='text-start table-info'><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>BANQUE</a></td><td class='text-end table-info'>{{ (entry.Rbanque + int_livret_a_2025)|number_format(2) }}</td>
+                        {% else %}
+                        <td class='text-start table-info'><a href='{{ server_base }}/COMPTE/CHART/AFFECTATION/{{ year }}/EDT'>BANQUE</a></td><td class='text-end table-info'>{{ (entry.Rbanque + int_livret_a_2026)|number_format(2) }}</td>
                         {% endif %}
                     </tr>
                 </tbody>
                 {% if year == 2024 %}
                     {% set recettes = entry.don + entry.Rmanifestations + entry.adhesions + entry.Rbanque + int_livret_a_2024 %}
-                {% else %}
+                {% elseif year == 2025 %}
                     {% set recettes = entry.don + entry.Rmanifestations + entry.adhesions + entry.Rbanque + int_livret_a_2025 %}
+                {% else %}
+                    {% set recettes = entry.don + entry.Rmanifestations + entry.adhesions + entry.Rbanque + int_livret_a_2026 %}
                 {% endif %}
                 <tfoot class='table-group-divider table-success'>
                     <td>TOTAL</td><td class='text-end'><b>{{ recettes|number_format(2) }}</b></td>

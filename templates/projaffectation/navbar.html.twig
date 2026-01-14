@@ -16,9 +16,9 @@
     </button>
 
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse border border-3 border-white border-solid" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
+          <li class="nav-item dropdown">
         
             <a class="nav-link dropdown-toggle " 
               data-bs-toggle="dropdown" 
@@ -26,13 +26,7 @@
               role="button" 
               aria-expanded="false">{{ year }}
             </a>
-            <ul class="dropdown-menu edt-dropdown-menu">
-              {% set other_year = '2024' %}
-              {% if year == '2024' %}
-              {% set other_year = year + 1 %}
-              {% endif %}
-              <li><a class="dropdown-item edt-dropdown-item" href='{{ path('project_affectation') }}/{{ other_year }}/{{ structureFilter }}/ALL'>{{ other_year }}</a></li>
-            </ul>
+          {% include ( "ul_year_dropdown.twig" ) %}
           </li>
           <li class="mt-1 text-dark">&nbsp;{{ structureFilter }}&nbsp;&nbsp;</li>
           <li class="dropdown">

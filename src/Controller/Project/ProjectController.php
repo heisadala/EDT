@@ -117,6 +117,7 @@ class ProjectController extends AbstractController
                         ): Response
     {
         $app = $title;
+        $homepage = 'project_affectation';
         $controller = $projectControllerTableRepository->findOneBy(criteria: ['name' => $app]);
 
         $db_common = $_SERVER['DATABASE_COMMON_NAME'];
@@ -170,7 +171,6 @@ class ProjectController extends AbstractController
         $show_gallery = true;
         $title = ucfirst(strtolower($app));
 
-        
         return $this->render('index.html.twig', [
             'controller_name' => $title . 'Controller',
             'server_base' => $_SERVER['BASE'],
@@ -179,6 +179,7 @@ class ProjectController extends AbstractController
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
             'bg_color' => $controller->getBgColor(),
+            'homepage' => $homepage,
 
             'show_navbar' => true,
             'show_gallery' => $show_gallery,

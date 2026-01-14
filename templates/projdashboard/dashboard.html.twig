@@ -62,6 +62,7 @@
         {% if entry.affectation != 'EDT_CAISSES' %}
             {% set total_edt_credit = total_edt_credit + entry.credit %}
             {% set total_edt_debit = total_edt_debit + entry.debit %}
+
         {% endif %}
     {% elseif entry.affectation is defined and entry.affectation == 'AUTRE' %}
         {% set total_autre_credit = total_autre_credit + entry.credit %}
@@ -71,6 +72,7 @@
         {% set total_intern_debit = total_intern_debit + entry.debit %}
     {% endif %}
 {% endfor %}
+{{ dump(total_edt_debit) }} 
 
 {% for entry in caisse_don %}
         {% set total_don = total_don + entry.recette %}
@@ -78,13 +80,13 @@
         
 {% for entry in caisse_edt %}
         {% if entry.cmontant < 0 %}
-            {% set total_edt_debit = total_edt_debit + entry.montant %}
+            {% set total_edt_debit = total_edt_debit - entry.cmontant %}
         {% else %}
             {% set total_edt_caisse = total_edt_caisse + entry.cmontant %}
         {% endif %}
 {% endfor %}
 
-{# {{ dump(total_edt_caisse) }} #}
+{{ dump(total_edt_debit) }} 
 
 {% set total_credit = total_don + total_edt_caisse + total_edt_credit %}
 {% set total_debit = global_montant + total_edt_debit %}
