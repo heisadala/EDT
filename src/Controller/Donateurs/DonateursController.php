@@ -85,24 +85,38 @@ class DonateursController extends AbstractController
         $donateurs = $donateursTableRepository->fetch_class_from_table_ordered($table_name,
                                                                                     $sort, $sort_order);
         $donprojs = [];
-        if ($year == '2025') {
+        if ($year == '2025' or $year == '2026') {
             $table_name = $year . '_' . 'donproj_table';
             $donprojTableRepository->set_table_name($table_name);
             $donprojs = $donprojTableRepository->findAll();
 
-            $selectlist = 'dp.donateur_id, p1.projet AS p1_project, p1.affectation AS p1_affectation, 
-                            p2.projet AS p2_project, p2.affectation AS p2_affectation' ;
+
             
             $from_table = $table_name . ' dp';
-            $join_table = [ 
-                            ['2025_project_table p1', 'dp.p1', 'p1.projet_id'],
-                            ['2026_project_table p2', 'dp.p2', 'p2.projet_id'],
-                        ];
-            $sql_cmd = "SELECT " . $selectlist . 
-                        " FROM " . $from_table . 
-                        " JOIN " . $join_table[0][0] . " ON " .  $join_table[0][1] . " = " . $join_table[0][2] .
-                        " JOIN " . $join_table[1][0] . " ON " .  $join_table[1][1] . " = " . $join_table[1][2] 
-                        ;
+            if ($year == '2025') {
+                $selectlist = 'dp.donateur_id, p1.projet AS p1_project, p1.affectation AS p1_affectation, 
+                                p2.projet AS p2_project, p2.affectation AS p2_affectation' ;
+                $join_table = [ 
+                                ['2025_project_table p1', 'dp.p1', 'p1.projet_id'],
+                                ['2026_project_table p2', 'dp.p2', 'p2.projet_id'],
+                            ];
+                $sql_cmd = "SELECT " . $selectlist . 
+                            " FROM " . $from_table . 
+                            " JOIN " . $join_table[0][0] . " ON " .  $join_table[0][1] . " = " . $join_table[0][2] .
+                            " JOIN " . $join_table[1][0] . " ON " .  $join_table[1][1] . " = " . $join_table[1][2] 
+                            ;
+            }
+            if ($year == '2026') {
+                $selectlist = 'dp.donateur_id, p1.projet AS p1_project, p1.affectation AS p1_affectation'
+                                 ;
+                $join_table = [ 
+                                ['2026_project_table p1', 'dp.p1', 'p1.projet_id'],
+                            ];
+                $sql_cmd = "SELECT " . $selectlist . 
+                            " FROM " . $from_table . 
+                            " JOIN " . $join_table[0][0] . " ON " .  $join_table[0][1] . " = " . $join_table[0][2] 
+                            ;
+            }
 
             $donprojs = $donprojTableRepository->send_sql_cmd($sql_cmd);
         }
@@ -117,7 +131,7 @@ class DonateursController extends AbstractController
             'bg_color' => $controller->getBgColor(),
             'year' => $year,
             'homepage' => $homepage,
-            
+
             'show_navbar' => true,
             'show_gallery' => true,
 

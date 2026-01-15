@@ -11,7 +11,6 @@
 {% set global_pdf_montant = 0.00 %}
 {% set global_prob_montant = 0.00 %}
 {% set devis_sous_total = 0.00 %}
-{% set devis_total = 0.00 %}
 {% set devis_a_venir = 0.00 %}
 
 {% for projet in projets %}
@@ -35,7 +34,6 @@
     {% endif %}
 {% endfor %}
 {% set devis_sous_total = global_d_montant + global_pdf_montant + global_a_montant + global_c_diff %}
-{% set devis_total = devis_sous_total - global_montant %}
 {% set devis_a_venir = (global_ec_diff + global_pf_montant + global_prob_montant) * (-1) %}
 
 {% set credit = 0.00 %}
@@ -72,7 +70,7 @@
         {% set total_intern_debit = total_intern_debit + entry.debit %}
     {% endif %}
 {% endfor %}
-{{ dump(total_edt_debit) }} 
+{# {{ dump(total_edt_debit) }}  #}
 
 {% for entry in caisse_don %}
         {% set total_don = total_don + entry.recette %}
@@ -86,7 +84,7 @@
         {% endif %}
 {% endfor %}
 
-{{ dump(total_edt_debit) }} 
+{# {{ dump(total_edt_debit) }}  #}
 
 {% set total_credit = total_don + total_edt_caisse + total_edt_credit %}
 {% set total_debit = global_montant + total_edt_debit %}

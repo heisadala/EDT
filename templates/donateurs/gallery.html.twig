@@ -29,7 +29,7 @@
                                         {% for donproj in donprojs %}
                                            {% if donateur.donateur_id == donproj.donateur_id %}
                                                 {% if donproj.p1_project != NULL %}
-                                                    <tr class="table-success" ><td>Projet financé 2025</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ donproj.p1_project }}</td></tr>
+                                                    <tr class="table-success" ><td>Projet financé</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ donproj.p1_project }}</td></tr>
                                                     <tr class="table-warning" ><td>Structure</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ donproj.p1_affectation }}</td></tr>
                                                 {% elseif donproj.p2_project != NULL %}
                                                     <tr class="table-success" ><td>Projet financé 2026</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ donproj.p2_project }}</td></tr>
