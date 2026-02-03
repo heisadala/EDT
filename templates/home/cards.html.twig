@@ -1,16 +1,16 @@
 
-        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-4 mt-2 mx-2 justify-content-center">
+        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-4 mt-2 mx-2 justify-content-center align-items-stretch">
         {# <div class='row justify-content-evenly bg-body-secondary mx-2'> #}
             {# <div class='row justify-content-between m-0' 
                 style='height: 1rem;'>
             </div>             #}
 {# FIRST COLUMN #}
-            <div class="col-sm-1">
-
+            <div class="col-sm-1 d-flex">
+            <div class="d-flex flex-column w-100">
     {#             #}
     {# ACTUALITY   #}
     {#             #}
-                <div class="edt-card text-center">
+                <div class="edt-card text-center flex-fill">
                     {# <div class="edt-card-table table-warning">
                         <h4 class="card-caption text-white">C'est par ici pour</h4>
                         <p class="text-align-center mt-4">
@@ -22,8 +22,9 @@
                         {% set dispo = 280 - participants %}
                         <h4 class="card-caption text-danger">{{ dispo }} places disponible</h4>
                     </div> #}
-                    <div class="edt-card-table">
-                        <img src="{{ server_base }}/images/actuality/Picto_actualites.png">
+                    <div class="edt-card-table ">
+                        {# <img src="{{ server_base }}/images/actuality/Picto_actualites.png"> #}
+                        <img src="{{ server_base }}/images/actuality/reading-96.png">
                     </div>                    
                     <div class="edt-card-table">
 {#                         <h2 class="card-caption">
@@ -35,7 +36,8 @@
 
 
 
-                        <img class='img-fluid rounded' src="{{ server_base }}/images/actuality/2026.jpg"  > 
+                        <img class='img-fluid rounded' src="{{ server_base }}/images/actuality/AG_2026.png"  > 
+                        <br><br><br><br>
                     </div>
 {#                    <div class="edt-card-table table-secondary">
                     </div>     
@@ -65,14 +67,16 @@
                     </div>#}
                 </div> 
             </div>
+            </div>
 
  
 {# SECOND COLUMN #}
-            <div class="col-sm-1 ">
-{#             #}
+            <div class="col-sm-1 d-flex">
+            <div class="d-flex flex-column w-100">
+            {#             #}
 {# FACEBOOK    #}
 {#             #}
-                <div class="edt-card text-center" >
+                <div class="edt-card text-center flex-fill" >
                     <div class="edt-card-table table-rose">
                     {# <div class="card border-info border-5 my-2 mx-2 bg-white" style="max-width: 30rem; margin-top: 15px; margin-bottom: 15px;"> #}
                         <h4 class="card-caption"><a target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474" class="link-underline link-underline-opacity-0"><img class='img-fluid rounded'
@@ -96,7 +100,7 @@
    {#        #}
     {# TREVOU #}
     {#        #}
-               <div class="edt-card mt-2" >
+               <div class="edt-card mt-2 flex-fill" >
                     <div class="edt-card-table table-info">
                     {# <div class="card border-primary border-5 my-2 mx-2 bg-primary-subtle text-center" style="max-width: 30rem;" > #}
                         <img class='img-fluid rounded'
@@ -114,14 +118,15 @@
                     </div>
                 </div>
             </div>
+            </div>
 {# THIRD COLUMN #}
-            <div class="col-sm-1">
-
+            <div class="col-sm-1 d-flex">
+            <div class="d-flex flex-column w-100">
     {#                 #}
     {# QUI SOMMES NOUS #}
     {#                 #}
 
-                <div class="edt-card " >
+                <div class="edt-card flex-fill" >
                     <div class="edt-card-table table-success">
                         <h4 class="card-caption"><a href='{{ path('asso_homepage') }}' class="link-underline link-underline-opacity-0">
                         <img src="{{ server_base }}/images/icon/white-friends-32.png">&nbsp;&nbsp;"Qui sommes nous"</a></h4>
@@ -138,7 +143,7 @@
 {#           #}
 {# OBJECTIFS #}
 {#           #}
-                <div class="edt-card mt-2" >
+                <div class="edt-card mt-2 flex-fill" >
                     <div class="edt-card-table table-info">
                         <h4 class="card-caption"><a href='{{ path('asso_homepage') }}' class="link-underline link-underline-opacity-0">
                             <img src="{{ server_base }}/images/icon/white-friends-32.png">&nbsp;&nbsp;"Objectifs"</a></h4>
@@ -151,6 +156,7 @@
                             </ul>
                     </div>
                 </div>
+            </div>            
             </div>            
 
 {#                #}
