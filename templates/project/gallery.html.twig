@@ -164,6 +164,9 @@
                                         </td>
                                     {% endif %}
                                     </tr>
+                                    {% if projet.nom != NULL %}
+                                    <tr class="table-warning"><td>Donateur</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.nom }}</td></tr>
+                                    {% endif %}
                                 </tbody>
                             </table>
                             </div>

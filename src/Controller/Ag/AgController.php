@@ -5,12 +5,24 @@ namespace App\Controller\Ag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\ControllerTableRepository;
 
 class AgController extends AbstractController
 {
-    public function index(string $subject): Response
+    public function index(int $year, string $title,
+                            ControllerTableRepository $controllerTableRepository
+                                    ): Response
     {
-        $show_carousel_ag = true;
+        $app = $title;
+        $controller = $controllerTableRepository->findOneBy(criteria: ['name' => $app]);
+        $username = "";
+        $role = "";
+        if ($this->getUser()) {
+            $username = $this->getUser()->getUsername();
+            $role = ($this->getUser()->getRoles())[0];
+        }
+
+/*         $show_carousel_ag = true;
         $show_carousel_photo = false;
         if ($subject == 'AG') {
             $show_carousel_ag = true;
@@ -21,16 +33,31 @@ class AgController extends AbstractController
             $show_carousel_photo = true;
         }
 
-        return $this->render('index.html.twig', [
-            'controller_name' => 'AgController',
+ */        return $this->render('index.html.twig', [
+
+
+            'controller_name' => $title . 'Controller',
             'server_base' => $_SERVER['BASE'],
-            'header_title' => 'AG',
-            'shortcut_icon' => 'Edt.png',
-            'db' => 'AG',
-            'show_navbar' => false,
-            'show_carousel_ag' => $show_carousel_ag,
+            'meta_index' => 'noindex',
+            'header_title' => $controller->getHeaderTitle(),
+            'navbar_title' => $controller->getNavbarTitle(),
+            'shortcut_icon' => $controller->getIcon(),
+            'db' => $controller->getName(),
+            'bg_color' => $controller->getBgColor(),
+
+            'show_navbar' => true,
+            'show_video' => true,
+/*             'show_carousel_ag' => $show_carousel_ag,
             'show_carousel_photo' => $show_carousel_photo,
-            'show_flyer' => false,
+ */            
+
+
+
+
+            'username' => $username,
+            'role' => $role,       
+
+
         ]);
     }
 }

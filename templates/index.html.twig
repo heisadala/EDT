@@ -57,6 +57,9 @@
     {% if show_gallery is defined and show_gallery == true %}
         {% include ( "#{db|lower}/gallery.html.twig" ) %}
     {% endif %}
+    {% if show_video is defined and show_video == true %}
+        {% include ( "#{db|lower}/video.html.twig" ) %}
+    {% endif %}
     {% if show_public_gallery is defined and show_public_gallery == true %}
         {% include ( "#{db|lower}/public_gallery.html.twig" ) %}
     {% endif %}

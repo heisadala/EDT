@@ -205,10 +205,13 @@ livret_homepage:
     controller: App\Controller\Compte\CompteController::livret
 
 assembly_homepage:
-    path: /AG/{subject}
+    path: /AG/{year}
     controller: App\Controller\Ag\AgController::index
     defaults:  
-        subject: 'AG' 
+        year: 2026 
+        title: 'AG'
+    requirements:
+        year: '\d+'
 
         
 app_register:
