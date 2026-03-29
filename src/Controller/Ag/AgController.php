@@ -44,6 +44,7 @@ class AgController extends AbstractController
             'shortcut_icon' => $controller->getIcon(),
             'db' => $controller->getName(),
             'bg_color' => $controller->getBgColor(),
+            'year' => $year,        
 
             'show_navbar' => true,
             'show_video' => true,
