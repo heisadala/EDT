@@ -1,4 +1,4 @@
-{% set nb_realized = nb_closed_projets + nb_unknown_projets %}
+{# {% set nb_realized = nb_closed_projets + nb_unknown_projets %}
 {% set realized_total = closed_projets_total + unknown_projets_total %}
 
 <div class="container-fluid justify-content-between">
@@ -12,7 +12,7 @@
           role="button" 
           aria-expanded="false">{{ year }}
         </a>
-          {% include ( "ul_year_dropdown.twig" ) %}
+          {% include ( "ul_year_dropdown.twig" ) %} #}
 
 {#         <ul class="dropdown-menu edt-dropdown-menu">
           {% set other_year = '2024' %}
@@ -21,7 +21,7 @@
           {% endif %}
           <li><a class="dropdown-item edt-dropdown-item" href='{{ path('public_projects') }}/{{ other_year }}'>{{ other_year }}</a></li>
         </ul> #}
-      </li>
+{#       </li>
     </ul>
       <div class="container-fluid">
             <p class="text-dark edt-donateurs-titre">{{ nb_realized }} projets 
@@ -29,4 +29,46 @@
             <br><span class='edt-donateurs-titre'>{{ realized_total|round }} Euros</span>
       </div>
   </nav>
-</div>
+</div> #}
+
+
+<!-- NAV -->
+<nav>
+  <a href="{{ server_base }}" class="nav-logo">Enfants de <span>Trestel</span></a>
+  <ul class="nav-links">
+    <li><a href='{{ path('asso_homepage') }}'>Qui sommes-nous</a></li>
+    <li><a href="#">Événements</a></li>
+    <li><a href="{{ path('public_projects_homepage') }}/{{ year }}">Projets</a></li>
+    <li><a href="{{ path('donateurs_homepage') }}/{{ year }}">Donateurs</a></li>
+    <li><a href="{{ path('contact_homepage') }}">Contact</a></li>
+    {% if username is defined and username != '' %}
+      {% if role == 'ROLE_ADMIN' %}
+        <li><a href='{{ path('update_homepage') }}'>Update</a></li>
+        </ul>
+      {% endif %}
+        <div class="btn-group dropstart ">
+          <button class="btn edt-btn-login-logo" data-bs-toggle="dropdown" type="button">
+            <img class="img-fluid rounded-circle border border-success" src="{{ server_base }}/images/icon/person-48-success.png" style="max-width: 75%"
+              alt={{ username }}
+              title={{ username }}
+            >
+          </button>
+          <ul class="dropdown-menu" style="width:250px;" >
+            <li><a class="dropdown-item-text" style="display:grid; text-decoration:none; justify-items:center;" >
+              <div class='bg-warning' style='width:60px;height:60px;border-radius:50%;justify-content: center;display:flex;align-items:center;'>
+                <span class="text-danger">{{ username|slice(0,1) }}</span></div></a></li>
+            <li><a class="dropdown-item-text" style="display:grid; text-decoration:none; justify-items:center;" >{{ username }}</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" style="display:flex; justify-content:space-between" href="{{ server_base }}/logout">Déconnexion
+                            <img class="img-fluid " src="{{ server_base }}/images/icon/logout-32.png" style="max-width: 75%"
+              alt="Déconnexion"
+              title="Déconnexion"
+            ></a></li>
+          </ul>
+        </div>
+    {% else %}
+      </ul>
+      <a href="https://www.helloasso.com/associations/les-enfants-de-trestel/formulaires/1" class="btn-don" target="_blank">💛 Faire un don</a>
+      {# <a href="{{ server_base }}/LOGIN" class="btn-login">🧑‍💻 Connexion</a> #}
+    {% endif %}
+</nav>

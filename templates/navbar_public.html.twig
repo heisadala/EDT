@@ -1,0 +1,29 @@
+<!-- NAV -->
+    <div class='container-fluid {{ bg_color }} sticky-top'>
+<nav class="navbar navbar-expand-lg">
+  <div class='container-fluid nav-container {{ bg_color }}'>
+    <a class="navbar-brand" href="{{ server_base }}" >Enfants de <span>Trestel</span></a>
+    <button 
+        class="navbar-toggler edt-navbar-toggler text-info" 
+        type="button" 
+        data-bs-toggle="collapse" 
+        data-bs-target="#navbarSupportedContent" 
+        aria-controls="navbarSupportedContent" 
+        aria-expanded="false" 
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">  
+      <ul class="navbar-nav nav-links ">
+        <li class="nav-item"><a href='{{ path('asso_homepage') }}'>Qui sommes-nous</a></li>
+        <li class="nav-item"><a href="#">Événements</a></li>
+        <li class="nav-item"><a href="{{ path('public_projects_homepage') }}/{{ year }}">Projets</a></li>
+        <li class="nav-item"><a href="{{ path('donateurs_homepage') }}/{{ year }}">Donateurs</a></li>
+        <li class="nav-item"><a href="{{ path('contact_homepage') }}">Contact</a></li>
+      </ul>
+      <a href="https://www.helloasso.com/associations/les-enfants-de-trestel/formulaires/1" class="btn-don ms-auto" target="_blank">💛 Faire un don</a></li>
+    </div>
+</div>  
+</nav>
+</div>  

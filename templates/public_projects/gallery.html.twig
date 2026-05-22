@@ -1,60 +1,125 @@
 
-
-{% set etatFilterIndex = 0 %}
-
-<div class="container-fluid bg-body-secondary">
-    <div class='d-print-none row justify-content-center m-0 text-secondary fs-4' 
-        style='height: 1rem;'>
-    </div>      
-
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4 mt-2 justify-content-center">
-        {% for projet in projets %}
-            {% if loop.index0 > 0 %}
-                {# cloturé or pas de fiche #}
-                {% if projet.etat_id == 1 or projet.etat_id == 4 %}
-                    {% set etatFilterIndex = etatFilterIndex + 1 %}
-                    {% if etatFilterIndex % 4 == 0 %}
-                        <div class="col md-1 d-flex align-items-stretch edt-page-break"> 
-                    {% else %}
-                        <div class="col md-1 d-flex align-items-stretch" >
-                    {% endif %}
-                       <div class='card ' style='width:22rem;'>
-                            <div class="card-header bg-success-subtle d-flex align-items-center justify-content-between" style='height:  3rem'>
-                                {{ projet.projet }} 
-                            </div>
-                            <div class="card-body">
-                                <table class='table table-sm'>
-                                <thead>
-                                </thead>
-                                <tbody>
-                                    <tr class="table-light"><td>Prestataire</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                    {% if projet.url != '' %}
-                                        <td><a href='{{ projet.url }}' target='_blanc'>{{ projet.name }}</a></td>
-                                    {% else %}
-                                        <td>{{ projet.name }}</td>
-                                    {% endif %}
-                                    </tr>
-                                    <tr class="table-light"><td>Affectation</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.affectation }}</td></tr>
-                                    <tr class="table-danger"><td>Coût</td>
-                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                        <td>{{ projet.montant|round }} Euros
-                                        </td>
-                                    </tr>
-                                    {% if projet.nom != NULL %}
-                                    <tr class="table-warning"><td>Donateur</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>{{ projet.nom }}</td></tr>
-                                    {% endif %}
-                                </tbody>
-                            </table>
-                            </div>
-                        </div>
-                    </div>
-
-                {% endif %}
+<!-- FILTRES -->
+<div class="filters-bar">
+    <span class="filter-label">Filtrer :</span>
+    <button class="filter-btn active" onclick="filterCat('all', this)">Tous ({{ nb_realized }})</button>
+    {% for struct in structures %}
+        <button class="filter-btn" onclick="filterCat('{{ struct.structure }}', this)">
+            <span class="dot" style="background: {{ struct.color }};"></span> {{ struct.structure }} ({{ struct.count }})
+        </button>
+    {% endfor %}
+    <div class="years">
+        {% for y in app_years %}
+            {% set myPath = [path('public_projects_homepage'), '/', y, '/', "ALL" ]|join %}
+            {% if y === year %}
+                <button class="year-btn active" onclick="location.href='{{ myPath }}'">{{ y }}</button>
+            {% else %}
+                <button class="year-btn" onclick="location.href='{{ myPath }}'">{{ y }}</button>
             {% endif %}
         {% endfor %}
     </div>
-    <div class='row justify-content-between m-0' 
-        style='height: 1rem;'>
-    </div>        
-
 </div>
+
+<!-- GRILLE -->
+<div class="projets-container">
+    <!-- Récap par structure -->
+    <div class="recap-section">
+        <div class="recap-title">📊 Répartition par structure bénéficiaire</div>
+        <div class="recap-grid" id="recap-grid">
+            {% for struct in structures %}
+                <div class="recap-item"><span class="dot" style="background: {{ struct.color }};"></span> {{ struct.structure }} <strong id="r-{{ struct.structure|lower }}"></strong></div>
+            {% endfor %}
+{#            {% if c_estran != 0 %} 
+                 <div class="recap-item"><span class="dot" style="background:#2c6fad"></span> ESTRAN <strong id="r-estran">{{ c_estran }} projets • {{ m_estran }} €</strong></div>
+            {% endif %}
+            {% if c_estran != 0 %} 
+                <div class="recap-item"><span class="dot" style="background:#2a7d4f"></span> CAMSP <strong id="r-camsp">{{ c_camsp }} projets • {{ m_camsp }} €</strong></div>
+            {% endif %}
+            {% if c_sesad != 0 %} 
+                    <div class="recap-item"><span class="dot" style="background:#6b3fa0"></span> SESAD <strong id="r-sesad">{{ c_sesad }} projets • {{ m_sesad }} €</strong></div>
+            {% endif %}
+            {% if c_ue != 0 %} 
+                <div class="recap-item"><span class="dot" style="background:#d4860b"></span> UE <strong id="r-ue">{{ c_ue }} projets • {{ m_ue }} €</strong></div>
+            {% endif %}
+            {% if c_je != 0 %} 
+                <div class="recap-item"><span class="dot" style="background:#c62828"></span> JE <strong id="r-je">{{ c_je }} projets • {{ m_je }} €</strong></div>
+            {% endif %}
+            {% if c_hdj != 0 %} 
+                <div class="recap-item"><span class="dot" style="background:#c62828"></span> HDS <strong id="r-je">{{ c_hds }} projets • {{ m_hds }} €</strong></div>
+            {% endif %}
+            {% if c_hds != 0 %} 
+                <div class="recap-item"><span class="dot" style="background:#c62828"></span> HDJ <strong id="r-je">{{ c_hdj }} projets • {{ m_hdj }} €</strong></div>
+            {% endif %}
+ #}
+        </div>
+    </div>
+
+    <div class="section-header">
+        <h2>Tous les projets</h2>
+        <span class="count-badge" id="result-count">{{ nb_realized }} projets</span>
+    </div>
+
+    <div class="projets-grid" id="projets-grid">
+    <!-- Cartes générées par JS -->
+    </div>
+</div>
+
+<script>
+const PROJETS = {{ projets|json_encode|raw }};
+const STRUCTURES = {{ structures|json_encode|raw }};
+
+function formatEur(n) {
+  return n.toLocaleString('fr-FR') + ' €';
+}
+
+function renderGrid(filter) {
+
+  const grid = document.getElementById('projets-grid');
+  const count = document.getElementById('result-count');
+  const filtered = filter === 'all' ? PROJETS : PROJETS.filter(p => p.affectation === filter);
+  count.textContent = filtered.length + ' projet' + (filtered.length > 1 ? 's' : '');
+  grid.innerHTML = filtered.map(p => `
+    <div class="projet-card" data-cat=${p.cat_class.slice(4)}>
+      <div class="card-header">
+        <span class="categorie-badge ${p.cat_class}">${p.cat_icon} ${p.cat_class.slice(4)}</span>
+        <span class="affectation-tag">${p.affectation}</span>
+      </div>
+      <div class="card-body">
+        <h3>${p.projet.toLowerCase().replace(/(?<= )[^\s]|^./g, a=>a.toUpperCase())}</h3>
+        ${p.url
+          ? `<a href="${p.url}" class="prestataire" target="_blank">↗ ${p.name}</a>`
+          : `<span class="prestataire">${p.name}</span>`
+        }
+      </div>
+      <div class="card-footer">
+        <span class="cout">${formatEur(p.montant)}</span>
+        ${p.nom ? `<span class="donateur">❤️ ${p.nom}</span>` : `<span class="donateur">❤️ PARTICULIERS</span>`}
+      </div>
+    </div>
+  `).join('');
+}
+
+
+function filterCat(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid(cat);
+}
+
+// Récap par structure
+function renderRecap() {
+    console.log(STRUCTURES);
+    STRUCTURES.forEach(s => {
+    const items = PROJETS.filter(p => p.affectation === s.structure);
+    console.log(items);
+    const total = items.reduce((a,b) => a + parseFloat(b.montant), 0);
+
+    const el = document.getElementById('r-' + s.structure.toLowerCase());
+    if (el) el.textContent = `${items.length} projet${items.length>1?'s':''} · ${formatEur(Math.round(total))}`;
+  });
+}
+
+renderGrid('all');
+renderRecap();
+
+</script>

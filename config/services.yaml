@@ -8,6 +8,7 @@ parameters:
     app.application_name: 'EDT'
     app.project_controller_name: 'PROJECT'
     app.controller_column_name: 'name'
+    app.years: [2024, 2025, 2026]
 
 
 services:

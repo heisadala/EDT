@@ -53,6 +53,20 @@ $colors-03: ("beige": $sm-beige-03-color, "blue": $sm-blue-03-color, "darkgrey":
     }
     --bs-breadcrumb-divider-color: var(--bs-warning);
     --bs-pagination-disabled-bg: rgb(113,187,198);
+
+  --bleu: #1a3a5c;
+  --bleu-clair: #2c6fad;
+  --ocean: #4a9eca;
+  --ciel: #e8f4fc;
+  --sable: #f5f0e8;
+  --corail: #e8624a;
+  --vert: #2a7d4f;
+  --violet: #6b3fa0;
+  --ambre: #d4860b;
+  --blanc: #ffffff;
+  --texte: #1e2a35;
+  --gris: #6b7f8e;
+  --fond: #f7f9fb;
 }
         
 @each $name, $color in $edt-colors {

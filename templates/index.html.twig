@@ -27,21 +27,24 @@
 
 {% block header %}
 
-    <div class='d-print-none container-fluid sticky-top {{ bg_color }}' >
-        <header>
+    {# <div class='d-print-none container-fluid sticky-top {{ bg_color }}' > #}
+        {# <header> #}
             {% if show_navbar is defined and show_navbar == true %}
                 {% include ( "#{db|lower}/navbar.html.twig" ) %}
             {% elseif show_public_navbar is defined and show_public_navbar == true %} 
-                {% include ( "#{db|lower}/public_navbar.html.twig" ) %}
+                {% include ( "navbar_public.html.twig" ) %}
             {% else %} 
                 {% include ( "navbar.html.twig" ) %}
             {% endif %} 
-        </header> 
-    </div>
+        {# </header>  #}
+    {# </div> #}
 
 {% endblock %}
 
 {% block content %}
+    {% if show_hero is defined and show_hero == true %}
+        {% include ( "#{db|lower}/hero.html.twig" ) %}
+    {% endif %}
     {% if show_carousel_ag is defined and show_carousel_ag == true %}
         {% include ( "#{db|lower}/carousel_ag.html.twig" ) %}
     {% endif %}
@@ -72,6 +75,7 @@
     {% if show_dashboard is defined and show_dashboard == true %}
         {% include ( "#{db|lower}/dashboard.html.twig" ) %}
     {% endif %}
+
     {% if show_login is defined and show_login == true %}
         {% include ( "#{db|lower}/login.html.twig" ) %}
     {% endif %}
@@ -81,21 +85,15 @@
 {% endblock %}
 
 {% block footer %}
-        <div class='d-print-none d-flex justify-content-center align-items-center m-0  {{ bg_color }}'>
-            <a class='p-3' target="_blank" href="https://www.facebook.com/profile.php?id=100064342705474">
-                <img class='img-fluid rounded'
-                    src="{{ server_base }}/images/icon/facebook-48.png" >
-            </a>
-            <a class='p-3' target="_blank" href="https://www.instagram.com/enfants_de_trestel/">
-                <img class='img-fluid rounded'
-                    src="{{ server_base }}/images/icon/instagram-48.png" >
-            </a>
-            <a class='p-3' target="_blank" href="https://icons8.com">Icons by Icons8</a>
-            <a class='p-3' href="mailto:tresorerie.enfantsdetrestel@gmail.com">
-                <img class='img-fluid rounded'
-                    src="{{ server_base }}/images/icon/send-email-40.png" >
-            </a>
-        </div>
+<footer>
+  <div class="footer-logo">Enfants de <span>Trestel</span></div>
+  <p>© 2026 Les Enfants de Trestel · Association loi 1901 ·
+    <a href="https://www.facebook.com/profile.php?id=100064342705474" target="_blank">Facebook</a> ·
+    <a href="https://www.instagram.com/enfants_de_trestel/" target="_blank">Instagram</a> ·
+    <a href="https://icons8.com" target="_blank">Icons by Icons8</a>
+  </p>
+</footer>
+
  {% endblock %}
 
 {% block java %}
