@@ -162,7 +162,7 @@ class EspecesController extends AbstractController
 
         $db_common = $_SERVER['DATABASE_COMMON_NAME'];
         $db_app = $_SERVER['DATABASE_APP_NAME'];
-        $especes_tbl = '2025_rn_especes_table';
+        $especes_tbl = $year . '_rn_especes_table';
 
         $especesTableRepository->set_table_name($especes_tbl);
         $especes = $especesTableRepository->findAll();
