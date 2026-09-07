@@ -77,7 +77,7 @@ class UpdateController extends AbstractController
                         //
                         // getMontantApres < getMontant, only outgoings -  no incomings
                         //
-                        $c_montant = $c_montant + $especes_proj[$j]->getMontant() - $especes_proj[$j]->getMontantApres();
+                        $c_montant = $c_montant + $especes_proj[$j]->getMontant() - $especes_proj[$j]->getMontantApres() - $especes_proj[$j]->getTpe();
                     }
                     $projets[$i]->setCMontant($c_montant);
                 }
