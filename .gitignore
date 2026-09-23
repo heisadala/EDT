@@ -25,3 +25,5 @@
 /assets/vendor/
 ###< symfony/asset-mapper ###
 public/images/handifference/Thumbs.db
+public/images/icon/Thumbs.db
+public/images/actuality/Thumbs.db
